@@ -88,7 +88,7 @@ export default function AIAnalytics() {
     if (!stats) return
     setGeneratingInsights(true)
 
-    const prompt = `You are a B2B sales analyst for Imba Production (cinematic video production).
+    const prompt = `You are a B2B sales analyst for Imba Marketing (AI-powered marketing agency).
 Analyze these CRM metrics and provide 5 specific, actionable insights:
 
 Lead Pipeline:

@@ -73,14 +73,14 @@ export default function AILeadSearcher() {
     setResults([])
     setImported(new Set())
 
-    const prompt = `You are a B2B lead researcher for Imba Production, a cinematic video production company.
-Generate ${criteria.count} realistic but fictional potential B2B leads that need professional video production.
+    const prompt = `You are a B2B lead researcher for Imba Marketing, an AI-powered marketing agency.
+Generate ${criteria.count} realistic but fictional potential B2B leads that need AI marketing systems to grow.
 
 Criteria:
 - Industry: ${criteria.industry}
 - Location: ${criteria.location || 'Global / US / Europe'}
 - Company size: ${criteria.size || 'Any'}
-- Video goal: ${criteria.videoGoal || 'Brand awareness'}
+- Marketing goal: ${criteria.videoGoal || 'Revenue growth'}
 - Keywords: ${criteria.keywords || 'growth-stage, digital-first'}
 
 Return ONLY a valid JSON array (no markdown):
@@ -92,8 +92,8 @@ Return ONLY a valid JSON array (no markdown):
   "website": "string (realistic .com domain)",
   "industry": "string",
   "company_size": "string (e.g. 50-200)",
-  "ai_score": number (0-100, likelihood they need video production),
-  "ai_summary": "2 sentences: their pain point and opportunity for Imba Production"
+  "ai_score": number (0-100, likelihood they need AI marketing systems),
+  "ai_summary": "2 sentences: their pain point and opportunity for Imba Marketing"
 }]`
 
     try {

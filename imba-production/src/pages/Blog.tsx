@@ -7,134 +7,135 @@ import Seo from '@/components/Seo'
 const STATIC_POSTS = [
   {
     id: '1',
-    title: 'How to Explode Your Sales Using AI Video: The Ultimate Guide for 2026',
-    excerpt: 'AI video outreach gets 2–3× more response rates than plain text. Discover the exact workflow we use to produce AI-powered video campaigns that convert.',
-    category: 'AI Video',
+    title: 'How to Build an AI Growth System That Compounds Over Time',
+    excerpt: 'Most brands run ads. The best brands build systems. A deep-dive into how AI-powered growth systems create compounding revenue gains — and how to build one.',
+    category: 'AI Marketing',
     date: 'March 8, 2026',
     read_time: 9,
     featured: true,
-    slug: 'ai-video-sales-guide-2026',
+    slug: 'ai-growth-system-guide-2026',
   },
   {
     id: '2',
-    title: 'How to Generate Sales with Video Products: A Comprehensive Guide',
-    excerpt: 'Product videos increase conversions by up to 80%. This guide covers every type of product video — from demos to testimonials — and when to use each.',
-    category: 'Video Production',
+    title: 'Cutting CPA by 40%: The AI Performance Advertising Playbook',
+    excerpt: 'How modern AI bidding, creative testing, and audience segmentation work together to systematically lower your cost per acquisition — without sacrificing volume.',
+    category: 'Performance Advertising',
     date: 'March 30, 2025',
     read_time: 8,
     featured: false,
-    slug: 'generate-sales-video-products',
+    slug: 'ai-performance-advertising-cpa-reduction',
   },
   {
     id: '3',
-    title: 'The Impact of AI on Video Production in 2025',
-    excerpt: 'From automated editing and AI avatars to generative B-roll — how AI is fundamentally changing what\'s possible in video production, and how to stay ahead.',
-    category: 'AI Video',
+    title: 'AI Personalisation at Scale: From Segment-of-One to Revenue',
+    excerpt: 'Personalisation is no longer optional. How leading eCommerce brands use AI to serve hyper-relevant experiences across email, ads, and on-site — automatically.',
+    category: 'AI Marketing',
     date: 'January 13, 2025',
     read_time: 7,
     featured: false,
-    slug: 'ai-impact-video-production-2025',
+    slug: 'ai-personalisation-at-scale',
   },
   {
     id: '4',
-    title: 'Going Viral: Strategies for eCommerce Brands on TikTok',
-    excerpt: 'TikTok drives billions in ecommerce sales. Learn the content formats, posting cadences, and production techniques that actually lead to viral product videos.',
-    category: 'TikTok',
+    title: 'Building an AI Content Engine That Never Runs Dry',
+    excerpt: 'Content at scale without headcount growth. How AI content engines automatically generate, optimise, and distribute brand content across every channel.',
+    category: 'Content Strategy',
     date: 'December 25, 2024',
     read_time: 6,
     featured: false,
-    slug: 'tiktok-ecommerce-viral-strategies',
+    slug: 'ai-content-engine-guide',
   },
   {
     id: '5',
-    title: 'How to Generate Website Traffic with Video SEO in 2025',
-    excerpt: 'YouTube is the world\'s second-largest search engine. A practical guide to optimising your video content for discovery, featuring our exact keyword strategy.',
-    category: 'Video Production',
+    title: 'Marketing Analytics in the AI Era: What to Measure and Why',
+    excerpt: 'Vanity metrics are dead. A practical guide to building an AI analytics stack that surfaces the signals that actually predict revenue growth.',
+    category: 'Marketing Analytics',
     date: 'October 28, 2024',
     read_time: 7,
     featured: false,
-    slug: 'video-seo-traffic-2025',
+    slug: 'ai-marketing-analytics-guide',
   },
   {
     id: '6',
-    title: 'Transforming Views into Sales: The Power of Shoppable Video',
-    excerpt: 'Shoppable video bridges the gap between content and commerce. A complete breakdown of the technology, platforms, and creative approach that converts viewers into buyers.',
-    category: 'AI Video',
+    title: 'AI Funnel Optimisation: How to Stop Losing 70% of Your Traffic',
+    excerpt: 'The average funnel loses 7 out of 10 visitors. AI funnel optimisation identifies exactly where and why — then fixes it automatically. Here\'s how.',
+    category: 'Growth Systems',
     date: 'September 22, 2024',
     read_time: 5,
     featured: false,
-    slug: 'shoppable-video-sales',
+    slug: 'ai-funnel-optimisation-guide',
   },
   {
     id: '7',
-    title: 'TikTok Success: A Step-by-Step Guide to Shooting Engaging Brand Videos',
-    excerpt: 'Production tips, creative formats, and the exact shooting checklist we use to produce TikTok content that consistently outperforms clients\' existing organic reach.',
-    category: 'TikTok',
+    title: 'The State of AI Marketing in 2026: What\'s Working Now',
+    excerpt: 'From predictive audiences to autonomous campaign management — a comprehensive look at the AI marketing strategies delivering the highest ROI for growth brands.',
+    category: 'AI Marketing',
     date: 'September 21, 2024',
     read_time: 6,
     featured: false,
-    slug: 'tiktok-brand-video-guide',
+    slug: 'state-of-ai-marketing-2026',
   },
   {
     id: '8',
-    title: 'Why User-Generated Content is Revolutionizing Digital Marketing',
-    excerpt: 'UGC converts at 4× the rate of brand-produced content. Here\'s how to brief, direct, and edit UGC-style videos that feel authentic and drive real results.',
-    category: 'Video Production',
+    title: 'First-Party Data Strategy: Building Your AI Marketing Foundation',
+    excerpt: 'Third-party cookies are gone. How to build a first-party data strategy that powers your AI systems and creates a durable competitive advantage.',
+    category: 'Marketing Analytics',
     date: 'September 20, 2024',
     read_time: 5,
     featured: false,
-    slug: 'ugc-digital-marketing',
+    slug: 'first-party-data-ai-marketing',
   },
   {
     id: '9',
-    title: 'Unleash Creativity: Master Micro Drama in Video Production',
-    excerpt: 'Micro-dramas are exploding on every platform. A deep dive into the format, storytelling structure, and production workflow that makes these short films so addictive.',
-    category: 'Film',
+    title: 'Conversion Rate Optimisation with AI: Beyond A/B Testing',
+    excerpt: 'Traditional A/B testing is too slow. AI-powered CRO tests hundreds of variants simultaneously and adapts in real-time. Here\'s the new paradigm.',
+    category: 'Growth Systems',
     date: 'October 27, 2024',
     read_time: 6,
     featured: false,
-    slug: 'micro-drama-video-production',
+    slug: 'ai-cro-beyond-ab-testing',
   },
   {
     id: '10',
-    title: 'Exploring the Latest Advances in 4K and 8K Video Technology',
-    excerpt: 'How the latest camera technology is changing what\'s possible in commercial production — and how we use it to deliver broadcast-quality footage for brand campaigns.',
-    category: 'Technology',
+    title: 'How to Integrate AI Marketing Systems with Your Existing Stack',
+    excerpt: 'You don\'t need to rip and replace. How AI marketing systems layer on top of your existing tools — HubSpot, Klaviyo, Shopify, Google Ads — and amplify them.',
+    category: 'Industry Insights',
     date: 'February 24, 2025',
     read_time: 6,
     featured: false,
-    slug: '4k-8k-video-technology',
+    slug: 'ai-marketing-integration-guide',
   },
   {
     id: '11',
-    title: 'The Rise of AI in Video Production: A 2024 Perspective',
-    excerpt: 'A comprehensive look at how AI tools — Runway, Sora, Stable Diffusion — are reshaping production pipelines and what it means for brands and agencies.',
-    category: 'AI Video',
+    title: 'ROAS 4× in 90 Days: Inside an AI Performance Advertising System',
+    excerpt: 'A detailed case study breakdown: how we built and deployed an AI advertising system for an eCommerce brand that quadrupled their return on ad spend.',
+    category: 'Performance Advertising',
     date: 'January 13, 2025',
     read_time: 8,
     featured: false,
-    slug: 'ai-video-production-2024',
+    slug: 'roas-4x-ai-advertising-case-study',
   },
   {
     id: '12',
-    title: 'Unleashing Future Visions: Generative AI Video 2025',
-    excerpt: 'Generative AI video has crossed the uncanny valley. How we\'re integrating tools like Sora into real client productions — and the results we\'re seeing.',
-    category: 'AI Video',
+    title: 'Predictive Lead Scoring with AI: Never Miss a Hot Lead Again',
+    excerpt: 'AI lead scoring models identify your best prospects before they raise their hand. How to build, train, and deploy a predictive scoring system for B2B growth.',
+    category: 'Growth Systems',
     date: 'October 12, 2024',
     read_time: 7,
     featured: false,
-    slug: 'generative-ai-video-2025',
+    slug: 'predictive-lead-scoring-ai',
   },
 ]
 
-const STATIC_CATEGORIES = ['All', 'AI Video', 'Video Production', 'TikTok', 'Film', 'Technology']
+const STATIC_CATEGORIES = ['All', 'AI Marketing', 'Growth Systems', 'Performance Advertising', 'Content Strategy', 'Marketing Analytics', 'Industry Insights']
 
 const CAT_COLOR: Record<string, string> = {
-  'AI Video': '#C9A96E',
-  'Video Production': '#E8452A',
-  'TikTok': '#3CBFAE',
-  'Film': '#8A8AFF',
-  'Technology': '#6C7AE0',
+  'AI Marketing': '#C9A96E',
+  'Growth Systems': '#E8452A',
+  'Performance Advertising': '#3CBFAE',
+  'Content Strategy': '#8A8AFF',
+  'Marketing Analytics': '#6C7AE0',
+  'Industry Insights': '#00D4FF',
 }
 
 interface DisplayPost {
@@ -192,8 +193,8 @@ export default function Blog() {
   return (
     <>
       <Seo
-        title="Blog — Video Production Insights"
-        description="Ideas, process, and perspective on video production, AI campaigns, brand storytelling, and creative strategy from the Imba Production team."
+        title="Blog — AI Marketing Insights"
+        description="Ideas, research, and perspective on AI marketing systems, growth strategies, and revenue optimisation from the Imba Marketing team."
         canonicalPath="/blog"
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
@@ -206,7 +207,7 @@ export default function Blog() {
           style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(201,169,110,0.05) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">Video production insights</p>
+          <p className="eyebrow mb-5 reveal">AI marketing insights</p>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
@@ -214,7 +215,7 @@ export default function Blog() {
               <em className="text-gold italic">real results</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
-              185+ articles on video production, AI, TikTok strategy, and converting views into sales.
+              100+ articles on AI marketing systems, growth strategies, and converting traffic into revenue.
             </p>
           </div>
         </div>
@@ -348,7 +349,7 @@ export default function Blog() {
         {/* View all on WordPress */}
         <div className="max-w-screen-xl mx-auto mt-12 text-center">
           <a
-            href="https://www.imbaproduction.com/blog/"
+            href="https://www.imbamarketing.com/blog/"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-ghost inline-flex items-center gap-2"
@@ -364,10 +365,10 @@ export default function Blog() {
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center">Content pillars</p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
-              'AI & Generative Video', 'TikTok Content Strategy', 'Cooking Video Production',
-              'eCommerce Product Video', 'YouTube Growth', 'Brand Film Craft',
-              'Video Equipment & Tech', 'Video SEO', 'Short-Form Content',
-              'Post Production', 'Drone Cinematography', 'eLearning Video',
+              'AI Growth Systems', 'Performance Advertising', 'Conversion Optimisation',
+              'Marketing Analytics', 'AI Personalisation', 'Content Engines',
+              'First-Party Data', 'Lead Scoring', 'Funnel Optimisation',
+              'B2B Marketing AI', 'eCommerce AI', 'Revenue Attribution',
             ].map(topic => (
               <span key={topic}
                 className="font-mono-custom text-[0.62rem] tracking-[0.12em] uppercase px-3 py-2 border border-white/8 text-smoke-faint/50 hover:text-smoke-faint hover:border-white/15 transition-colors cursor-default">

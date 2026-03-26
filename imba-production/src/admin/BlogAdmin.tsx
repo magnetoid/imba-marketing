@@ -204,7 +204,7 @@ export default function BlogAdmin() {
           max_tokens: 4096,
           messages: [{
             role: 'user',
-            content: `Generate a comprehensive blog post for a video production company (Imba Production) about: ${aiPrompt}. Return ONLY valid JSON (no markdown code blocks) with: title, slug, excerpt (2 sentences), body (markdown, 800+ words), category (one of: AI Video, Video Production, Brand Film, Social Media, Drone, Post Production, eCommerce), tags (array of strings), read_time_minutes, seo_title, seo_description`,
+            content: `Generate a comprehensive blog post for an AI marketing agency (Imba Marketing) about: ${aiPrompt}. Return ONLY valid JSON (no markdown code blocks) with: title, slug, excerpt (2 sentences), body (markdown, 800+ words), category (one of: AI Marketing, Growth Systems, Performance Advertising, Content Strategy, Marketing Analytics, Conversion Optimisation, Industry Insights), tags (array of strings), read_time_minutes, seo_title, seo_description`,
           }],
         }),
       })

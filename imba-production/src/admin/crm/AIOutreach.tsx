@@ -60,9 +60,9 @@ async function generateEmailWithClaude(apiKey: string, lead: CRMLead): Promise<{
       max_tokens: 800,
       messages: [{
         role: 'user',
-        content: `Write a personalized cold outreach email for Imba Production (cinematic video production) to ${lead.contact_name || 'the team'} at ${lead.company_name} (${lead.industry}).
+        content: `Write a personalized cold outreach email for Imba Marketing (AI-powered marketing agency) to ${lead.contact_name || 'the team'} at ${lead.company_name} (${lead.industry}).
 
-Lead context: ${lead.ai_summary || 'A growing company that could benefit from professional video.'}
+Lead context: ${lead.ai_summary || 'A growing company that could benefit from AI marketing systems.'}
 
 Requirements:
 - Professional but human tone

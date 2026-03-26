@@ -25,8 +25,8 @@ interface SeoPage {
   created_at: string
 }
 
-const SITE_URL = 'https://imbaproduction.com'
-const SITE_NAME = 'Imba Production'
+const SITE_URL = 'https://imbamarketing.com'
+const SITE_NAME = 'Imba Marketing'
 
 const ALL_PAGES = [
   { path: '/',                              label: 'Homepage' },
@@ -36,16 +36,12 @@ const ALL_PAGES = [
   { path: '/about',                         label: 'About' },
   { path: '/blog',                          label: 'Blog' },
   { path: '/contact',                       label: 'Contact' },
-  { path: '/services/brand-video',          label: 'Brand Video' },
-  { path: '/services/ai-video',             label: 'AI Video' },
-  { path: '/services/product-video',        label: 'Product Video' },
-  { path: '/services/social-video',         label: 'Social Video' },
-  { path: '/services/cooking-video',        label: 'Cooking Video' },
-  { path: '/services/post-production',      label: 'Post Production' },
-  { path: '/services/elearning-video',      label: 'eLearning Video' },
-  { path: '/services/fashion-video',        label: 'Fashion Video' },
-  { path: '/services/testimonial-video',    label: 'Testimonial Video' },
-  { path: '/services/drone-video',          label: 'Drone & Aerial' },
+  { path: '/services/ai-growth-systems',       label: 'AI Growth Systems' },
+  { path: '/services/ai-performance-ads',      label: 'AI Performance Advertising' },
+  { path: '/services/ai-personalisation',      label: 'AI Personalisation' },
+  { path: '/services/ai-content-engines',      label: 'AI Content Engines' },
+  { path: '/services/ai-intelligence',         label: 'AI Data & Intelligence' },
+  { path: '/services/ai-funnel-optimisation',  label: 'AI Funnel Optimisation' },
 ]
 
 const EMPTY: Omit<SeoPage, 'id' | 'created_at'> = {
@@ -93,8 +89,8 @@ function HealthBar({ score }: { score: number }) {
 }
 
 function SerpPreview({ title, description, path }: { title?: string; description?: string; path: string }) {
-  const displayTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Cinematic Video Production`
-  const displayDesc = description || 'Next-gen video production powered by cinematic craft and AI strategy.'
+  const displayTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — AI Marketing Systems`
+  const displayDesc = description || 'AI-powered marketing systems that build predictable revenue growth.'
   const displayUrl = `${SITE_URL}${path}`
 
   return (
@@ -642,7 +638,7 @@ export default function SEOManager() {
                 <Input
                   value={form.canonical ?? ''}
                   onChange={e => setForm(f => ({ ...f, canonical: e.target.value }))}
-                  placeholder="https://imbaproduction.com/…"
+                  placeholder="https://imbamarketing.com/…"
                 />
               </div>
               <div className="flex items-center gap-2 pt-5">

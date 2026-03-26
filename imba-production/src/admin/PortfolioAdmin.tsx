@@ -19,22 +19,18 @@ import {
 import { Plus, Pencil, Trash2, Loader2, Image } from 'lucide-react'
 
 const CATEGORIES = [
-  { value: 'brand',     label: 'Brand & Commercial' },
-  { value: 'ai',        label: 'AI Video' },
-  { value: 'product',   label: 'Product' },
-  { value: 'social',    label: 'Social Media' },
-  { value: 'cooking',   label: 'Cooking' },
-  { value: 'drone',     label: 'Drone & Aerial' },
-  { value: 'post',      label: 'Post Production' },
-  { value: 'elearning', label: 'E-Learning' },
-  { value: 'fashion',   label: 'Fashion' },
-  { value: 'testimonial', label: 'Testimonial' },
+  { value: 'growth',        label: 'AI Growth Systems' },
+  { value: 'ads',           label: 'Performance Advertising' },
+  { value: 'personalisation', label: 'AI Personalisation' },
+  { value: 'content',       label: 'Content Engines' },
+  { value: 'intelligence',  label: 'Data & Intelligence' },
+  { value: 'funnel',        label: 'Funnel Optimisation' },
 ]
 
 const EMPTY_FORM = {
   title: '',
   slug: '',
-  category: 'brand' as PortfolioItem['category'],
+  category: 'growth' as PortfolioItem['category'],
   client_name: '',
   youtube_id: '',
   vimeo_id: '',
@@ -324,7 +320,7 @@ export default function PortfolioAdmin() {
                   id="p-tags"
                   value={form.tags}
                   onChange={e => setForm(f => ({ ...f, tags: e.target.value }))}
-                  placeholder="e.g. cinematic, brand, 4k"
+                  placeholder="e.g. AI, growth, conversion"
                 />
               </div>
               <div className="flex flex-col gap-1.5">

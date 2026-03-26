@@ -14,9 +14,9 @@ interface SeoProps {
   modifiedTime?: string
 }
 
-const SITE_NAME = 'Imba Production'
-const SITE_URL = 'https://imbaproduction.com'
-const DEFAULT_DESC = 'Next-gen video production powered by cinematic craft and AI strategy. Brand films, AI campaigns, product videos, drone, and social content.'
+const SITE_NAME = 'Imba Marketing'
+const SITE_URL = 'https://imbamarketing.com'
+const DEFAULT_DESC = 'AI-powered marketing systems that build predictable revenue growth for modern brands.'
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`
 
 export default function Seo({
@@ -32,7 +32,7 @@ export default function Seo({
   publishedTime,
   modifiedTime,
 }: SeoProps) {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Cinematic Video Production`
+  const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — AI Marketing Systems`
   const canonical = canonicalPath ? `${SITE_URL}${canonicalPath}` : undefined
   const schemas = structuredData
     ? Array.isArray(structuredData) ? structuredData : [structuredData]

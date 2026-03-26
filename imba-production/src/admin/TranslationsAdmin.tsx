@@ -136,7 +136,7 @@ export default function TranslationsAdmin() {
             max_tokens: 2048,
             messages: [{
               role: 'user',
-              content: `Translate these UI strings from English to ${targetName} (${aiLocale}). Return ONLY valid JSON with the same keys, values translated. Keep {{placeholder}} unchanged. Context: video production company website.\n\n${JSON.stringify(byNs[ns], null, 2)}`,
+              content: `Translate these UI strings from English to ${targetName} (${aiLocale}). Return ONLY valid JSON with the same keys, values translated. Keep {{placeholder}} unchanged. Context: AI marketing agency website.\n\n${JSON.stringify(byNs[ns], null, 2)}`,
             }],
           }),
         })

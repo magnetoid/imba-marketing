@@ -17,7 +17,7 @@ interface SmtpConfig {
   username: string; password: string; from_name: string; from_email: string
 }
 
-const EMPTY_SMTP: SmtpConfig = { host: '', port: '587', secure: false, username: '', password: '', from_name: 'Imba Production', from_email: '' }
+const EMPTY_SMTP: SmtpConfig = { host: '', port: '587', secure: false, username: '', password: '', from_name: 'Imba Marketing', from_email: '' }
 
 export default function AISettings() {
   const [smtp, setSmtp] = useState<SmtpConfig>(EMPTY_SMTP)
@@ -32,9 +32,9 @@ export default function AISettings() {
   const [aiTone, setAiTone] = useState('professional')
   const [autoEnrich, setAutoEnrich] = useState(true)
   const [autoCategorize, setAutoCategorize] = useState(true)
-  const [companyName, setCompanyName] = useState('Imba Production')
-  const [companyDesc, setCompanyDesc] = useState('Cinematic video production powered by AI strategy.')
-  const [usp, setUsp] = useState('We combine human creativity with AI to produce cinematic-quality videos at scale.')
+  const [companyName, setCompanyName] = useState('Imba Marketing')
+  const [companyDesc, setCompanyDesc] = useState('AI-powered marketing systems that build predictable revenue growth.')
+  const [usp, setUsp] = useState('We build intelligent marketing systems that automate growth and scale revenue without scaling headcount.')
 
   useEffect(() => { load() }, [])
 
@@ -171,11 +171,11 @@ export default function AISettings() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>From name</Label>
-            <Input value={smtp.from_name} onChange={sf('from_name')} placeholder="Imba Production" />
+            <Input value={smtp.from_name} onChange={sf('from_name')} placeholder="Imba Marketing" />
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>From email</Label>
-            <Input value={smtp.from_email} onChange={sf('from_email')} placeholder="hello@imbaproduction.com" />
+            <Input value={smtp.from_email} onChange={sf('from_email')} placeholder="hello@imbamarketing.com" />
           </div>
         </div>
 

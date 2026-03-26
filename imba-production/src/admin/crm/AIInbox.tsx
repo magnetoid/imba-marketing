@@ -72,7 +72,7 @@ export default function AIInbox() {
   async function analyzeMessage(msg: InboxMessage) {
     if (!apiKey) { toast.error('Add your Anthropic API key in Settings first.'); return }
     setAnalyzing(msg.id)
-    const prompt = `Analyze this email reply to a video production sales outreach.
+    const prompt = `Analyze this email reply to an AI marketing services outreach.
 
 From: ${msg.from_email || 'unknown'}
 Subject: ${msg.subject || '(no subject)'}
@@ -82,7 +82,7 @@ Return ONLY valid JSON (no markdown):
 {
   "sentiment": "positive" | "neutral" | "negative",
   "category": "question" | "objection" | "meeting_request" | "bounce",
-  "suggested_reply": "string (concise professional reply from Imba Production, 3-4 sentences, no fluff)"
+  "suggested_reply": "string (concise professional reply from Imba Marketing, 3-4 sentences, no fluff)"
 }`
     try {
       const res = await fetch('https://api.anthropic.com/v1/messages', {

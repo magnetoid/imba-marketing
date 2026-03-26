@@ -28,7 +28,7 @@ export default function AdminLanding() {
   return (
     <div className="p-8 min-h-full">
       <div className="mb-10">
-        <p className="text-xs font-mono text-muted-foreground tracking-widest uppercase mb-2">Imba Production</p>
+        <p className="text-xs font-mono text-muted-foreground tracking-widest uppercase mb-2">Imba Marketing</p>
         <h1 className="text-3xl font-semibold text-foreground">Control Centre</h1>
         <p className="text-muted-foreground text-sm mt-1">Choose a module to get started.</p>
       </div>

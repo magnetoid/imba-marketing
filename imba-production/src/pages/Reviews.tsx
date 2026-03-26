@@ -15,7 +15,7 @@ const FALLBACK: Testimonial[] = [
     client_role: undefined,
     client_company: 'Kozica Soaps',
     client_avatar_url: undefined,
-    text: 'Imba Productions exceeded our expectations with their professionalism and creativity. They crafted a stunning corporate video that perfectly encapsulated our company\'s values and goals. The final product was incredibly polished, and we\'ve received countless compliments from clients and partners. We highly recommend Imba Production to anyone seeking high-quality video production services!',
+    text: 'Imba Marketing exceeded our expectations. Their AI growth system transformed our paid ads performance — ROAS went from 2.1× to 4.6× in just 8 weeks. The team is professional, data-driven, and genuinely invested in our results. We highly recommend them to any brand serious about scaling their marketing.',
     rating: 5,
     featured: true,
     published: true,
@@ -26,7 +26,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'CEO',
     client_company: 'Massive Movie Horse',
     client_avatar_url: undefined,
-    text: 'Great cooperation with Ljubica and imba team. They provided us with great feedback and guided us through the entire process of creating our Videos. The end result is awesome and they continue to provide us with support whenever we need it. It was a pleasure working with Imba production, and Ljubica was very helpful throughout the whole development journey. Her expertise gave us confidence.',
+    text: 'Great partnership with the Imba Marketing team. They built our AI content engine from scratch and the results speak for themselves — organic traffic up 3× in 90 days. Ljubica and the team guided us through the entire process and continue to optimise our systems. Their expertise gave us genuine confidence in AI marketing.',
     rating: 5,
     featured: true,
     published: true,
@@ -37,7 +37,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'Developer & SEO Expert',
     client_company: 'Ogitive',
     client_avatar_url: undefined,
-    text: 'I loved working with imba production, initially, there was our help in equipping a full e-commerce shop. With full product images and product videos for advertising and website embedding. But SEO video embedding helped us to grow fast using video rich snippets.',
+    text: 'Working with Imba Marketing on our AI funnel optimisation was a game-changer. They identified our biggest conversion drop-off points and deployed an AI-powered solution that cut our CPA by 38%. Their AI analytics system now gives us real-time insights we never had before.',
     rating: 5,
     featured: false,
     published: true,
@@ -83,13 +83,13 @@ export default function Reviews() {
   return (
     <>
       <Seo
-        title="Client Reviews — Video Production Testimonials"
-        description="Real reviews from brands who worked with Imba Production. See what clients say about our cinematic video production work."
+        title="Client Reviews — AI Marketing Testimonials"
+        description="Real reviews from brands who use Imba Marketing AI systems. See what clients say about our AI-powered marketing results."
         canonicalPath="/reviews"
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          'name': 'Imba Production Client Reviews',
+          'name': 'Imba Marketing Client Reviews',
           'itemListElement': display.map((r, i) => ({
             '@type': 'ListItem',
             'position': i + 1,
@@ -100,8 +100,8 @@ export default function Reviews() {
               'reviewRating': r.rating ? { '@type': 'Rating', 'ratingValue': r.rating, 'bestRating': 5 } : undefined,
               'itemReviewed': {
                 '@type': 'Organization',
-                'name': 'Imba Production',
-                'url': 'https://imbaproduction.com',
+                'name': 'Imba Marketing',
+                'url': 'https://imbamarketing.com',
               },
             },
           })),

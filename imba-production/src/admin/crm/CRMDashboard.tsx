@@ -191,7 +191,7 @@ export default function CRMDashboard() {
           max_tokens: 512,
           messages: [{
             role: 'user',
-            content: `You are a B2B sales expert for a video production company (Imba Production). Score this lead from 0-100 and give a brief follow-up recommendation.
+            content: `You are a B2B sales expert for an AI marketing agency (Imba Marketing). Score this lead from 0-100 and give a brief follow-up recommendation.
 
 Lead info:
 - Name: ${lead.name}

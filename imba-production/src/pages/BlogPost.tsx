@@ -8,14 +8,15 @@ import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const CAT_COLOR: Record<string, string> = {
   'AI Video': '#C9A96E',
-  'Video Production': '#E8452A',
+  'Growth Systems': '#E8452A',
+  'Performance Advertising': '#3CBFAE',
   'TikTok': '#3CBFAE',
   'Film': '#8A8AFF',
   'Technology': '#6C7AE0',
-  'Brand Film': '#C9A96E',
+  'AI Marketing': '#C9A96E',
   'Social Media': '#3CBFAE',
-  'Drone': '#6C7AE0',
-  'Post Production': '#8A8AFF',
+  'Marketing Analytics': '#6C7AE0',
+  'Content Strategy': '#8A8AFF',
   'eCommerce': '#E8452A',
 }
 
@@ -83,11 +84,11 @@ export default function BlogPost() {
           'headline': post.title,
           'description': post.excerpt,
           'image': post.cover_image_url,
-          'author': { '@type': 'Organization', 'name': post.author_name || 'Imba Production' },
-          'publisher': { '@type': 'Organization', 'name': 'Imba Production', 'url': 'https://imbaproduction.com' },
+          'author': { '@type': 'Organization', 'name': post.author_name || 'Imba Marketing' },
+          'publisher': { '@type': 'Organization', 'name': 'Imba Marketing', 'url': 'https://imbamarketing.com' },
           'datePublished': post.published_at || post.created_at,
           'dateModified': post.created_at,
-          'url': `https://imbaproduction.com/blog/${post.slug}`,
+          'url': `https://imbamarketing.com/blog/${post.slug}`,
         }}
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
@@ -175,15 +176,15 @@ export default function BlogPost() {
                 {[
                   {
                     label: 'Share on X / Twitter',
-                    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://imbaproduction.com/blog/${post.slug}`)}&text=${encodeURIComponent(post.title)}`,
+                    href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://imbamarketing.com/blog/${post.slug}`)}&text=${encodeURIComponent(post.title)}`,
                   },
                   {
                     label: 'Share on LinkedIn',
-                    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://imbaproduction.com/blog/${post.slug}`)}`,
+                    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://imbamarketing.com/blog/${post.slug}`)}`,
                   },
                   {
                     label: 'Share on Facebook',
-                    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://imbaproduction.com/blog/${post.slug}`)}`,
+                    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://imbamarketing.com/blog/${post.slug}`)}`,
                   },
                 ].map(({ label, href }) => (
                   <a
@@ -198,7 +199,7 @@ export default function BlogPost() {
                 ))}
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`https://imbaproduction.com/blog/${post.slug}`)
+                    navigator.clipboard.writeText(`https://imbamarketing.com/blog/${post.slug}`)
                     setCopied(true)
                     setTimeout(() => setCopied(false), 2000)
                   }}

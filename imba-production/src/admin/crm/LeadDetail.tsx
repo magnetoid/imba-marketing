@@ -114,12 +114,12 @@ export default function LeadDetail() {
           max_tokens: 600,
           messages: [{
             role: 'user',
-            content: `Write a short, warm, professional follow-up email for a video production company (Imba Production) to send to this lead.
+            content: `Write a short, warm, professional follow-up email for an AI marketing agency (Imba Marketing) to send to this lead.
 
 Lead info:
 - Name: ${lead.name}
 - Company: ${lead.company || 'unknown company'}
-- Service interest: ${lead.service_interest || 'video production'}
+- Service interest: ${lead.service_interest || 'AI marketing'}
 - Budget: ${lead.budget_range || 'unknown'}
 - Stage: ${lead.stage}
 - Notes: ${lead.notes || 'none'}
@@ -156,17 +156,17 @@ Write a natural, not-too-salesy follow-up email. Subject line first, then body. 
           max_tokens: 900,
           messages: [{
             role: 'user',
-            content: `Create a concise video production proposal outline for Imba Production to send to this client.
+            content: `Create a concise AI marketing services proposal outline for Imba Marketing to send to this client.
 
 Client info:
 - Name: ${lead.name}
 - Company: ${lead.company || 'unknown company'}
-- Service needed: ${lead.service_interest || 'video production'}
+- Service needed: ${lead.service_interest || 'AI marketing systems'}
 - Budget: ${lead.budget_range || 'unknown'}
 - Notes: ${lead.notes || 'none'}
 - Stage: ${lead.stage}
 
-Format as a proposal outline with sections: Executive Summary, Project Scope, Deliverables, Timeline (suggested), Investment, and Next Steps. Keep each section brief (2-4 bullet points). Be specific to video production.`,
+Format as a proposal outline with sections: Executive Summary, System Scope, Deliverables, Timeline (suggested), Investment, and Next Steps. Keep each section brief (2-4 bullet points). Be specific to AI marketing systems.`,
           }],
         }),
       })
@@ -195,7 +195,7 @@ Format as a proposal outline with sections: Executive Summary, Project Scope, De
           max_tokens: 400,
           messages: [{
             role: 'user',
-            content: `Score this lead for a video production company (0-100) and give a 2-3 sentence follow-up recommendation.
+            content: `Score this lead for an AI marketing agency (0-100) and give a 2-3 sentence follow-up recommendation.
 
 Lead: ${lead.name}, ${lead.company || 'no company'}, ${lead.service_interest || 'unknown service'}, budget: ${lead.budget_range || 'unknown'}, stage: ${lead.stage}, notes: ${lead.notes || 'none'}
 

@@ -21,8 +21,8 @@ const SOCIAL = [
   { label: 'LI', href: 'https://linkedin.com/company/imba-marketing' },
   { label: 'X',  href: 'https://twitter.com/imbamarketing' },
   { label: 'IG', href: 'https://instagram.com/imbamarketing' },
-  { label: 'YT', href: 'https://youtube.com/@imbaproduction' },
-  { label: 'FV', href: 'https://fiverr.com/imbaproduction' },
+  { label: 'YT', href: 'https://youtube.com/@imbamarketing' },
+  { label: 'FV', href: 'https://fiverr.com/imbamarketing' },
 ]
 
 export default function Footer() {
