@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "work": "Results",
+    "services": "Services",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "get_quote": "Free strategy call"
+  },
+  "home": {
+    "hero_cta_primary": "See our results",
+    "hero_cta_secondary": "Explore services",
+    "services_title": "What we build",
+    "services_subtitle": "Six AI systems that transform marketing into a predictable growth engine.",
+    "portfolio_title": "Proven results",
+    "portfolio_subtitle": "Real results from real AI marketing systems.",
+    "testimonials_title": "What clients say",
+    "quote_title": "Book your strategy call",
+    "quote_subtitle": "Tell us your growth goals."
+  },
+  "services": {
+    "title": "AI Marketing Systems",
+    "subtitle": "Six intelligent systems that automate, optimise, and scale your marketing — autonomously.",
+    "learn_more": "Explore system"
+  },
+  "work": {
+    "title": "Client Results",
+    "subtitle": "AI-driven marketing outcomes across growth, advertising, content, and conversion.",
+    "filter_all": "All results"
+  },
+  "blog": {
+    "title": "Insights",
+    "subtitle": "Ideas, research, and perspective from the Imba Marketing team.",
+    "read_more": "Read article",
+    "min_read": "min read"
+  },
+  "about": {
+    "title": "About Imba Marketing",
+    "subtitle": "We believe AI is the most powerful lever for modern marketing growth."
+  },
+  "contact": {
+    "title": "Let's build your AI growth engine.",
+    "subtitle": "Tell us your marketing goals and we'll respond within 24 hours.",
+    "form_name": "Full name",
+    "form_email": "Email",
+    "form_company": "Company",
+    "form_service": "Service type",
+    "form_budget": "Monthly budget",
+    "form_message": "Your marketing goals",
+    "form_submit": "Send message",
+    "form_success": "Message sent! We'll be in touch within 24 hours.",
+    "form_error": "Something went wrong. Please try again."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "back": "Back",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "view_all": "View all"
+  },
+  "footer": {
+    "tagline": "AI marketing systems that build lasting growth.",
+    "services": "Services",
+    "company": "Company",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
+  }
+}
