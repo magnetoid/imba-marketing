@@ -63,7 +63,6 @@ function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <a href="#main-content" className="skip-to-content">Skip to content</a>
-      <div className="scan-line" />
       <Nav />
       <main id="main-content">{children}</main>
       <Footer />

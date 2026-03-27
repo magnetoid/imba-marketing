@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const SERVICES = [
   'AI Growth Marketing',
@@ -17,45 +16,38 @@ const COMPANY = [
   { label: 'Contact', to: '/contact' },
 ]
 const SOCIAL = [
-  { label: 'LI', href: 'https://linkedin.com/company/imba-marketing' },
-  { label: 'X',  href: 'https://twitter.com/imbamarketing' },
-  { label: 'IG', href: 'https://instagram.com/imbamarketing' },
-  { label: 'YT', href: 'https://youtube.com/@imbamarketing' },
-  { label: 'FV', href: 'https://fiverr.com/imbamarketing' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/company/imba-marketing' },
+  { label: 'X / Twitter', href: 'https://twitter.com/imbamarketing' },
+  { label: 'Instagram', href: 'https://instagram.com/imbamarketing' },
+  { label: 'YouTube', href: 'https://youtube.com/@imbamarketing' },
+  { label: 'Fiverr', href: 'https://fiverr.com/imbamarketing' },
 ]
 
 export default function Footer() {
-  const { openModal } = useQuoteModal()
   return (
-    <footer className="bg-ink-3 border-t border-white/5">
-      {/* Top strip */}
-      <div className="border-b border-white/5 px-6 lg:px-12 py-6 flex items-center justify-between">
-        <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] text-smoke-faint uppercase">
-          AI-Powered Marketing Agency — Smarter Campaigns, Real Results
-        </p>
-        <button onClick={() => openModal()} className="btn btn-primary text-[0.65rem]">
-          Book a Strategy Call →
-        </button>
-      </div>
+    <footer className="bg-zinc-950 border-t border-zinc-800">
 
-      {/* Main footer */}
-      <div className="px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+      {/* Main grid */}
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+
         {/* Brand */}
-        <div className="md:col-span-1">
-          <div className="font-display font-light text-2xl text-smoke mb-4">
-            imba<span className="text-ember italic">.</span>marketing
-          </div>
-          <p className="text-sm text-smoke-dim leading-relaxed max-w-xs mb-6">
-            AI-powered marketing agency for ambitious brands. We build intelligent campaigns that drive revenue, lower costs, and scale faster than traditional marketing.
+        <div>
+          <Link to="/" className="inline-block mb-4">
+            <span className="font-semibold text-xl text-white tracking-tight">
+              imba<span className="font-normal text-zinc-500">.marketing</span>
+            </span>
+          </Link>
+          <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mb-6">
+            AI-powered marketing agency for ambitious brands. Intelligent campaigns that drive revenue and scale faster.
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2">
             {SOCIAL.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 border border-white/10 flex items-center justify-center font-mono-custom text-[0.6rem] text-smoke-dim hover:border-ember hover:text-ember transition-all"
+                className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
               >
                 {label}
               </a>
@@ -65,11 +57,16 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <p className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke mb-5">What We Do</p>
+          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            Services
+          </p>
           <ul className="flex flex-col gap-3">
             {SERVICES.map(s => (
               <li key={s}>
-                <Link to="/services" className="text-sm text-smoke-dim hover:text-smoke transition-colors">
+                <Link
+                  to="/services"
+                  className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+                >
                   {s}
                 </Link>
               </li>
@@ -79,11 +76,16 @@ export default function Footer() {
 
         {/* Company */}
         <div>
-          <p className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke mb-5">Company</p>
+          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            Company
+          </p>
           <ul className="flex flex-col gap-3">
             {COMPANY.map(({ label, to }) => (
               <li key={label}>
-                <Link to={to} className="text-sm text-smoke-dim hover:text-smoke transition-colors">
+                <Link
+                  to={to}
+                  className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+                >
                   {label}
                 </Link>
               </li>
@@ -93,9 +95,14 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <p className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke mb-5">Contact</p>
-          <div className="flex flex-col gap-3 text-sm text-smoke-dim">
-            <a href="mailto:hello@imbamarketing.com" className="hover:text-ember transition-colors">
+          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            Contact
+          </p>
+          <div className="flex flex-col gap-3 text-sm text-zinc-500">
+            <a
+              href="mailto:hello@imbamarketing.com"
+              className="hover:text-zinc-300 transition-colors duration-200"
+            >
               hello@imbamarketing.com
             </a>
             <p className="leading-relaxed">
@@ -112,16 +119,22 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t border-white/5 px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p className="font-mono-custom text-[0.6rem] tracking-[0.1em] text-smoke-faint/50">
-          © {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
+      {/* Bottom bar */}
+      <div className="border-t border-zinc-800 max-w-screen-xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p className="text-xs text-zinc-600">
+          &copy; {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
         </p>
         <div className="flex gap-6">
-          <Link to="/privacy" className="font-mono-custom text-[0.6rem] text-smoke-faint/50 hover:text-smoke-dim transition-colors">
+          <Link
+            to="/privacy"
+            className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors duration-200"
+          >
             Privacy Policy
           </Link>
-          <Link to="/admin" className="font-mono-custom text-[0.6rem] text-smoke-faint/30 hover:text-smoke-dim transition-colors">
+          <Link
+            to="/admin"
+            className="text-xs text-zinc-700 hover:text-zinc-400 transition-colors duration-200"
+          >
             Admin
           </Link>
         </div>
