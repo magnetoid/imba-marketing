@@ -6,18 +6,27 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const DEMO_TESTIMONIALS: Testimonial[] = [
-  { id: '1', client_name: 'Sarah Andersen', client_role: 'CMO', client_company: 'FoodCo International', text: 'Our Shopify store was stuck at $40K/mo. Imba\'s AI completely transformed our ads and email flows — we hit $120K/mo within 90 days. Game changer.', featured: true, published: true },
-  { id: '2', client_name: 'Marco Kessler', client_role: 'Growth Lead', client_company: 'NordShop', text: 'We were burning $8K/mo on ads with barely any return. Now every dollar brings back $4.80. Our ROAS tripled and our store has never been healthier.', featured: false, published: true },
-  { id: '3', client_name: 'Julia Larsson', client_role: 'Founder', client_company: 'Velour Boutique', text: 'Running a fashion e-commerce brand is exhausting. Imba handles our product content, email campaigns, and ads with AI — I get a full month of content in a day.', featured: false, published: true },
+  { id: '1', client_name: 'Sarah Andersen', client_role: 'CMO', client_company: 'FoodCo International', text: 'Our monthly revenue was stuck at $40K. Imba deployed their AI systems and within 90 days we hit $120K/mo. The ads, email flows, everything just works now.', featured: true, published: true },
+  { id: '2', client_name: 'David Chen', client_role: 'CEO', client_company: 'Ogitive SaaS', text: 'We needed a marketing partner who understood tech. Imba\'s AI analytics uncovered segments we never knew existed — our pipeline tripled in one quarter.', featured: false, published: true },
+  { id: '3', client_name: 'Nina Karlsson', client_role: 'Marketing Director', client_company: 'Prime Real Estate Group', text: 'Real estate marketing is competitive. Imba\'s AI personalization delivers the right listings to the right buyers automatically. Our lead quality improved 4x.', featured: false, published: true },
 ]
 
 const SERVICES = [
-  { key: 'growth', icon: '◈', label: 'Grow Your Store on Autopilot', desc: 'AI runs your marketing 24/7 — optimizing ads, sending emails, and nurturing customers while you sleep.', color: '#E8452A', bg: 'rgba(232,69,42,0.06)' },
-  { key: 'ads', icon: '▣', label: 'Get More from Every Ad Dollar', desc: 'AI manages product ads across Google Shopping, Meta, and TikTok — testing and scaling what converts.', color: '#C9A96E', bg: 'rgba(201,169,110,0.06)' },
-  { key: 'personalisation', icon: '◉', label: 'Personalize Every Shopping Experience', desc: 'Show each customer products they actually want. AI personalizes emails, recommendations, and your site.', color: '#00D4FF', bg: 'rgba(0,212,255,0.06)' },
-  { key: 'content', icon: '▶', label: 'Product Content at Scale', desc: 'AI creates product descriptions, social posts, email campaigns, and ad creatives — a month in a day.', color: '#6C7AE0', bg: 'rgba(108,122,224,0.06)' },
-  { key: 'intelligence', icon: '◬', label: 'Know What Shoppers Want', desc: 'AI tracks trending products, competitor pricing, and customer behavior for smarter decisions.', color: '#3CBFAE', bg: 'rgba(60,191,174,0.06)' },
-  { key: 'funnel', icon: '◫', label: 'Turn Browsers into Buyers', desc: 'AI finds where shoppers abandon your store and fixes it — better pages, smoother checkout, smart recovery.', color: '#E87A2A', bg: 'rgba(232,122,42,0.06)' },
+  { num: '01', slug: 'growth', title: 'AI Growth Marketing', desc: 'Automated campaigns, intelligent lead generation, and revenue optimization engines that compound your growth month over month.', color: '#E8452A' },
+  { num: '02', slug: 'ads', title: 'AI Performance Ads', desc: 'Cross-platform ad management across Google, Meta, TikTok, and LinkedIn with real-time ROAS optimization and budget allocation.', color: '#C9A96E' },
+  { num: '03', slug: 'personalisation', title: 'AI Personalization', desc: 'Dynamic content delivery, behavioral targeting, and individualized customer journeys that convert browsers into loyal customers.', color: '#00D4FF' },
+  { num: '04', slug: 'content', title: 'AI Content Production', desc: 'Brand-aligned content at scale — social posts, email sequences, ad creatives, and landing pages produced in hours, not weeks.', color: '#6C7AE0' },
+  { num: '05', slug: 'intelligence', title: 'AI Analytics & Intelligence', desc: 'Market research, competitor tracking, customer sentiment analysis, and predictive insights that inform every strategic decision.', color: '#3CBFAE' },
+  { num: '06', slug: 'funnel', title: 'AI Conversion Optimization', desc: 'Funnel analysis, multivariate testing, checkout streamlining, and abandonment recovery that maximize every visitor interaction.', color: '#E87A2A' },
+]
+
+const INDUSTRIES = [
+  { name: 'E-Commerce & DTC', icon: '◈' },
+  { name: 'SaaS & Tech', icon: '▣' },
+  { name: 'Professional Services', icon: '◉' },
+  { name: 'Health & Wellness', icon: '▶' },
+  { name: 'Real Estate', icon: '◬' },
+  { name: 'Food & Beverage', icon: '◫' },
 ]
 
 export default function Home() {
@@ -32,129 +41,131 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Imba Marketing — AI Marketing for E-Commerce Brands"
-        description="AI-powered marketing that grows your online store. More sales, lower ad costs, product content at scale. Plans from $2,900/mo."
+        title="Imba Marketing — AI-Powered Marketing Agency | Smarter Campaigns, Real Results"
+        description="Imba Marketing is an AI-powered marketing agency delivering smarter campaigns and real results. From e-commerce brands to SaaS and professional services, our six AI systems drive revenue, lower costs, and scale growth. Plans from $2,900/mo."
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'Organization',
           'name': 'Imba Marketing',
           'url': 'https://imbamarketing.com',
-          'description': 'AI marketing agency for e-commerce brands. More sales, lower costs, faster growth.',
+          'description': 'AI-powered marketing agency. Smarter campaigns, real results across e-commerce, SaaS, professional services, and more.',
         }}
       />
 
       {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 px-6 lg:px-12 bg-ink overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232,69,42,0.04) 0%, transparent 60%),
-            radial-gradient(ellipse 50% 50% at 80% 20%, rgba(0,212,255,0.03) 0%, transparent 50%)`,
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-20 px-6 lg:px-12 bg-ink overflow-hidden">
+        {/* Animated gradient orb */}
+        <div className="absolute pointer-events-none" style={{
+          width: '60vw',
+          height: '60vw',
+          maxWidth: '800px',
+          maxHeight: '800px',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -55%)',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(232,69,42,0.12) 0%, rgba(201,169,110,0.08) 30%, rgba(0,212,255,0.05) 55%, transparent 70%)',
+          filter: 'blur(60px)',
+          animation: 'pulse 8s ease-in-out infinite',
         }} />
+        <style>{`@keyframes pulse { 0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 0.8; } 50% { transform: translate(-50%, -55%) scale(1.08); opacity: 1; } }`}</style>
 
-        <div className="relative max-w-screen-xl mx-auto w-full">
-          <div className="max-w-3xl">
-            {/* Trust badge */}
-            <div className="flex flex-wrap items-center gap-3 mb-8 reveal">
-              <div className="badge-cyber">Trusted by 200+ E-Commerce Brands</div>
-              <div className="trust-badges">
-                {['Shopify', 'WooCommerce', 'Meta', 'Google'].map(p => (
-                  <span key={p} className="platform-badge">{p}</span>
-                ))}
-              </div>
-            </div>
+        <div className="relative text-center max-w-5xl mx-auto">
+          {/* Eyebrow */}
+          <div className="flex justify-center mb-8 reveal">
+            <div className="badge-cyber">AI-Powered Marketing Agency</div>
+          </div>
 
-            <h1 className="font-display font-light leading-[1.05] mb-8 reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(3.2rem, 7vw, 6rem)' }}>
-              AI that sells<br />
-              <em className="holo-text not-italic">more products</em><br />
-              for your store.
-            </h1>
+          {/* Massive headline */}
+          <h1 className="font-display font-light leading-[0.95] mb-8 reveal reveal-delay-1"
+            style={{ fontSize: 'clamp(3.5rem, 8.5vw, 8rem)' }}>
+            We Build Marketing<br />
+            <em className="holo-text not-italic">That Thinks.</em>
+          </h1>
 
-            <p className="text-smoke-dim leading-relaxed mb-10 max-w-xl reveal reveal-delay-2" style={{ fontSize: '1.1rem', fontWeight: 300 }}>
-              We plug AI into your e-commerce store to run better ads, create product content at scale, personalize every shopping experience, and recover abandoned carts — all on autopilot.
-            </p>
+          <p className="text-smoke-dim leading-relaxed mb-12 max-w-2xl mx-auto reveal reveal-delay-2" style={{ fontSize: '1.15rem', fontWeight: 300 }}>
+            Six proprietary AI systems that transform how brands attract, convert, and retain customers. Less guesswork. More growth. Measurably better results from day one.
+          </p>
 
-            {/* Dual CTA */}
-            <div className="flex flex-wrap items-center gap-4 mb-6 reveal reveal-delay-3">
-              <button onClick={() => openModal()} className="btn btn-primary">
-                Get your free growth plan →
-              </button>
-              <Link to="/pricing" className="btn btn-outline">
-                See plans from $2,900/mo
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 mt-6 reveal reveal-delay-4">
-              {[
-                { icon: '✓', text: 'No setup fees' },
-                { icon: '✓', text: 'Cancel anytime' },
-                { icon: '✓', text: 'Results in 48h' },
-              ].map(({ icon, text }) => (
-                <span key={text} className="trust-badge">
-                  <span className="trust-badge-icon">{icon}</span>
-                  {text}
-                </span>
-              ))}
-            </div>
+          {/* Dual CTA */}
+          <div className="flex flex-wrap justify-center items-center gap-5 mb-8 reveal reveal-delay-3">
+            <button onClick={() => openModal()} className="btn btn-primary">
+              Book a Strategy Call
+            </button>
+            <Link to="/results" className="btn btn-outline">
+              See Our Work
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* ═══════════════════ SOCIAL PROOF BAR ═══════════════════ */}
-      <section className="border-y border-white/5 bg-ink-2">
-        <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+        {/* Stats row */}
+        <div className="relative w-full max-w-screen-lg mx-auto mt-16 reveal reveal-delay-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '12px', overflow: 'hidden' }}>
             {[
               { num: '3×', label: 'Average Revenue Growth', color: '#E8452A' },
               { num: '4.8×', label: 'Average ROAS', color: '#C9A96E' },
-              { num: '$2.4M', label: 'Revenue Generated for Clients', color: '#00D4FF' },
-              { num: '98%', label: 'Client Retention Rate', color: '#3CBFAE' },
-            ].map(({ num, label }, i) => (
-              <div key={label} className={`py-8 px-6 lg:px-8 ${i < 3 ? 'border-r border-white/5' : ''}`}>
-                <div className="highlight-number mb-1" style={{ fontSize: '2.8rem' }}>{num}</div>
+              { num: '200+', label: 'Clients Served', color: '#00D4FF' },
+              { num: '98%', label: 'Client Retention', color: '#3CBFAE' },
+            ].map(({ num, label, color }) => (
+              <div key={label} className="py-8 px-6 text-center" style={{ background: 'rgba(10,10,11,0.8)' }}>
+                <div className="highlight-number mb-2" style={{ fontSize: '3rem', color }}>{num}</div>
                 <div className="font-mono-custom text-[0.58rem] tracking-[0.16em] uppercase text-smoke-faint">{label}</div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Trust line */}
+        <div className="relative mt-12 reveal reveal-delay-4">
+          <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] uppercase text-smoke-faint/40 text-center">
+            Trusted by brands like <span className="text-smoke-faint/60">FoodCo International</span> · <span className="text-smoke-faint/60">Ogitive</span> · <span className="text-smoke-faint/60">NordShop</span> · <span className="text-smoke-faint/60">Prime Real Estate</span> · <span className="text-smoke-faint/60">Magic Mind</span> · <span className="text-smoke-faint/60">Irving Books</span>
+          </p>
+        </div>
       </section>
 
-      {/* ═══════════════════ BEFORE / AFTER ═══════════════════ */}
-      <section className="py-24 px-6 lg:px-12 section-gradient-ember relative">
+      <div className="angular-divider" />
+
+      {/* ═══════════════════ WHAT WE DO ═══════════════════ */}
+      <section className="py-28 px-6 lg:px-12 bg-ink-2 relative">
         <div className="max-w-screen-xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="eyebrow justify-center mb-5 reveal">The difference AI makes</p>
+          <div className="mb-20">
+            <p className="eyebrow mb-5 reveal">What we do</p>
             <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
-              What changes when you<br /><em className="text-gold italic">add AI to your store</em>
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
+              Six AI systems.<br />
+              <em className="text-gold italic">One unstoppable strategy.</em>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { before: 'Spending $8K/mo on ads with 1.2× ROAS', after: 'Same budget, 4.8× ROAS — every $1 brings back $4.80', metric: '300% better returns' },
-              { before: 'Writing product descriptions one by one', after: 'AI creates descriptions for your entire catalog overnight', metric: '30× faster content' },
-              { before: '70% of carts abandoned, no recovery', after: 'AI recovers 38% of abandoned carts automatically', metric: '38% cart recovery' },
-              { before: 'Same homepage for every visitor', after: 'Each shopper sees personalized product recommendations', metric: '5× more engagement' },
-              { before: 'Guessing which products to promote', after: 'AI shows you which products will trend next month', metric: 'Predict demand' },
-              { before: '1.2% store conversion rate', after: 'AI optimizes every page — conversion rate hits 1.9%+', metric: '+62% conversions' },
-            ].map(({ before, after, metric }, i) => (
-              <div key={i} className="glass-card p-6 reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-smoke-faint text-[0.55rem]">✗</span>
+          <div className="flex flex-col">
+            {SERVICES.map(({ num, slug, title, desc, color }, i) => (
+              <Link
+                key={slug}
+                to={`/services/${slug}`}
+                className="group reveal border-t border-white/5 last:border-b"
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <div className="grid grid-cols-12 gap-6 items-center py-10 lg:py-12 transition-all duration-300 group-hover:pl-4">
+                  <div className="col-span-12 lg:col-span-1">
+                    <span className="font-mono-custom text-[0.75rem] tracking-wider" style={{ color }}>{num}</span>
                   </div>
-                  <p className="text-sm text-smoke-faint leading-relaxed line-through decoration-smoke-faint/30">{before}</p>
-                </div>
-                <div className="flex items-start gap-3 mb-5">
-                  <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: 'rgba(60,191,174,0.15)' }}>
-                    <span className="text-[0.55rem]" style={{ color: '#3CBFAE' }}>✓</span>
+                  <div className="col-span-12 lg:col-span-4">
+                    <h3 className="font-display font-light text-smoke leading-tight group-hover:text-ember transition-colors"
+                      style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}>
+                      {title}
+                    </h3>
                   </div>
-                  <p className="text-sm text-smoke leading-relaxed">{after}</p>
+                  <div className="col-span-12 lg:col-span-5">
+                    <p className="text-smoke-dim leading-relaxed" style={{ fontSize: '0.95rem' }}>{desc}</p>
+                  </div>
+                  <div className="col-span-12 lg:col-span-2 flex justify-end">
+                    <span className="font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase flex items-center gap-2 transition-all duration-200 group-hover:gap-4"
+                      style={{ color }}>
+                      <span>Explore</span><span className="text-lg">→</span>
+                    </span>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5">
-                  <span className="font-mono-custom text-[0.62rem] tracking-wider text-ember uppercase">{metric}</span>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -162,123 +173,60 @@ export default function Home() {
 
       <div className="angular-divider" />
 
-      {/* ═══════════════════ SERVICES ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12 bg-ink-2 relative">
+      {/* ═══════════════════ SOCIAL PROOF / RESULTS ═══════════════════ */}
+      <section className="py-28 px-6 lg:px-12 section-gradient-ember relative">
         <div className="max-w-screen-xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-end mb-16">
+          <div className="flex items-end justify-between mb-16 flex-wrap gap-6">
             <div>
-              <p className="eyebrow mb-5 reveal">AI for e-commerce</p>
+              <p className="eyebrow mb-4 reveal">Proven results</p>
               <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-                Six ways AI grows<br />
-                <em className="text-gold italic">your online store.</em>
+                Real clients.<br /><em className="text-gold italic">Real numbers.</em>
               </h2>
             </div>
-            <p className="text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              Each service solves a specific e-commerce problem. Get them individually or bundled together in one plan starting at $2,900/mo.
-            </p>
+            <Link to="/results" className="btn btn-outline reveal reveal-delay-2">View all case studies →</Link>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SERVICES.map(({ key, icon, label, desc, color, bg }, i) => (
-              <Link
-                key={key}
-                to={`/services/${key}`}
-                className="glass-card gradient-border p-7 flex flex-col reveal group"
-                style={{ transitionDelay: `${i * 50}ms` }}
-              >
-                <div className="feature-icon-box" style={{ background: bg, color }}>
-                  {icon}
-                </div>
-                <h3 className="font-display font-light text-smoke text-xl mb-3 group-hover:text-ember transition-colors">{label}</h3>
-                <p className="text-sm text-smoke-dim leading-relaxed flex-1 mb-5">{desc}</p>
-                <div className="font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase flex items-center gap-2 transition-all duration-200 group-hover:gap-3"
-                  style={{ color }}>
-                  <span>Learn more</span><span>→</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ INTEGRATIONS ═══════════════════ */}
-      <section className="py-16 px-6 lg:px-12 bg-ink border-y border-white/5">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/40 mb-8 text-center reveal">
-            Works with the tools you already use
-          </p>
-          <div className="integration-grid reveal reveal-delay-1">
-            {['Shopify', 'Shopify Plus', 'WooCommerce', 'BigCommerce', 'Google Ads', 'Meta Ads', 'TikTok Ads', 'Klaviyo', 'Mailchimp', 'HubSpot', 'Google Analytics', 'Stripe'].map(p => (
-              <div key={p} className="integration-item">{p}</div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ HOW IT WORKS ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12 section-gradient-cyber relative">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="eyebrow justify-center mb-5 reveal">How it works</p>
-            <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
-              From signup to results<br /><em className="text-gold italic">in 4 simple steps</em>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
-              { n: '01', title: 'Free strategy call', desc: 'Tell us about your store, your goals, and what\'s not working. We\'ll show you where the biggest revenue opportunities are.', color: '#E8452A' },
-              { n: '02', title: 'Custom growth plan', desc: 'We design a plan for your specific store — which AI tools to deploy, what results to expect, and the timeline.', color: '#C9A96E' },
-              { n: '03', title: 'AI goes live', desc: 'We connect to your store, set up the AI, and launch. First improvements visible within 48 hours. Full system live in 2–4 weeks.', color: '#00D4FF' },
-              { n: '04', title: 'Revenue grows daily', desc: 'The AI learns and improves every day. Your marketing gets smarter, your costs go down, and your revenue compounds.', color: '#3CBFAE' },
-            ].map(({ n, title, desc, color }, i) => (
-              <div key={n} className="glass-card p-7 reveal stacked-card" style={{ transitionDelay: `${i * 80}ms` }}>
-                <div className="font-mono-custom text-[0.65rem] tracking-wider mb-5" style={{ color }}>{n}</div>
-                <h3 className="font-display font-light text-smoke text-xl mb-3">{title}</h3>
-                <p className="text-sm text-smoke-dim leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ CASE STUDIES ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12 bg-ink-2">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
-            <div>
-              <p className="eyebrow mb-4 reveal">Real e-commerce results</p>
-              <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
-                style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-                Numbers don't lie.<br /><em className="text-gold italic">Neither do our clients.</em>
-              </h2>
-            </div>
-            <Link to="/results" className="btn btn-outline reveal reveal-delay-2">See all results →</Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { client: 'FoodCo International', type: 'Shopify Food Brand', headline: '$40K → $120K/mo', desc: 'Tripled monthly revenue in 90 days with AI-powered ads and automated email flows.', color: '#E8452A', metrics: [{ n: '+200%', l: 'Revenue' }, { n: '-52%', l: 'CPA' }, { n: '38%', l: 'Email uplift' }] },
-              { client: 'NordShop', type: 'E-Commerce Fashion', headline: '4.8× ROAS', desc: 'Went from barely breaking even to $4.80 back for every $1 spent on ads.', color: '#C9A96E', metrics: [{ n: '4.8×', l: 'ROAS' }, { n: '-40%', l: 'CPA' }, { n: '3×', l: 'Ad scale' }] },
-              { client: 'Velour Boutique', type: 'DTC Fashion', headline: '30 days in 1 day', desc: 'AI content engine creates a full month of product posts, emails, and ad creative in a single session.', color: '#6C7AE0', metrics: [{ n: '30×', l: 'Content' }, { n: '+180%', l: 'Engagement' }, { n: '95%', l: 'Time saved' }] },
+              {
+                client: 'FoodCo International',
+                type: 'E-Commerce · Food & Beverage',
+                headline: '$40K → $120K/mo',
+                desc: 'Tripled monthly revenue in 90 days with AI-powered ads and automated email flows.',
+                color: '#E8452A',
+                metrics: [{ n: '+200%', l: 'Revenue' }, { n: '4.2×', l: 'ROAS' }, { n: '38%', l: 'Email uplift' }],
+              },
+              {
+                client: 'Ogitive',
+                type: 'SaaS · B2B Technology',
+                headline: '3× Pipeline in 90 Days',
+                desc: 'AI analytics identified high-intent segments and automated nurture sequences tripled qualified pipeline.',
+                color: '#00D4FF',
+                metrics: [{ n: '3×', l: 'Pipeline' }, { n: '-58%', l: 'CAC' }, { n: '+140%', l: 'MQLs' }],
+              },
+              {
+                client: 'Prime Real Estate Group',
+                type: 'Real Estate · Lead Gen',
+                headline: '4× Lead Quality',
+                desc: 'AI personalization matched listings to buyer profiles, dramatically improving lead quality and close rates.',
+                color: '#C9A96E',
+                metrics: [{ n: '4×', l: 'Lead quality' }, { n: '+90%', l: 'Close rate' }, { n: '-45%', l: 'Cost/lead' }],
+              },
             ].map(({ client, type, headline, desc, color, metrics }, i) => (
               <div key={client} className="glass-card stacked-card p-8 flex flex-col reveal"
-                style={{ transitionDelay: `${i * 80}ms` }}>
-                <div className="flex items-center justify-between mb-6">
-                  <div>
-                    <p className="font-mono-custom text-[0.58rem] tracking-[0.16em] uppercase text-smoke-faint">{client}</p>
-                    <p className="font-mono-custom text-[0.55rem] tracking-wider uppercase mt-0.5" style={{ color }}>{type}</p>
-                  </div>
+                style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="mb-6">
+                  <p className="font-mono-custom text-[0.6rem] tracking-[0.16em] uppercase text-smoke-faint">{client}</p>
+                  <p className="font-mono-custom text-[0.55rem] tracking-wider uppercase mt-1" style={{ color }}>{type}</p>
                 </div>
-                <h3 className="font-display font-light leading-tight mb-3"
-                  style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', color }}>{headline}</h3>
-                <p className="text-sm text-smoke-dim leading-relaxed mb-6 flex-1">{desc}</p>
-                <div className="grid grid-cols-3 gap-3 pt-5 border-t border-white/5">
+                <h3 className="font-display font-light leading-tight mb-4"
+                  style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', color }}>{headline}</h3>
+                <p className="text-sm text-smoke-dim leading-relaxed mb-8 flex-1">{desc}</p>
+                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/5">
                   {metrics.map(({ n, l }) => (
                     <div key={l}>
-                      <div className="font-display font-light text-lg leading-none mb-1" style={{ color }}>{n}</div>
+                      <div className="font-display font-light text-xl leading-none mb-1" style={{ color }}>{n}</div>
                       <div className="font-mono-custom text-[0.5rem] tracking-wide uppercase text-smoke-faint/60">{l}</div>
                     </div>
                   ))}
@@ -289,19 +237,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12 section-gradient-gold">
+      {/* ═══════════════════ WHY IMBA ═══════════════════ */}
+      <section className="py-28 px-6 lg:px-12 bg-ink relative">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Happy store owners</p>
-          <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
-            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            Don't take our word for it.<br /><em className="text-gold italic">Take theirs.</em>
-          </h2>
+          <div className="text-center mb-16">
+            <p className="eyebrow justify-center mb-5 reveal">Why Imba</p>
+            <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
+              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 4rem)' }}>
+              Built different.<br /><em className="text-gold italic">Built to perform.</em>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: '◈', title: 'AI That Works 24/7', desc: 'Our systems never sleep. Campaigns optimize, content publishes, and leads nurture around the clock — even weekends.', color: '#E8452A', bg: 'rgba(232,69,42,0.06)' },
+              { icon: '▣', title: 'Results in 48 Hours', desc: 'No 90-day ramp-up. Our AI deploys fast — most clients see measurable improvements within the first 48 hours.', color: '#C9A96E', bg: 'rgba(201,169,110,0.06)' },
+              { icon: '◉', title: 'No Long-Term Contracts', desc: 'Month-to-month. We earn your business every 30 days. If we stop delivering, you stop paying. Simple.', color: '#00D4FF', bg: 'rgba(0,212,255,0.06)' },
+              { icon: '◬', title: 'Dedicated Strategy Team', desc: 'AI handles execution. Humans handle strategy. Every client gets a dedicated strategist who knows your brand inside out.', color: '#3CBFAE', bg: 'rgba(60,191,174,0.06)' },
+            ].map(({ icon, title, desc, color, bg }, i) => (
+              <div key={title} className="glass-card gradient-border p-8 text-center reveal"
+                style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className="feature-icon-box mx-auto" style={{ background: bg, color }}>
+                  {icon}
+                </div>
+                <h3 className="font-display font-light text-smoke text-lg mb-3 mt-5">{title}</h3>
+                <p className="text-sm text-smoke-dim leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="angular-divider" />
+
+      {/* ═══════════════════ INDUSTRIES ═══════════════════ */}
+      <section className="py-28 px-6 lg:px-12 section-gradient-cyber relative">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="eyebrow justify-center mb-5 reveal">Industries we serve</p>
+            <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
+              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 4rem)' }}>
+              AI marketing for<br /><em className="text-gold italic">every growth-stage brand.</em>
+            </h2>
+            <p className="text-smoke-dim max-w-xl mx-auto mt-6 reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
+              Our AI systems adapt to your industry, audience, and business model. Same intelligence, tailored execution.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {INDUSTRIES.map(({ name, icon }, i) => (
+              <div key={name} className="glass-card p-8 flex items-center gap-5 reveal group"
+                style={{ transitionDelay: `${i * 60}ms` }}>
+                <div className="feature-icon-box flex-shrink-0" style={{
+                  background: 'rgba(201,169,110,0.06)',
+                  color: '#C9A96E',
+                }}>
+                  {icon}
+                </div>
+                <span className="font-display font-light text-smoke text-lg group-hover:text-gold transition-colors">{name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
+      <section className="py-28 px-6 lg:px-12 section-gradient-gold relative">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="eyebrow justify-center mb-5 reveal">Client testimonials</p>
+            <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
+              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)' }}>
+              Don't take our word for it.<br /><em className="text-gold italic">Take theirs.</em>
+            </h2>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <div key={t.id} className="glass-card stacked-card p-8 relative reveal" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="absolute top-5 right-6 font-display text-[5rem] font-light leading-none select-none"
-                  style={{ color: 'rgba(232,69,42,0.06)' }}>"</div>
+                  style={{ color: 'rgba(201,169,110,0.06)' }}>"</div>
+
                 {/* Stars */}
                 <div className="flex gap-0.5 mb-5">
                   {[1,2,3,4,5].map(n => (
@@ -310,10 +326,12 @@ export default function Home() {
                     </svg>
                   ))}
                 </div>
-                <p className="font-display text-lg font-light italic text-smoke/80 leading-relaxed mb-6">{t.text}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono-custom text-[0.6rem]"
-                    style={{ background: 'rgba(232,69,42,0.1)', border: '1px solid rgba(232,69,42,0.2)', color: '#E8452A' }}>
+
+                <p className="font-display text-lg font-light italic text-smoke/80 leading-relaxed mb-8">{t.text}</p>
+
+                <div className="flex items-center gap-3 mt-auto">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-mono-custom text-[0.6rem]"
+                    style={{ background: 'rgba(201,169,110,0.1)', border: '1px solid rgba(201,169,110,0.2)', color: '#C9A96E' }}>
                     {t.client_name.split(' ').map((w: string) => w[0]).join('')}
                   </div>
                   <div>
@@ -330,37 +348,45 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ PRICING TEASER ═══════════════════ */}
-      <section className="py-24 px-6 lg:px-12 bg-ink-2 border-y border-white/5">
+      <section className="py-28 px-6 lg:px-12 bg-ink-2 border-y border-white/5">
         <div className="max-w-screen-xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="eyebrow justify-center mb-5 reveal">Simple pricing</p>
+          <div className="text-center mb-16">
+            <p className="eyebrow justify-center mb-5 reveal">Transparent pricing</p>
             <h2 className="font-display font-light leading-tight mb-4 reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              One monthly fee. <em className="text-gold italic">Everything included.</em>
+              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)' }}>
+              Invest in growth.<br /><em className="text-gold italic">Not guesswork.</em>
             </h2>
-            <p className="text-smoke-dim max-w-lg mx-auto reveal reveal-delay-2">
-              No setup fees, no hidden costs, no long-term contracts. Pick a plan and start growing.
+            <p className="text-smoke-dim max-w-lg mx-auto reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
+              No setup fees. No hidden costs. No long-term lock-in. Every plan includes a dedicated strategist and full AI deployment.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             {[
-              { name: 'Starter', price: '$2,900', desc: 'Growing stores ready to scale', color: '#3CBFAE' },
-              { name: 'Growth', price: '$5,900', desc: 'Brands ready to dominate', color: '#E8452A', popular: true },
-              { name: 'Enterprise', price: '$12,900', desc: 'Full AI marketing department', color: '#C9A96E' },
-            ].map(({ name, price, desc, color, popular }, i) => (
+              { name: 'Starter', price: '$2,900', desc: 'For brands ready to scale smarter', features: ['2 AI systems', 'Dedicated strategist', 'Monthly reporting'], color: '#3CBFAE' },
+              { name: 'Growth', price: '$5,900', desc: 'For brands ready to dominate', features: ['4 AI systems', 'Priority strategist', 'Weekly reporting'], color: '#E8452A', popular: true },
+              { name: 'Enterprise', price: '$12,900', desc: 'Full AI marketing department', features: ['All 6 AI systems', 'Senior strategy team', 'Real-time dashboard'], color: '#C9A96E' },
+            ].map(({ name, price, desc, features, color, popular }, i) => (
               <div key={name}
-                className={`glass-card p-8 text-center reveal ${popular ? 'pricing-highlight' : ''}`}
+                className={`glass-card gradient-border p-10 text-center reveal ${popular ? 'pricing-highlight' : ''}`}
                 style={{ transitionDelay: `${i * 80}ms` }}>
                 {popular && (
-                  <span className="inline-block font-mono-custom text-[0.55rem] tracking-[0.18em] uppercase px-3 py-1 bg-ember text-ink mb-4">
+                  <span className="inline-block font-mono-custom text-[0.55rem] tracking-[0.18em] uppercase px-4 py-1.5 bg-ember text-ink mb-5 rounded-sm">
                     Most Popular
                   </span>
                 )}
-                <h3 className="font-display font-light text-xl text-smoke mb-1">{name}</h3>
-                <p className="font-mono-custom text-[0.6rem] tracking-wider uppercase mb-4" style={{ color }}>{desc}</p>
-                <div className="font-display font-light text-smoke mb-1" style={{ fontSize: '2.8rem', lineHeight: 1 }}>{price}</div>
-                <p className="font-mono-custom text-[0.6rem] text-smoke-faint tracking-wider">/month</p>
+                <h3 className="font-display font-light text-2xl text-smoke mb-2">{name}</h3>
+                <p className="font-mono-custom text-[0.6rem] tracking-wider uppercase mb-6" style={{ color }}>{desc}</p>
+                <div className="font-display font-light text-smoke mb-1" style={{ fontSize: '3.2rem', lineHeight: 1 }}>{price}</div>
+                <p className="font-mono-custom text-[0.6rem] text-smoke-faint tracking-wider mb-8">/month</p>
+                <div className="space-y-3 text-left">
+                  {features.map(f => (
+                    <div key={f} className="flex items-center gap-3">
+                      <span className="trust-badge-icon text-[0.6rem]" style={{ color }}>✓</span>
+                      <span className="text-sm text-smoke-dim">{f}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -373,41 +399,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ CLIENTS ═══════════════════ */}
-      <section className="py-14 px-6 lg:px-12 bg-ink">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/40 mb-6 text-center reveal">
-            Trusted by e-commerce brands worldwide
-          </p>
-          <div className="logo-bar reveal reveal-delay-1">
-            {['FoodCo International', 'NordShop', 'Velour Boutique', 'BrandX', 'Magic Mind', 'Irving Books', 'Prime Real Estate', 'Ogitive'].map(c => (
-              <span key={c} className="logo-bar-item">{c}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════ CTA ═══════════════════ */}
+      {/* ═══════════════════ FINAL CTA ═══════════════════ */}
       <section className="cta-gradient relative">
-        <div className="relative px-6 lg:px-12 py-24 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 z-10">
-          <div>
-            <h2 className="font-display font-light leading-tight text-ink"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-              Ready to grow your store?<br /><em>Plans from $2,900/mo.</em>
-            </h2>
-            <p className="text-ink/60 mt-4" style={{ fontSize: '0.95rem' }}>
-              Free strategy call · No contracts · See results in 48 hours.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 flex-shrink-0">
+        <div className="relative px-6 lg:px-12 py-28 max-w-screen-xl mx-auto text-center z-10">
+          <h2 className="font-display font-light leading-tight text-ink mb-6"
+            style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
+            Ready to Transform<br /><em>Your Marketing?</em>
+          </h2>
+          <p className="text-ink/60 mb-10 max-w-xl mx-auto" style={{ fontSize: '1.05rem' }}>
+            Book a free strategy call. We will audit your current marketing, show you where AI can drive the biggest gains, and build a custom growth plan — no strings attached.
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-5">
             <button onClick={() => openModal()}
-              className="font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-10 py-5 cursor-pointer"
+              className="font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-12 py-5 cursor-pointer transition-all duration-200 hover:scale-105"
               style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
-              Get your free growth plan →
+              Book Your Strategy Call →
             </button>
             <Link to="/pricing"
-              className="font-mono-custom text-[0.65rem] tracking-[0.12em] uppercase text-center text-ink/50 hover:text-ink/80 transition-colors">
-              Or see pricing →
+              className="font-mono-custom text-[0.7rem] tracking-[0.12em] uppercase text-ink/50 hover:text-ink/80 transition-colors">
+              View pricing →
             </Link>
           </div>
         </div>

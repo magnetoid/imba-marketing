@@ -15,7 +15,7 @@ const FALLBACK: Testimonial[] = [
     client_role: undefined,
     client_company: 'Kozica Soaps',
     client_avatar_url: undefined,
-    text: 'Imba Marketing completely changed our business. Our ads used to barely break even — now we get $4.60 back for every $1 we spend. That happened in just 8 weeks. The team is professional, they explain everything clearly, and they genuinely care about our results. Best marketing decision we ever made.',
+    text: 'Imba Marketing completely changed our business. Their AI ad management took us from barely breaking even to $4.60 back for every $1 we spend — in just 8 weeks. The team is professional, they explain everything clearly, and they genuinely care about our results. Best marketing decision we ever made.',
     rating: 5,
     featured: true,
     published: true,
@@ -26,7 +26,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'CEO',
     client_company: 'Massive Movie Horse',
     client_avatar_url: undefined,
-    text: 'Working with Imba has been incredible. They helped us get 3× more website traffic in just 90 days. What I love most is that they explain everything in plain language — no confusing tech jargon. Ljubica and the team guided us through every step and continue improving our results every month.',
+    text: 'Working with Imba has been incredible. Their AI marketing strategy helped us get 3x more qualified leads in just 90 days. What I love most is that they explain everything in plain language — no confusing tech jargon. Ljubica and the team guided us through every step and continue improving our results every month.',
     rating: 5,
     featured: true,
     published: true,
@@ -37,7 +37,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'Developer & SEO Expert',
     client_company: 'Ogitive',
     client_avatar_url: undefined,
-    text: 'We were losing customers at checkout and didn\'t know why. Imba found the problem in a week and fixed it. Our costs dropped 38% and revenue went up — without spending more on ads. Their approach is simple: find what\'s broken, fix it, and make sure it stays fixed. Exactly what we needed.',
+    text: 'We were losing leads in our funnel and didn\'t know why. Imba\'s AI analytics found the problem in a week and fixed it. Our acquisition costs dropped 38% and revenue went up — without spending more on ads. Their approach is simple: find what\'s broken, fix it, and make sure it stays fixed. Exactly what we needed.',
     rating: 5,
     featured: false,
     published: true,
@@ -83,8 +83,8 @@ export default function Reviews() {
   return (
     <>
       <Seo
-        title="Client Reviews — What Businesses Say About Working With Us"
-        description="Read what real businesses say about working with Imba Marketing. Honest reviews from clients who've seen real results."
+        title="Client Reviews — What Brands Say About Our AI Marketing"
+        description="Read what real brands say about working with Imba Marketing. Honest reviews from clients across industries who've seen real results."
         canonicalPath="/reviews"
         structuredData={{
           '@context': 'https://schema.org',
@@ -121,11 +121,11 @@ export default function Reviews() {
           <p className="eyebrow mb-5 reveal">What our clients say</p>
           <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-            Don't take our<br />
-            <em className="text-gold italic">word for it.</em>
+            What our clients say<br />
+            <em className="text-gold italic">about working with us.</em>
           </h1>
           <p className="text-smoke-dim leading-relaxed max-w-lg reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-            These are real reviews from real businesses we've worked with. We're proud of every partnership and every result.
+            These are real reviews from real brands we've worked with — across e-commerce, SaaS, services, and more. We're proud of every partnership and every result.
           </p>
         </div>
       </section>

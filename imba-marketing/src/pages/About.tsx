@@ -6,7 +6,7 @@ const TEAM = [
   {
     name: 'Ljubica Jevremovic',
     role: 'Partner & Creative Director',
-    bio: 'Ljubica has helped dozens of brands — from Silicon Valley startups to global e-commerce leaders — create marketing that actually connects with people and drives real sales. She makes sure every campaign is not just creative, but profitable.',
+    bio: 'Ljubica has helped dozens of brands — from SaaS startups to global consumer brands — build AI-powered marketing that actually connects with people and drives real growth. She makes sure every campaign is not just creative, but profitable.',
     initials: 'LJ',
     color: '#C9A96E',
     image: '/team/ljubica.jpg',
@@ -16,7 +16,7 @@ const TEAM = [
   {
     name: 'Marko Tiosavljevic',
     role: 'Partner & Marketing Strategist',
-    bio: '20+ years helping businesses grow. Marko designs the marketing strategies that consistently turn ad spend into revenue — making sure every client\'s growth plan is built for long-term, compounding results.',
+    bio: '20+ years helping businesses grow across e-commerce, SaaS, and professional services. Marko designs AI marketing strategies that consistently turn ad spend into revenue — making sure every client\'s growth plan is built for long-term, compounding results.',
     initials: 'MT',
     color: '#E8452A',
     image: '/team/marko.jpg',
@@ -49,10 +49,10 @@ const VALUES = [
 ]
 
 const STATS = [
-  { num: '8', sup: '+', label: 'Years helping businesses grow' },
-  { num: '200', sup: '+', label: 'Successful projects' },
+  { num: '8', sup: '+', label: 'Years in AI marketing' },
+  { num: '200', sup: '+', label: 'Campaigns delivered' },
   { num: '40', sup: '%', label: 'Average cost savings' },
-  { num: '98', sup: '%', label: 'Clients stay with us' },
+  { num: '98', sup: '%', label: 'Client retention rate' },
 ]
 
 const CLIENTS = [
@@ -92,8 +92,8 @@ export default function About() {
   return (
     <>
       <Seo
-        title="About Imba Marketing — We Help Businesses Grow Faster"
-        description="Since 2016, we've helped 200+ businesses get more customers and grow revenue with AI-powered marketing. No jargon, just results."
+        title="About Imba Marketing — AI-Powered Marketing Agency"
+        description="Since 2016, we've helped 200+ brands get more customers and grow revenue with AI-powered marketing. No jargon, just results."
         canonicalPath="/about"
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
@@ -111,12 +111,12 @@ export default function About() {
             <div>
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
-                We help businesses<br />
-                <em className="text-gold italic">grow faster</em><br />
-                with AI marketing
+                An AI marketing agency<br />
+                <em className="text-gold italic">built for ambitious</em><br />
+                brands
               </h1>
               <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
-                Since 2016, we've helped over 200 businesses get more customers, lower their marketing costs, and free up their time. We use AI to do the heavy lifting — and we explain everything in plain language so you always know what's happening and why.
+                Since 2016, we've helped over 200 brands — from e-commerce and SaaS to professional services and DTC — get more customers, lower their marketing costs, and free up their time. We use AI to do the heavy lifting across every channel and industry.
               </p>
               <div className="flex gap-4 reveal reveal-delay-3">
                 <Link to="/results" className="btn btn-primary">See our client results</Link>
@@ -171,9 +171,9 @@ export default function About() {
               We make your marketing<br /><em className="text-gold italic">work harder for you</em>
             </h2>
             <div className="space-y-5 text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              <p>We're a marketing team that uses AI to get you better results in less time. That means more customers, lower costs, and marketing that keeps improving on its own.</p>
-              <p>We don't just run ads or post content. We build complete marketing systems that work around the clock — finding customers, nurturing leads, and growing your revenue while you focus on your business.</p>
-              <p>From ads and content to personalization and analytics, we cover every part of your marketing. And we explain everything in plain English — no tech jargon, no confusing reports.</p>
+              <p>We're an AI marketing agency that gets brands better results in less time. Whether you're in e-commerce, SaaS, professional services, or DTC, our AI systems deliver more customers, lower costs, and marketing that keeps improving on its own.</p>
+              <p>We don't just run ads or post content. We build complete AI marketing systems that work around the clock — finding customers, nurturing leads, and growing your revenue while you focus on your business.</p>
+              <p>From performance ads and content to personalization and predictive analytics, we cover every part of your marketing. And we explain everything in plain English — no tech jargon, no confusing reports.</p>
             </div>
           </div>
 
@@ -182,11 +182,11 @@ export default function About() {
             <p className="font-mono-custom text-[0.65rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">How we help</p>
             <div className="grid grid-cols-2 gap-x-4">
               {[
-                'Grow revenue on autopilot', 'Better-performing ads',
-                'Personalized customer experiences', 'Content at scale',
-                'Market & customer insights', 'Higher conversion rates',
-                'Competitor analysis', 'Email marketing',
-                'Social media management', 'SEO & search visibility',
+                'AI growth marketing', 'AI performance ads',
+                'AI personalization', 'AI content production',
+                'AI analytics & intelligence', 'AI conversion optimization',
+                'E-commerce & DTC marketing', 'SaaS & lead generation',
+                'Email & lifecycle marketing', 'SEO & search visibility',
                 'Landing page optimization', 'White label for agencies',
               ].map(s => (
                 <div key={s} className="flex items-center gap-2 py-2.5 border-b border-white/5">

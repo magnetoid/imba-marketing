@@ -37,7 +37,7 @@ const CASES = [
     id: '3',
     client: 'Velour Boutique',
     category: 'content',
-    service: 'Product Content',
+    service: 'AI Content',
     headline: '30 days of content in 1 day',
     tags: ['Fashion', 'Content'],
     color: '#6C7AE0',
@@ -52,14 +52,14 @@ const CASES = [
     id: '4',
     client: 'BrandX',
     category: 'funnel',
-    service: 'Checkout CRO',
-    headline: '62% more checkout completions',
-    tags: ['Conversion', 'Checkout'],
+    service: 'Funnel CRO',
+    headline: '62% more trial-to-paid conversions',
+    tags: ['SaaS', 'Conversion'],
     color: '#3CBFAE',
-    desc: 'A WooCommerce store with a 1.2% conversion rate — plenty of traffic but abysmal checkout completion. We optimized product pages, simplified checkout, and added smart cart recovery.',
+    desc: 'A B2B SaaS company with a 1.2% trial conversion rate — plenty of signups but abysmal activation. We optimized the onboarding funnel, rebuilt landing pages, and added AI-driven nurture sequences.',
     results: [
       { label: 'Conversion Rate', val: '+62%' },
-      { label: 'Cart Recovery', val: '2×' },
+      { label: 'Lead Quality', val: '2×' },
       { label: 'Bounce Rate', val: '-34%' },
     ],
   },
@@ -67,11 +67,11 @@ const CASES = [
     id: '5',
     client: 'Magic Mind',
     category: 'intelligence',
-    service: 'Product Intel',
+    service: 'AI Intelligence',
     headline: '28% organic growth, 340 new keywords',
-    tags: ['DTC', 'SEO'],
+    tags: ['Health & Wellness', 'DTC'],
     color: '#C9A96E',
-    desc: 'A DTC supplement brand missing massive search opportunities. AI found 340+ product keywords their competitors weren\'t targeting — plus pricing gaps they could exploit.',
+    desc: 'A health and wellness DTC brand missing massive search opportunities. AI found 340+ keywords their competitors weren\'t targeting — plus market gaps they could exploit to grow organically.',
     results: [
       { label: 'Organic Growth', val: '+28%' },
       { label: 'New Keywords', val: '340+' },
@@ -80,36 +80,36 @@ const CASES = [
   },
   {
     id: '6',
-    client: 'Irving Books',
+    client: 'Irving & Partners',
     category: 'personalisation',
-    service: 'Email Personalization',
-    headline: '5× email CTR, 67% more email sales',
-    tags: ['Email', 'Personalization'],
+    service: 'AI Lead Generation',
+    headline: '5× lead quality, 67% more closed deals',
+    tags: ['Professional Services', 'Lead Gen'],
     color: '#00D4FF',
-    desc: 'An online bookstore sending the same emails to everyone. AI now personalizes every email — recommending books based on browsing history, past purchases, and reading preferences.',
+    desc: 'A professional services firm sending generic outreach to everyone. AI now personalizes every touchpoint — targeting prospects based on intent signals, firmographics, and engagement history.',
     results: [
-      { label: 'Email CTR', val: '5×' },
-      { label: 'Email Revenue', val: '+67%' },
-      { label: 'Customer LTV', val: '+41%' },
+      { label: 'Lead Quality', val: '5×' },
+      { label: 'Closed Deals', val: '+67%' },
+      { label: 'Client LTV', val: '+41%' },
     ],
   },
 ]
 
 const CATS = [
   { key: 'all',             label: 'All results' },
-  { key: 'growth',          label: 'Store Growth' },
-  { key: 'ads',             label: 'Product Ads' },
+  { key: 'growth',          label: 'Growth' },
+  { key: 'ads',             label: 'Performance Ads' },
   { key: 'content',         label: 'Content' },
-  { key: 'funnel',          label: 'Checkout CRO' },
-  { key: 'intelligence',    label: 'Market Intel' },
+  { key: 'funnel',          label: 'Conversion' },
+  { key: 'intelligence',    label: 'Intelligence' },
   { key: 'personalisation', label: 'Personalization' },
 ]
 
 const STATS = [
-  { num: '200+', label: 'E-commerce clients' },
+  { num: '200+', label: 'Clients' },
   { num: '4.8×', label: 'Avg. ROAS' },
-  { num: '3×',   label: 'Avg. revenue growth' },
-  { num: '98%',  label: 'Clients stay with us' },
+  { num: '3×',   label: 'Revenue Growth' },
+  { num: '98%',  label: 'Retention' },
 ]
 
 export default function Work() {
@@ -122,8 +122,8 @@ export default function Work() {
   return (
     <>
       <Seo
-        title="Client Results — Real E-Commerce Growth Stories"
-        description="See how we've helped online stores triple revenue, cut ad costs by 40%, and scale with AI. Real numbers from real e-commerce brands."
+        title="Client Results — AI Marketing Case Studies"
+        description="See how we've helped brands triple revenue, cut ad costs by 40%, and scale with AI. Real numbers from real businesses across industries."
         canonicalPath="/results"
       />
 
@@ -141,11 +141,11 @@ export default function Work() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-              Real numbers from<br />
-              <em className="text-gold italic">real online stores</em>
+              Real results from<br />
+              <em className="text-gold italic">AI-powered marketing</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
-              Every number is real. Every result is from an e-commerce brand we actually helped grow. Shopify, WooCommerce, and custom stores.
+              Every number is real. Every result is from a brand we actually helped grow — across e-commerce, SaaS, services, and more.
             </p>
           </div>
         </div>

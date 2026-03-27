@@ -3,13 +3,13 @@ import { supabase } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 
 const SERVICES = [
-  'Grow my revenue on autopilot',
-  'Get more from my ad spend',
-  'Personalize my customer experience',
-  'Create content faster',
-  'Understand my market better',
-  'Turn more visitors into buyers',
-  'Full marketing solution',
+  'AI Growth Marketing',
+  'AI Performance Ads',
+  'AI Personalization',
+  'AI Content Production',
+  'AI Analytics & Intelligence',
+  'AI Conversion Optimization',
+  'Full AI Marketing Stack',
   'Not sure yet — help me decide',
 ]
 
@@ -36,7 +36,7 @@ const FAQ = [
   },
   {
     q: 'Will this work with the tools I already use?',
-    a: 'Yes — we work with all the popular tools: Google Ads, Meta, HubSpot, Salesforce, Mailchimp, Shopify, and many more. We build on what you have, not replace it.',
+    a: 'Yes — we integrate with all major platforms: Google Ads, Meta, HubSpot, Salesforce, Mailchimp, Shopify, WooCommerce, and many more. Whether you\'re in e-commerce, SaaS, or services, we build on what you have, not replace it.',
   },
 ]
 
@@ -74,8 +74,8 @@ export default function Contact() {
   return (
     <>
       <Seo
-        title="Get in Touch — Let's Grow Your Business"
-        description="Tell us about your business goals and we'll create a free growth plan showing exactly how we'd help. No commitment, no pressure."
+        title="Contact — Let's Build Your AI Marketing Strategy"
+        description="Tell us about your marketing goals and we'll create a free AI marketing strategy showing exactly how we'd help. No commitment, no pressure."
         canonicalPath="/contact"
       />
 
@@ -89,12 +89,12 @@ export default function Contact() {
           <p className="eyebrow mb-6 reveal">Let's talk</p>
           <h1 className="font-display font-light leading-none mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-            Tell us about<br />
-            <em className="text-gold italic">your business.</em>
+            Let's talk about<br />
+            <em className="text-gold italic">your marketing goals.</em>
           </h1>
           <p className="text-smoke-dim text-lg max-w-xl reveal reveal-delay-2"
             style={{ fontWeight: 300 }}>
-            No sales pitch, no pressure. Just tell us what you're trying to achieve and we'll come back with a free plan showing exactly how we'd help you get there.
+            No sales pitch, no pressure. Tell us what you're trying to achieve and we'll come back with a free AI marketing strategy showing exactly how we'd help you get there.
           </p>
         </div>
       </section>

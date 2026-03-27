@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const SERVICES = [
-  'Grow Revenue on Autopilot',
-  'Get More from Every Ad Dollar',
-  'Make Customers Feel Special',
-  'Content Creation at Scale',
-  'Know What Customers Want',
-  'Turn Visitors into Buyers',
+  'AI Growth Marketing',
+  'AI Performance Ads',
+  'AI Personalization',
+  'AI Content Production',
+  'AI Analytics & Intelligence',
+  'AI Conversion Optimization',
 ]
 const COMPANY = [
   { label: 'About Us', to: '/about' },
@@ -32,10 +32,10 @@ export default function Footer() {
       {/* Top strip */}
       <div className="border-b border-white/5 px-6 lg:px-12 py-6 flex items-center justify-between">
         <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] text-smoke-faint uppercase">
-          Helping businesses grow faster with AI marketing
+          AI-Powered Marketing Agency — Smarter Campaigns, Real Results
         </p>
         <button onClick={() => openModal()} className="btn btn-primary text-[0.65rem]">
-          Get your free growth plan →
+          Book a Strategy Call →
         </button>
       </div>
 
@@ -47,7 +47,7 @@ export default function Footer() {
             imba<span className="text-ember italic">.</span>marketing
           </div>
           <p className="text-sm text-smoke-dim leading-relaxed max-w-xs mb-6">
-            We help businesses get more customers, lower marketing costs, and grow faster — using AI that actually works.
+            AI-powered marketing agency for ambitious brands. We build intelligent campaigns that drive revenue, lower costs, and scale faster than traditional marketing.
           </p>
           <div className="flex gap-2">
             {SOCIAL.map(({ label, href }) => (

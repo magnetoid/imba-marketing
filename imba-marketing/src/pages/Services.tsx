@@ -5,21 +5,21 @@ const SERVICES = [
   {
     key: 'growth', slug: 'growth',
     icon: '◈',
-    label: 'Grow Your Store on Autopilot',
-    tagline: 'Your e-commerce marketing runs itself — and gets better daily',
-    desc: 'AI manages your entire e-commerce marketing stack. Product campaigns improve on their own, email flows nurture customers automatically, and your Shopify revenue grows — without adding headcount.',
-    features: ['Automated product campaigns', 'Smart email flows', 'Budget optimization', 'Revenue attribution'],
+    label: 'AI Growth Marketing',
+    tagline: 'Automated campaigns that get smarter every day',
+    desc: 'AI drives your entire marketing engine — automating lead generation, nurturing sequences, and revenue optimization across every channel. Campaigns learn and improve continuously, so your growth compounds without adding headcount.',
+    features: ['Marketing automation', 'Lead generation & nurturing', 'Revenue optimization', 'Multi-channel orchestration'],
     stat: '3×',
-    statLabel: 'average store revenue growth in year one',
+    statLabel: 'average revenue growth in year one',
     color: '#E8452A',
   },
   {
     key: 'ads', slug: 'ads',
     icon: '▣',
-    label: 'Get More from Every Ad Dollar',
-    tagline: 'AI-powered product ads that actually convert',
-    desc: 'AI manages your product ads across Google Shopping, Meta, TikTok, and more — automatically testing creative, optimizing bids, and scaling what sells best across your catalog.',
-    features: ['Google Shopping & Meta ads', 'Dynamic product creative', 'Automated bid management', 'Cross-platform ROAS tracking'],
+    label: 'AI Performance Ads',
+    tagline: 'Every ad dollar optimized by AI in real-time',
+    desc: 'AI manages your paid media across Google, Meta, TikTok, and LinkedIn — automatically testing creative, optimizing bids, and reallocating budget to what converts best, in real-time.',
+    features: ['Google, Meta, TikTok & LinkedIn ads', 'Real-time ROAS optimization', 'AI creative testing', 'Cross-platform budget allocation'],
     stat: '300%',
     statLabel: 'better return on ad spend',
     color: '#C9A96E',
@@ -27,10 +27,10 @@ const SERVICES = [
   {
     key: 'personalisation', slug: 'personalisation',
     icon: '◉',
-    label: 'Personalize Every Shopping Experience',
-    tagline: 'Show each shopper products they actually want',
-    desc: 'AI personalizes your entire customer journey — product recommendations, email content, on-site experience, and retargeting ads — so every shopper sees what\'s most relevant to them.',
-    features: ['Smart product recommendations', 'Personalized email campaigns', 'Dynamic website content', 'Cart recovery optimization'],
+    label: 'AI Personalization',
+    tagline: 'Right message, right person, right moment',
+    desc: 'AI personalizes every touchpoint in the customer journey — dynamic content, behavioral targeting, email sequences, and on-site experiences — so every visitor gets messaging that resonates.',
+    features: ['Dynamic content personalization', 'Behavioral targeting', 'Customer journey mapping', 'Email personalization'],
     stat: '5×',
     statLabel: 'higher engagement than generic messaging',
     color: '#00D4FF',
@@ -38,10 +38,10 @@ const SERVICES = [
   {
     key: 'content', slug: 'content',
     icon: '▶',
-    label: 'Product Content at Scale',
-    tagline: 'Product descriptions, social posts, ads — all AI-created',
-    desc: 'AI creates product descriptions, collection pages, social posts, email campaigns, and ad creatives that match your brand voice — a full month of e-commerce content in a single day.',
-    features: ['Product descriptions', 'Social media content', 'Email campaigns', 'Ad creative generation'],
+    label: 'AI Content Production',
+    tagline: 'Brand content at scale, zero bottlenecks',
+    desc: 'AI produces social posts, email campaigns, ad creatives, blog articles, and product descriptions — all in your brand voice. A full month of content in a single day, with no creative bottlenecks.',
+    features: ['Social media content', 'Email & ad copy', 'Blog articles & SEO content', 'Product descriptions'],
     stat: '30×',
     statLabel: 'more content than doing it manually',
     color: '#6C7AE0',
@@ -49,23 +49,23 @@ const SERVICES = [
   {
     key: 'intelligence', slug: 'intelligence',
     icon: '◬',
-    label: 'Know What Shoppers Want',
-    tagline: 'Competitor pricing, trending products, customer insights',
-    desc: 'AI tracks competitor pricing, trending products, and customer search behavior — giving you the data to stock the right products, price competitively, and target the right shoppers.',
-    features: ['Competitor price tracking', 'Product trend analysis', 'Customer search insights', 'Keyword opportunity mapping'],
+    label: 'AI Analytics & Intelligence',
+    tagline: 'Data-driven decisions, not guesswork',
+    desc: 'AI continuously monitors your market — tracking competitors, analyzing customer behavior, identifying emerging trends, and surfacing the insights that actually move the needle for your business.',
+    features: ['Market & competitor research', 'Customer behavior insights', 'Trend prediction', 'Performance dashboards'],
     stat: '28%',
-    statLabel: 'average organic growth from new opportunities',
+    statLabel: 'average growth from new opportunities discovered',
     color: '#3CBFAE',
   },
   {
     key: 'funnel', slug: 'funnel',
     icon: '◫',
-    label: 'Turn Browsers into Buyers',
-    tagline: 'Same traffic, more orders — better checkout, smarter recovery',
-    desc: 'AI finds where shoppers abandon your store and fixes it. Better product pages, smoother checkout, smarter cart recovery emails — more of your existing visitors complete their purchase.',
-    features: ['Cart abandonment recovery', 'Checkout optimization', 'Product page testing', 'Exit-intent campaigns'],
+    label: 'AI Conversion Optimization',
+    tagline: 'Turn more visitors into customers',
+    desc: 'AI analyzes your entire funnel to find where prospects drop off — then fixes it. Smarter landing pages, faster A/B testing, checkout improvements, and behavioral triggers that recover lost conversions.',
+    features: ['Funnel analysis & diagnostics', 'AI-powered A/B testing', 'Landing page optimization', 'Checkout & form improvement'],
     stat: '62%',
-    statLabel: 'more shoppers complete checkout',
+    statLabel: 'more visitors convert to customers',
     color: '#E87A2A',
   },
 ]
@@ -81,8 +81,8 @@ export default function Services() {
   return (
     <>
       <Seo
-        title="What We Do — AI Marketing for E-Commerce Brands"
-        description="Six AI-powered services that grow your online store: product ads, personalized shopping, content at scale, checkout optimization. Plans from $2,900/mo."
+        title="AI Marketing Services — Smarter Campaigns That Drive Real Revenue"
+        description="Six AI-powered marketing services for ambitious brands: growth marketing, performance ads, personalization, content production, analytics, and conversion optimization. Plans from $2,900/mo."
         canonicalPath="/services"
         structuredData={{
           '@context': 'https://schema.org',
@@ -90,12 +90,12 @@ export default function Services() {
           'name': 'Imba Marketing Services',
           'url': 'https://imbamarketing.com/services',
           'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Grow Your Revenue on Autopilot', 'url': 'https://imbamarketing.com/services/growth' },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Get More from Every Ad Dollar', 'url': 'https://imbamarketing.com/services/ads' },
-            { '@type': 'ListItem', 'position': 3, 'name': 'Make Every Customer Feel Special', 'url': 'https://imbamarketing.com/services/personalisation' },
-            { '@type': 'ListItem', 'position': 4, 'name': 'A Month of Content in One Day', 'url': 'https://imbamarketing.com/services/content' },
-            { '@type': 'ListItem', 'position': 5, 'name': 'Know What Your Customers Want', 'url': 'https://imbamarketing.com/services/intelligence' },
-            { '@type': 'ListItem', 'position': 6, 'name': 'Turn More Visitors into Buyers', 'url': 'https://imbamarketing.com/services/funnel' },
+            { '@type': 'ListItem', 'position': 1, 'name': 'AI Growth Marketing', 'url': 'https://imbamarketing.com/services/growth' },
+            { '@type': 'ListItem', 'position': 2, 'name': 'AI Performance Ads', 'url': 'https://imbamarketing.com/services/ads' },
+            { '@type': 'ListItem', 'position': 3, 'name': 'AI Personalization', 'url': 'https://imbamarketing.com/services/personalisation' },
+            { '@type': 'ListItem', 'position': 4, 'name': 'AI Content Production', 'url': 'https://imbamarketing.com/services/content' },
+            { '@type': 'ListItem', 'position': 5, 'name': 'AI Analytics & Intelligence', 'url': 'https://imbamarketing.com/services/intelligence' },
+            { '@type': 'ListItem', 'position': 6, 'name': 'AI Conversion Optimization', 'url': 'https://imbamarketing.com/services/funnel' },
           ],
         }}
       />
@@ -110,24 +110,24 @@ export default function Services() {
           style={{ background: 'radial-gradient(ellipse 60% 60% at 100% 100%, rgba(0,212,255,0.05) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">AI for e-commerce</p>
+          <p className="eyebrow mb-5 reveal">AI marketing agency</p>
           <div className="grid lg:grid-cols-2 gap-12 items-end">
             <div>
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-                Six ways AI grows<br />
-                <em className="text-gold italic">your online store.</em>
+                AI marketing services that<br />
+                <em className="text-gold italic">drive real revenue.</em>
               </h1>
               <p className="text-smoke-dim leading-relaxed max-w-md reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-                Each service solves a specific e-commerce challenge: more sales, better ads, product content at scale, or smoother checkout. Pick what you need, or get everything in one plan.
+                Six AI-powered services that cover every angle of modern marketing — from lead generation and paid media to content production and conversion optimization. Pick what you need, or get everything in one plan.
               </p>
             </div>
             <div className="hidden lg:flex flex-col gap-3 reveal reveal-delay-2">
               <div className="bg-ink-2 border border-white/5 p-6">
-                <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-3">What e-commerce clients typically see</p>
+                <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-3">What our clients typically see</p>
                 {[
-                  { stat: '3×', label: 'store revenue growth in year one' },
-                  { stat: '4.8×', label: 'average ROAS on product ads' },
+                  { stat: '3×', label: 'average revenue growth in year one' },
+                  { stat: '4.8×', label: 'return on ad spend across platforms' },
                   { stat: '48h', label: 'until you see first improvements' },
                 ].map(({ stat, label }) => (
                   <div key={stat} className="flex items-center gap-4 py-2.5 border-b border-white/5 last:border-0">
@@ -226,10 +226,10 @@ export default function Services() {
             <div className="glass-card p-8">
               <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">Why clients choose us</p>
               {[
-                { title: 'It keeps working while you sleep', desc: "Your marketing doesn't stop when you close your laptop. Our systems run 24/7, getting you more customers and better results around the clock." },
-                { title: 'Every dollar tied to results', desc: "We don't do fluffy marketing. Everything we build is measured by what matters: more revenue, more customers, lower costs. Period." },
-                { title: 'No jargon, no confusion', desc: "We explain everything in plain language. You'll always know what we're doing, why we're doing it, and what results to expect." },
-                { title: 'Based in the US, serving worldwide', desc: 'Headquartered in Delaware, with a team in Serbia. We work with businesses globally and deliver first results within 48 hours.' },
+                { title: 'AI that actually works, 24/7', desc: "Your campaigns learn and optimize around the clock — not just during business hours. Our AI systems compound results while you focus on running your business." },
+                { title: 'Every dollar tied to revenue', desc: "No vanity metrics. Every campaign we run is measured by what matters: revenue generated, cost per acquisition, and return on ad spend." },
+                { title: 'Transparent, no black boxes', desc: "You see exactly what our AI is doing and why. Clear dashboards, plain-language reporting, and a team that explains the strategy behind every decision." },
+                { title: 'US-based, serving brands worldwide', desc: 'Headquartered in Delaware, with an engineering team in Serbia. We work with ambitious brands globally and deliver first results within 48 hours.' },
               ].map(({ title, desc }, i) => (
                 <div key={title}
                   className="flex gap-4 py-5 border-b border-white/5 last:border-0"
@@ -268,7 +268,7 @@ export default function Services() {
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Not sure where to start?<br /><em>We'll help you figure it out.</em>
+              Not sure where to start?<br /><em>Let's build your AI marketing strategy.</em>
             </h2>
             <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
               Free strategy call · No pressure · Plans from $2,900/mo.
@@ -277,7 +277,7 @@ export default function Services() {
           <Link to="/contact"
             className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4"
             style={{ background: '#0A0A0B', color: '#F5F4F0' }}>
-            Get your free growth plan
+            Book a Strategy Call
           </Link>
         </div>
       </section>

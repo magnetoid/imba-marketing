@@ -7,56 +7,56 @@ const PLANS = [
     name: 'Starter',
     price: '$2,900',
     period: '/mo',
-    tagline: 'Perfect for growing e-commerce stores ready to scale with AI',
+    tagline: 'For growing brands ready to scale with AI marketing',
     color: '#3CBFAE',
     popular: false,
     features: [
-      'AI-powered ad management (1 platform)',
-      'Smart product feed optimization',
-      'Automated email flows (welcome, cart, post-purchase)',
+      'AI ad management (1 platform)',
+      'Marketing automation setup',
+      'AI email campaigns (welcome, nurture, re-engagement)',
       'AI content creation (12 posts/mo)',
       'Monthly performance report',
       'Conversion tracking setup',
       'Dedicated account manager',
       'Cancel anytime',
     ],
-    ideal: 'Stores doing $10K–$50K/mo in revenue',
+    ideal: 'Brands spending $5K–$20K/mo on marketing',
     cta: 'Start growing',
   },
   {
     name: 'Growth',
     price: '$5,900',
     period: '/mo',
-    tagline: 'For e-commerce brands ready to dominate their market with AI',
+    tagline: 'For ambitious brands ready to dominate with AI',
     color: '#E8452A',
     popular: true,
     features: [
       'Everything in Starter, plus:',
       'AI ad management (all platforms)',
-      'Dynamic product retargeting',
+      'Dynamic retargeting campaigns',
       'AI personalization (emails + website)',
       'AI content engine (60+ posts/mo)',
       'Competitor & market intelligence',
       'Funnel optimization & A/B testing',
       'Weekly strategy calls',
       'Landing page optimization',
-      'Customer segmentation & targeting',
+      'Audience segmentation & targeting',
     ],
-    ideal: 'Stores doing $50K–$500K/mo in revenue',
+    ideal: 'Brands spending $20K–$75K/mo on marketing',
     cta: 'Scale faster',
   },
   {
     name: 'Enterprise',
     price: '$12,900',
     period: '/mo',
-    tagline: 'Full AI marketing department for high-growth e-commerce brands',
+    tagline: 'Full AI marketing department for high-growth brands',
     color: '#C9A96E',
     popular: false,
     features: [
       'Everything in Growth, plus:',
       'Custom AI models trained on your data',
-      'Predictive inventory & demand signals',
-      'Multi-store / multi-market management',
+      'Predictive analytics & demand forecasting',
+      'Multi-brand / multi-market management',
       'Advanced customer lifetime value optimization',
       'AI-powered loyalty & retention programs',
       'White-glove onboarding & migration',
@@ -64,7 +64,7 @@ const PLANS = [
       'Quarterly business reviews',
       'Custom integrations & API access',
     ],
-    ideal: 'Stores doing $500K+/mo in revenue',
+    ideal: 'Brands spending $75K+/mo on marketing',
     cta: 'Talk to us',
   },
 ]
@@ -73,7 +73,7 @@ const ADDONS = [
   { name: 'AI Video Ads', price: '$990/mo', desc: 'AI-generated product video ads for TikTok, Reels, and YouTube Shorts' },
   { name: 'Influencer AI Matching', price: '$790/mo', desc: 'AI finds and scores the best influencers for your brand and products' },
   { name: 'International Expansion', price: '$1,490/mo', desc: 'Localized ads, content, and campaigns for new markets' },
-  { name: 'AI Chatbot & Support', price: '$690/mo', desc: 'AI-powered customer service bot trained on your products and policies' },
+  { name: 'AI Chatbot & Support', price: '$690/mo', desc: 'AI-powered customer service bot trained on your brand, services, and knowledge base' },
 ]
 
 const FAQ = [
@@ -94,12 +94,12 @@ const FAQ = [
     a: 'Most clients see first improvements within 48 hours. Significant revenue impact typically shows within 2–4 weeks of full deployment.',
   },
   {
-    q: 'Do you work with Shopify / WooCommerce / other platforms?',
-    a: 'Yes — we work with Shopify, Shopify Plus, WooCommerce, BigCommerce, Magento, and custom platforms. If you sell online, we can help.',
+    q: 'What platforms do you integrate with?',
+    a: 'We integrate with all major platforms — HubSpot, Salesforce, Google Ads, Meta, Mailchimp, Shopify, WooCommerce, and many more. Whether you\'re in e-commerce, SaaS, or services, we build on the tools you already use.',
   },
   {
     q: 'What\'s included in the onboarding?',
-    a: 'Full audit of your store, ad accounts, and marketing stack. We set up tracking, connect your tools, train the AI on your products, and launch within 2–4 weeks.',
+    a: 'Full audit of your brand, ad accounts, and marketing stack. We set up tracking, connect your tools, train the AI on your brand, and launch within 2–4 weeks.',
   },
 ]
 
@@ -122,8 +122,8 @@ export default function Pricing() {
   return (
     <>
       <Seo
-        title="Pricing — AI Marketing Plans for E-Commerce Brands"
-        description="Transparent monthly pricing for AI-powered e-commerce marketing. No setup fees, no long-term contracts. Plans from $2,900/mo."
+        title="Pricing — AI Marketing Plans for Growing Brands"
+        description="Transparent monthly pricing for AI-powered marketing. No setup fees, no long-term contracts. Plans from $2,900/mo."
         canonicalPath="/pricing"
       />
 
@@ -144,7 +144,7 @@ export default function Pricing() {
             <em className="text-gold italic">Everything included.</em>
           </h1>
           <p className="text-smoke-dim leading-relaxed max-w-xl mx-auto reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
-            No setup fees. No hidden costs. No long-term contracts. Pick the plan that fits your store, and start seeing results within 48 hours.
+            No setup fees. No hidden costs. No long-term contracts. Pick the plan that fits your brand, and start seeing results within 48 hours.
           </p>
         </div>
       </section>
@@ -300,8 +300,8 @@ export default function Pricing() {
             {[
               { icon: '✓', text: 'Free onboarding & setup' },
               { icon: '✓', text: 'Dedicated account manager' },
-              { icon: '✓', text: 'Shopify / WooCommerce integration' },
-              { icon: '✓', text: 'AI trained on your products' },
+              { icon: '✓', text: 'CRM & platform integrations' },
+              { icon: '✓', text: 'AI trained on your brand' },
               { icon: '✓', text: 'Real-time performance dashboard' },
               { icon: '✓', text: 'Cancel anytime — no contracts' },
               { icon: '✓', text: 'Monthly ROI reporting' },
@@ -359,7 +359,7 @@ export default function Pricing() {
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-              Ready to grow your store?<br /><em>Let's talk.</em>
+              Ready to transform your marketing?<br /><em>Let's talk.</em>
             </h2>
             <p className="text-ink/60 mt-4" style={{ fontSize: '0.95rem' }}>
               Free strategy call · No commitment · See results in 48 hours.

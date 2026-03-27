@@ -4,11 +4,11 @@ import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const LINKS = [
-  { to: '/services', label: 'What We Do' },
+  { to: '/services', label: 'Services' },
   { to: '/pricing', label: 'Pricing' },
-  { to: '/results', label: 'Client Results' },
+  { to: '/results', label: 'Results' },
   { to: '/reviews', label: 'Reviews' },
-  { to: '/about', label: 'About Us' },
+  { to: '/about', label: 'About' },
   { to: '/blog', label: 'Blog' },
 ]
 
@@ -72,7 +72,7 @@ export default function Nav() {
             </div>
             <LanguageSwitcher />
             <button onClick={() => openModal()} className="btn btn-primary text-[0.65rem]">
-              Free growth plan
+              Book a Call
             </button>
           </div>
 
