@@ -81,10 +81,6 @@ export default function Contact() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }} />
         <div className="max-w-screen-xl mx-auto relative z-10">
           <p className="eyebrow mb-6 reveal">Let's talk</p>
           <h1 className="font-display font-light leading-none mb-6 reveal reveal-delay-1"

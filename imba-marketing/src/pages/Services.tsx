@@ -102,10 +102,6 @@ export default function Services() {
 
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 section-gradient-cyber relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }} />
         <div className="absolute bottom-0 right-0 w-[50vw] h-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 60% at 100% 100%, rgba(0,212,255,0.05) 0%, transparent 65%)' }}
         />

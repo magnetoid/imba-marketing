@@ -98,10 +98,6 @@ export default function About() {
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }} />
         <div className="absolute top-0 left-0 w-[50vw] h-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgba(201,169,110,0.06) 0%, transparent 65%)' }}
         />

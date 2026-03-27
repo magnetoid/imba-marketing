@@ -129,10 +129,6 @@ export default function Work() {
 
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px',
-        }} />
         <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(232,69,42,0.06) 0%, transparent 65%)' }}
         />
