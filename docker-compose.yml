@@ -1,7 +1,7 @@
 version: "3.9"
 
 # ─────────────────────────────────────────────────────────────
-#  Imba Production — Full Stack
+#  Imba Marketing — Full Stack
 #  Services:
 #    · imba-web       → Vite/React app (nginx)
 #    · redis          → Session cache / rate limiting
@@ -36,7 +36,7 @@ services:
   # ── Frontend app ──────────────────────────────────────────
   imba-web:
     build:
-      context: ./imba-production
+      context: ./imba-marketing
       dockerfile: Dockerfile
       args:
         VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
@@ -64,11 +64,11 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP → HTTPS redirect
-      - "traefik.http.routers.imba-web-http.rule=Host(`${APP_DOMAIN:-imbaproduction.com}`)"
+      - "traefik.http.routers.imba-web-http.rule=Host(`${APP_DOMAIN:-imbamarketing.com}`)"
       - "traefik.http.routers.imba-web-http.entrypoints=web"
       - "traefik.http.routers.imba-web-http.middlewares=redirect-https"
       # HTTPS
-      - "traefik.http.routers.imba-web.rule=Host(`${APP_DOMAIN:-imbaproduction.com}`)"
+      - "traefik.http.routers.imba-web.rule=Host(`${APP_DOMAIN:-imbamarketing.com}`)"
       - "traefik.http.routers.imba-web.entrypoints=websecure"
       - "traefik.http.routers.imba-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.imba-web.loadbalancer.server.port=80"
@@ -117,12 +117,12 @@ services:
     networks:
       - imba-net
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-imba_production}
+      POSTGRES_DB: ${POSTGRES_DB:-imba_marketing}
       POSTGRES_USER: ${POSTGRES_USER:-supabase}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_postgres}
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-supabase} -d ${POSTGRES_DB:-imba_production}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-supabase} -d ${POSTGRES_DB:-imba_marketing}"]
       interval: 10s
       timeout: 5s
       retries: 30
@@ -141,7 +141,7 @@ services:
     networks:
       - imba-net
     environment:
-      PGRST_DB_URI: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_production}
+      PGRST_DB_URI: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}
       PGRST_DB_SCHEMA: public
       PGRST_DB_ANON_ROLE: anon
       PGRST_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
@@ -168,7 +168,7 @@ services:
       GOTRUE_API_PORT: 9999
       API_EXTERNAL_URL: ${SUPABASE_AUTH_EXTERNAL_URL:-http://localhost:9999}
       GOTRUE_DB_DRIVER: postgres
-      GOTRUE_DB_DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_production}?search_path=auth
+      GOTRUE_DB_DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}?search_path=auth
       GOTRUE_SITE_URL: ${VITE_APP_URL:-http://localhost:3000}
       GOTRUE_URI_ALLOW_LIST: ${GOTRUE_URI_ALLOW_LIST:-}
       GOTRUE_DISABLE_SIGNUP: ${DISABLE_SIGNUP:-false}
@@ -179,12 +179,12 @@ services:
       GOTRUE_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
       GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
       GOTRUE_MAILER_AUTOCONFIRM: ${MAILER_AUTOCONFIRM:-true}
-      GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_ADMIN_EMAIL:-admin@imbaproduction.com}
+      GOTRUE_SMTP_ADMIN_EMAIL: ${SMTP_ADMIN_EMAIL:-admin@imbamarketing.com}
       GOTRUE_SMTP_HOST: ${SMTP_HOST:-smtp.mailgun.org}
       GOTRUE_SMTP_PORT: ${SMTP_PORT:-587}
       GOTRUE_SMTP_USER: ${SMTP_USER:-}
       GOTRUE_SMTP_PASS: ${SMTP_PASS:-}
-      GOTRUE_SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-Imba Production}
+      GOTRUE_SMTP_SENDER_NAME: ${SMTP_SENDER_NAME:-Imba Marketing}
     ports:
       - "127.0.0.1:${AUTH_PORT:-9104}:9999"
     labels:
@@ -209,7 +209,7 @@ services:
       SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-your-service-key}
       POSTGREST_URL: http://supabase-rest:3000
       PGRST_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
-      DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_production}
+      DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}
       FILE_SIZE_LIMIT: 52428800
       STORAGE_BACKEND: file
       FILE_STORAGE_BACKEND_PATH: /var/lib/storage
@@ -252,17 +252,17 @@ services:
     labels:
       - "traefik.enable=true"
       # Route via main domain at /supabase/ path (no subdomain needed)
-      - "traefik.http.routers.supabase-kong.rule=Host(`${APP_DOMAIN:-imbaproduction.com}`) && PathPrefix(`/supabase`)"
+      - "traefik.http.routers.supabase-kong.rule=Host(`${APP_DOMAIN:-imbamarketing.com}`) && PathPrefix(`/supabase`)"
       - "traefik.http.routers.supabase-kong.entrypoints=websecure"
       - "traefik.http.routers.supabase-kong.tls=true"
       - "traefik.http.routers.supabase-kong.middlewares=strip-supabase-prefix"
       - "traefik.http.middlewares.strip-supabase-prefix.stripprefix.prefixes=/supabase"
       - "traefik.http.services.supabase-kong.loadbalancer.server.port=8000"
       # Keep subdomain route as fallback (when SSL is available)
-      - "traefik.http.routers.supabase-kong-sub.rule=Host(`${SUPABASE_DOMAIN:-supabase.imbaproduction.com}`)"
+      - "traefik.http.routers.supabase-kong-sub.rule=Host(`${SUPABASE_DOMAIN:-supabase.imbamarketing.com}`)"
       - "traefik.http.routers.supabase-kong-sub.entrypoints=websecure"
       - "traefik.http.routers.supabase-kong-sub.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.supabase-kong-sub-http.rule=Host(`${SUPABASE_DOMAIN:-supabase.imbaproduction.com}`)"
+      - "traefik.http.routers.supabase-kong-sub-http.rule=Host(`${SUPABASE_DOMAIN:-supabase.imbamarketing.com}`)"
       - "traefik.http.routers.supabase-kong-sub-http.entrypoints=web"
       - "traefik.http.routers.supabase-kong-sub-http.middlewares=redirect-https"
 
@@ -278,8 +278,8 @@ services:
     environment:
       STUDIO_PG_META_URL: http://supabase-meta:8080
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme_postgres}
-      DEFAULT_ORGANIZATION_NAME: ${STUDIO_DEFAULT_ORGANIZATION:-Imba Production}
-      DEFAULT_PROJECT_NAME: ${STUDIO_DEFAULT_PROJECT:-imba-production}
+      DEFAULT_ORGANIZATION_NAME: ${STUDIO_DEFAULT_ORGANIZATION:-Imba Marketing}
+      DEFAULT_PROJECT_NAME: ${STUDIO_DEFAULT_PROJECT:-imba-marketing}
       SUPABASE_URL: http://supabase-kong:8000
       SUPABASE_PUBLIC_URL: ${SUPABASE_PUBLIC_URL:-http://localhost:8000}
       SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-your-anon-key}
@@ -289,11 +289,11 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP → HTTPS (also triggers Let's Encrypt ACME cert issuance)
-      - "traefik.http.routers.supabase-studio-http.rule=Host(`${STUDIO_DOMAIN:-studio.imbaproduction.com}`)"
+      - "traefik.http.routers.supabase-studio-http.rule=Host(`${STUDIO_DOMAIN:-studio.imbamarketing.com}`)"
       - "traefik.http.routers.supabase-studio-http.entrypoints=web"
       - "traefik.http.routers.supabase-studio-http.middlewares=redirect-https"
       # HTTPS + basic auth
-      - "traefik.http.routers.supabase-studio.rule=Host(`${STUDIO_DOMAIN:-studio.imbaproduction.com}`)"
+      - "traefik.http.routers.supabase-studio.rule=Host(`${STUDIO_DOMAIN:-studio.imbamarketing.com}`)"
       - "traefik.http.routers.supabase-studio.entrypoints=websecure"
       - "traefik.http.routers.supabase-studio.tls.certresolver=letsencrypt"
       - "traefik.http.services.supabase-studio.loadbalancer.server.port=3000"
@@ -314,7 +314,7 @@ services:
       PG_META_PORT: 8080
       PG_META_DB_HOST: supabase-db
       PG_META_DB_PORT: 5432
-      PG_META_DB_NAME: ${POSTGRES_DB:-imba_production}
+      PG_META_DB_NAME: ${POSTGRES_DB:-imba_marketing}
       PG_META_DB_USER: ${POSTGRES_USER:-supabase}
       PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD:-changeme_postgres}
     labels:
