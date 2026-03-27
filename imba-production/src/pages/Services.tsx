@@ -5,21 +5,21 @@ const SERVICES = [
   {
     key: 'growth', slug: 'growth',
     icon: '◈',
-    label: 'Grow Your Revenue on Autopilot',
-    tagline: 'Marketing that runs itself — and gets better every day',
-    desc: 'We set up your marketing to run automatically. Your campaigns improve on their own, your best leads get found faster, and your revenue grows — without you having to lift a finger.',
-    features: ['Automated campaigns', 'Smarter lead finding', 'Budget optimization', 'Revenue tracking'],
+    label: 'Grow Your Store on Autopilot',
+    tagline: 'Your e-commerce marketing runs itself — and gets better daily',
+    desc: 'AI manages your entire e-commerce marketing stack. Product campaigns improve on their own, email flows nurture customers automatically, and your Shopify revenue grows — without adding headcount.',
+    features: ['Automated product campaigns', 'Smart email flows', 'Budget optimization', 'Revenue attribution'],
     stat: '3×',
-    statLabel: 'average revenue growth in year one',
+    statLabel: 'average store revenue growth in year one',
     color: '#E8452A',
   },
   {
     key: 'ads', slug: 'ads',
     icon: '▣',
     label: 'Get More from Every Ad Dollar',
-    tagline: 'Stop wasting money on ads that don\'t convert',
-    desc: 'We make your advertising work harder. Every dollar you spend on ads is automatically directed to what\'s working, while what\'s not gets cut. You get more customers for less money.',
-    features: ['Ads on all platforms', 'Automatic testing', 'Smarter targeting', 'Real-time optimization'],
+    tagline: 'AI-powered product ads that actually convert',
+    desc: 'AI manages your product ads across Google Shopping, Meta, TikTok, and more — automatically testing creative, optimizing bids, and scaling what sells best across your catalog.',
+    features: ['Google Shopping & Meta ads', 'Dynamic product creative', 'Automated bid management', 'Cross-platform ROAS tracking'],
     stat: '300%',
     statLabel: 'better return on ad spend',
     color: '#C9A96E',
@@ -27,21 +27,21 @@ const SERVICES = [
   {
     key: 'personalisation', slug: 'personalisation',
     icon: '◉',
-    label: 'Make Every Customer Feel Special',
-    tagline: 'The right message, right person, right time',
-    desc: 'Every customer sees content that\'s relevant to them — automatically. Your emails, website, and ads adapt to each person\'s interests, so they\'re more likely to buy.',
-    features: ['Personalized emails', 'Smart website content', 'Targeted offers', 'Customer retention'],
+    label: 'Personalize Every Shopping Experience',
+    tagline: 'Show each shopper products they actually want',
+    desc: 'AI personalizes your entire customer journey — product recommendations, email content, on-site experience, and retargeting ads — so every shopper sees what\'s most relevant to them.',
+    features: ['Smart product recommendations', 'Personalized email campaigns', 'Dynamic website content', 'Cart recovery optimization'],
     stat: '5×',
-    statLabel: 'higher engagement than generic messages',
+    statLabel: 'higher engagement than generic messaging',
     color: '#00D4FF',
   },
   {
     key: 'content', slug: 'content',
     icon: '▶',
-    label: 'A Month of Content in One Day',
-    tagline: 'Never run out of things to post again',
-    desc: 'We build you a content machine that creates posts, emails, and ads that sound exactly like your brand. One session produces a whole month of ready-to-publish content.',
-    features: ['Brand-matched writing', 'All platforms covered', 'SEO-optimized', 'Automatic scheduling'],
+    label: 'Product Content at Scale',
+    tagline: 'Product descriptions, social posts, ads — all AI-created',
+    desc: 'AI creates product descriptions, collection pages, social posts, email campaigns, and ad creatives that match your brand voice — a full month of e-commerce content in a single day.',
+    features: ['Product descriptions', 'Social media content', 'Email campaigns', 'Ad creative generation'],
     stat: '30×',
     statLabel: 'more content than doing it manually',
     color: '#6C7AE0',
@@ -49,23 +49,23 @@ const SERVICES = [
   {
     key: 'intelligence', slug: 'intelligence',
     icon: '◬',
-    label: 'Know What Your Customers Want',
-    tagline: 'Stop guessing, start knowing',
-    desc: 'Get clear answers about your market: what customers are searching for, what competitors are doing, and where your biggest growth opportunities are hiding.',
-    features: ['Competitor tracking', 'Customer insights', 'Trend spotting', 'Opportunity finder'],
+    label: 'Know What Shoppers Want',
+    tagline: 'Competitor pricing, trending products, customer insights',
+    desc: 'AI tracks competitor pricing, trending products, and customer search behavior — giving you the data to stock the right products, price competitively, and target the right shoppers.',
+    features: ['Competitor price tracking', 'Product trend analysis', 'Customer search insights', 'Keyword opportunity mapping'],
     stat: '28%',
-    statLabel: 'average growth from new opportunities found',
+    statLabel: 'average organic growth from new opportunities',
     color: '#3CBFAE',
   },
   {
     key: 'funnel', slug: 'funnel',
     icon: '◫',
-    label: 'Turn More Visitors into Buyers',
-    tagline: 'Same traffic, more sales',
-    desc: 'We find exactly where potential customers are leaving your website without buying — and fix it. More of your existing visitors become paying customers.',
-    features: ['Find where visitors drop off', 'Automatic testing', 'Better landing pages', 'Checkout optimization'],
+    label: 'Turn Browsers into Buyers',
+    tagline: 'Same traffic, more orders — better checkout, smarter recovery',
+    desc: 'AI finds where shoppers abandon your store and fixes it. Better product pages, smoother checkout, smarter cart recovery emails — more of your existing visitors complete their purchase.',
+    features: ['Cart abandonment recovery', 'Checkout optimization', 'Product page testing', 'Exit-intent campaigns'],
     stat: '62%',
-    statLabel: 'more people end up buying',
+    statLabel: 'more shoppers complete checkout',
     color: '#E87A2A',
   },
 ]
@@ -81,8 +81,8 @@ export default function Services() {
   return (
     <>
       <Seo
-        title="What We Do — AI Marketing That Gets You More Customers"
-        description="Six proven ways we help businesses grow: better ads, more content, smarter targeting, higher conversions. See how each one works and what results to expect."
+        title="What We Do — AI Marketing for E-Commerce Brands"
+        description="Six AI-powered services that grow your online store: product ads, personalized shopping, content at scale, checkout optimization. Plans from $2,900/mo."
         canonicalPath="/services"
         structuredData={{
           '@context': 'https://schema.org',
@@ -101,7 +101,7 @@ export default function Services() {
       />
 
       {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-36 pb-20 px-6 lg:px-12 section-gradient-cyber relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
           backgroundSize: '80px 80px',
@@ -110,24 +110,24 @@ export default function Services() {
           style={{ background: 'radial-gradient(ellipse 60% 60% at 100% 100%, rgba(0,212,255,0.05) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">What we do for you</p>
+          <p className="eyebrow mb-5 reveal">AI for e-commerce</p>
           <div className="grid lg:grid-cols-2 gap-12 items-end">
             <div>
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-                Six ways to grow<br />
-                <em className="text-gold italic">your business.</em>
+                Six ways AI grows<br />
+                <em className="text-gold italic">your online store.</em>
               </h1>
               <p className="text-smoke-dim leading-relaxed max-w-md reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-                Each service is designed to solve a specific problem: getting more customers, lowering costs, or freeing up your time. Pick what you need, or let us recommend the best combination for your goals.
+                Each service solves a specific e-commerce challenge: more sales, better ads, product content at scale, or smoother checkout. Pick what you need, or get everything in one plan.
               </p>
             </div>
             <div className="hidden lg:flex flex-col gap-3 reveal reveal-delay-2">
               <div className="bg-ink-2 border border-white/5 p-6">
-                <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-3">What our clients typically see</p>
+                <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-3">What e-commerce clients typically see</p>
                 {[
-                  { stat: '3×', label: 'more revenue within a year' },
-                  { stat: '40%', label: 'lower cost to get each customer' },
+                  { stat: '3×', label: 'store revenue growth in year one' },
+                  { stat: '4.8×', label: 'average ROAS on product ads' },
                   { stat: '48h', label: 'until you see first improvements' },
                 ].map(({ stat, label }) => (
                   <div key={stat} className="flex items-center gap-4 py-2.5 border-b border-white/5 last:border-0">
@@ -145,11 +145,11 @@ export default function Services() {
       <section className="bg-ink-2 py-20 px-6 lg:px-12" id="all-services">
         <div className="max-w-screen-xl mx-auto">
           <p className="eyebrow mb-12 reveal">Choose what you need</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map(({ key, slug, icon, label, tagline, desc, features, stat, statLabel, color }, i) => (
               <div
                 key={key}
-                className="bg-ink-2 p-8 relative overflow-hidden transition-colors duration-300 hover:bg-ink-3 reveal flex flex-col"
+                className="glass-card gradient-border p-8 relative overflow-hidden reveal flex flex-col"
                 style={{ transitionDelay: `${i * 40}ms` }}
               >
                 {/* Ghost number */}
@@ -159,8 +159,8 @@ export default function Services() {
                 </span>
 
                 {/* Icon */}
-                <div className="w-10 h-10 border flex items-center justify-center mb-6 text-lg"
-                  style={{ borderColor: `${color}40`, color }}>
+                <div className="feature-icon-box text-lg"
+                  style={{ background: `${color}10`, color }}>
                   {icon}
                 </div>
 
@@ -223,7 +223,7 @@ export default function Services() {
 
           {/* Why choose panel */}
           <div className="reveal reveal-delay-2 lg:pt-20">
-            <div className="bg-ink-2 border border-white/5 p-8">
+            <div className="glass-card p-8">
               <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">Why clients choose us</p>
               {[
                 { title: 'It keeps working while you sleep', desc: "Your marketing doesn't stop when you close your laptop. Our systems run 24/7, getting you more customers and better results around the clock." },
@@ -263,18 +263,15 @@ export default function Services() {
       </section>
 
       {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: '#E8452A' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px)',
-        }} />
-        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <section className="cta-gradient relative">
+        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 z-10">
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
               Not sure where to start?<br /><em>We'll help you figure it out.</em>
             </h2>
             <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Free 15-minute call · No pressure · We'll tell you honestly what will work.
+              Free strategy call · No pressure · Plans from $2,900/mo.
             </p>
           </div>
           <Link to="/contact"

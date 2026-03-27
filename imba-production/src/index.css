@@ -573,3 +573,333 @@ body::before {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #00D4FF 0%, #7A2518 100%);
 }
+
+/* ════════════════════════════════════════════════════════
+   REDESIGN V2 — CONVERSION-FOCUSED COMPONENTS
+   ════════════════════════════════════════════════════════ */
+
+/* ── Gradient section backgrounds ── */
+.section-gradient-ember {
+  background: linear-gradient(135deg, #0A0A0B 0%, #1a0f0d 40%, #1c1210 100%);
+}
+.section-gradient-cyber {
+  background: linear-gradient(135deg, #0A0A0B 0%, #0a1318 40%, #0c161c 100%);
+}
+.section-gradient-gold {
+  background: linear-gradient(135deg, #0A0A0B 0%, #15120d 40%, #1a150f 100%);
+}
+
+/* ── Glass card ── */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.glass-card:hover {
+  background: rgba(255,255,255,0.055);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* ── Gradient card borders (on hover) ── */
+.gradient-border {
+  position: relative;
+  overflow: hidden;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(232,69,42,0.4), rgba(0,212,255,0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.gradient-border:hover::before { opacity: 1; }
+
+/* ── Logo bar ── */
+.logo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 2rem 0;
+}
+.logo-bar-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,244,240,0.2);
+  transition: color 0.3s, opacity 0.3s;
+  white-space: nowrap;
+}
+.logo-bar-item:hover { color: rgba(245,244,240,0.5); }
+
+/* ── Platform badge ── */
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,244,240,0.45);
+  transition: all 0.3s;
+}
+.platform-badge:hover {
+  border-color: rgba(255,255,255,0.15);
+  color: rgba(245,244,240,0.7);
+}
+
+/* ── Result card (big number) ── */
+.result-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.35s;
+}
+.result-card:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+}
+.result-card .result-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.result-card .result-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B6A65;
+}
+
+/* ── Before/After visual ── */
+.before-after-card {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.before-after-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(232,69,42,0.12);
+  color: #E8452A;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .before-after-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .before-after-arrow { margin: 0 auto; }
+}
+
+/* ── Pricing highlight ring ── */
+.pricing-highlight {
+  box-shadow: 0 0 0 1px rgba(232,69,42,0.3), 0 8px 40px rgba(232,69,42,0.08);
+}
+
+/* ── CTA gradient section ── */
+.cta-gradient {
+  background: linear-gradient(135deg, #E8452A 0%, #d4391f 50%, #c42f15 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cta-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0,0,0,0.03) 0px,
+    rgba(0,0,0,0.03) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+  pointer-events: none;
+}
+.cta-gradient::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Animated underline for links ── */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #E8452A;
+  transition: width 0.3s ease;
+}
+.link-underline:hover::after { width: 100%; }
+
+/* ── Trust badge row ── */
+.trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6B6A65;
+}
+.trust-badge-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(60,191,174,0.12);
+  color: #3CBFAE;
+  font-size: 0.55rem;
+}
+
+/* ── Feature icon box ── */
+.feature-icon-box {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.3s;
+}
+
+/* ── Highlight number ── */
+.highlight-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  background: linear-gradient(135deg, #F5F4F0 0%, #E8452A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Stacked cards effect ── */
+.stacked-card {
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease;
+}
+.stacked-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+/* ── Integration grid ── */
+.integration-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1px;
+  background: rgba(255,255,255,0.04);
+}
+.integration-item {
+  background: #0A0A0B;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,244,240,0.3);
+  transition: all 0.3s;
+}
+.integration-item:hover {
+  color: rgba(245,244,240,0.7);
+  background: rgba(255,255,255,0.03);
+}
+
+/* ── Pricing toggle ── */
+.pricing-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.pricing-toggle-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: #6B6A65;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pricing-toggle-btn.active {
+  background: rgba(232,69,42,0.15);
+  color: #E8452A;
+}
+
+/* ── Section number marker ── */
+.section-marker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,244,240,0.1);
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media (max-width: 1024px) {
+  .section-marker { display: none; }
+}

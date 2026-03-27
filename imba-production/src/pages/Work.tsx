@@ -7,44 +7,44 @@ const CASES = [
     id: '1',
     client: 'FoodCo International',
     category: 'growth',
-    service: 'Revenue Growth',
-    headline: '89% more revenue in just 90 days',
-    tags: ['Revenue', 'Growth'],
+    service: 'Shopify Growth',
+    headline: '$40K → $120K/mo in 90 days',
+    tags: ['Shopify', 'Revenue'],
     color: '#E8452A',
-    desc: 'A food brand struggling with high ad costs and low returns. We automated their marketing and helped them reach 4.2 million people — while spending less than before.',
+    desc: 'A Shopify food brand stuck at $40K/mo. We rebuilt their product ad strategy, automated email flows (welcome, cart recovery, post-purchase), and tripled their monthly revenue in one quarter.',
     results: [
-      { label: 'Revenue Growth', val: '+89%' },
-      { label: 'Better Click Rates', val: '+38%' },
-      { label: 'Lower Lead Cost', val: '-52%' },
+      { label: 'Revenue Growth', val: '+200%' },
+      { label: 'Email Revenue', val: '+38%' },
+      { label: 'Lower CPA', val: '-52%' },
     ],
   },
   {
     id: '2',
     client: 'NordShop',
     category: 'ads',
-    service: 'Ad Performance',
-    headline: 'Every $1 in ads brought back $4.80',
-    tags: ['Ads', 'Revenue'],
+    service: 'Product Ads',
+    headline: 'Every $1 in ads → $4.80 back',
+    tags: ['Google Shopping', 'Meta Ads'],
     color: '#C9A96E',
-    desc: 'An e-commerce store wasting money on ads that barely broke even. We rebuilt their campaigns so every dollar spent brought back nearly five.',
+    desc: 'An e-commerce store burning $8K/mo on ads with barely any return. We rebuilt their Google Shopping and Meta campaigns — AI testing 200+ product ad variations to find what converts.',
     results: [
-      { label: 'Return on Ads', val: '4.8×' },
-      { label: 'Cost Per Customer', val: '$18.40' },
-      { label: 'Cost Savings', val: '40%' },
+      { label: 'ROAS', val: '4.8×' },
+      { label: 'Cost Per Order', val: '$18.40' },
+      { label: 'Ad Spend Saved', val: '40%' },
     ],
   },
   {
     id: '3',
     client: 'Velour Boutique',
     category: 'content',
-    service: 'Content Creation',
+    service: 'Product Content',
     headline: '30 days of content in 1 day',
-    tags: ['Content', 'Engagement'],
+    tags: ['Fashion', 'Content'],
     color: '#6C7AE0',
-    desc: 'A fashion brand that couldn\'t keep up with social media. We built a content system that produces a full month of brand-perfect posts, emails, and ads in a single session.',
+    desc: 'A fashion e-commerce brand drowning in content needs — product photos, Instagram posts, email campaigns. AI now creates a full month of on-brand content for 500+ SKUs in a single session.',
     results: [
       { label: 'Content Output', val: '30×' },
-      { label: 'More Engagement', val: '+180%' },
+      { label: 'Engagement', val: '+180%' },
       { label: 'Time Saved', val: '95%' },
     ],
   },
@@ -52,14 +52,14 @@ const CASES = [
     id: '4',
     client: 'BrandX',
     category: 'funnel',
-    service: 'More Sales',
-    headline: '62% more visitors became buyers',
-    tags: ['Sales', 'Conversion'],
+    service: 'Checkout CRO',
+    headline: '62% more checkout completions',
+    tags: ['Conversion', 'Checkout'],
     color: '#3CBFAE',
-    desc: 'A business getting plenty of website visitors but not enough sales. We found where people were dropping off and fixed it. Sales nearly doubled from the same traffic.',
+    desc: 'A WooCommerce store with a 1.2% conversion rate — plenty of traffic but abysmal checkout completion. We optimized product pages, simplified checkout, and added smart cart recovery.',
     results: [
-      { label: 'More Sales', val: '+62%' },
-      { label: 'Quality Leads', val: '2×' },
+      { label: 'Conversion Rate', val: '+62%' },
+      { label: 'Cart Recovery', val: '2×' },
       { label: 'Bounce Rate', val: '-34%' },
     ],
   },
@@ -67,13 +67,13 @@ const CASES = [
     id: '5',
     client: 'Magic Mind',
     category: 'intelligence',
-    service: 'Market Insights',
-    headline: '28% growth from hidden opportunities',
-    tags: ['SEO', 'Growth'],
+    service: 'Product Intel',
+    headline: '28% organic growth, 340 new keywords',
+    tags: ['DTC', 'SEO'],
     color: '#C9A96E',
-    desc: 'A wellness brand that didn\'t know what they were missing. We uncovered 12 opportunities their competitors had overlooked, and they grew steadily for months.',
+    desc: 'A DTC supplement brand missing massive search opportunities. AI found 340+ product keywords their competitors weren\'t targeting — plus pricing gaps they could exploit.',
     results: [
-      { label: 'Growth', val: '+28%' },
+      { label: 'Organic Growth', val: '+28%' },
       { label: 'New Keywords', val: '340+' },
       { label: 'Competitor Gaps', val: '12' },
     ],
@@ -82,32 +82,32 @@ const CASES = [
     id: '6',
     client: 'Irving Books',
     category: 'personalisation',
-    service: 'Personalization',
-    headline: '5× more people clicked their emails',
-    tags: ['Email', 'Sales'],
+    service: 'Email Personalization',
+    headline: '5× email CTR, 67% more email sales',
+    tags: ['Email', 'Personalization'],
     color: '#00D4FF',
-    desc: 'A bookstore sending the same emails to everyone. We made every email personal — recommending books each customer actually wanted. Click rates went through the roof.',
+    desc: 'An online bookstore sending the same emails to everyone. AI now personalizes every email — recommending books based on browsing history, past purchases, and reading preferences.',
     results: [
-      { label: 'Email Clicks', val: '5×' },
-      { label: 'Email Sales', val: '+67%' },
-      { label: 'Customer Value', val: '+41%' },
+      { label: 'Email CTR', val: '5×' },
+      { label: 'Email Revenue', val: '+67%' },
+      { label: 'Customer LTV', val: '+41%' },
     ],
   },
 ]
 
 const CATS = [
   { key: 'all',             label: 'All results' },
-  { key: 'growth',          label: 'Revenue Growth' },
-  { key: 'ads',             label: 'Ad Performance' },
+  { key: 'growth',          label: 'Store Growth' },
+  { key: 'ads',             label: 'Product Ads' },
   { key: 'content',         label: 'Content' },
-  { key: 'funnel',          label: 'More Sales' },
-  { key: 'intelligence',    label: 'Market Insights' },
+  { key: 'funnel',          label: 'Checkout CRO' },
+  { key: 'intelligence',    label: 'Market Intel' },
   { key: 'personalisation', label: 'Personalization' },
 ]
 
 const STATS = [
-  { num: '200+', label: 'Happy clients' },
-  { num: '40%',  label: 'Avg. cost savings' },
+  { num: '200+', label: 'E-commerce clients' },
+  { num: '4.8×', label: 'Avg. ROAS' },
   { num: '3×',   label: 'Avg. revenue growth' },
   { num: '98%',  label: 'Clients stay with us' },
 ]
@@ -122,8 +122,8 @@ export default function Work() {
   return (
     <>
       <Seo
-        title="Client Results — Real Numbers from Real Businesses"
-        description="See how we've helped businesses get more customers, lower ad costs, and grow revenue. Real results, no fluff."
+        title="Client Results — Real E-Commerce Growth Stories"
+        description="See how we've helped online stores triple revenue, cut ad costs by 40%, and scale with AI. Real numbers from real e-commerce brands."
         canonicalPath="/results"
       />
 
@@ -142,10 +142,10 @@ export default function Work() {
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
               Real numbers from<br />
-              <em className="text-gold italic">real businesses</em>
+              <em className="text-gold italic">real online stores</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
-              Every number here is real. Every result is from a business we actually helped. No inflated stats, no cherry-picking.
+              Every number is real. Every result is from an e-commerce brand we actually helped grow. Shopify, WooCommerce, and custom stores.
             </p>
           </div>
         </div>

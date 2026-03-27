@@ -11,11 +11,11 @@ const SERVICES = [
 ]
 const COMPANY = [
   { label: 'About Us', to: '/about' },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Client Results', to: '/results' },
   { label: 'Reviews', to: '/reviews' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
-  { label: 'Careers', to: '/about' },
 ]
 const SOCIAL = [
   { label: 'LI', href: 'https://linkedin.com/company/imba-marketing' },

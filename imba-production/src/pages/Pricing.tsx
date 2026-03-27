@@ -1,232 +1,374 @@
+import { useState } from 'react'
 import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
-const PACKAGES = [
+const PLANS = [
   {
-    name: 'Growth Engine',
-    tagline: 'Single AI system',
-    price: '3,000',
-    unit: '/month',
+    name: 'Starter',
+    price: '$2,900',
+    period: '/mo',
+    tagline: 'Perfect for growing e-commerce stores ready to scale with AI',
     color: '#3CBFAE',
     popular: false,
-    description: 'One AI system built, deployed, and continuously optimised — ideal for businesses starting their AI marketing journey.',
-    includes: [
-      '1 AI system (choose any)',
-      'Initial audit & system design',
-      'Full build & integration',
-      'Monthly optimisation review',
-      'Performance dashboard',
-      'Dedicated Slack channel',
+    features: [
+      'AI-powered ad management (1 platform)',
+      'Smart product feed optimization',
+      'Automated email flows (welcome, cart, post-purchase)',
+      'AI content creation (12 posts/mo)',
+      'Monthly performance report',
+      'Conversion tracking setup',
+      'Dedicated account manager',
+      'Cancel anytime',
     ],
-    bestFor: 'Startups · SMBs · First AI system',
+    ideal: 'Stores doing $10K–$50K/mo in revenue',
+    cta: 'Start growing',
   },
   {
-    name: 'Scale Stack',
-    tagline: 'Multi-system deployment',
-    price: '8,000',
-    unit: '/month',
-    color: '#C9A96E',
-    popular: true,
-    description: 'Two to three AI systems working together — the most popular choice for brands ready to unlock compounding growth.',
-    includes: [
-      '2–3 AI systems (your choice)',
-      'Full-funnel audit & strategy',
-      'All systems built & integrated',
-      'Weekly optimisation calls',
-      'Cross-system intelligence sharing',
-      'Unified performance dashboard',
-      'Dedicated account strategist',
-    ],
-    bestFor: 'Growth-stage brands · Series A+ · eCommerce',
-  },
-  {
-    name: 'AI Marketing OS',
-    tagline: 'Full-stack AI transformation',
-    price: 'Custom',
-    unit: 'tailored pricing',
+    name: 'Growth',
+    price: '$5,900',
+    period: '/mo',
+    tagline: 'For e-commerce brands ready to dominate their market with AI',
     color: '#E8452A',
-    popular: false,
-    description: 'The complete AI marketing operating system — all six systems deployed, integrated, and continuously evolved for enterprise-level results.',
-    includes: [
-      'All 6 AI marketing systems',
-      'Executive strategy sessions',
-      'Custom AI model development',
-      'Full tech stack integration',
-      'Dedicated AI engineering team',
-      'Real-time analytics suite',
-      'Priority 24/7 support',
-      'Quarterly growth roadmap',
+    popular: true,
+    features: [
+      'Everything in Starter, plus:',
+      'AI ad management (all platforms)',
+      'Dynamic product retargeting',
+      'AI personalization (emails + website)',
+      'AI content engine (60+ posts/mo)',
+      'Competitor & market intelligence',
+      'Funnel optimization & A/B testing',
+      'Weekly strategy calls',
+      'Landing page optimization',
+      'Customer segmentation & targeting',
     ],
-    bestFor: 'Enterprise · High-growth brands · Series B+',
+    ideal: 'Stores doing $50K–$500K/mo in revenue',
+    cta: 'Scale faster',
+  },
+  {
+    name: 'Enterprise',
+    price: '$12,900',
+    period: '/mo',
+    tagline: 'Full AI marketing department for high-growth e-commerce brands',
+    color: '#C9A96E',
+    popular: false,
+    features: [
+      'Everything in Growth, plus:',
+      'Custom AI models trained on your data',
+      'Predictive inventory & demand signals',
+      'Multi-store / multi-market management',
+      'Advanced customer lifetime value optimization',
+      'AI-powered loyalty & retention programs',
+      'White-glove onboarding & migration',
+      'Priority support & Slack channel',
+      'Quarterly business reviews',
+      'Custom integrations & API access',
+    ],
+    ideal: 'Stores doing $500K+/mo in revenue',
+    cta: 'Talk to us',
   },
 ]
 
+const ADDONS = [
+  { name: 'AI Video Ads', price: '$990/mo', desc: 'AI-generated product video ads for TikTok, Reels, and YouTube Shorts' },
+  { name: 'Influencer AI Matching', price: '$790/mo', desc: 'AI finds and scores the best influencers for your brand and products' },
+  { name: 'International Expansion', price: '$1,490/mo', desc: 'Localized ads, content, and campaigns for new markets' },
+  { name: 'AI Chatbot & Support', price: '$690/mo', desc: 'AI-powered customer service bot trained on your products and policies' },
+]
+
 const FAQ = [
-  { q: 'Is there a minimum contract length?', a: 'We work on 3-month minimum engagements to ensure the AI systems have sufficient time to learn and deliver meaningful results. After 3 months, engagements are month-to-month.' },
-  { q: 'What\'s included in the setup phase?', a: 'Setup includes a full marketing audit, system architecture design, AI model training, platform integrations, and launch. Setup is typically completed within 2–4 weeks at no additional cost.' },
-  { q: 'Can I upgrade or add systems later?', a: 'Yes — you can add AI systems at any time. We recommend starting with the highest-impact system for your business and expanding as results compound.' },
-  { q: 'Do you work with our existing tools?', a: 'Yes. We integrate with all major marketing platforms: Google Ads, Meta, HubSpot, Salesforce, Klaviyo, Shopify, and more. Our systems connect to your existing stack, not replace it.' },
-  { q: 'What if we don\'t see results?', a: 'We\'ve never had a client that didn\'t see measurable improvement within 90 days. If you don\'t, we continue working at no additional cost until we deliver the agreed results.' },
+  {
+    q: 'Can I switch plans later?',
+    a: 'Yes — you can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle. No penalties.',
+  },
+  {
+    q: 'Is there a setup fee?',
+    a: 'No. Setup, onboarding, and initial AI training are all included in your monthly plan. You only pay the monthly fee.',
+  },
+  {
+    q: 'What if I\'m not happy with the results?',
+    a: 'You can cancel anytime — no long-term contracts. But 98% of our clients stay because they see real results within the first month.',
+  },
+  {
+    q: 'How long until I see results?',
+    a: 'Most clients see first improvements within 48 hours. Significant revenue impact typically shows within 2–4 weeks of full deployment.',
+  },
+  {
+    q: 'Do you work with Shopify / WooCommerce / other platforms?',
+    a: 'Yes — we work with Shopify, Shopify Plus, WooCommerce, BigCommerce, Magento, and custom platforms. If you sell online, we can help.',
+  },
+  {
+    q: 'What\'s included in the onboarding?',
+    a: 'Full audit of your store, ad accounts, and marketing stack. We set up tracking, connect your tools, train the AI on your products, and launch within 2–4 weeks.',
+  },
+]
+
+const COMPARE = [
+  { feature: 'AI ad management', starter: '1 platform', growth: 'All platforms', enterprise: 'All + custom' },
+  { feature: 'AI content creation', starter: '12 posts/mo', growth: '60+ posts/mo', enterprise: 'Unlimited' },
+  { feature: 'Email automation', starter: '3 core flows', growth: 'Full lifecycle', enterprise: 'Full + custom AI' },
+  { feature: 'Personalization', starter: '—', growth: 'Email + website', enterprise: 'Omnichannel' },
+  { feature: 'Competitor intelligence', starter: '—', growth: 'Monthly reports', enterprise: 'Real-time alerts' },
+  { feature: 'Funnel optimization', starter: '—', growth: 'A/B testing', enterprise: 'Advanced multivariate' },
+  { feature: 'Strategy calls', starter: 'Monthly', growth: 'Weekly', enterprise: 'Unlimited' },
+  { feature: 'Custom AI models', starter: '—', growth: '—', enterprise: '✓' },
+  { feature: 'Dedicated Slack channel', starter: '—', growth: '—', enterprise: '✓' },
 ]
 
 export default function Pricing() {
   const { openModal } = useQuoteModal()
+  const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
     <>
       <Seo
-        title="Pricing — AI Marketing Systems"
-        description="Transparent pricing for AI marketing systems. From single-system deployments to full AI marketing operating systems."
+        title="Pricing — AI Marketing Plans for E-Commerce Brands"
+        description="Transparent monthly pricing for AI-powered e-commerce marketing. No setup fees, no long-term contracts. Plans from $2,900/mo."
         canonicalPath="/pricing"
       />
 
-      {/* ── HERO ──────────────────────────────────────── */}
+      {/* ── HERO ─────────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)`,
           backgroundSize: '80px 80px',
         }} />
+        <div className="absolute top-0 right-0 w-[50vw] h-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 60% 60% at 100% 40%, rgba(0,212,255,0.05) 0%, transparent 65%)' }}
+        />
         <div className="relative max-w-screen-xl mx-auto text-center">
-          <p className="eyebrow mb-6 reveal justify-center">Investment</p>
+          <p className="eyebrow justify-center mb-5 reveal">Simple, transparent pricing</p>
           <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-            Simple, transparent<br />
-            <em className="text-gold italic">AI marketing pricing.</em>
+            One monthly fee.<br />
+            <em className="text-gold italic">Everything included.</em>
           </h1>
-          <p className="text-smoke-dim leading-relaxed max-w-2xl mx-auto reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
-            No hidden fees, no surprise invoices. Every package includes system design, build, integration, and continuous AI optimisation.
+          <p className="text-smoke-dim leading-relaxed max-w-xl mx-auto reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
+            No setup fees. No hidden costs. No long-term contracts. Pick the plan that fits your store, and start seeing results within 48 hours.
           </p>
         </div>
       </section>
 
-      {/* ── PACKAGES ──────────────────────────────────── */}
+      {/* ── PRICING CARDS ─────────────────────────────────── */}
       <section className="py-20 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-px bg-white/5">
-            {PACKAGES.map(({ name, tagline, price, unit, color, popular, description, includes, bestFor }, i) => (
+          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            {PLANS.map((plan, i) => (
               <div
-                key={name}
-                className="bg-ink-2 p-8 relative flex flex-col reveal"
+                key={plan.name}
+                className={`relative flex flex-col bg-ink border p-8 lg:p-10 reveal stacked-card ${
+                  plan.popular ? 'pricing-highlight border-ember/40' : 'border-white/8'
+                }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                {popular && (
-                  <div className="absolute top-0 right-8 -translate-y-1/2">
-                    <span className="font-mono-custom text-[0.55rem] tracking-[0.14em] uppercase px-3 py-1"
-                      style={{ background: color, color: '#0A0A0B' }}>
-                      Most popular
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase px-4 py-1.5 bg-ember text-ink">
+                      Most Popular
                     </span>
                   </div>
                 )}
 
-                <div className="mb-6 pb-6 border-b border-white/5">
-                  <h2 className="font-display font-light text-smoke text-2xl mb-1">{name}</h2>
-                  <p className="font-mono-custom text-[0.62rem] tracking-[0.16em] uppercase mb-5" style={{ color }}>{tagline}</p>
-                  <div className="flex items-baseline gap-2">
-                    {price === 'Custom' ? (
-                      <span className="font-display font-light text-smoke" style={{ fontSize: '2.4rem' }}>Custom</span>
-                    ) : (
-                      <>
-                        <span className="font-mono-custom text-smoke-faint text-sm">$</span>
-                        <span className="font-display font-light text-smoke" style={{ fontSize: '2.4rem' }}>{price}</span>
-                        <span className="font-mono-custom text-[0.62rem] tracking-wide text-smoke-faint">{unit}</span>
-                      </>
-                    )}
+                {/* Plan header */}
+                <div className="mb-8">
+                  <h3 className="font-display font-light text-2xl text-smoke mb-2">{plan.name}</h3>
+                  <p className="font-mono-custom text-[0.6rem] tracking-wider uppercase mb-6" style={{ color: plan.color }}>
+                    {plan.tagline}
+                  </p>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display font-light text-smoke" style={{ fontSize: '3.2rem', lineHeight: 1 }}>
+                      {plan.price}
+                    </span>
+                    <span className="font-mono-custom text-[0.7rem] text-smoke-faint">{plan.period}</span>
                   </div>
                 </div>
 
-                <p className="text-smoke-dim text-sm leading-relaxed mb-6">{description}</p>
-
-                <ul className="space-y-2.5 mb-8 flex-1">
-                  {includes.map(item => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <div className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ background: color }} />
-                      <span className="font-mono-custom text-[0.62rem] text-smoke-dim tracking-wide">{item}</span>
+                {/* Features */}
+                <ul className="flex-1 space-y-3 mb-8">
+                  {plan.features.map((f, fi) => (
+                    <li key={fi} className="flex items-start gap-2.5">
+                      {fi === 0 && plan.name !== 'Starter' ? (
+                        <span className="font-mono-custom text-[0.62rem] text-smoke-dim tracking-wide">{f}</span>
+                      ) : (
+                        <>
+                          <div className="w-1 h-1 rounded-full mt-2 flex-shrink-0" style={{ background: plan.color }} />
+                          <span className="text-sm text-smoke-dim leading-relaxed">{f}</span>
+                        </>
+                      )}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-auto">
-                  <div className="font-mono-custom text-[0.58rem] tracking-[0.14em] uppercase text-smoke-faint/50 mb-4">
-                    Best for: {bestFor}
-                  </div>
-                  <button
-                    onClick={() => openModal()}
-                    className="w-full font-mono-custom text-[0.65rem] tracking-[0.14em] uppercase py-3.5 transition-all duration-200 hover:opacity-90"
-                    style={{ background: color, color: '#0A0A0B' }}
-                  >
-                    {price === 'Custom' ? 'Get custom quote →' : 'Start with this plan →'}
-                  </button>
-                </div>
+                {/* Ideal for */}
+                <p className="font-mono-custom text-[0.58rem] tracking-wider text-smoke-faint/50 uppercase mb-6">
+                  Ideal for: {plan.ideal}
+                </p>
+
+                {/* CTA */}
+                <button
+                  onClick={() => openModal()}
+                  className={`w-full font-mono-custom text-[0.65rem] tracking-[0.14em] uppercase py-4 transition-all duration-200 cursor-pointer ${
+                    plan.popular
+                      ? 'bg-ember text-ink hover:bg-ember-bright'
+                      : 'border border-white/12 text-smoke-dim hover:border-white/25 hover:text-smoke'
+                  }`}
+                >
+                  {plan.cta} →
+                </button>
               </div>
             ))}
+          </div>
+
+          <p className="text-center mt-10 text-smoke-faint text-sm reveal">
+            All plans include free onboarding, AI setup, and a dedicated account manager.{' '}
+            <button onClick={() => openModal()} className="text-ember hover:underline underline-offset-4 cursor-pointer">
+              Not sure which plan? Let us help →
+            </button>
+          </p>
+        </div>
+      </section>
+
+      {/* ── COMPARISON TABLE ──────────────────────────────── */}
+      <section className="py-20 px-6 lg:px-12 bg-ink">
+        <div className="max-w-screen-xl mx-auto">
+          <p className="eyebrow mb-4 reveal">Plan comparison</p>
+          <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
+            style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
+            See what's included in <em className="text-gold italic">each plan</em>
+          </h2>
+
+          <div className="overflow-x-auto reveal reveal-delay-2">
+            <table className="w-full min-w-[640px]">
+              <thead>
+                <tr className="border-b border-white/8">
+                  <th className="text-left py-4 pr-6 font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke-faint w-1/4">Feature</th>
+                  <th className="text-center py-4 px-4 font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase w-1/4" style={{ color: '#3CBFAE' }}>Starter</th>
+                  <th className="text-center py-4 px-4 font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase w-1/4" style={{ color: '#E8452A' }}>Growth</th>
+                  <th className="text-center py-4 px-4 font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase w-1/4" style={{ color: '#C9A96E' }}>Enterprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE.map(({ feature, starter, growth, enterprise }) => (
+                  <tr key={feature} className="border-b border-white/5 hover:bg-ink-2/50 transition-colors">
+                    <td className="py-4 pr-6 text-sm text-smoke-dim">{feature}</td>
+                    <td className="py-4 px-4 text-center text-sm text-smoke-faint">{starter}</td>
+                    <td className="py-4 px-4 text-center text-sm text-smoke">{growth}</td>
+                    <td className="py-4 px-4 text-center text-sm text-smoke">{enterprise}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      {/* ── WHAT'S ALWAYS INCLUDED ──────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink">
+      {/* ── ADD-ONS ──────────────────────────────────────── */}
+      <section className="py-20 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal text-center justify-center">Always included</p>
-          <h2 className="font-display font-light leading-tight mb-14 text-center reveal reveal-delay-1"
+          <p className="eyebrow mb-4 reveal">Power-ups</p>
+          <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
-            Every plan includes<br /><em className="text-gold italic">these foundations</em>
+            Add-ons for <em className="text-gold italic">extra firepower</em>
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
-            {[
-              { icon: '◈', title: 'Free audit', desc: 'Full marketing & funnel audit before we begin. No cost, no commitment.' },
-              { icon: '▣', title: 'Custom architecture', desc: 'Every system designed specifically for your business — no templates.' },
-              { icon: '◉', title: 'Full integration', desc: 'We connect to your entire stack. Zero disruption to existing campaigns.' },
-              { icon: '◫', title: 'Continuous AI learning', desc: 'Your systems improve automatically with every data point collected.' },
-            ].map(({ icon, title, desc }, i) => (
-              <div key={title} className="bg-ink p-8 reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                <div className="text-ember text-xl mb-5">{icon}</div>
-                <h3 className="font-display font-light text-smoke text-xl mb-3">{title}</h3>
-                <p className="text-smoke-dim text-sm leading-relaxed">{desc}</p>
+            {ADDONS.map(({ name, price, desc }, i) => (
+              <div key={name} className="bg-ink-2 p-8 hover:bg-ink-3 transition-colors reveal"
+                style={{ transitionDelay: `${i * 60}ms` }}>
+                <h3 className="font-display font-light text-smoke text-lg mb-2">{name}</h3>
+                <p className="font-mono-custom text-[0.65rem] text-ember tracking-wider mb-3">{price}</p>
+                <p className="text-sm text-smoke-dim leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ─────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink-2">
-        <div className="max-w-screen-xl mx-auto max-w-3xl">
+      {/* ── WHAT EVERY PLAN INCLUDES ─────────────────────── */}
+      <section className="py-20 px-6 lg:px-12 bg-ink">
+        <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="eyebrow mb-4 reveal">What every plan includes</p>
+            <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
+              No surprises.<br /><em className="text-gold italic">Just results.</em>
+            </h2>
+            <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
+              Every plan is designed to pay for itself within the first month. We tie everything to revenue — so you always know exactly what you're getting for your investment.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 reveal reveal-delay-2">
+            {[
+              { icon: '✓', text: 'Free onboarding & setup' },
+              { icon: '✓', text: 'Dedicated account manager' },
+              { icon: '✓', text: 'Shopify / WooCommerce integration' },
+              { icon: '✓', text: 'AI trained on your products' },
+              { icon: '✓', text: 'Real-time performance dashboard' },
+              { icon: '✓', text: 'Cancel anytime — no contracts' },
+              { icon: '✓', text: 'Monthly ROI reporting' },
+              { icon: '✓', text: '48-hour first results guarantee' },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-start gap-3 py-3">
+                <span className="text-ember text-sm flex-shrink-0 mt-0.5">{icon}</span>
+                <span className="text-sm text-smoke-dim leading-relaxed">{text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────── */}
+      <section className="py-20 px-6 lg:px-12 bg-ink-2">
+        <div className="max-w-screen-xl mx-auto">
           <p className="eyebrow mb-4 reveal">Pricing questions</p>
           <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
-            Common questions<br /><em className="text-gold italic">answered</em>
+            Common <em className="text-gold italic">questions</em>
           </h2>
-          <div className="space-y-0">
-            {FAQ.map(({ q, a }, i) => (
-              <div key={q} className="border-b border-white/5 py-7 reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                <h3 className="font-display font-light text-smoke text-xl mb-3">{q}</h3>
-                <p className="text-smoke-dim text-sm leading-relaxed">{a}</p>
+          <div className="max-w-2xl flex flex-col divide-y divide-white/8">
+            {FAQ.map((item, i) => (
+              <div key={i} className="py-5">
+                <button
+                  className="w-full flex items-center justify-between text-left gap-4 group"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  <span className="font-display font-light text-lg text-smoke group-hover:text-smoke transition-colors">
+                    {item.q}
+                  </span>
+                  <span className="text-smoke-faint flex-shrink-0 transition-transform duration-200"
+                    style={{ transform: openFaq === i ? 'rotate(45deg)' : 'rotate(0deg)' }}>
+                    +
+                  </span>
+                </button>
+                {openFaq === i && (
+                  <p className="mt-3 text-smoke-dim text-base leading-relaxed" style={{ fontWeight: 300 }}>
+                    {item.a}
+                  </p>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ─────────────────────────────────────── */}
+      {/* ── CTA ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: '#E8452A' }}>
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px)',
         }} />
-        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div className="relative px-6 lg:px-12 py-24 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Not sure which plan<br /><em>is right for you?</em>
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
+              Ready to grow your store?<br /><em>Let's talk.</em>
             </h2>
-            <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Free strategy call · We'll recommend the best fit for your goals.
+            <p className="text-ink/60 mt-4" style={{ fontSize: '0.95rem' }}>
+              Free strategy call · No commitment · See results in 48 hours.
             </p>
           </div>
-          <button
-            onClick={() => openModal()}
-            className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4 cursor-pointer"
+          <button onClick={() => openModal()}
+            className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-10 py-5 cursor-pointer"
             style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
-            Book your free strategy call →
+            Get your free growth plan →
           </button>
         </div>
       </section>
