@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════
-#  Imba Production — Create a new migration file
+#  Imba Marketing — Create a new migration file
 #
 #  Usage: ./scripts/new-migration.sh "description of change"
 #

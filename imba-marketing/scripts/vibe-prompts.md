@@ -8,7 +8,7 @@
 ## WORK PAGE — Full Portfolio Grid
 
 ```
-Build src/pages/Work.tsx for Imba Production.
+Build src/pages/Work.tsx for Imba Marketing.
 
 Full portfolio with:
 - Hero: eyebrow "Our Work", H1 "Every frame with purpose" (Cormorant Garamond)
@@ -30,7 +30,7 @@ Colors: ink bg, ember accent, gold for titles. No rounded corners (square edges)
 ## SERVICE DETAIL PAGE — /services/:slug
 
 ```
-Build src/pages/ServiceDetail.tsx for Imba Production.
+Build src/pages/ServiceDetail.tsx for Imba Marketing.
 
 Fetch service by slug from Supabase services table.
 Layout:

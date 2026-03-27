@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════
---  Imba Production — Database Init
+--  Imba Marketing — Database Init
 --  Runs on first Supabase PostgreSQL startup
 -- ═══════════════════════════════════════════════════════════
 
@@ -359,8 +359,8 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, se
 INSERT INTO public.site_settings (key, value) VALUES
   ('hero', '{"title":"Stories that move people to act.","subtitle":"We combine cinematic craft with AI-powered strategy to produce brand videos that captivate, convert, and endure.","cta_primary":"See our work","cta_secondary":"Explore services"}'),
   ('stats', '[{"num":"12+","label":"Years"},{"num":"500+","label":"Videos"},{"num":"48h","label":"Turnaround"},{"num":"98%","label":"Satisfaction"}]'),
-  ('contact_info', '{"email":"hello@imbaproduction.com","phone":"","address":"007 N Orange St, 4th Floor Suite #3601, Wilmington, Delaware 19801"}'),
-  ('seo', '{"title":"Imba Production — Next-Gen Video for Brands","description":"Cinematic video production powered by AI strategy. Brand films, product videos, AI campaigns, drone, and social content.","og_image":""}')
+  ('contact_info', '{"email":"hello@imbamarketing.com","phone":"","address":"007 N Orange St, 4th Floor Suite #3601, Wilmington, Delaware 19801"}'),
+  ('seo', '{"title":"Imba Marketing — Next-Gen Video for Brands","description":"Cinematic video production powered by AI strategy. Brand films, product videos, AI campaigns, drone, and social content.","og_image":""}')
 ON CONFLICT (key) DO NOTHING;
 
 INSERT INTO public.services (name, slug, tagline, description, icon_key, sort_order, published) VALUES
@@ -374,7 +374,7 @@ INSERT INTO public.services (name, slug, tagline, description, icon_key, sort_or
 ON CONFLICT (slug) DO NOTHING;
 
 INSERT INTO public.testimonials (client_name, client_role, client_company, text, rating, featured, published) VALUES
-  ('Sarah Andersen', 'CMO', 'FoodCo International', 'Imba Production transformed how we present our brand online. The cooking series they produced generated 3× more traffic than any previous content.', 5, true, true),
+  ('Sarah Andersen', 'CMO', 'FoodCo International', 'Imba Marketing transformed how we present our brand online. The cooking series they produced generated 3× more traffic than any previous content.', 5, true, true),
   ('Marco Kessler', 'Growth Lead', 'NordShop', 'The AI video campaign was something we had never seen from a production house. Personalisation at scale reduced our CPA by 40%.', 5, false, true),
   ('Julia Larsson', 'Founder', 'Velour Boutique', 'Professional, fast, and genuinely creative. Full product video suite delivered in 48 hours. The team at Imba is exceptional.', 5, false, true)
 ON CONFLICT DO NOTHING;

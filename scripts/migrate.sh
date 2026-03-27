@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════
-#  Imba Production — Database Migration Runner
+#  Imba Marketing — Database Migration Runner
 #
 #  Usage:
 #    ./scripts/migrate.sh              # run pending migrations

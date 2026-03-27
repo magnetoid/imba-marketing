@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Imba Production — JWT Key Generator
+ * Imba Marketing — JWT Key Generator
  * Generates Supabase-compatible anon + service_role JWT keys.
  *
  * Usage: node scripts/generate-jwt-keys.js

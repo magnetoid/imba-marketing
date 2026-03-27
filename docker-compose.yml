@@ -35,7 +35,7 @@ services:
   # ── Frontend app ──────────────────────────────────────────
   imba-web:
     build:
-      context: ./imba-production
+      context: ./imba-marketing
       dockerfile: Dockerfile
       args:
         VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}

@@ -1,8 +1,8 @@
-# Imba Production — Web Platform
+# Imba Marketing — Web Platform
 
-Cinematic video production agency website with full self-hosted CMS.
+AI-powered marketing agency for e-commerce brands. Full website with CMS, CRM, and admin panel.
 
-**Stack:** Vite + React + TypeScript + Supabase (self-hosted) + Redis + nginx  
+**Stack:** Vite + React + TypeScript + Supabase (self-hosted) + Redis + nginx
 **Deploy:** Coolify on Hetzner · Reverse proxy via Plesk/Traefik
 
 ---
@@ -15,12 +15,12 @@ Cinematic video production agency website with full self-hosted CMS.
 │                                                     │
 │  ┌────────────┐    ┌──────────────────────────────┐ │
 │  │  Traefik   │    │  imba-web (nginx + React SPA)│ │
-│  │  (SSL/TLS) │───▶│  imbaproduction.com          │ │
+│  │  (SSL/TLS) │───▶│  imbamarketing.com           │ │
 │  └─────┬──────┘    └──────────────────────────────┘ │
 │        │                                            │
 │        │           ┌──────────────────────────────┐ │
 │        └──────────▶│  supabase-kong               │ │
-│                    │  supabase.imbaproduction.com  │ │
+│                    │  supabase.imbamarketing.com   │ │
 │                    │  ├── GoTrue (auth :9999)      │ │
 │                    │  ├── PostgREST (api :3001)    │ │
 │                    │  └── Storage (:5000)          │ │
@@ -39,15 +39,13 @@ Cinematic video production agency website with full self-hosted CMS.
 
 ### 1. Connect repo
 
-In Coolify → New Resource → Application → GitHub → `magnetoid/woopulse-web`  
-Build pack: **Docker Compose**  
+In Coolify → New Resource → Application → GitHub → `magnetoid/imba-marketing`
+Build pack: **Docker Compose**
 Compose file: `docker-compose.yml`
 
 ### 2. Generate JWT keys
 
 ```bash
-# Install supabase CLI or use jwt.io
-# JWT_SECRET — random 32+ char string
 openssl rand -base64 32
 
 # Generate anon key (role: anon, exp: far future)
@@ -62,7 +60,7 @@ node scripts/generate-jwt-keys.js
 
 ### 3. Set environment variables in Coolify
 
-Copy `.env.example` → paste all vars into Coolify's env UI.  
+Copy `.env.example` → paste all vars into Coolify's env UI.
 **Critical vars:**
 
 | Variable | Description |
@@ -74,43 +72,21 @@ Copy `.env.example` → paste all vars into Coolify's env UI.
 | `VITE_SUPABASE_ANON_KEY` | Same as SUPABASE_ANON_KEY |
 | `POSTGRES_PASSWORD` | Strong password |
 | `REDIS_PASSWORD` | Strong password |
-| `APP_DOMAIN` | `imbaproduction.com` |
-| `SUPABASE_DOMAIN` | `supabase.imbaproduction.com` |
+| `APP_DOMAIN` | `imbamarketing.com` |
+| `SUPABASE_DOMAIN` | `supabase.imbamarketing.com` |
 
-### 4. DNS records (on your domain)
+### 4. DNS records
 
 ```
-A  imbaproduction.com          → your-hetzner-ip
-A  supabase.imbaproduction.com → your-hetzner-ip
-A  studio.imbaproduction.com   → your-hetzner-ip
+A  imbamarketing.com          → your-hetzner-ip
+A  supabase.imbamarketing.com → your-hetzner-ip
 ```
 
-### 5. Plesk reverse proxy (if using Plesk as outer proxy)
-
-In Plesk → Domains → imbaproduction.com → Apache & nginx Settings:
-
-```nginx
-# Additional nginx directives
-location / {
-    proxy_pass http://localhost:3000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_cache_bypass $http_upgrade;
-}
-```
-
-### 6. Deploy
+### 5. Deploy
 
 ```bash
 # Coolify triggers on git push to main
 git push origin main
-
-# Or manually trigger in Coolify dashboard
 ```
 
 ---
@@ -119,10 +95,11 @@ git push origin main
 
 ```bash
 # 1. Clone
-git clone https://github.com/magnetoid/woopulse-web.git
-cd woopulse-web
+git clone https://github.com/magnetoid/imba-marketing.git
+cd imba-marketing
 
 # 2. Install
+cd imba-marketing
 npm install
 
 # 3. Environment
@@ -133,8 +110,7 @@ cp .env.example .env
 docker compose up supabase-db redis -d
 
 # 5. Run migrations
-# Wait for DB to be healthy, then:
-docker exec -i imba-supabase-db psql -U supabase -d imba_production < scripts/init.sql
+docker exec -i imba-supabase-db psql -U supabase -d imba_marketing < scripts/init.sql
 
 # 6. Dev server
 npm run dev
@@ -145,19 +121,13 @@ npm run dev
 
 ## Admin Panel
 
-URL: `https://imbaproduction.com/admin`
+URL: `https://imbamarketing.com/admin`
 
-Login with Supabase Auth credentials.  
-Create first admin user:
-```bash
-# In Supabase Studio or via SQL:
-# studio.imbaproduction.com → Authentication → Users → Invite User
-```
-
-Or via SQL directly:
+Login with Supabase Auth credentials.
+Create first admin user via Supabase Studio or SQL:
 ```sql
 INSERT INTO auth.users (email, encrypted_password, email_confirmed_at, role)
-VALUES ('admin@imbaproduction.com', crypt('yourpassword', gen_salt('bf')), NOW(), 'authenticated');
+VALUES ('admin@imbamarketing.com', crypt('yourpassword', gen_salt('bf')), NOW(), 'authenticated');
 ```
 
 ---
@@ -166,19 +136,13 @@ VALUES ('admin@imbaproduction.com', crypt('yourpassword', gen_salt('bf')), NOW()
 
 | Type | Table | Public read | Admin write |
 |---|---|---|---|
-| Portfolio items | `portfolio_items` | ✅ published only | ✅ |
-| Blog posts | `blog_posts` | ✅ published only | ✅ |
-| Services | `services` | ✅ published only | ✅ |
-| Testimonials | `testimonials` | ✅ published only | ✅ |
-| Team members | `team_members` | ✅ published only | ✅ |
-| Quote requests | `quote_requests` | INSERT only | ✅ |
-| Site settings | `site_settings` | ✅ | ✅ |
-
----
-
-## Extend in Trae AI
-
-See vibe coding prompts in `scripts/vibe-prompts.md` for each section.
+| Portfolio items | `portfolio_items` | published only | yes |
+| Blog posts | `blog_posts` | published only | yes |
+| Services | `services` | published only | yes |
+| Testimonials | `testimonials` | published only | yes |
+| Team members | `team_members` | published only | yes |
+| Quote requests | `quote_requests` | INSERT only | yes |
+| Site settings | `site_settings` | yes | yes |
 
 ---
 

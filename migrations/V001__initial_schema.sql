@@ -1,6 +1,6 @@
 -- ═══════════════════════════════════════════════════════════
 --  V001: Initial schema
---  All core tables for Imba Production CMS
+--  All core tables for Imba Marketing CMS
 --  Safe to re-run (idempotent — uses IF NOT EXISTS)
 -- ═══════════════════════════════════════════════════════════
 
