@@ -347,58 +347,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ PRICING TEASER ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12 bg-ink-2 border-y border-white/5">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="eyebrow justify-center mb-5 reveal">Transparent pricing</p>
-            <h2 className="font-display font-light leading-tight mb-4 reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)' }}>
-              Invest in growth.<br /><em className="text-gold italic">Not guesswork.</em>
-            </h2>
-            <p className="text-smoke-dim max-w-lg mx-auto reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              No setup fees. No hidden costs. No long-term lock-in. Every plan includes a dedicated strategist and full AI deployment.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {[
-              { name: 'Starter', price: '$2,900', desc: 'For brands ready to scale smarter', features: ['2 AI systems', 'Dedicated strategist', 'Monthly reporting'], color: '#3CBFAE' },
-              { name: 'Growth', price: '$5,900', desc: 'For brands ready to dominate', features: ['4 AI systems', 'Priority strategist', 'Weekly reporting'], color: '#E8452A', popular: true },
-              { name: 'Enterprise', price: '$12,900', desc: 'Full AI marketing department', features: ['All 6 AI systems', 'Senior strategy team', 'Real-time dashboard'], color: '#C9A96E' },
-            ].map(({ name, price, desc, features, color, popular }, i) => (
-              <div key={name}
-                className={`glass-card gradient-border p-10 text-center reveal ${popular ? 'pricing-highlight' : ''}`}
-                style={{ transitionDelay: `${i * 80}ms` }}>
-                {popular && (
-                  <span className="inline-block font-mono-custom text-[0.55rem] tracking-[0.18em] uppercase px-4 py-1.5 bg-ember text-ink mb-5 rounded-sm">
-                    Most Popular
-                  </span>
-                )}
-                <h3 className="font-display font-light text-2xl text-smoke mb-2">{name}</h3>
-                <p className="font-mono-custom text-[0.6rem] tracking-wider uppercase mb-6" style={{ color }}>{desc}</p>
-                <div className="font-display font-light text-smoke mb-1" style={{ fontSize: '3.2rem', lineHeight: 1 }}>{price}</div>
-                <p className="font-mono-custom text-[0.6rem] text-smoke-faint tracking-wider mb-8">/month</p>
-                <div className="space-y-3 text-left">
-                  {features.map(f => (
-                    <div key={f} className="flex items-center gap-3">
-                      <span className="trust-badge-icon text-[0.6rem]" style={{ color }}>✓</span>
-                      <span className="text-sm text-smoke-dim">{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center reveal reveal-delay-3">
-            <Link to="/pricing" className="btn btn-primary">
-              See full pricing & features →
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ═══════════════════ FINAL CTA ═══════════════════ */}
       <section className="cta-gradient relative">
         <div className="relative px-6 lg:px-12 py-28 max-w-screen-xl mx-auto text-center z-10">
@@ -409,17 +357,11 @@ export default function Home() {
           <p className="text-ink/60 mb-10 max-w-xl mx-auto" style={{ fontSize: '1.05rem' }}>
             Book a free strategy call. We will audit your current marketing, show you where AI can drive the biggest gains, and build a custom growth plan — no strings attached.
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-5">
-            <button onClick={() => openModal()}
-              className="font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-12 py-5 cursor-pointer transition-all duration-200 hover:scale-105"
-              style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
-              Book Your Strategy Call →
-            </button>
-            <Link to="/pricing"
-              className="font-mono-custom text-[0.7rem] tracking-[0.12em] uppercase text-ink/50 hover:text-ink/80 transition-colors">
-              View pricing →
-            </Link>
-          </div>
+          <button onClick={() => openModal()}
+            className="font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-12 py-5 cursor-pointer transition-all duration-200 hover:scale-105"
+            style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
+            Book Your Strategy Call →
+          </button>
         </div>
       </section>
     </>
