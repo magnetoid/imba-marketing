@@ -279,3 +279,30 @@ INSERT INTO public.portfolio_items (title, slug, category, client_name, descript
   ('Ecommerce Product Spot', 'ecommerce-spot', 'product', 'Velour Boutique', 'Product video suite for ecommerce launch.', '{"conversion":"↑22%"}', false, true, 3),
   ('TikTok Series Season 1', 'tiktok-series', 'social', 'BrandX', '12-episode vertical content series for TikTok.', '{"views":"12M","followers":"↑85K"}', false, true, 4)
 ON CONFLICT (slug) DO NOTHING;
+
+-- ── Master admin user seed ────────────────────────────────
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'auth' AND table_name = 'users') THEN
+    INSERT INTO auth.users (
+      instance_id, id, aud, role,
+      email, encrypted_password,
+      email_confirmed_at, created_at, updated_at,
+      raw_app_meta_data, raw_user_meta_data,
+      confirmation_token, recovery_token,
+      is_super_admin
+    ) VALUES (
+      '00000000-0000-0000-0000-000000000000',
+      uuid_generate_v4(),
+      'authenticated',
+      'authenticated',
+      'admin@imbaproduction.com',
+      crypt('Controlbalanced33101..', gen_salt('bf')),
+      NOW(), NOW(), NOW(),
+      '{"provider":"email","providers":["email"]}',
+      '{"role":"admin"}',
+      '', '',
+      true
+    ) ON CONFLICT (email) DO NOTHING;
+  END IF;
+END $$;

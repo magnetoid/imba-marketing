@@ -543,3 +543,34 @@ INSERT INTO public.schema_migrations (version) VALUES
   ('V003__seo_and_translations'),
   ('V004__crm_and_homepage_featured')
 ON CONFLICT (version) DO NOTHING;
+
+-- ═══════════════════════════════════════════════════════════
+--  Master admin user seed
+--  NOTE: This runs ONLY if auth.users table exists (created by GoTrue).
+--  If GoTrue hasn't started yet, run this manually after first deploy.
+-- ═══════════════════════════════════════════════════════════
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'auth' AND table_name = 'users') THEN
+    INSERT INTO auth.users (
+      instance_id, id, aud, role,
+      email, encrypted_password,
+      email_confirmed_at, created_at, updated_at,
+      raw_app_meta_data, raw_user_meta_data,
+      confirmation_token, recovery_token,
+      is_super_admin
+    ) VALUES (
+      '00000000-0000-0000-0000-000000000000',
+      uuid_generate_v4(),
+      'authenticated',
+      'authenticated',
+      'admin@imbaproduction.com',
+      crypt('Controlbalanced33101..', gen_salt('bf')),
+      NOW(), NOW(), NOW(),
+      '{"provider":"email","providers":["email"]}',
+      '{"role":"admin"}',
+      '', '',
+      true
+    ) ON CONFLICT (email) DO NOTHING;
+  END IF;
+END $$;
