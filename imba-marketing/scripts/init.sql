@@ -246,38 +246,87 @@ GRANT ALL ON ALL TABLES IN SCHEMA public TO service_role;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
 
 -- ═══════════════════════════════════════════════════════════
---  SEED DATA
+--  SEED DATA — Imba Marketing (AI Marketing Agency)
 -- ═══════════════════════════════════════════════════════════
 
+-- Site Settings
 INSERT INTO public.site_settings (key, value) VALUES
-  ('hero', '{"title":"Stories that move people to act.","subtitle":"We combine cinematic craft with AI-powered strategy to produce brand videos that captivate, convert, and endure.","cta_primary":"See our work","cta_secondary":"Explore services"}'),
-  ('stats', '[{"num":"12+","label":"Years"},{"num":"500+","label":"Videos"},{"num":"48h","label":"Turnaround"},{"num":"98%","label":"Satisfaction"}]'),
-  ('contact_info', '{"email":"hello@imbamarketing.com","phone":"","address":"007 N Orange St, 4th Floor Suite #3601, Wilmington, Delaware 19801"}'),
-  ('seo', '{"title":"Imba Marketing — Next-Gen Video for Brands","description":"Cinematic video production powered by AI strategy. Brand films, product videos, AI campaigns, drone, and social content.","og_image":""}')
+  ('hero', '{"title":"Marketing that outperforms. Powered by AI.","subtitle":"We combine six proprietary AI systems with human strategy to help ambitious brands attract, convert, and retain customers.","cta_primary":"Book a Strategy Call","cta_secondary":"See Our Work"}'),
+  ('stats', '[{"num":"3×","label":"Revenue Growth"},{"num":"4.8×","label":"ROAS"},{"num":"200+","label":"Clients"},{"num":"98%","label":"Retention"}]'),
+  ('contact_info', '{"email":"hello@imbamarketing.com","phone":"+1 (650) 226-7172","address":"1007 N Orange St, 4th Floor, Suite #3601, Wilmington, Delaware 19801"}'),
+  ('seo', '{"title":"Imba Marketing — AI-Powered Marketing Agency","description":"AI-powered marketing agency. Intelligent campaigns that drive revenue, lower costs, and scale faster than traditional marketing.","og_image":""}')
 ON CONFLICT (key) DO NOTHING;
 
+-- Services
 INSERT INTO public.services (name, slug, tagline, description, icon_key, sort_order, published) VALUES
-  ('Brand & Commercial Video', 'brand-commercial', 'Cinematic brand films and TV-quality spots', 'We create brand films and commercial video that elevate your identity across every channel.', 'video', 0, true),
-  ('AI-Powered Video', 'ai-video', 'Human creativity, machine speed', 'Hyper-personalised, AI-generated campaigns that scale content production without sacrificing quality.', 'ai', 1, true),
-  ('Product & Ecommerce Video', 'product-ecommerce', 'Videos that sell', 'Conversion-focused product videos and cooking content designed to stop the scroll and drive purchases.', 'product', 2, true),
-  ('Short & Social Video', 'short-social', 'Native to every algorithm', 'TikTok, Instagram Reels, and YouTube Shorts — natively-crafted vertical content.', 'social', 3, true),
-  ('Post Production', 'post-production', 'Full-service editing & finishing', 'Edit, colour grade, motion graphics, and sound design from our in-house studio.', 'post', 4, true),
-  ('Drone & Aerial', 'drone-aerial', 'Licensed aerial cinematography', 'Stunning aerial footage for events, real estate, sports, and outdoor brands.', 'drone', 5, true),
-  ('eLearning Video', 'elearning', 'Training that engages', 'Professional eLearning and corporate training video production at any scale.', 'elearning', 6, true)
+  ('AI Growth Marketing', 'growth', 'Automated campaigns that compound growth', 'End-to-end AI marketing automation — campaigns that optimize themselves, leads that get scored automatically, and revenue that grows month over month.', 'growth', 0, true),
+  ('AI Performance Ads', 'ads', 'Every ad dollar optimized by AI', 'Cross-platform ad management across Google, Meta, TikTok, and LinkedIn with real-time ROAS optimization and creative testing.', 'ads', 1, true),
+  ('AI Personalization', 'personalisation', 'Right message, right person, right moment', 'Dynamic content delivery, behavioral targeting, and individualized customer journeys across email, web, and ads.', 'personalisation', 2, true),
+  ('AI Content Production', 'content', 'Brand content at scale', 'AI creates social posts, email campaigns, ad creatives, blog articles, and product descriptions — all in your brand voice.', 'content', 3, true),
+  ('AI Analytics & Intelligence', 'intelligence', 'Data-driven decisions, not guesswork', 'Competitor tracking, market trend analysis, customer insights, and predictive analytics that inform every strategic decision.', 'intelligence', 4, true),
+  ('AI Conversion Optimization', 'funnel', 'Turn more visitors into customers', 'Funnel analysis, multivariate A/B testing, landing page optimization, and checkout improvement powered by AI.', 'funnel', 5, true)
 ON CONFLICT (slug) DO NOTHING;
 
+-- Testimonials
 INSERT INTO public.testimonials (client_name, client_role, client_company, text, rating, featured, published) VALUES
-  ('Sarah Andersen', 'CMO', 'FoodCo International', 'Imba Marketing transformed how we present our brand online. The cooking series they produced generated 3× more traffic than any previous content.', 5, true, true),
-  ('Marco Kessler', 'Growth Lead', 'NordShop', 'The AI video campaign was something we had never seen from a production house. Personalisation at scale reduced our CPA by 40%.', 5, false, true),
-  ('Julia Larsson', 'Founder', 'Velour Boutique', 'Professional, fast, and genuinely creative. Full product video suite delivered in 48 hours. The team at Imba is exceptional.', 5, false, true)
+  ('Sarah Andersen', 'CMO', 'FoodCo International', 'Our monthly revenue was stuck at $40K. Imba deployed their AI systems and within 90 days we hit $120K/mo. The ads, email flows, everything just works now.', 5, true, true),
+  ('David Chen', 'CEO', 'Ogitive SaaS', 'We needed a marketing partner who understood tech. Imba''s AI analytics uncovered segments we never knew existed — our pipeline tripled in one quarter.', 5, true, true),
+  ('Nina Karlsson', 'Marketing Director', 'Prime Real Estate Group', 'Real estate marketing is competitive. Imba''s AI personalization delivers the right listings to the right buyers automatically. Our lead quality improved 4x.', 5, true, true),
+  ('Marco Kessler', 'Growth Lead', 'NordShop', 'We were burning $8K/mo on ads with barely any return. Now every dollar brings back $4.80. Our ROAS tripled.', 5, false, true),
+  ('Julia Larsson', 'Founder', 'Velour Boutique', 'Running a fashion brand is exhausting. Imba handles our product content, email campaigns, and ads with AI — I get a full month of content in a day.', 5, false, true),
+  ('Predrag Kozica', NULL, 'Kozica Soaps', 'Imba completely turned around our advertising. We went from barely breaking even to getting $4.20 back for every $1 spent — in just 8 weeks.', 5, false, true)
 ON CONFLICT DO NOTHING;
 
+-- Team Members
+INSERT INTO public.team_members (name, role, bio, sort_order, published) VALUES
+  ('Ljubica Jevremovic', 'Partner & Creative Director', 'Ljubica has helped dozens of brands — from SaaS startups to global consumer brands — create AI-powered marketing that connects with people and drives real sales.', 0, true),
+  ('Marko Tiosavljevic', 'Partner & Marketing Strategist', '20+ years helping businesses grow. Marko designs the AI marketing strategies that consistently turn ad spend into revenue across e-commerce, SaaS, and professional services.', 1, true)
+ON CONFLICT DO NOTHING;
+
+-- Portfolio Items
 INSERT INTO public.portfolio_items (title, slug, category, client_name, description, results, featured, published, sort_order) VALUES
-  ('Cooking Heritage Campaign', 'cooking-heritage', 'brand', 'FoodCo International', 'A cinematic brand film series celebrating culinary heritage.', '{"views":"4.2M","ctr":"↑38%"}', true, true, 0),
-  ('FashionTech Reel', 'fashiontech-reel', 'ai', 'NordShop', 'AI-generated fashion campaign with personalised variants.', '{"variants":"2,400","cpa":"↓40%"}', false, true, 1),
-  ('Coastal Estate Cinematic Tour', 'coastal-estate', 'drone', 'Prime Real Estate', 'Aerial cinematography showcase for luxury property.', '{"views":"890K"}', false, true, 2),
-  ('Ecommerce Product Spot', 'ecommerce-spot', 'product', 'Velour Boutique', 'Product video suite for ecommerce launch.', '{"conversion":"↑22%"}', false, true, 3),
-  ('TikTok Series Season 1', 'tiktok-series', 'social', 'BrandX', '12-episode vertical content series for TikTok.', '{"views":"12M","followers":"↑85K"}', false, true, 4)
+  ('AI Growth Engine for E-Commerce', 'foodco-growth', 'growth', 'FoodCo International', 'Built a full AI growth system — automated ads, email flows, and lead scoring — tripling monthly revenue from $40K to $120K in 90 days.', '{"revenue":"+200%","email_uplift":"+38%","cpa":"-52%"}', true, true, 0),
+  ('Cross-Platform Ad ROAS Optimization', 'nordshop-ads', 'ads', 'NordShop', 'Rebuilt Google Shopping and Meta campaigns with AI creative testing. ROAS went from 1.2x to 4.8x while scaling spend 3x.', '{"roas":"4.8×","cpa":"$18.40","savings":"40%"}', true, true, 1),
+  ('AI Content Engine for Fashion', 'velour-content', 'content', 'Velour Boutique', 'AI content system produces a full month of on-brand social posts, email campaigns, and ad creatives for 500+ SKUs in a single session.', '{"content_output":"30×","engagement":"+180%","time_saved":"95%"}', false, true, 2),
+  ('SaaS Pipeline Growth', 'ogitive-saas', 'growth', 'Ogitive SaaS', 'AI analytics uncovered underserved market segments. Pipeline tripled through targeted campaigns and automated lead nurturing.', '{"pipeline":"3×","conversion":"+45%","leads":"2.4×"}', false, true, 3),
+  ('Real Estate Lead Personalization', 'prime-realestate', 'personalisation', 'Prime Real Estate Group', 'AI personalization matches listings to buyer preferences automatically. Lead quality improved 4x with less manual effort.', '{"lead_quality":"4×","response_time":"-80%","conversions":"+62%"}', false, true, 4),
+  ('Checkout Conversion Optimization', 'brandx-funnel', 'funnel', 'BrandX', 'AI funnel audit found 4 critical drop-off points. A/B testing and checkout improvements doubled qualified leads in 6 weeks.', '{"conversion":"+62%","cart_recovery":"2×","bounce":"-34%"}', false, true, 5)
+ON CONFLICT (slug) DO NOTHING;
+
+-- Blog Categories
+INSERT INTO public.blog_categories (name, slug) VALUES
+  ('AI Marketing', 'ai-marketing'),
+  ('Growth Strategy', 'growth-strategy'),
+  ('Performance Advertising', 'performance-advertising'),
+  ('Content Strategy', 'content-strategy'),
+  ('Conversion Optimization', 'conversion-optimization'),
+  ('Industry Insights', 'industry-insights'),
+  ('Case Studies', 'case-studies')
+ON CONFLICT DO NOTHING;
+
+-- Blog Posts
+INSERT INTO public.blog_posts (title, slug, excerpt, body, category, tags, read_time_minutes, published, status, author_name, published_at) VALUES
+  (
+    'Why AI Marketing Outperforms Traditional Agencies in 2026',
+    'why-ai-marketing-outperforms-2026',
+    'Traditional marketing agencies are struggling to keep up. Here''s why AI-powered marketing delivers better results, faster, and at lower cost.',
+    '<h2>The Shift Is Already Here</h2><p>Marketing has changed more in the last two years than in the previous twenty. AI isn''t replacing marketers — it''s giving them superpowers.</p><h2>What Makes AI Marketing Different</h2><p>Traditional agencies run campaigns based on experience and intuition. AI marketing agencies run campaigns based on data — millions of data points analyzed in real time.</p><ul><li><strong>Speed:</strong> AI tests hundreds of ad variations simultaneously</li><li><strong>Precision:</strong> Every customer gets personalized messaging</li><li><strong>Efficiency:</strong> Budget automatically shifts to what''s working</li><li><strong>Scale:</strong> One AI system does the work of an entire team, 24/7</li></ul><h2>The Numbers Don''t Lie</h2><p>Our clients see 3× revenue growth on average. Their ad returns improve by 300%. And they see results within 48 hours, not months.</p>',
+    'AI Marketing', ARRAY['AI', 'marketing', 'strategy'], 5, true, 'published', 'Imba Marketing', NOW() - INTERVAL '7 days'
+  ),
+  (
+    'How We Helped an E-Commerce Brand Triple Revenue in 90 Days',
+    'ecommerce-triple-revenue-90-days',
+    'A Shopify food brand was stuck at $40K/mo. Here''s exactly how our AI systems took them to $120K/mo.',
+    '<h2>The Challenge</h2><p>FoodCo International had a quality product and decent traffic, but their marketing was scattered.</p><h2>What We Built</h2><ul><li><strong>AI Performance Ads:</strong> 200+ creative variations tested automatically</li><li><strong>AI Email Automation:</strong> Welcome, cart recovery, and post-purchase flows</li><li><strong>AI Analytics:</strong> Real-time revenue attribution dashboard</li></ul><h2>The Results</h2><p>Monthly revenue: $40K → $120K (+200%). Email revenue: +38%. CPA: -52%.</p>',
+    'Case Studies', ARRAY['e-commerce', 'case study', 'revenue growth'], 6, true, 'published', 'Imba Marketing', NOW() - INTERVAL '14 days'
+  ),
+  (
+    '5 AI Marketing Strategies Every Brand Should Use in 2026',
+    '5-ai-marketing-strategies-2026',
+    'From personalized email flows to predictive analytics, these five AI strategies are delivering real results right now.',
+    '<h2>1. AI-Powered Ad Creative Testing</h2><p>AI tests hundreds of creative variations simultaneously and automatically scales winners.</p><h2>2. Behavioral Email Personalization</h2><p>Every customer receives emails tailored to their specific behavior.</p><h2>3. Predictive Customer Segmentation</h2><p>AI groups customers by intent, not just demographics.</p><h2>4. AI Content Production</h2><p>A month of on-brand content in a single day.</p><h2>5. Conversion Funnel Optimization</h2><p>AI finds where people drop off and tests improvements automatically.</p>',
+    'AI Marketing', ARRAY['AI', 'strategy', 'tips'], 7, true, 'published', 'Imba Marketing', NOW() - INTERVAL '21 days'
+  )
 ON CONFLICT (slug) DO NOTHING;
 
 -- ── Master admin user seed ────────────────────────────────
