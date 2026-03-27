@@ -7,9 +7,10 @@ import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import toast from 'react-hot-toast'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Settings, Loader2, CheckCircle2, AlertCircle, Mail, Key,
-  Save, Eye, EyeOff, Zap,
+  Save, Eye, EyeOff, Zap, BarChart3,
 } from 'lucide-react'
 
 interface SmtpConfig {
@@ -36,13 +37,23 @@ export default function AISettings() {
   const [companyDesc, setCompanyDesc] = useState('AI-powered marketing systems that build predictable revenue growth.')
   const [usp, setUsp] = useState('We build intelligent marketing systems that automate growth and scale revenue without scaling headcount.')
 
+  // Tracking / Analytics
+  const [ga4Id, setGa4Id] = useState('')
+  const [gtmId, setGtmId] = useState('')
+  const [fbPixelId, setFbPixelId] = useState('')
+  const [customHeadScripts, setCustomHeadScripts] = useState('')
+  const [savingTracking, setSavingTracking] = useState(false)
+
   useEffect(() => { load() }, [])
 
   async function load() {
     setLoading(true)
-    const { data } = await supabase.from('crm_ai_settings').select('key, value')
-    if (data) {
-      const m = Object.fromEntries(data.map(r => [r.key, r.value]))
+    const [crmRes, trackingRes] = await Promise.all([
+      supabase.from('crm_ai_settings').select('key, value'),
+      supabase.from('site_settings').select('key, value').eq('key', 'tracking').single(),
+    ])
+    if (crmRes.data) {
+      const m = Object.fromEntries(crmRes.data.map(r => [r.key, r.value]))
       if (m.smtp_config) setSmtp(m.smtp_config as SmtpConfig)
       if (m.ai_outreach_tone) setAiTone(m.ai_outreach_tone as string)
       if (m.ai_auto_enrich !== undefined) setAutoEnrich(Boolean(m.ai_auto_enrich))
@@ -53,6 +64,13 @@ export default function AISettings() {
         if (cp.company_description) setCompanyDesc(cp.company_description)
         if (cp.usp) setUsp(cp.usp)
       }
+    }
+    if (trackingRes.data?.value) {
+      const t = trackingRes.data.value as { ga4_id?: string; gtm_id?: string; fb_pixel_id?: string; custom_head_scripts?: string }
+      if (t.ga4_id) setGa4Id(t.ga4_id)
+      if (t.gtm_id) setGtmId(t.gtm_id)
+      if (t.fb_pixel_id) setFbPixelId(t.fb_pixel_id)
+      if (t.custom_head_scripts) setCustomHeadScripts(t.custom_head_scripts)
     }
     setLoading(false)
   }
@@ -101,6 +119,22 @@ export default function AISettings() {
     toast.success('API key saved to browser storage')
   }
 
+  async function saveTracking() {
+    setSavingTracking(true)
+    const { error } = await supabase.from('site_settings').upsert({
+      key: 'tracking',
+      value: {
+        ga4_id: ga4Id.trim(),
+        gtm_id: gtmId.trim(),
+        fb_pixel_id: fbPixelId.trim(),
+        custom_head_scripts: customHeadScripts.trim(),
+      },
+    })
+    setSavingTracking(false)
+    if (error) { toast.error(error.message); return }
+    toast.success('Tracking settings saved — reload the site to activate')
+  }
+
   const sf = (k: keyof SmtpConfig) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setSmtp(p => ({ ...p, [k]: e.target.value }))
 
@@ -131,6 +165,81 @@ export default function AISettings() {
           <Button onClick={saveApiKey} variant="outline">Save key</Button>
         </div>
         {apiKey && <p className="text-xs text-emerald-400 mt-2 flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> API key configured</p>}
+      </section>
+
+      <Separator className="mb-10" />
+
+      {/* Tracking / Analytics */}
+      <section className="mb-10">
+        <div className="flex items-center gap-2 mb-1">
+          <BarChart3 className="h-4 w-4 text-amber-500" />
+          <h2 className="font-medium">Tracking & Analytics</h2>
+        </div>
+        <p className="text-xs text-muted-foreground mb-5">
+          Add your tracking IDs here. Scripts are injected automatically on the public site. Changes take effect on next page load.
+        </p>
+
+        <div className="flex flex-col gap-4 mb-6">
+          <div className="flex flex-col gap-1.5">
+            <Label>Google Analytics 4 (Measurement ID)</Label>
+            <Input
+              value={ga4Id}
+              onChange={e => setGa4Id(e.target.value)}
+              placeholder="G-XXXXXXXXXX"
+              className="font-mono text-sm"
+            />
+            <p className="text-xs text-muted-foreground">Find this in GA4 → Admin → Data Streams → your stream → Measurement ID</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label>Google Tag Manager (Container ID)</Label>
+            <Input
+              value={gtmId}
+              onChange={e => setGtmId(e.target.value)}
+              placeholder="GTM-XXXXXXX"
+              className="font-mono text-sm"
+            />
+            <p className="text-xs text-muted-foreground">If you use GTM, you can skip the GA4 field above — manage GA inside GTM instead</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label>Facebook Pixel ID</Label>
+            <Input
+              value={fbPixelId}
+              onChange={e => setFbPixelId(e.target.value)}
+              placeholder="123456789012345"
+              className="font-mono text-sm"
+            />
+            <p className="text-xs text-muted-foreground">Find this in Meta Events Manager → your Pixel → Settings</p>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label>Custom &lt;head&gt; scripts</Label>
+            <Textarea
+              value={customHeadScripts}
+              onChange={e => setCustomHeadScripts(e.target.value)}
+              placeholder={'<script>\n  // Any additional tracking scripts\n</script>'}
+              rows={4}
+              className="font-mono text-xs"
+            />
+            <p className="text-xs text-muted-foreground">Raw HTML injected into &lt;head&gt;. Use for Hotjar, Clarity, LinkedIn Insight, etc.</p>
+          </div>
+        </div>
+
+        <Button onClick={saveTracking} disabled={savingTracking} className="gap-2">
+          {savingTracking ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save tracking settings
+        </Button>
+
+        {(ga4Id || gtmId || fbPixelId) && (
+          <div className="mt-4 bg-muted/20 border border-border rounded-lg p-4">
+            <p className="text-xs font-mono tracking-widest uppercase text-muted-foreground/40 mb-2">Active tracking</p>
+            <div className="flex flex-wrap gap-2">
+              {ga4Id && <span className="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> GA4: {ga4Id}</span>}
+              {gtmId && <span className="text-xs bg-blue-500/10 text-blue-400 px-2 py-1 rounded flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> GTM: {gtmId}</span>}
+              {fbPixelId && <span className="text-xs bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> FB Pixel: {fbPixelId}</span>}
+            </div>
+          </div>
+        )}
       </section>
 
       <Separator className="mb-10" />

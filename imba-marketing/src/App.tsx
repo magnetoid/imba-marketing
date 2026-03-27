@@ -36,6 +36,7 @@ import AIOutreach from '@/admin/crm/AIOutreach'
 import AIInbox from '@/admin/crm/AIInbox'
 import AIAnalytics from '@/admin/crm/AIAnalytics'
 import AISettings from '@/admin/crm/AISettings'
+import useAnalytics from '@/hooks/useAnalytics'
 
 // Scroll reveal observer
 function useScrollReveal() {
@@ -71,6 +72,7 @@ function PublicLayout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useAnalytics()
   return (
     <QuoteModalProvider>
       <QuoteModal />
