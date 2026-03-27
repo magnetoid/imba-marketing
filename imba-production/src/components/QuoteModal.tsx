@@ -3,14 +3,14 @@ import { useQuoteModal } from '@/contexts/QuoteModalContext'
 import { supabase } from '@/lib/supabase'
 
 const SERVICES = [
-  'AI Growth Systems',
-  'AI Performance Advertising',
-  'AI Personalisation Systems',
-  'AI Content Engines',
-  'AI Data & Market Intelligence',
-  'AI Funnel Optimisation',
-  'Full AI Marketing Stack',
-  'Other / Not sure yet',
+  'Grow my revenue on autopilot',
+  'Get more from my ad spend',
+  'Personalize my customer experience',
+  'Create content faster',
+  'Understand my market better',
+  'Turn more visitors into buyers',
+  'Full marketing solution',
+  'Not sure yet — help me decide',
 ]
 
 const BUDGETS = [
@@ -75,7 +75,7 @@ export default function QuoteModal() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.full_name || !form.email || !form.message) {
-      setError('Please fill in your name, email, and project description.')
+      setError('Please fill in your name, email, and what you need help with.')
       return
     }
     setSubmitting(true)
@@ -119,13 +119,13 @@ export default function QuoteModal() {
               letterSpacing: '0.2em', textTransform: 'uppercase',
               color: '#E8452A', marginBottom: '0.4rem',
             }}>
-              Free strategy call — 24h response
+              Free growth plan — we reply within 24h
             </p>
             <h2 style={{
               fontFamily: 'var(--font-display, serif)', fontWeight: 300,
               fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: '#F5F4F0', lineHeight: 1.2,
             }}>
-              Book your strategy call
+              Tell us about your business
             </h2>
           </div>
           <button
@@ -157,10 +157,10 @@ export default function QuoteModal() {
               </div>
               <div>
                 <h3 style={{ fontFamily: 'var(--font-display, serif)', fontWeight: 300, fontSize: '1.6rem', color: '#F5F4F0', marginBottom: '0.5rem' }}>
-                  Request received.
+                  We got your message!
                 </h3>
                 <p style={{ color: 'rgba(245,244,240,0.5)', lineHeight: 1.6, fontWeight: 300 }}>
-                  We'll review your project and respond within 24 hours with a tailored approach.
+                  We'll review everything and get back to you within 24 hours with a free growth plan tailored to your business.
                 </p>
               </div>
               <button
@@ -205,32 +205,32 @@ export default function QuoteModal() {
                     style={inputStyle}
                   />
                 </Field>
-                <Field label="Service">
+                <Field label="What do you need help with?">
                   <select
                     value={form.service_type}
                     onChange={e => setForm(f => ({ ...f, service_type: e.target.value }))}
                     style={{ ...inputStyle, cursor: 'pointer' }}
                   >
-                    <option value="">Select service…</option>
+                    <option value="">Choose one…</option>
                     {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </Field>
               </div>
-              <Field label="Budget range">
+              <Field label="Monthly budget">
                 <select
                   value={form.budget_range}
                   onChange={e => setForm(f => ({ ...f, budget_range: e.target.value }))}
                   style={{ ...inputStyle, cursor: 'pointer' }}
                 >
-                  <option value="">Select budget…</option>
+                  <option value="">Choose a range…</option>
                   {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
                 </select>
               </Field>
-              <Field label="Your marketing goals *">
+              <Field label="What are you trying to achieve? *">
                 <textarea
                   value={form.message}
                   onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-                  placeholder="What are your growth targets? What's currently not working? What tools do you use?"
+                  placeholder="Tell us about your goals. What's working? What's not? What would success look like?"
                   rows={4}
                   style={{ ...inputStyle, resize: 'vertical', minHeight: '96px' }}
                 />
@@ -252,10 +252,10 @@ export default function QuoteModal() {
                     transition: 'opacity 0.2s',
                   }}
                 >
-                  {submitting ? 'Sending…' : 'Send request →'}
+                  {submitting ? 'Sending…' : 'Get my free growth plan →'}
                 </button>
                 <p style={{ fontSize: '0.72rem', color: 'rgba(245,244,240,0.25)', fontFamily: 'DM Mono, monospace' }}>
-                  No commitment
+                  100% free
                 </p>
               </div>
             </form>

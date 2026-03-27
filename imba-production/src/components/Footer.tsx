@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const SERVICES = [
-  'AI Growth Systems',
-  'AI Performance Advertising',
-  'AI Personalization',
-  'AI Content Engines',
-  'AI Data & Intelligence',
-  'AI Funnel Optimization',
+  'Grow Revenue on Autopilot',
+  'Get More from Every Ad Dollar',
+  'Make Customers Feel Special',
+  'Content Creation at Scale',
+  'Know What Customers Want',
+  'Turn Visitors into Buyers',
 ]
 const COMPANY = [
   { label: 'About Us', to: '/about' },
-  { label: 'Our Results', to: '/results' },
+  { label: 'Client Results', to: '/results' },
   { label: 'Reviews', to: '/reviews' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
@@ -32,10 +32,10 @@ export default function Footer() {
       {/* Top strip */}
       <div className="border-b border-white/5 px-6 lg:px-12 py-6 flex items-center justify-between">
         <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] text-smoke-faint uppercase">
-          Next-generation AI marketing systems
+          Helping businesses grow faster with AI marketing
         </p>
         <button onClick={() => openModal()} className="btn btn-primary text-[0.65rem]">
-          Start growing →
+          Get your free growth plan →
         </button>
       </div>
 
@@ -47,7 +47,7 @@ export default function Footer() {
             imba<span className="text-ember italic">.</span>marketing
           </div>
           <p className="text-sm text-smoke-dim leading-relaxed max-w-xs mb-6">
-            AI-powered growth systems for modern brands. We build intelligent marketing engines that scale revenue without scaling headcount.
+            We help businesses get more customers, lower marketing costs, and grow faster — using AI that actually works.
           </p>
           <div className="flex gap-2">
             {SOCIAL.map(({ label, href }) => (
@@ -66,7 +66,7 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <p className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke mb-5">Services</p>
+          <p className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke mb-5">What We Do</p>
           <ul className="flex flex-col gap-3">
             {SERVICES.map(s => (
               <li key={s}>

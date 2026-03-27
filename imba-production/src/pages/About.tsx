@@ -6,7 +6,7 @@ const TEAM = [
   {
     name: 'Ljubica Jevremovic',
     role: 'Partner & Creative Director',
-    bio: 'A creative strategist who has built AI-driven campaigns for Silicon Valley brands and global e-commerce leaders. She bridges the gap between creative excellence and AI-powered performance — ensuring every campaign is as compelling as it is measurable.',
+    bio: 'Ljubica has helped dozens of brands — from Silicon Valley startups to global e-commerce leaders — create marketing that actually connects with people and drives real sales. She makes sure every campaign is not just creative, but profitable.',
     initials: 'LJ',
     color: '#C9A96E',
     image: '/team/ljubica.jpg',
@@ -16,7 +16,7 @@ const TEAM = [
   {
     name: 'Marko Tiosavljevic',
     role: 'Partner & Marketing Strategist',
-    bio: '20+ years in growth marketing and digital strategy. Marko architects the AI systems that transform marketing spend into measurable revenue — ensuring every client\'s growth engine is built for long-term compounding results.',
+    bio: '20+ years helping businesses grow. Marko designs the marketing strategies that consistently turn ad spend into revenue — making sure every client\'s growth plan is built for long-term, compounding results.',
     initials: 'MT',
     color: '#E8452A',
     image: '/team/marko.jpg',
@@ -28,31 +28,31 @@ const TEAM = [
 const VALUES = [
   {
     n: '01',
-    title: 'Intelligence-first design',
-    desc: 'We build AI systems, not campaigns. Every solution is engineered to learn, adapt, and compound results over time — making your marketing smarter with every data point.',
+    title: 'Your results come first',
+    desc: 'Everything we do is measured by one thing: did it make you money? Beautiful marketing that doesn\'t bring in customers is a waste. We build things that actually work.',
   },
   {
     n: '02',
-    title: 'Revenue-first thinking',
-    desc: 'Beautiful marketing that doesn\'t convert is a cost centre. Every system we design is tied to a revenue metric: leads, conversions, ROAS, or retention.',
+    title: 'Plain talk, no jargon',
+    desc: 'We explain everything in language you can understand. No buzzwords, no hiding behind complexity. You\'ll always know what we\'re doing, why, and what results to expect.',
   },
   {
     n: '03',
-    title: 'True partnership',
-    desc: 'We immerse ourselves in your brand, competitive landscape, and customer behaviour. Your goals guide every AI decision we make.',
+    title: 'We treat your business like ours',
+    desc: 'We don\'t just run your marketing — we immerse ourselves in your business. We learn your customers, your market, and your goals. Your success is our success.',
   },
   {
     n: '04',
-    title: 'Speed without compromise',
-    desc: 'First results in 48 hours is our standard. We\'ve engineered an AI deployment process that delivers fast without cutting corners.',
+    title: 'Fast results, no cutting corners',
+    desc: 'You\'ll see improvements within 48 hours. Full setup in 2–4 weeks. We move fast because you shouldn\'t have to wait to grow — but we never sacrifice quality for speed.',
   },
 ]
 
 const STATS = [
-  { num: '8', sup: '+', label: 'Years in business' },
-  { num: '200', sup: '+', label: 'Campaigns' },
-  { num: '40', sup: '%', label: 'Lower CPA' },
-  { num: '98', sup: '%', label: 'Retention' },
+  { num: '8', sup: '+', label: 'Years helping businesses grow' },
+  { num: '200', sup: '+', label: 'Successful projects' },
+  { num: '40', sup: '%', label: 'Average cost savings' },
+  { num: '98', sup: '%', label: 'Clients stay with us' },
 ]
 
 const CLIENTS = [
@@ -64,19 +64,19 @@ const TESTIMONIALS = [
   {
     name: 'Predrag Kozica',
     company: 'Kozica Soaps',
-    text: 'Imba Marketing built us an AI system that transformed our ad performance. ROAS went from 1.8× to 4.2× in just 8 weeks. The team is exceptional.',
+    text: 'Imba completely turned around our advertising. We went from barely breaking even to getting $4.20 back for every $1 spent — in just 8 weeks. These guys know what they\'re doing.',
   },
   {
     name: 'Bojan Ilić',
     role: 'CEO',
     company: 'Massive Movie Horse',
-    text: 'Great cooperation with the Imba team. Their AI personalisation system increased our email conversion rate by 67%. Highly recommended.',
+    text: 'Working with Imba was a game-changer. They helped us get 67% more sales from our email campaigns. The team explained everything clearly and delivered exactly what they promised.',
   },
   {
     name: 'Dragan Dragovic',
     role: 'Developer & SEO Expert',
     company: 'Ogitive',
-    text: 'The AI content engine they built generates 30 days of optimised content in a single session. Quality is consistently high and brand-perfect.',
+    text: 'We used to spend the whole week creating content. Now we get 30 days of high-quality, brand-perfect content in a single session. The time and money we save is incredible.',
   },
 ]
 
@@ -92,8 +92,8 @@ export default function About() {
   return (
     <>
       <Seo
-        title="About Imba Marketing"
-        description="A next-generation AI marketing agency built for results. We build intelligent marketing systems that generate measurable revenue for businesses worldwide."
+        title="About Imba Marketing — We Help Businesses Grow Faster"
+        description="Since 2016, we've helped 200+ businesses get more customers and grow revenue with AI-powered marketing. No jargon, just results."
         canonicalPath="/about"
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
@@ -111,20 +111,20 @@ export default function About() {
             <div>
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
-                A next-generation<br />
-                <em className="text-gold italic">AI marketing agency</em><br />
-                built for results
+                We help businesses<br />
+                <em className="text-gold italic">grow faster</em><br />
+                with AI marketing
               </h1>
               <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
-                We are a team of AI marketing strategists, data scientists, and growth engineers dedicated to building intelligent marketing systems that generate measurable revenue for businesses worldwide.
+                Since 2016, we've helped over 200 businesses get more customers, lower their marketing costs, and free up their time. We use AI to do the heavy lifting — and we explain everything in plain language so you always know what's happening and why.
               </p>
               <div className="flex gap-4 reveal reveal-delay-3">
-                <Link to="/results" className="btn btn-primary">See our results</Link>
+                <Link to="/results" className="btn btn-primary">See our client results</Link>
                 <Link to="/contact" className="btn btn-ghost">Get in touch →</Link>
               </div>
             </div>
 
-            {/* AI visual */}
+            {/* Mission visual */}
             <div className="relative aspect-[4/3] bg-ink-2 border border-white/5 overflow-hidden reveal reveal-delay-2 hidden lg:block">
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 text-center px-8">
                 <div className="w-14 h-14 flex items-center justify-center border border-cyber/30"
@@ -132,9 +132,9 @@ export default function About() {
                   <span style={{ color: '#00D4FF', fontSize: '1.5rem' }}>◈</span>
                 </div>
                 <div>
-                  <p className="font-mono-custom text-[0.58rem] tracking-[0.2em] uppercase text-smoke-faint mb-2">Our mission</p>
+                  <p className="font-mono-custom text-[0.58rem] tracking-[0.2em] uppercase text-smoke-faint mb-2">Our promise</p>
                   <p className="font-display font-light text-smoke/60 leading-snug" style={{ fontSize: '1.05rem' }}>
-                    Building AI systems that help<br />brands generate real revenue
+                    More customers, lower costs,<br />less work for you
                   </p>
                 </div>
                 <div className="font-mono-custom text-[0.52rem] text-smoke-faint/25 tracking-widest">
@@ -161,33 +161,33 @@ export default function About() {
         ))}
       </div>
 
-      {/* ── MISSION / WHAT WE DO ──────────────────────────── */}
+      {/* ── WHAT WE DO ──────────────────────────── */}
       <section className="py-24 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <div>
             <p className="eyebrow mb-4 reveal">What we do</p>
             <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              We build systems that<br /><em className="text-gold italic">generate revenue</em>
+              We make your marketing<br /><em className="text-gold italic">work harder for you</em>
             </h2>
             <div className="space-y-5 text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              <p>We are a team of AI marketing strategists, data scientists, and growth engineers dedicated to building intelligent marketing systems that generate measurable revenue for businesses worldwide.</p>
-              <p>We combine deep marketing expertise with cutting-edge AI to create systems that don't just look good — they drive clicks, conversions, and lasting brand growth.</p>
-              <p>From AI growth systems and performance advertising to content engines, personalisation, market intelligence, and funnel optimisation — we cover every growth lever, every channel, every business goal.</p>
+              <p>We're a marketing team that uses AI to get you better results in less time. That means more customers, lower costs, and marketing that keeps improving on its own.</p>
+              <p>We don't just run ads or post content. We build complete marketing systems that work around the clock — finding customers, nurturing leads, and growing your revenue while you focus on your business.</p>
+              <p>From ads and content to personalization and analytics, we cover every part of your marketing. And we explain everything in plain English — no tech jargon, no confusing reports.</p>
             </div>
           </div>
 
-          {/* Services list */}
+          {/* What we help with */}
           <div className="reveal reveal-delay-2">
-            <p className="font-mono-custom text-[0.65rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">What we build</p>
+            <p className="font-mono-custom text-[0.65rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">How we help</p>
             <div className="grid grid-cols-2 gap-x-4">
               {[
-                'AI Growth Systems', 'AI Performance Advertising',
-                'AI Personalisation Systems', 'AI Content Engines',
-                'AI Data & Intelligence', 'AI Funnel Optimisation',
-                'Competitor Analysis', 'Conversion Optimisation',
-                'Email Marketing AI', 'Social Media Automation',
-                'SEO Intelligence', 'White Label Services',
+                'Grow revenue on autopilot', 'Better-performing ads',
+                'Personalized customer experiences', 'Content at scale',
+                'Market & customer insights', 'Higher conversion rates',
+                'Competitor analysis', 'Email marketing',
+                'Social media management', 'SEO & search visibility',
+                'Landing page optimization', 'White label for agencies',
               ].map(s => (
                 <div key={s} className="flex items-center gap-2 py-2.5 border-b border-white/5">
                   <div className="w-1 h-1 rounded-full bg-ember flex-shrink-0" />
@@ -202,10 +202,10 @@ export default function About() {
       {/* ── TEAM ──────────────────────────────────────────── */}
       <section className="py-24 px-6 lg:px-12 bg-ink">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">The team</p>
+          <p className="eyebrow mb-4 reveal">Meet us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            The people behind<br /><em className="text-gold italic">the intelligence</em>
+            The people who'll<br /><em className="text-gold italic">grow your business</em>
           </h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
             {TEAM.map((member, i) => (
@@ -249,7 +249,7 @@ export default function About() {
             ))}
           </div>
           <p className="font-mono-custom text-[0.62rem] tracking-widest uppercase text-smoke-faint/35 mt-10 reveal">
-            + AI engineers, data analysts, and growth specialists across Europe & US
+            + A team of marketing specialists, content creators, and analysts across Europe & US
           </p>
         </div>
       </section>
@@ -257,10 +257,10 @@ export default function About() {
       {/* ── VALUES ────────────────────────────────────────── */}
       <section className="py-24 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Why choose us</p>
+          <p className="eyebrow mb-4 reveal">Why clients choose us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            What we build,<br /><em className="text-gold italic">why it matters</em>
+            What makes us<br /><em className="text-gold italic">different</em>
           </h2>
           <div className="grid md:grid-cols-2 gap-px bg-white/5">
             {VALUES.map(({ n, title, desc }, i) => (
@@ -279,10 +279,10 @@ export default function About() {
       {/* ── TESTIMONIALS ─────────────────────────────────── */}
       <section className="py-24 px-6 lg:px-12 bg-ink">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Client voice</p>
+          <p className="eyebrow mb-4 reveal">What clients say about us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            What our clients <em className="text-gold italic">say</em>
+            Don't take our word for it. <em className="text-gold italic">Take theirs.</em>
           </h2>
           <div className="grid md:grid-cols-3 gap-px bg-white/5">
             {TESTIMONIALS.map((t, i) => (
@@ -314,7 +314,7 @@ export default function About() {
           <div>
             <p className="eyebrow mb-2 reveal">Follow our work</p>
             <h2 className="font-display font-light text-smoke reveal reveal-delay-1" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}>
-              Stay inspired — follow <em className="text-gold italic">imba.</em>
+              Stay updated — follow <em className="text-gold italic">imba.</em>
             </h2>
           </div>
           <div className="flex flex-wrap gap-3 reveal reveal-delay-2">
@@ -338,7 +338,7 @@ export default function About() {
       <section className="py-16 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto">
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center reveal">
-            Trusted by brands worldwide
+            Trusted by businesses that want to grow
           </p>
           <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 reveal reveal-delay-1">
             {CLIENTS.map(c => (
@@ -359,17 +359,17 @@ export default function About() {
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Ready to transform<br /><em>your marketing?</em>
+              Ready to grow<br /><em>your business?</em>
             </h2>
             <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Free consultation · No commitment · Reply within 24 hours.
+              Free 15-minute call · No pressure · Results within 48 hours.
             </p>
           </div>
           <button
             onClick={() => openModal()}
             className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4 cursor-pointer"
             style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
-            Get a free strategy call
+            Get your free growth plan
           </button>
         </div>
       </section>

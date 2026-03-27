@@ -7,44 +7,44 @@ const CASES = [
     id: '1',
     client: 'FoodCo International',
     category: 'growth',
-    service: 'AI Growth Systems',
-    headline: '4.2M reach · 38% CTR lift · +89% revenue',
-    tags: ['AI', 'Growth'],
+    service: 'Revenue Growth',
+    headline: '89% more revenue in just 90 days',
+    tags: ['Revenue', 'Growth'],
     color: '#E8452A',
-    desc: 'Built a full-funnel AI growth system from scratch. Automated lead scoring, personalised outreach, and real-time campaign optimisation.',
+    desc: 'A food brand struggling with high ad costs and low returns. We automated their marketing and helped them reach 4.2 million people — while spending less than before.',
     results: [
       { label: 'Revenue Growth', val: '+89%' },
-      { label: 'CTR Improvement', val: '+38%' },
-      { label: 'CPL Reduction', val: '-52%' },
+      { label: 'Better Click Rates', val: '+38%' },
+      { label: 'Lower Lead Cost', val: '-52%' },
     ],
   },
   {
     id: '2',
     client: 'NordShop',
     category: 'ads',
-    service: 'AI Performance Advertising',
-    headline: '3× ROAS · $18.40 CPA · -40% cost',
-    tags: ['Ads', 'ROAS'],
+    service: 'Ad Performance',
+    headline: 'Every $1 in ads brought back $4.80',
+    tags: ['Ads', 'Revenue'],
     color: '#C9A96E',
-    desc: 'AI-powered ad system with real-time creative testing across Meta, Google, and TikTok. CPL halved within 6 weeks.',
+    desc: 'An e-commerce store wasting money on ads that barely broke even. We rebuilt their campaigns so every dollar spent brought back nearly five.',
     results: [
-      { label: 'ROAS', val: '4.8×' },
-      { label: 'CPA', val: '$18.40' },
-      { label: 'Cost Saving', val: '40%' },
+      { label: 'Return on Ads', val: '4.8×' },
+      { label: 'Cost Per Customer', val: '$18.40' },
+      { label: 'Cost Savings', val: '40%' },
     ],
   },
   {
     id: '3',
     client: 'Velour Boutique',
     category: 'content',
-    service: 'AI Content Engines',
-    headline: '30 days of content in 1 day · +180% engagement',
-    tags: ['Content', 'AI'],
+    service: 'Content Creation',
+    headline: '30 days of content in 1 day',
+    tags: ['Content', 'Engagement'],
     color: '#6C7AE0',
-    desc: 'Custom AI content engine generating brand-consistent posts, emails, and ad copy at scale — zero quality compromise.',
+    desc: 'A fashion brand that couldn\'t keep up with social media. We built a content system that produces a full month of brand-perfect posts, emails, and ads in a single session.',
     results: [
       { label: 'Content Output', val: '30×' },
-      { label: 'Engagement', val: '+180%' },
+      { label: 'More Engagement', val: '+180%' },
       { label: 'Time Saved', val: '95%' },
     ],
   },
@@ -52,14 +52,14 @@ const CASES = [
     id: '4',
     client: 'BrandX',
     category: 'funnel',
-    service: 'AI Funnel Optimisation',
-    headline: '+62% conversion rate · 2× qualified leads',
-    tags: ['Funnel', 'CRO'],
+    service: 'More Sales',
+    headline: '62% more visitors became buyers',
+    tags: ['Sales', 'Conversion'],
     color: '#3CBFAE',
-    desc: 'Funnel audit revealed 4 critical leakage points. AI testing doubled qualified leads in 6 weeks.',
+    desc: 'A business getting plenty of website visitors but not enough sales. We found where people were dropping off and fixed it. Sales nearly doubled from the same traffic.',
     results: [
-      { label: 'Conversion Rate', val: '+62%' },
-      { label: 'Qualified Leads', val: '2×' },
+      { label: 'More Sales', val: '+62%' },
+      { label: 'Quality Leads', val: '2×' },
       { label: 'Bounce Rate', val: '-34%' },
     ],
   },
@@ -67,13 +67,13 @@ const CASES = [
     id: '5',
     client: 'Magic Mind',
     category: 'intelligence',
-    service: 'AI Data & Intelligence',
-    headline: '12 competitor gaps · +28% organic growth',
-    tags: ['SEO', 'Intelligence'],
+    service: 'Market Insights',
+    headline: '28% growth from hidden opportunities',
+    tags: ['SEO', 'Growth'],
     color: '#C9A96E',
-    desc: 'AI market intelligence revealed underserved keyword clusters and audience segments the client had missed entirely.',
+    desc: 'A wellness brand that didn\'t know what they were missing. We uncovered 12 opportunities their competitors had overlooked, and they grew steadily for months.',
     results: [
-      { label: 'Organic Growth', val: '+28%' },
+      { label: 'Growth', val: '+28%' },
       { label: 'New Keywords', val: '340+' },
       { label: 'Competitor Gaps', val: '12' },
     ],
@@ -82,34 +82,34 @@ const CASES = [
     id: '6',
     client: 'Irving Books',
     category: 'personalisation',
-    service: 'AI Personalisation',
-    headline: '5× email CTR · +67% email conversion',
-    tags: ['Email', 'Personalisation'],
+    service: 'Personalization',
+    headline: '5× more people clicked their emails',
+    tags: ['Email', 'Sales'],
     color: '#00D4FF',
-    desc: 'Dynamic AI personalisation across email and website surfaces. Behavioural triggers and predictive segments drove massive uplifts.',
+    desc: 'A bookstore sending the same emails to everyone. We made every email personal — recommending books each customer actually wanted. Click rates went through the roof.',
     results: [
-      { label: 'Email CTR', val: '5×' },
-      { label: 'Email Conv.', val: '+67%' },
-      { label: 'LTV Increase', val: '+41%' },
+      { label: 'Email Clicks', val: '5×' },
+      { label: 'Email Sales', val: '+67%' },
+      { label: 'Customer Value', val: '+41%' },
     ],
   },
 ]
 
 const CATS = [
   { key: 'all',             label: 'All results' },
-  { key: 'growth',          label: 'AI Growth' },
-  { key: 'ads',             label: 'Performance Ads' },
-  { key: 'content',         label: 'Content Engine' },
-  { key: 'funnel',          label: 'Funnel CRO' },
-  { key: 'intelligence',    label: 'Data & Intel' },
-  { key: 'personalisation', label: 'Personalisation' },
+  { key: 'growth',          label: 'Revenue Growth' },
+  { key: 'ads',             label: 'Ad Performance' },
+  { key: 'content',         label: 'Content' },
+  { key: 'funnel',          label: 'More Sales' },
+  { key: 'intelligence',    label: 'Market Insights' },
+  { key: 'personalisation', label: 'Personalization' },
 ]
 
 const STATS = [
-  { num: '200+', label: 'Campaigns' },
-  { num: '40%',  label: 'Lower CPA' },
-  { num: '3×',   label: 'Avg. ROAS' },
-  { num: '98%',  label: 'Retention' },
+  { num: '200+', label: 'Happy clients' },
+  { num: '40%',  label: 'Avg. cost savings' },
+  { num: '3×',   label: 'Avg. revenue growth' },
+  { num: '98%',  label: 'Clients stay with us' },
 ]
 
 export default function Work() {
@@ -122,8 +122,8 @@ export default function Work() {
   return (
     <>
       <Seo
-        title="Client Results — AI Marketing Case Studies"
-        description="Real results from real AI marketing systems. Browse case studies across growth, performance advertising, content engines, personalisation, data intelligence, and funnel optimisation."
+        title="Client Results — Real Numbers from Real Businesses"
+        description="See how we've helped businesses get more customers, lower ad costs, and grow revenue. Real results, no fluff."
         canonicalPath="/results"
       />
 
@@ -137,15 +137,15 @@ export default function Work() {
           style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(232,69,42,0.06) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">Client case studies</p>
+          <p className="eyebrow mb-5 reveal">Real client results</p>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-              Results that prove the<br />
-              <em className="text-gold italic">power of AI marketing</em>
+              Real numbers from<br />
+              <em className="text-gold italic">real businesses</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
-              Every number is real. Every result is from an AI system we designed, built, and deployed.
+              Every number here is real. Every result is from a business we actually helped. No inflated stats, no cherry-picking.
             </p>
           </div>
         </div>
@@ -240,18 +240,18 @@ export default function Work() {
       <section className="bg-ink-2 py-20 px-6 lg:px-12 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div>
-            <p className="eyebrow mb-4">Ready to be next?</p>
+            <p className="eyebrow mb-4">Want results like these?</p>
             <h2 className="font-display font-light text-smoke leading-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>
-              Let's build your<br /><em className="text-gold italic">AI growth engine</em>
+              Let's build your<br /><em className="text-gold italic">growth plan</em>
             </h2>
             <p className="text-smoke-dim mt-3 max-w-md" style={{ fontSize: '0.93rem' }}>
-              Every result above started with a free strategy call. Tell us your goals and we'll design a custom AI system — no commitment, 24h reply.
+              Every result above started with a free conversation. Tell us your goals and we'll show you exactly how we'd help — no commitment, no pressure.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-            <Link to="/contact" className="btn btn-primary">Get a free strategy call</Link>
-            <Link to="/services" className="btn btn-ghost">Explore our systems →</Link>
+            <Link to="/contact" className="btn btn-primary">Get your free growth plan</Link>
+            <Link to="/services" className="btn btn-ghost">See what we do →</Link>
           </div>
         </div>
       </section>

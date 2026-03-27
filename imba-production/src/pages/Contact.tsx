@@ -3,14 +3,14 @@ import { supabase } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 
 const SERVICES = [
-  'AI Growth Systems',
-  'AI Performance Advertising',
-  'AI Personalisation Systems',
-  'AI Content Engines',
-  'AI Data & Market Intelligence',
-  'AI Funnel Optimisation',
-  'Full AI Marketing Stack',
-  'Other / Not sure yet',
+  'Grow my revenue on autopilot',
+  'Get more from my ad spend',
+  'Personalize my customer experience',
+  'Create content faster',
+  'Understand my market better',
+  'Turn more visitors into buyers',
+  'Full marketing solution',
+  'Not sure yet — help me decide',
 ]
 
 const BUDGETS = [
@@ -23,20 +23,20 @@ const BUDGETS = [
 
 const FAQ = [
   {
-    q: 'How quickly will we see results?',
-    a: 'Most clients see initial AI-driven improvements within 48 hours of system launch. Significant measurable results (ROAS uplift, lower CPA, higher conversion) typically appear within 2–4 weeks of full deployment.',
+    q: 'How soon will I see results?',
+    a: 'Most clients see first improvements within 48 hours. Meaningful results — more revenue, lower costs, more customers — typically show up within 2–4 weeks.',
   },
   {
-    q: 'Do you work with international clients?',
-    a: 'Yes — we work with brands across North America, Europe, the Middle East, and Asia-Pacific. Our AI systems are platform-agnostic and work across all major ad networks and marketing tools globally.',
+    q: 'Do you work with businesses outside the US?',
+    a: 'Yes — we work with businesses in North America, Europe, the Middle East, and Asia. Our marketing tools work on every major platform worldwide.',
   },
   {
-    q: 'What does the onboarding process look like?',
-    a: 'We start with a free strategy call to audit your current setup and identify the highest-value AI opportunities. We then design your custom system, build and integrate it (2–4 weeks), and hand over a fully operational AI growth engine.',
+    q: 'What happens on the first call?',
+    a: 'We listen to your goals, review your current marketing, and identify the biggest opportunities. Then we come back within 24 hours with a free growth plan tailored to your business.',
   },
   {
-    q: 'Can you integrate with our existing tools?',
-    a: 'Yes — we integrate with all major platforms: Google Ads, Meta, HubSpot, Salesforce, Klaviyo, Shopify, and more. If you use a tool, we can almost certainly connect it to your AI system.',
+    q: 'Will this work with the tools I already use?',
+    a: 'Yes — we work with all the popular tools: Google Ads, Meta, HubSpot, Salesforce, Mailchimp, Shopify, and many more. We build on what you have, not replace it.',
   },
 ]
 
@@ -57,7 +57,7 @@ export default function Contact() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.full_name || !form.email || !form.message) {
-      setError('Please fill in name, email and message.')
+      setError('Please fill in your name, email, and what you need help with.')
       return
     }
     setSubmitting(true)
@@ -65,7 +65,7 @@ export default function Contact() {
     const { error: err } = await supabase.from('quote_requests').insert([form])
     setSubmitting(false)
     if (err) {
-      setError('Something went wrong. Please try again or email us directly.')
+      setError('Something went wrong. Please try again or email us directly at hello@imbamarketing.com')
     } else {
       setSubmitted(true)
     }
@@ -74,8 +74,8 @@ export default function Contact() {
   return (
     <>
       <Seo
-        title="Contact — Build Your AI Growth Engine"
-        description="Tell us about your marketing goals and we'll design a custom AI system that turns them into measurable results. Free strategy call, no commitment."
+        title="Get in Touch — Let's Grow Your Business"
+        description="Tell us about your business goals and we'll create a free growth plan showing exactly how we'd help. No commitment, no pressure."
         canonicalPath="/contact"
       />
 
@@ -86,15 +86,15 @@ export default function Contact() {
           backgroundSize: '80px 80px',
         }} />
         <div className="max-w-screen-xl mx-auto relative z-10">
-          <p className="eyebrow mb-6 reveal">Get in touch</p>
+          <p className="eyebrow mb-6 reveal">Let's talk</p>
           <h1 className="font-display font-light leading-none mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-            Let's build your<br />
-            <em className="text-gold italic">AI growth engine.</em>
+            Tell us about<br />
+            <em className="text-gold italic">your business.</em>
           </h1>
           <p className="text-smoke-dim text-lg max-w-xl reveal reveal-delay-2"
             style={{ fontWeight: 300 }}>
-            Tell us about your marketing goals and we'll design a custom AI system that turns them into measurable results.
+            No sales pitch, no pressure. Just tell us what you're trying to achieve and we'll come back with a free plan showing exactly how we'd help you get there.
           </p>
         </div>
       </section>
@@ -112,11 +112,11 @@ export default function Contact() {
                 </div>
                 <div>
                   <h2 className="font-display font-light text-3xl text-smoke mb-3">
-                    Message sent.
+                    Got it — we'll be in touch soon.
                   </h2>
                   <p className="text-smoke-dim text-base" style={{ fontWeight: 300 }}>
-                    We'll be in touch within 24 hours. In the meantime, browse{' '}
-                    <a href="/results" className="text-smoke underline underline-offset-4 hover:text-ember transition-colors">our results</a>.
+                    We'll review your message and get back to you within 24 hours with a custom growth plan. In the meantime, check out{' '}
+                    <a href="/results" className="text-smoke underline underline-offset-4 hover:text-ember transition-colors">what we've done for other businesses</a>.
                   </p>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="form-label">Full name *</label>
+                    <label className="form-label">Your name *</label>
                     <input className="form-input" type="text" placeholder="Jane Smith"
                       value={form.full_name} onChange={e => setForm(f => ({ ...f, full_name: e.target.value }))} />
                   </div>
@@ -136,34 +136,34 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="form-label">Company</label>
+                  <label className="form-label">Company or business name</label>
                   <input className="form-input" type="text" placeholder="Your company or brand"
                     value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="form-label">Service type</label>
+                    <label className="form-label">What do you need help with?</label>
                     <select className="form-select" value={form.service_type}
                       onChange={e => setForm(f => ({ ...f, service_type: e.target.value }))}>
-                      <option value="">Select a service</option>
+                      <option value="">Choose one</option>
                       {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="form-label">Budget range</label>
+                    <label className="form-label">Monthly budget</label>
                     <select className="form-select" value={form.budget_range}
                       onChange={e => setForm(f => ({ ...f, budget_range: e.target.value }))}>
-                      <option value="">Select a range</option>
+                      <option value="">Choose a range</option>
                       {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="form-label">Tell us about your marketing goals *</label>
+                  <label className="form-label">What are you trying to achieve? *</label>
                   <textarea className="form-textarea" rows={5}
-                    placeholder="What are your growth targets? What's currently not working? What tools do you use?"
+                    placeholder="Tell us about your goals. What's working? What's not? What would success look like for you?"
                     value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} />
                 </div>
 
@@ -183,7 +183,7 @@ export default function Contact() {
           {/* Contact info */}
           <div className="lg:col-span-2 flex flex-col gap-10">
             <div>
-              <p className="eyebrow mb-5">Direct contact</p>
+              <p className="eyebrow mb-5">Prefer email?</p>
               <div className="flex flex-col gap-4">
                 <div>
                   <p className="font-mono-custom text-[0.65rem] tracking-wider text-smoke-faint uppercase mb-1">Email</p>
@@ -195,7 +195,7 @@ export default function Contact() {
                 <div>
                   <p className="font-mono-custom text-[0.65rem] tracking-wider text-smoke-faint uppercase mb-1">Address</p>
                   <p className="text-smoke-dim text-base" style={{ fontWeight: 300 }}>
-                    007 N Orange St, 4th Floor<br />
+                    1007 N Orange St, 4th Floor<br />
                     Suite #3601<br />
                     Wilmington, DE 19801
                   </p>
@@ -204,14 +204,14 @@ export default function Contact() {
             </div>
 
             <div>
-              <p className="eyebrow mb-5">Response time</p>
+              <p className="eyebrow mb-5">What to expect</p>
               <p className="text-smoke-dim text-base" style={{ fontWeight: 300 }}>
-                We respond to all enquiries within <span className="text-smoke">24 hours</span>, Monday to Friday.
+                We respond to every message within <span className="text-smoke">24 hours</span>. You'll get a free growth plan customized to your business — no strings attached.
               </p>
             </div>
 
             <div>
-              <p className="eyebrow mb-5">Follow our work</p>
+              <p className="eyebrow mb-5">Follow us</p>
               <div className="flex gap-4">
                 {[
                   { label: 'LinkedIn',  href: 'https://linkedin.com/company/imba-marketing' },
@@ -264,7 +264,7 @@ export default function Contact() {
         <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <p className="font-display font-light text-2xl text-white mb-1">
-              Ready to start growing with AI?
+              Ready to start growing?
             </p>
             <p className="text-white/70 text-sm" style={{ fontWeight: 300 }}>
               We have capacity for 3 new clients this month.

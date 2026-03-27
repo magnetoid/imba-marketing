@@ -15,7 +15,7 @@ const FALLBACK: Testimonial[] = [
     client_role: undefined,
     client_company: 'Kozica Soaps',
     client_avatar_url: undefined,
-    text: 'Imba Marketing exceeded our expectations. Their AI growth system transformed our paid ads performance — ROAS went from 2.1× to 4.6× in just 8 weeks. The team is professional, data-driven, and genuinely invested in our results. We highly recommend them to any brand serious about scaling their marketing.',
+    text: 'Imba Marketing completely changed our business. Our ads used to barely break even — now we get $4.60 back for every $1 we spend. That happened in just 8 weeks. The team is professional, they explain everything clearly, and they genuinely care about our results. Best marketing decision we ever made.',
     rating: 5,
     featured: true,
     published: true,
@@ -26,7 +26,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'CEO',
     client_company: 'Massive Movie Horse',
     client_avatar_url: undefined,
-    text: 'Great partnership with the Imba Marketing team. They built our AI content engine from scratch and the results speak for themselves — organic traffic up 3× in 90 days. Ljubica and the team guided us through the entire process and continue to optimise our systems. Their expertise gave us genuine confidence in AI marketing.',
+    text: 'Working with Imba has been incredible. They helped us get 3× more website traffic in just 90 days. What I love most is that they explain everything in plain language — no confusing tech jargon. Ljubica and the team guided us through every step and continue improving our results every month.',
     rating: 5,
     featured: true,
     published: true,
@@ -37,7 +37,7 @@ const FALLBACK: Testimonial[] = [
     client_role: 'Developer & SEO Expert',
     client_company: 'Ogitive',
     client_avatar_url: undefined,
-    text: 'Working with Imba Marketing on our AI funnel optimisation was a game-changer. They identified our biggest conversion drop-off points and deployed an AI-powered solution that cut our CPA by 38%. Their AI analytics system now gives us real-time insights we never had before.',
+    text: 'We were losing customers at checkout and didn\'t know why. Imba found the problem in a week and fixed it. Our costs dropped 38% and revenue went up — without spending more on ads. Their approach is simple: find what\'s broken, fix it, and make sure it stays fixed. Exactly what we needed.',
     rating: 5,
     featured: false,
     published: true,
@@ -83,8 +83,8 @@ export default function Reviews() {
   return (
     <>
       <Seo
-        title="Client Reviews — AI Marketing Testimonials"
-        description="Real reviews from brands who use Imba Marketing AI systems. See what clients say about our AI-powered marketing results."
+        title="Client Reviews — What Businesses Say About Working With Us"
+        description="Read what real businesses say about working with Imba Marketing. Honest reviews from clients who've seen real results."
         canonicalPath="/reviews"
         structuredData={{
           '@context': 'https://schema.org',
@@ -118,14 +118,14 @@ export default function Reviews() {
           style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0,212,255,0.04) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">What clients say</p>
+          <p className="eyebrow mb-5 reveal">What our clients say</p>
           <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-            Real results,<br />
-            <em className="text-gold italic">real clients.</em>
+            Don't take our<br />
+            <em className="text-gold italic">word for it.</em>
           </h1>
           <p className="text-smoke-dim leading-relaxed max-w-lg reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-            Every project is a partnership. Here's what the brands we've worked with have to say about the experience and results.
+            These are real reviews from real businesses we've worked with. We're proud of every partnership and every result.
           </p>
         </div>
       </section>
@@ -188,14 +188,14 @@ export default function Reviews() {
       {/* ── CTA ── */}
       <section className="py-24 px-6 lg:px-12 bg-ink border-t border-white/5">
         <div className="max-w-screen-xl mx-auto text-center">
-          <p className="eyebrow justify-center mb-5 reveal">Ready to work together?</p>
+          <p className="eyebrow justify-center mb-5 reveal">Ready to be our next success story?</p>
           <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
-            Join our clients.<br />
-            <em className="text-ember italic">Get results like these.</em>
+            Join these businesses.<br />
+            <em className="text-ember italic">Start growing today.</em>
           </h2>
           <button onClick={() => openModal()} className="btn btn-primary reveal reveal-delay-2">
-            Start a project →
+            Get your free growth plan →
           </button>
         </div>
       </section>

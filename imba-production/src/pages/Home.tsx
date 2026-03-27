@@ -6,33 +6,33 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const DEMO_TESTIMONIALS: Testimonial[] = [
-  { id: '1', client_name: 'Sarah Andersen', client_role: 'CMO', client_company: 'FoodCo International', text: 'Imba Marketing transformed our entire growth engine. The AI systems they built reduced our cost-per-acquisition by 40% in the first 90 days. Exceptional results.', featured: true, published: true },
-  { id: '2', client_name: 'Marco Kessler', client_role: 'Growth Lead', client_company: 'NordShop', text: 'The AI-powered ad campaigns were unlike anything we had run before. Real-time optimisation at a scale our team could never achieve manually. 3× ROAS uplift.', featured: false, published: true },
-  { id: '3', client_name: 'Julia Larsson', client_role: 'Founder', client_company: 'Velour Boutique', text: 'They built us an AI content engine that produces a month of content in a single day. The quality is indistinguishable from our best human-written pieces.', featured: false, published: true },
+  { id: '1', client_name: 'Sarah Andersen', client_role: 'CMO', client_company: 'FoodCo International', text: 'We cut our ad costs by 40% and revenue jumped 89% in the first 3 months. Imba completely changed how we grow.', featured: true, published: true },
+  { id: '2', client_name: 'Marco Kessler', client_role: 'Growth Lead', client_company: 'NordShop', text: 'We used to waste thousands on ads that didn\'t work. Now every dollar we spend brings back three. Best decision we made.', featured: false, published: true },
+  { id: '3', client_name: 'Julia Larsson', client_role: 'Founder', client_company: 'Velour Boutique', text: 'I used to spend a whole week creating social media posts. Now I get a full month of content in one day — and it actually performs better.', featured: false, published: true },
 ]
 
 const SERVICES = [
-  { key: 'growth', icon: '◈', label: 'AI Growth Systems', desc: 'Transform marketing and sales into an intelligent machine. We design AI-powered systems that automate workflows, optimise campaigns, and turn data into decisions — scaling faster with less effort.', color: '#E8452A' },
-  { key: 'ads', icon: '▣', label: 'AI Performance Advertising', desc: 'Turn ad spend into predictable revenue. Our AI advertising systems continuously test creatives, audiences, and offers in real time — maximising ROI while eliminating wasted budget.', color: '#C9A96E' },
-  { key: 'personalisation', icon: '◉', label: 'AI Personalisation', desc: 'Deliver the right message to the right customer at the perfect moment. We build AI systems that personalise content, outreach, and experiences at scale across every touchpoint.', color: '#00D4FF' },
-  { key: 'content', icon: '▶', label: 'AI Content Engines', desc: 'Create endless high-quality content from a single idea. Our AI-powered engines generate, repurpose, and distribute videos, posts, and campaigns across every platform automatically.', color: '#6C7AE0' },
-  { key: 'intelligence', icon: '◬', label: 'AI Data & Intelligence', desc: 'Stay ahead of competitors with real-time market insights. Our AI analyses trends, customer behaviour, and competitor activity — surfacing the exact actions that move revenue.', color: '#3CBFAE' },
-  { key: 'funnel', icon: '◫', label: 'AI Funnel Optimisation', desc: 'Turn more visitors into customers. Using AI-driven analysis and testing, we identify exactly where your funnel leaks revenue and optimise every step to maximise conversions.', color: '#E87A2A' },
+  { key: 'growth', icon: '◈', label: 'Grow Your Revenue on Autopilot', desc: 'We set up smart marketing that runs itself. Your campaigns get better every day, your leads improve, and your revenue grows — without adding to your workload.', color: '#E8452A' },
+  { key: 'ads', icon: '▣', label: 'Get More from Every Ad Dollar', desc: 'Stop wasting money on ads that don\'t work. We make sure every dollar you spend on advertising brings back as much revenue as possible.', color: '#C9A96E' },
+  { key: 'personalisation', icon: '◉', label: 'Make Every Customer Feel Special', desc: 'Send the right message to the right person at the right time. Your emails, website, and ads automatically adapt to each customer\'s interests.', color: '#00D4FF' },
+  { key: 'content', icon: '▶', label: 'A Month of Content in One Day', desc: 'Never run out of things to post. We build you a content machine that creates on-brand posts, emails, and ads across all your platforms — fast.', color: '#6C7AE0' },
+  { key: 'intelligence', icon: '◬', label: 'Know What Your Customers Want', desc: 'Stop guessing. Get clear answers about what your customers are looking for, what your competitors are doing, and where your biggest opportunities are.', color: '#3CBFAE' },
+  { key: 'funnel', icon: '◫', label: 'Turn More Visitors into Buyers', desc: 'Find out exactly where you\'re losing potential customers and fix it. More of the people who visit your site will end up buying from you.', color: '#E87A2A' },
 ]
 
 const STATS = [
-  { num: '300', sup: '%', label: 'Avg. ROAS Improvement' },
-  { num: '40', sup: '%', label: 'Lower CPA' },
-  { num: '48', sup: 'h', label: 'Time to First Results' },
-  { num: '98', sup: '%', label: 'Client Retention' },
+  { num: '3', sup: '×', label: 'More Revenue' },
+  { num: '40', sup: '%', label: 'Lower Ad Costs' },
+  { num: '48', sup: 'h', label: 'To See First Results' },
+  { num: '98', sup: '%', label: 'Clients Stay With Us' },
 ]
 
 const RESULTS = [
-  { client: 'FoodCo International', category: 'AI Growth Systems', headline: '4.2M reach, 38% CTR lift', desc: 'Full-funnel AI growth system built from scratch. Automated lead scoring, content personalisation, and campaign optimisation.', color: '#E8452A' },
-  { client: 'NordShop', category: 'AI Performance Advertising', headline: '3× ROAS in 90 days', desc: 'AI-powered ad system with real-time creative testing across 6 platforms. Cost-per-acquisition reduced by 40%.', color: '#C9A96E' },
-  { client: 'Velour Boutique', category: 'AI Content Engines', headline: '30 days of content in 1 day', desc: 'Custom AI content engine generating brand-consistent posts, emails, and ads at scale — zero quality compromise.', color: '#6C7AE0' },
-  { client: 'BrandX', category: 'AI Funnel Optimisation', headline: '+62% conversion rate', desc: 'Funnel audit revealed 4 critical leakage points. AI testing and optimisation doubled qualified leads within 6 weeks.', color: '#3CBFAE' },
-  { client: 'Magic Mind', category: 'AI Data & Intelligence', headline: '12 competitor gaps uncovered', desc: 'AI market intelligence system revealed underserved keywords and audience segments driving 28% organic growth.', color: '#C9A96E' },
+  { client: 'FoodCo International', category: 'Revenue Growth', headline: '89% more revenue in 90 days', desc: 'We automated their marketing and helped them reach 4.2 million people — while spending less on ads than before.', color: '#E8452A' },
+  { client: 'NordShop', category: 'Ad Performance', headline: 'Every $1 in ads → $4.80 back', desc: 'Their ads used to barely break even. We rebuilt their campaigns so every dollar spent brought back nearly five.', color: '#C9A96E' },
+  { client: 'Velour Boutique', category: 'Content Creation', headline: '30 days of content in 1 day', desc: 'A fashion brand that struggled to post consistently. Now they have a month of quality content ready in a single session.', color: '#6C7AE0' },
+  { client: 'BrandX', category: 'More Sales', headline: '62% more people bought', desc: 'We found where visitors were dropping off and fixed it. Their sales nearly doubled from the same amount of website traffic.', color: '#3CBFAE' },
+  { client: 'Magic Mind', category: 'Market Insights', headline: '28% growth in 6 months', desc: 'We uncovered 12 opportunities their competitors were missing. They acted on them and grew steadily month after month.', color: '#C9A96E' },
 ]
 
 export default function Home() {
@@ -48,14 +48,14 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="AI Marketing Systems for Modern Brands — Imba Marketing"
-        description="We build AI-powered growth engines that automate campaigns, personalise at scale, and turn data into predictable revenue. Lead the AI marketing revolution."
+        title="Imba Marketing — We Help Businesses Grow Faster with AI"
+        description="Get more customers, lower your ad costs, and create content in a fraction of the time. We use AI to grow your business — no jargon, just results."
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'Organization',
           'name': 'Imba Marketing',
           'url': 'https://imbamarketing.com',
-          'description': 'AI-powered marketing agency building growth systems for modern brands.',
+          'description': 'AI marketing agency that helps businesses get more customers and grow faster.',
         }}
       />
 
@@ -74,26 +74,26 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-8 reveal">
-                <div className="badge-cyber">AI-Powered Marketing</div>
+                <div className="badge-cyber">Trusted by 200+ Businesses</div>
               </div>
 
               <h1 className="font-display font-light leading-[1.05] mb-8 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-                We build<br />
-                <em className="holo-text not-italic">AI-driven</em><br />
-                growth engines.
+                Get more customers.<br />
+                <em className="holo-text not-italic">Spend less.</em><br />
+                Grow faster.
               </h1>
 
               <p className="text-smoke-dim leading-relaxed mb-10 max-w-lg reveal reveal-delay-2" style={{ fontSize: '1.05rem', fontWeight: 300 }}>
-                Don't just join the AI revolution — lead it. We design intelligent marketing systems that automate campaigns, personalise at scale, and turn data into predictable revenue.
+                We use AI to bring you more customers, lower your marketing costs, and free up your time. No complicated tech talk — just real results you can see in your bank account.
               </p>
 
               <div className="flex flex-wrap gap-4 reveal reveal-delay-3">
                 <button onClick={() => openModal()} className="btn btn-primary">
-                  Get your free strategy call →
+                  Get your free growth plan →
                 </button>
                 <Link to="/results" className="btn btn-outline">
-                  See our results
+                  See client results
                 </Link>
               </div>
 
@@ -110,23 +110,23 @@ export default function Home() {
               </div>
             </div>
 
-            {/* AI Dashboard panel */}
+            {/* What you get panel */}
             <div className="hidden lg:block relative reveal reveal-delay-2">
               <div className="relative bg-ink-2 border border-white/5 p-8 hud-card holo-shimmer">
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
-                  <span className="eyebrow-cyber">AI Growth Engine</span>
+                  <span className="eyebrow-cyber">What You Get</span>
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-ember animate-pulse" />
-                    <span className="data-readout">LIVE</span>
+                    <span className="data-readout">LIVE RESULTS</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   {[
-                    { label: 'Campaign ROAS', val: '4.8×', delta: '↑ 23%' },
-                    { label: 'Lead Quality Score', val: '94', delta: '↑ 31pts' },
-                    { label: 'Cost per Acquisition', val: '$18.40', delta: '↓ 40%' },
-                    { label: 'Content Published', val: '847', delta: '↑ 12×' },
+                    { label: 'Ad Return', val: '4.8×', delta: '↑ For every $1 spent' },
+                    { label: 'Lead Quality', val: '94%', delta: '↑ Better leads' },
+                    { label: 'Cost Savings', val: '40%', delta: '↓ Lower ad costs' },
+                    { label: 'Content Created', val: '847', delta: '↑ Pieces this month' },
                   ].map(({ label, val, delta }) => (
                     <div key={label} className="bg-ink-3 border border-white/5 p-4">
                       <p className="data-readout mb-2">{label}</p>
@@ -140,11 +140,11 @@ export default function Home() {
 
                 <div className="flex flex-col gap-2">
                   {[
-                    { step: 'Data Ingestion & Modelling', status: 'active' },
-                    { step: 'Audience Intelligence', status: 'active' },
-                    { step: 'Creative Optimisation', status: 'processing' },
-                    { step: 'Campaign Execution', status: 'active' },
-                    { step: 'Continuous Learning Loop', status: 'active' },
+                    { step: 'Finding your best customers', status: 'active' },
+                    { step: 'Creating content for your brand', status: 'active' },
+                    { step: 'Improving your ad campaigns', status: 'processing' },
+                    { step: 'Turning visitors into buyers', status: 'active' },
+                    { step: 'Getting smarter every day', status: 'active' },
                   ].map(({ step, status }) => (
                     <div key={step} className="flex items-center gap-3 py-2 border-b border-white/4 last:border-0">
                       <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${status === 'processing' ? 'bg-gold animate-pulse' : 'bg-cyber'}`} />
@@ -168,20 +168,20 @@ export default function Home() {
 
       <div className="angular-divider" />
 
-      {/* SERVICES */}
+      {/* WHAT WE DO FOR YOU */}
       <section className="py-28 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-end mb-16">
             <div>
-              <p className="eyebrow mb-5 reveal">What we build</p>
+              <p className="eyebrow mb-5 reveal">What we do for you</p>
               <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-                Six AI systems.<br />
-                <em className="text-gold italic">Infinite leverage.</em>
+                Six ways we help<br />
+                <em className="text-gold italic">your business grow.</em>
               </h2>
             </div>
             <p className="text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              We don't run campaigns — we build intelligent marketing systems that run themselves, learn continuously, and compound results over time. Your vision, amplified by intelligence.
+              Think of us as your marketing team that never sleeps. We handle the hard work — you enjoy the results. Every solution is tailored to your business and designed to pay for itself.
             </p>
           </div>
 
@@ -209,7 +209,7 @@ export default function Home() {
                   <Link to={`/services/${key}`}
                     className="font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase flex items-center gap-2 transition-all duration-200 hover:gap-3"
                     style={{ color }}>
-                    <span>Explore system</span><span>→</span>
+                    <span>Learn how it works</span><span>→</span>
                   </Link>
                 </div>
               </div>
@@ -218,21 +218,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW WE WORK */}
+      {/* HOW IT WORKS */}
       <section className="py-28 px-6 lg:px-12 bg-ink">
         <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
           <div>
-            <p className="eyebrow mb-5 reveal">Our approach</p>
+            <p className="eyebrow mb-5 reveal">How it works</p>
             <h2 className="font-display font-light leading-tight mb-10 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Intelligence-first.<br />
-              <em className="text-gold italic">Results-obsessed.</em>
+              Simple process.<br />
+              <em className="text-gold italic">Real results.</em>
             </h2>
             {[
-              { n: '01', title: 'Audit & Intelligence', desc: 'We analyse your current funnel, ad accounts, content, and data infrastructure. AI identifies the exact gaps costing you revenue.' },
-              { n: '02', title: 'System Design', desc: 'We architect a bespoke AI marketing system mapped to your business goals — not off-the-shelf tools bolted together.' },
-              { n: '03', title: 'Build & Deploy', desc: 'We build, integrate, and launch your AI systems within 2–4 weeks. Every component is tested before it touches your audience.' },
-              { n: '04', title: 'Optimise & Scale', desc: 'The systems learn continuously. We monitor, tune, and expand capabilities as your growth compounds month over month.' },
+              { n: '01', title: 'We learn about your business', desc: 'Tell us about your goals, your customers, and what\'s not working. We\'ll find exactly where you\'re leaving money on the table.' },
+              { n: '02', title: 'We build your growth plan', desc: 'We design a custom marketing plan built specifically for your business — not a cookie-cutter template. You\'ll know exactly what to expect.' },
+              { n: '03', title: 'We set everything up', desc: 'We build and launch your marketing systems within 2–4 weeks. Everything works alongside your existing tools — zero disruption.' },
+              { n: '04', title: 'You see results that grow', desc: 'Your marketing gets better every single day. We keep optimizing, you keep growing. Results compound month after month.' },
             ].map(({ n, title, desc }, i) => (
               <div key={n} className="flex gap-5 py-6 border-b border-white/5 group hover:pl-3 transition-all duration-300 reveal"
                 style={{ transitionDelay: `${i * 80}ms` }}>
@@ -247,12 +247,12 @@ export default function Home() {
 
           <div className="reveal reveal-delay-2">
             <div className="bg-ink-2 border border-white/5 p-8">
-              <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">Why imba.marketing</p>
+              <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">Why clients choose us</p>
               {[
-                { title: 'Systems, not campaigns', desc: "We build AI engines that work autonomously — not one-off campaigns that die when the budget pauses. Compounding results, not renting attention." },
-                { title: 'Revenue-first thinking', desc: "Every system we build is tied to a revenue metric. Beautiful marketing that doesn't convert is a cost centre. We build profit centres." },
-                { title: 'Full-stack AI capability', desc: 'From custom GPT pipelines and ad automation to personalisation engines and predictive analytics — we build the full stack in-house.' },
-                { title: 'Speed without chaos', desc: "First AI-driven results in 48 hours. Full system live in 2–4 weeks. We've engineered a deployment process that doesn't sacrifice quality for speed." },
+                { title: 'It keeps working while you sleep', desc: "Your marketing doesn't stop when you close your laptop. Our systems run 24/7, finding new customers and improving results around the clock." },
+                { title: 'You only pay for what works', desc: "Everything we build is tied to results you can measure — more revenue, more customers, lower costs. If it's not making you money, we fix it." },
+                { title: 'No long-term contracts', desc: "We don't lock you in. Our clients stay because they see results — 98% of them choose to keep working with us. That's confidence, not obligation." },
+                { title: 'Results start fast', desc: "See your first improvements within 48 hours. Full system live in 2–4 weeks. We move fast because you shouldn't have to wait to start growing." },
               ].map(({ title, desc }, i) => (
                 <div key={title} className="flex gap-4 py-5 border-b border-white/5 last:border-0"
                   style={{ transitionDelay: `${i * 60}ms` }}>
@@ -270,18 +270,18 @@ export default function Home() {
 
       <div className="angular-divider" />
 
-      {/* RESULTS */}
+      {/* CLIENT RESULTS */}
       <section className="py-28 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto">
           <div className="flex items-end justify-between mb-14 flex-wrap gap-6">
             <div>
-              <p className="eyebrow mb-4 reveal">Proven results</p>
+              <p className="eyebrow mb-4 reveal">Real client results</p>
               <h2 className="font-display font-light leading-tight reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-                Results that<br /><em className="text-gold italic">speak for themselves.</em>
+                Numbers don't lie.<br /><em className="text-gold italic">Neither do our clients.</em>
               </h2>
             </div>
-            <Link to="/results" className="btn btn-outline reveal reveal-delay-2">All case studies →</Link>
+            <Link to="/results" className="btn btn-outline reveal reveal-delay-2">See all results →</Link>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
@@ -305,10 +305,10 @@ export default function Home() {
       {/* TESTIMONIALS */}
       <section className="py-28 px-6 lg:px-12 bg-ink">
         <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Client voice</p>
+          <p className="eyebrow mb-4 reveal">Happy clients</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            What our clients <em className="text-gold italic">say.</em>
+            Don't take our word for it.<br /><em className="text-gold italic">Take theirs.</em>
           </h2>
           <div className="grid md:grid-cols-3 gap-px bg-white/5">
             {testimonials.map((t, i) => (
@@ -338,7 +338,7 @@ export default function Home() {
       <section className="py-16 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto">
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center reveal">
-            Trusted by growth-focused brands worldwide
+            Trusted by businesses that want to grow
           </p>
           <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 reveal reveal-delay-1">
             {['FoodCo International', 'NordShop', 'Velour Boutique', 'BrandX', 'Magic Mind', 'Irving Books', 'Prime Real Estate', 'Ogitive'].map(c => (
@@ -357,16 +357,16 @@ export default function Home() {
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
-              Don't just run ads.<br /><em>Build a growth machine.</em>
+              Ready to grow?<br /><em>Let's talk.</em>
             </h2>
             <p className="text-ink/60 mt-4" style={{ fontSize: '0.95rem' }}>
-              Free strategy call · No commitment · Results within 48 hours.
+              Free 15-minute call · No pressure · See results in 48 hours.
             </p>
           </div>
           <button onClick={() => openModal()}
             className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-10 py-5 cursor-pointer"
             style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
-            Book your free strategy call →
+            Get your free growth plan →
           </button>
         </div>
       </section>
