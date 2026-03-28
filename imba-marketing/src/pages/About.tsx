@@ -108,7 +108,7 @@ export default function About() {
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
                 An AI marketing agency<br />
-                <em className="text-gold italic">built for ambitious</em><br />
+                <em className="text-[#D4A853] italic">built for ambitious</em><br />
                 brands
               </h1>
               <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
@@ -164,7 +164,7 @@ export default function About() {
             <p className="eyebrow mb-4 reveal">What we do</p>
             <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              We make your marketing<br /><em className="text-gold italic">work harder for you</em>
+              We make your marketing<br /><em className="text-[#D4A853] italic">work harder for you</em>
             </h2>
             <div className="space-y-5 text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
               <p>We're an AI marketing agency that gets brands better results in less time. Whether you're in e-commerce, SaaS, professional services, or DTC, our AI systems deliver more customers, lower costs, and marketing that keeps improving on its own.</p>
@@ -201,7 +201,7 @@ export default function About() {
           <p className="eyebrow mb-4 reveal">Meet us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            The people who'll<br /><em className="text-gold italic">grow your business</em>
+            The people who'll<br /><em className="text-[#D4A853] italic">grow your business</em>
           </h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
             {TEAM.map((member, i) => (
@@ -256,7 +256,7 @@ export default function About() {
           <p className="eyebrow mb-4 reveal">Why clients choose us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            What makes us<br /><em className="text-gold italic">different</em>
+            What makes us<br /><em className="text-[#D4A853] italic">different</em>
           </h2>
           <div className="grid md:grid-cols-2 gap-px bg-white/5">
             {VALUES.map(({ n, title, desc }, i) => (
@@ -278,7 +278,7 @@ export default function About() {
           <p className="eyebrow mb-4 reveal">What clients say about us</p>
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            Don't take our word for it. <em className="text-gold italic">Take theirs.</em>
+            Don't take our word for it. <em className="text-[#D4A853] italic">Take theirs.</em>
           </h2>
           <div className="grid md:grid-cols-3 gap-px bg-white/5">
             {TESTIMONIALS.map((t, i) => (
@@ -310,7 +310,7 @@ export default function About() {
           <div>
             <p className="eyebrow mb-2 reveal">Follow our work</p>
             <h2 className="font-display font-light text-smoke reveal reveal-delay-1" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}>
-              Stay updated — follow <em className="text-gold italic">imba.</em>
+              Stay updated — follow <em className="text-[#D4A853] italic">imba.</em>
             </h2>
           </div>
           <div className="flex flex-wrap gap-3 reveal reveal-delay-2">

@@ -86,7 +86,7 @@ export default function Contact() {
           <h1 className="font-display font-light leading-none mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
             Let's talk about<br />
-            <em className="text-gold italic">your marketing goals.</em>
+            <em className="text-[#D4A853] italic">your marketing goals.</em>
           </h1>
           <p className="text-smoke-dim text-lg max-w-xl reveal reveal-delay-2"
             style={{ fontWeight: 300 }}>

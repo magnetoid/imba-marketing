@@ -138,7 +138,7 @@ export default function Work() {
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
               Real results from<br />
-              <em className="text-gold italic">AI-powered marketing</em>
+              <em className="text-[#D4A853] italic">AI-powered marketing</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
               Every number is real. Every result is from a brand we actually helped grow — across e-commerce, SaaS, services, and more.
@@ -239,7 +239,7 @@ export default function Work() {
             <p className="eyebrow mb-4">Want results like these?</p>
             <h2 className="font-display font-light text-smoke leading-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>
-              Let's build your<br /><em className="text-gold italic">growth plan</em>
+              Let's build your<br /><em className="text-[#D4A853] italic">growth plan</em>
             </h2>
             <p className="text-smoke-dim mt-3 max-w-md" style={{ fontSize: '0.93rem' }}>
               Every result above started with a free conversation. Tell us your goals and we'll show you exactly how we'd help — no commitment, no pressure.

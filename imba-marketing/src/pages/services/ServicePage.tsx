@@ -47,7 +47,7 @@ export default function ServicePage() {
 
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(2.6rem, 5vw, 4.8rem)' }}>
-                <em className="text-gold italic">{service.tagline}</em>
+                <em className="text-[#D4A853] italic">{service.tagline}</em>
               </h1>
 
               <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '0.97rem' }}>
@@ -84,7 +84,7 @@ export default function ServicePage() {
           <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
             Everything included in<br />
-            <em className="text-gold italic">{service.label}</em>
+            <em className="text-[#D4A853] italic">{service.label}</em>
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
             {service.features.map(({ title, desc }, i) => (
@@ -107,7 +107,7 @@ export default function ServicePage() {
             <p className="eyebrow mb-4 reveal">How it works</p>
             <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
-              From first call<br /><em className="text-gold italic">to real results</em>
+              From first call<br /><em className="text-[#D4A853] italic">to real results</em>
             </h2>
             {service.process.map(({ n, title, desc }, i) => (
               <div key={n}
@@ -164,7 +164,7 @@ export default function ServicePage() {
             <p className="eyebrow mb-4 reveal">Real client results</p>
             <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
-              See what this looks like <em className="text-gold italic">in practice</em>
+              See what this looks like <em className="text-[#D4A853] italic">in practice</em>
             </h2>
             <div className="grid md:grid-cols-2 gap-px bg-white/5">
               {service.cases.map(({ client, headline, desc }, i) => (
@@ -193,7 +193,7 @@ export default function ServicePage() {
           <p className="eyebrow mb-4 reveal">Common questions</p>
           <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}>
-            Everything you need<br /><em className="text-gold italic">to know</em>
+            Everything you need<br /><em className="text-[#D4A853] italic">to know</em>
           </h2>
           <div className="space-y-0">
             {service.faq.map(({ q, a }, i) => (
@@ -221,7 +221,7 @@ export default function ServicePage() {
           <p className="eyebrow mb-4 reveal">Other ways we help</p>
           <h2 className="font-display font-light text-smoke mb-10 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
-            Explore more <em className="text-gold italic">services</em>
+            Explore more <em className="text-[#D4A853] italic">services</em>
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
             {otherServices.map((s, i) => (

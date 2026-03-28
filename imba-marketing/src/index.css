@@ -59,7 +59,7 @@ body {
    TYPOGRAPHY
    ═══════════════════════════════════════════════ */
 
-.font-display { font-family: 'Inter', system-ui, sans-serif; }
+.font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
 .font-mono-custom { font-family: 'DM Mono', monospace; }
 
 /* ═══════════════════════════════════════════════
@@ -84,12 +84,21 @@ body {
    ═══════════════════════════════════════════════ */
 
 .gradient-text {
-  background: linear-gradient(135deg, #EF4444, #F59E0B, #EF4444);
-  background-size: 200% 200%;
+  background: linear-gradient(135deg, #EF4444, #D4A853, #3B82F6, #EF4444);
+  background-size: 300% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 8s ease infinite;
+  animation: gradientShift 6s ease infinite;
+}
+
+.holo-text {
+  background: linear-gradient(90deg, #EF4444, #D4A853, #3B82F6, #EF4444);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease infinite;
 }
 
 @keyframes gradientShift {

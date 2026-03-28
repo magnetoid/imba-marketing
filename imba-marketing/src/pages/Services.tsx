@@ -112,7 +112,7 @@ export default function Services() {
               <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
                 AI marketing services that<br />
-                <em className="text-gold italic">drive real revenue.</em>
+                <em className="text-[#D4A853] italic">drive real revenue.</em>
               </h1>
               <p className="text-smoke-dim leading-relaxed max-w-md reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
                 Six AI-powered services that cover every angle of modern marketing — from lead generation and paid media to content production and conversion optimization. Pick what you need, or get everything in one plan.
@@ -202,7 +202,7 @@ export default function Services() {
             <p className="eyebrow mb-4 reveal">How it works</p>
             <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              From first call to<br /><em className="text-gold italic">real results</em>
+              From first call to<br /><em className="text-[#D4A853] italic">real results</em>
             </h2>
             {PROCESS.map(({ n, title, desc }, i) => (
               <div key={n}
@@ -248,7 +248,7 @@ export default function Services() {
           <div className="max-w-lg">
             <p className="eyebrow mb-3">For agencies & resellers</p>
             <h2 className="font-display font-light text-smoke leading-tight" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
-              Offer AI marketing under <em className="text-gold italic">your own brand</em>
+              Offer AI marketing under <em className="text-[#D4A853] italic">your own brand</em>
             </h2>
             <p className="text-smoke-dim mt-3" style={{ fontSize: '0.9rem' }}>
               You take the credit, we do the work. Add AI marketing to your services without hiring new people or building new tools.

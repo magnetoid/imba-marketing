@@ -33,7 +33,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <Link to="/" className="inline-block mb-4">
-            <span className="font-semibold text-xl text-white tracking-tight">
+            <span className="font-display font-light text-2xl text-white">
               imba<span className="font-normal text-zinc-500">.marketing</span>
             </span>
           </Link>

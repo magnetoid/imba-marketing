@@ -118,7 +118,7 @@ export default function Reviews() {
           <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
             What our clients say<br />
-            <em className="text-gold italic">about working with us.</em>
+            <em className="text-[#D4A853] italic">about working with us.</em>
           </h1>
           <p className="text-smoke-dim leading-relaxed max-w-lg reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
             These are real reviews from real brands we've worked with — across e-commerce, SaaS, services, and more. We're proud of every partnership and every result.
@@ -146,7 +146,7 @@ export default function Reviews() {
 
                 {r.rating && <StarRow rating={r.rating} />}
 
-                <blockquote className="font-display font-light text-smoke leading-relaxed mb-8"
+                <blockquote className="font-display font-light italic text-smoke leading-relaxed mb-8"
                   style={{ fontSize: 'clamp(1.15rem, 2vw, 1.5rem)' }}>
                   {r.text}
                 </blockquote>

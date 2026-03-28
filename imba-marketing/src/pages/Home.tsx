@@ -53,7 +53,7 @@ export default function Home() {
         <div className="relative text-center max-w-4xl mx-auto">
           {/* Badge */}
           <div className="flex justify-center mb-8 reveal">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium tracking-wide uppercase"
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium tracking-wide uppercase font-mono-custom"
               style={{ background: 'rgba(239,68,68,0.1)', color: '#EF4444', border: '1px solid rgba(239,68,68,0.2)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               AI-Powered Marketing Agency
@@ -61,7 +61,7 @@ export default function Home() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-sans font-extrabold tracking-tighter leading-[0.95] mb-6 reveal reveal-delay-1"
+          <h1 className="font-display font-light tracking-tight leading-[0.95] mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3.5rem, 8vw, 7rem)', color: '#FAFAF9' }}>
             <span className="gradient-text">Marketing that outperforms.</span>
             <br />
@@ -94,8 +94,8 @@ export default function Home() {
               { num: '98%', label: 'Retention' },
             ].map(({ num, label }) => (
               <div key={label} className="glass-card text-center py-8 px-4">
-                <div className="highlight-number mb-2" style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)' }}>{num}</div>
-                <div className="text-xs font-medium tracking-wide uppercase" style={{ color: '#52525B' }}>{label}</div>
+                <div className="font-display font-light mb-2" style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: '#FAFAF9' }}>{num}</div>
+                <div className="text-xs font-medium tracking-wide uppercase font-mono-custom" style={{ color: '#52525B' }}>{label}</div>
               </div>
             ))}
           </div>
@@ -105,7 +105,7 @@ export default function Home() {
       {/* ═══════════════════ TRUSTED BY ═══════════════════ */}
       <section className="py-10 px-6 lg:px-12" style={{ background: '#0F0F12', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
         <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <span className="text-xs font-medium uppercase tracking-wider" style={{ color: '#52525B' }}>Trusted by ambitious brands</span>
+          <span className="text-xs font-medium uppercase tracking-wider font-mono-custom" style={{ color: '#52525B' }}>Trusted by ambitious brands</span>
           <span className="hidden sm:inline" style={{ color: '#52525B' }}>|</span>
           {['FoodCo International', 'Ogitive', 'NordShop', 'Prime Real Estate', 'Magic Mind', 'Irving Books'].map(name => (
             <span key={name} className="text-sm font-medium" style={{ color: '#A1A1AA' }}>{name}</span>
@@ -117,9 +117,9 @@ export default function Home() {
       <section className="py-28 px-6 lg:px-12" style={{ background: '#09090B' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold tracking-tight leading-tight reveal"
+            <h2 className="font-display font-light tracking-tight leading-tight reveal"
               style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
-              What We Do
+              What We <em className="italic text-[#D4A853]">Do</em>
             </h2>
             <p className="text-base mt-4 max-w-xl mx-auto reveal reveal-delay-1" style={{ color: '#A1A1AA' }}>
               Six AI-powered services designed to cover every stage of your growth.
@@ -136,7 +136,7 @@ export default function Home() {
               >
                 <div className="flex items-center gap-3 mb-4">
                   <span className="block w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
-                  <h3 className="font-sans font-semibold text-xl transition-colors group-hover:text-red-400" style={{ color: '#FAFAF9' }}>
+                  <h3 className="font-semibold text-xl transition-colors group-hover:text-red-400" style={{ color: '#FAFAF9' }}>
                     {title}
                   </h3>
                 </div>
@@ -154,9 +154,9 @@ export default function Home() {
       <section className="py-28 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold tracking-tight leading-tight reveal"
+            <h2 className="font-display font-light tracking-tight leading-tight reveal"
               style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
-              Real Results
+              Real <em className="italic text-[#D4A853]">Results</em>
             </h2>
             <p className="text-base mt-4 max-w-xl mx-auto reveal reveal-delay-1" style={{ color: '#A1A1AA' }}>
               Every number backed by real clients, real data, and real revenue.
@@ -189,10 +189,10 @@ export default function Home() {
             ].map(({ client, industry, headline, desc, metrics }, i) => (
               <div key={client} className="glass-card p-8 flex flex-col reveal" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="mb-5">
-                  <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#EF4444' }}>{industry}</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider font-mono-custom" style={{ color: '#EF4444' }}>{industry}</span>
                   <p className="text-sm font-medium mt-1" style={{ color: '#A1A1AA' }}>{client}</p>
                 </div>
-                <h3 className="font-sans font-bold tracking-tight leading-tight mb-3"
+                <h3 className="font-display font-light tracking-tight leading-tight mb-3"
                   style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: '#FAFAF9' }}>
                   {headline}
                 </h3>
@@ -200,8 +200,8 @@ export default function Home() {
                 <div className="grid grid-cols-3 gap-4 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                   {metrics.map(({ n, l }) => (
                     <div key={l}>
-                      <div className="highlight-number text-xl leading-none mb-1">{n}</div>
-                      <div className="text-[0.65rem] font-medium uppercase tracking-wide" style={{ color: '#52525B' }}>{l}</div>
+                      <div className="font-display font-light text-xl leading-none mb-1" style={{ color: '#FAFAF9' }}>{n}</div>
+                      <div className="text-[0.65rem] font-medium uppercase tracking-wide font-mono-custom" style={{ color: '#52525B' }}>{l}</div>
                     </div>
                   ))}
                 </div>
@@ -219,9 +219,9 @@ export default function Home() {
       <section className="py-28 px-6 lg:px-12" style={{ background: '#09090B' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold tracking-tight leading-tight reveal"
+            <h2 className="font-display font-light tracking-tight leading-tight reveal"
               style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
-              How It Works
+              How It <em className="italic text-[#D4A853]">Works</em>
             </h2>
           </div>
 
@@ -233,8 +233,8 @@ export default function Home() {
               { step: '04', title: 'Growth & Scale', desc: 'Weekly reports, monthly strategy reviews, and continuous optimization ensure compounding returns over time.' },
             ].map(({ step, title, desc }, i) => (
               <div key={step} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-                <div className="font-sans font-extrabold text-5xl tracking-tighter mb-4" style={{ color: '#52525B' }}>{step}</div>
-                <h3 className="font-sans font-semibold text-lg mb-2" style={{ color: '#FAFAF9' }}>{title}</h3>
+                <div className="font-display font-light text-6xl tracking-tight mb-4" style={{ color: 'rgba(255,255,255,0.06)' }}>{step}</div>
+                <h3 className="font-display font-light text-xl mb-2" style={{ color: '#FAFAF9' }}>{title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: '#A1A1AA' }}>{desc}</p>
               </div>
             ))}
@@ -246,9 +246,9 @@ export default function Home() {
       <section className="py-28 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold tracking-tight leading-tight reveal"
+            <h2 className="font-display font-light tracking-tight leading-tight reveal"
               style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
-              What Our Clients Say
+              What Our Clients <em className="italic text-[#D4A853]">Say</em>
             </h2>
           </div>
 
@@ -258,19 +258,19 @@ export default function Home() {
                 {/* Stars */}
                 <div className="flex gap-1 mb-5">
                   {[1, 2, 3, 4, 5].map(n => (
-                    <svg key={n} width="16" height="16" viewBox="0 0 24 24" fill="#F59E0B" stroke="none">
+                    <svg key={n} width="16" height="16" viewBox="0 0 24 24" fill="#D4A853" stroke="none">
                       <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
                     </svg>
                   ))}
                 </div>
 
-                <p className="text-base leading-relaxed mb-8 flex-1" style={{ color: '#FAFAF9' }}>
+                <p className="font-display italic text-lg leading-relaxed mb-8 flex-1" style={{ color: '#FAFAF9' }}>
                   &ldquo;{t.text}&rdquo;
                 </p>
 
                 <div className="flex items-center gap-3 mt-auto pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                   <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold"
-                    style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', color: '#F59E0B' }}>
+                    style={{ background: 'rgba(212,168,83,0.1)', border: '1px solid rgba(212,168,83,0.2)', color: '#D4A853' }}>
                     {t.client_name.split(' ').map((w: string) => w[0]).join('')}
                   </div>
                   <div>
@@ -289,15 +289,15 @@ export default function Home() {
       {/* ═══════════════════ CTA ═══════════════════ */}
       <section className="cta-gradient">
         <div className="px-6 lg:px-12 py-28 max-w-screen-xl mx-auto text-center">
-          <h2 className="font-sans font-extrabold tracking-tighter leading-tight mb-6"
+          <h2 className="font-display font-light tracking-tight leading-tight mb-6"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: '#09090B' }}>
-            Ready to Transform Your Marketing?
+            Ready to Transform Your <em className="italic">Marketing?</em>
           </h2>
           <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'rgba(9,9,11,0.6)' }}>
             Book a free strategy call. We will audit your marketing, show you where AI drives the biggest gains, and build a custom growth plan — no strings attached.
           </p>
           <button onClick={() => openModal()}
-            className="btn btn-lg cursor-pointer font-sans font-semibold text-sm tracking-wide"
+            className="btn btn-lg cursor-pointer font-semibold text-sm tracking-wide"
             style={{ background: '#09090B', color: '#FAFAF9', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none' }}>
             Book Your Strategy Call &rarr;
           </button>

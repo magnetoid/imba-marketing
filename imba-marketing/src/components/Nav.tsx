@@ -63,8 +63,8 @@ export default function Nav() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center group" onClick={closeMega}>
-            <span className="font-semibold text-xl text-white tracking-tight">
-              imba<span className="font-normal text-zinc-500">.marketing</span>
+            <span className="font-display font-light text-2xl text-white tracking-wide">
+              imba<span className="text-red-500 italic">.</span><span className="text-zinc-400">marketing</span>
             </span>
           </Link>
 
@@ -141,13 +141,13 @@ export default function Nav() {
         {/* ═══ MEGA MENU — SERVICES ═══ */}
         <div
           onMouseLeave={() => setMegaMenu(null)}
-          className={`absolute left-0 right-0 top-full transition-all duration-300 overflow-hidden ${
+          className={`absolute left-0 right-0 top-full z-[100] transition-all duration-300 ${
             megaMenu === 'services'
               ? 'opacity-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="bg-zinc-950/98 backdrop-blur-2xl border-b border-zinc-800/80">
+          <div className="bg-zinc-950 border-b border-zinc-800/80 shadow-2xl shadow-black/50">
             <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
                 {/* Services grid */}
@@ -192,13 +192,13 @@ export default function Nav() {
         {/* ═══ MEGA MENU — COMPANY ═══ */}
         <div
           onMouseLeave={() => setMegaMenu(null)}
-          className={`absolute left-0 right-0 top-full transition-all duration-300 overflow-hidden ${
+          className={`absolute left-0 right-0 top-full z-[100] transition-all duration-300 ${
             megaMenu === 'company'
               ? 'opacity-100 translate-y-0 pointer-events-auto'
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="bg-zinc-950/98 backdrop-blur-2xl border-b border-zinc-800/80">
+          <div className="bg-zinc-950 border-b border-zinc-800/80 shadow-2xl shadow-black/50">
             <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
                 <div>

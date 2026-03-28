@@ -208,7 +208,7 @@ export default function Blog() {
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
               Expert tips,<br />
-              <em className="text-gold italic">real results</em>
+              <em className="text-[#D4A853] italic">real results</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
               100+ articles on AI marketing systems, growth strategies, and converting traffic into revenue.

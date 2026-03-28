@@ -22,7 +22,7 @@ export default {
           bright: '#F87171',
         },
         gold: {
-          DEFAULT: '#F59E0B',
+          DEFAULT: '#D4A853',
           dim: '#92400E',
         },
         cyber: {
@@ -49,20 +49,17 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Cormorant Garamond', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['DM Mono', 'monospace'],
       },
       fontSize: {
         '2xs': ['0.65rem', { lineHeight: '1rem', letterSpacing: '0.06em' }],
-        'hero': ['clamp(3.5rem, 8vw, 7rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
-        'heading': ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '700' }],
       },
       animation: {
         'fade-up': 'fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
         'fade-in': 'fadeIn 0.6s ease forwards',
         'gradient': 'gradientShift 8s ease infinite',
-        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -76,10 +73,6 @@ export default {
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
         },
       },
     },
