@@ -9,7 +9,7 @@ import { Separator } from '@/components/ui/separator'
 import {
   LayoutDashboard, Film, Image, FileText, MessageSquare, LogOut, Loader2,
   FolderOpen, Tag, Upload, Globe, Users, Search, ArrowLeft, ChevronRight, Star,
-  Send, Inbox, BarChart2, Settings
+  Send, Inbox, BarChart2, Settings, Sliders,
 } from 'lucide-react'
 
 const NAV_CMS = [
@@ -23,8 +23,8 @@ const NAV_CMS = [
   { to: '/admin/translations',    label: 'Translations',   icon: Globe },
   { to: '/admin/testimonials',    label: 'Testimonials',   icon: Star },
   { to: '/admin/quotes',          label: 'Quote Requests', icon: MessageSquare },
+  { to: '/admin/seo',             label: 'SEO',            icon: Globe },
 ]
-
 
 function NavItem({ to, label, icon: Icon, crm = false }: { to: string; label: string; icon: React.ElementType; crm?: boolean }) {
   return (
@@ -117,107 +117,139 @@ export default function AdminLayout() {
   const isCRM = location.pathname.startsWith('/admin/crm')
   const isLanding = location.pathname === '/admin'
 
-  return (
-    <div className="min-h-screen bg-background flex">
-      {/* ── Sidebar ── */}
-      <aside className="w-60 bg-card border-r border-border flex flex-col flex-shrink-0">
+  // ── LANDING PAGE — No sidebar, full-width dashboard ──
+  if (isLanding) {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Top bar */}
+        <header className="border-b border-border px-8 py-4 flex items-center justify-between">
+          <span className="text-xl font-semibold text-foreground">
+            imba<span className="text-primary italic">.</span>admin
+          </span>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <LogOut className="h-4 w-4" />
+            Sign out
+          </button>
+        </header>
 
-        {/* Header */}
-        <div className="p-5 border-b border-border flex items-center justify-between gap-2">
-          {isLanding ? (
-            <span className="text-xl font-semibold text-foreground">
-              imba<span className="text-primary italic">.</span>admin
-            </span>
-          ) : (
-            <>
-              <button
-                onClick={() => navigate('/admin')}
-                className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                title="Back to home"
-              >
-                <ArrowLeft className="h-3.5 w-3.5" />
-                <span className="text-sm font-semibold">
-                  imba<span className={isCRM ? 'text-amber-500 italic' : 'text-primary italic'}>.</span>
-                  <span className={isCRM ? 'text-amber-500' : 'text-primary'}>{isCRM ? 'crm' : 'cms'}</span>
-                </span>
-              </button>
-              {/* Section switcher */}
-              <button
-                onClick={() => navigate(isCRM ? '/admin/dashboard' : '/admin/crm')}
-                className="flex items-center gap-1 text-[0.65rem] font-mono text-muted-foreground/50 hover:text-muted-foreground transition-colors border border-border rounded px-1.5 py-0.5"
-                title={`Switch to ${isCRM ? 'CMS' : 'CRM'}`}
-              >
-                {isCRM ? 'CMS' : 'CRM'}<ChevronRight className="h-3 w-3" />
-              </button>
-            </>
-          )}
-        </div>
+        {/* Landing content */}
+        <div className="max-w-screen-lg mx-auto px-8 py-12">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Welcome back</h1>
+          <p className="text-muted-foreground mb-10">Choose a workspace to get started.</p>
 
-        {/* Landing: show both sections as tiles */}
-        {isLanding && (
-          <div className="p-3 flex flex-col gap-1">
-            <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-muted-foreground/40 mb-1">Sections</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* CMS Card */}
             <button
               onClick={() => navigate('/admin/dashboard')}
-              className="flex items-center justify-between px-3 py-2.5 rounded-md text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors group"
+              className="group text-left border border-border rounded-xl p-8 hover:border-primary/40 hover:bg-primary/5 transition-all"
             >
-              <div className="flex items-center gap-3">
-                <FileText className="h-4 w-4 flex-shrink-0" />
-                <span>CMS</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <FileText className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">CMS</h2>
+                  <p className="text-xs text-muted-foreground">Content Management</p>
+                </div>
               </div>
-              <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Manage blog posts, portfolio, testimonials, hero videos, media library, SEO, and site settings.
+              </p>
+              <div className="mt-6 flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                Open CMS <ChevronRight className="h-4 w-4" />
+              </div>
             </button>
+
+            {/* CRM Card */}
             <button
               onClick={() => navigate('/admin/crm')}
-              className="flex items-center justify-between px-3 py-2.5 rounded-md text-sm text-muted-foreground hover:text-amber-500 hover:bg-amber-500/5 transition-colors group"
+              className="group text-left border border-border rounded-xl p-8 hover:border-amber-500/40 hover:bg-amber-500/5 transition-all"
             >
-              <div className="flex items-center gap-3">
-                <Users className="h-4 w-4 flex-shrink-0" />
-                <span>AI CRM</span>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                  <Users className="h-5 w-5 text-amber-500" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-foreground group-hover:text-amber-500 transition-colors">AI CRM</h2>
+                  <p className="text-xs text-muted-foreground">Sales & Outreach</p>
+                </div>
               </div>
-              <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                AI prospect finder, outreach pipeline, email queue, inbox, analytics, and CRM settings.
+              </p>
+              <div className="mt-6 flex items-center gap-1 text-sm font-medium text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                Open CRM <ChevronRight className="h-4 w-4" />
+              </div>
             </button>
-            <Separator className="my-2" />
           </div>
-        )}
+        </div>
+
+        <Outlet />
+      </div>
+    )
+  }
+
+  // ── CMS / CRM — With sidebar ──
+  return (
+    <div className="min-h-screen bg-background flex">
+      {/* Sidebar */}
+      <aside className="w-60 bg-card border-r border-border flex flex-col flex-shrink-0">
+        {/* Header */}
+        <div className="p-5 border-b border-border flex items-center justify-between gap-2">
+          <button
+            onClick={() => navigate('/admin')}
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+            title="Back to home"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span className="text-sm font-semibold">
+              imba<span className={isCRM ? 'text-amber-500 italic' : 'text-primary italic'}>.</span>
+              <span className={isCRM ? 'text-amber-500' : 'text-primary'}>{isCRM ? 'crm' : 'cms'}</span>
+            </span>
+          </button>
+          <button
+            onClick={() => navigate(isCRM ? '/admin/dashboard' : '/admin/crm')}
+            className="flex items-center gap-1 text-[0.65rem] font-mono text-muted-foreground/50 hover:text-muted-foreground transition-colors border border-border rounded px-1.5 py-0.5"
+            title={`Switch to ${isCRM ? 'CMS' : 'CRM'}`}
+          >
+            {isCRM ? 'CMS' : 'CRM'}<ChevronRight className="h-3 w-3" />
+          </button>
+        </div>
 
         {/* CMS nav */}
-        {!isLanding && !isCRM && (
+        {!isCRM && (
           <nav className="flex-1 p-3 flex flex-col gap-0.5 overflow-y-auto">
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-muted-foreground/40 mb-1">Content</p>
-            {NAV_CMS.slice(0, -1).map(item => (
+            {NAV_CMS.map(item => (
               <NavItem key={item.to} {...item} />
             ))}
             <Separator className="my-2" />
-            <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-muted-foreground/40 mb-1">Leads</p>
-            <NavItem key="/admin/quotes" to="/admin/quotes" label="Quote Requests" icon={MessageSquare} />
+            <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-muted-foreground/40 mb-1">Settings</p>
+            <NavItem to="/admin/crm/settings" label="CMS & CRM Settings" icon={Sliders} />
           </nav>
         )}
 
         {/* CRM nav */}
-        {!isLanding && isCRM && (
+        {isCRM && (
           <nav className="flex-1 p-3 flex flex-col gap-0.5 overflow-y-auto">
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Pipeline</p>
             <NavItem to="/admin/crm" label="Pipeline" icon={Users} crm />
             <Separator className="my-2" />
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">AI Outreach</p>
-            <NavItem to="/admin/crm/ai-search" label="Lead Finder" icon={Search} crm />
-            <NavItem to="/admin/crm/outreach" label="Outreach" icon={Send} crm />
+            <NavItem to="/admin/crm/ai-search" label="Prospect Finder" icon={Search} crm />
+            <NavItem to="/admin/crm/outreach" label="Outreach Pipeline" icon={Send} crm />
             <NavItem to="/admin/crm/inbox" label="Inbox" icon={Inbox} crm />
             <Separator className="my-2" />
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Intelligence</p>
             <NavItem to="/admin/crm/analytics" label="Analytics" icon={BarChart2} crm />
-            <NavItem to="/admin/crm/seo" label="SEO Manager" icon={Settings} crm />
-            <NavItem to="/admin/crm/settings" label="Settings" icon={Settings} crm />
+            <NavItem to="/admin/crm/seo" label="SEO Manager" icon={Globe} crm />
             <Separator className="my-2" />
-            <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Leads</p>
-            <NavItem to="/admin/quotes" label="Quote Requests" icon={MessageSquare} crm />
+            <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Settings</p>
+            <NavItem to="/admin/crm/settings" label="Settings" icon={Settings} crm />
           </nav>
-        )}
-
-        {/* Landing nav — show nothing extra, handled above */}
-        {isLanding && (
-          <nav className="flex-1 p-3 flex flex-col gap-0.5 overflow-y-auto" />
         )}
 
         {/* Sign out */}

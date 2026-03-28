@@ -143,37 +143,44 @@ export default function AISettings() {
   async function load() {
     setLoading(true)
     try {
-      // Load CRM settings (safe — table exists from V005)
-      const crmRes = await supabase.from('crm_ai_settings').select('key, value')
-      if (crmRes.data) {
-        const m = Object.fromEntries(crmRes.data.map(r => [r.key, r.value]))
-        if (m.smtp_config) setSmtp(m.smtp_config as SmtpConfig)
-        if (m.ai_outreach_tone) setAiTone(m.ai_outreach_tone as string)
-        if (m.ai_auto_enrich !== undefined) setAutoEnrich(Boolean(m.ai_auto_enrich))
-        if (m.ai_inbox_auto_categorize !== undefined) setAutoCategorize(Boolean(m.ai_inbox_auto_categorize))
-        if (m.company_profile) {
-          const cp = m.company_profile as { company_name?: string; company_description?: string; usp?: string }
-          if (cp.company_name) setCompanyName(cp.company_name)
-          if (cp.company_description) setCompanyDesc(cp.company_description)
-          if (cp.usp) setUsp(cp.usp)
+      // Load CRM settings (may not exist if migration not run)
+      try {
+        const crmRes = await supabase.from('crm_ai_settings').select('key, value')
+        if (crmRes.data && !crmRes.error) {
+          const m = Object.fromEntries(crmRes.data.map(r => [r.key, r.value]))
+          if (m.smtp_config) setSmtp(m.smtp_config as SmtpConfig)
+          if (m.ai_outreach_tone) setAiTone(m.ai_outreach_tone as string)
+          if (m.ai_auto_enrich !== undefined) setAutoEnrich(Boolean(m.ai_auto_enrich))
+          if (m.ai_inbox_auto_categorize !== undefined) setAutoCategorize(Boolean(m.ai_inbox_auto_categorize))
+          if (m.company_profile) {
+            const cp = m.company_profile as { company_name?: string; company_description?: string; usp?: string }
+            if (cp.company_name) setCompanyName(cp.company_name)
+            if (cp.company_description) setCompanyDesc(cp.company_description)
+            if (cp.usp) setUsp(cp.usp)
+          }
+          if (m.sender_accounts) {
+            setSenderAccounts(m.sender_accounts as Array<{ email: string; name: string; is_default: boolean }>)
+          }
         }
-        if (m.sender_accounts) {
-          setSenderAccounts(m.sender_accounts as Array<{ email: string; name: string; is_default: boolean }>)
-        }
-      }
+      } catch { /* table may not exist */ }
 
-      // Load tracking settings (safe — site_settings exists from V001)
-      const trackingRes = await supabase.from('site_settings').select('key, value').eq('key', 'tracking').single()
-      if (trackingRes.data?.value) {
-        const t = trackingRes.data.value as { ga4_id?: string; gtm_id?: string; fb_pixel_id?: string; custom_head_scripts?: string }
-        if (t.ga4_id) setGa4Id(t.ga4_id)
-        if (t.gtm_id) setGtmId(t.gtm_id)
-        if (t.fb_pixel_id) setFbPixelId(t.fb_pixel_id)
-        if (t.custom_head_scripts) setCustomHeadScripts(t.custom_head_scripts)
-      }
+      // Load tracking settings (may not have 'tracking' key yet)
+      try {
+        const trackingRes = await supabase.from('site_settings').select('key, value').eq('key', 'tracking').maybeSingle()
+        if (trackingRes.data?.value) {
+          const t = trackingRes.data.value as { ga4_id?: string; gtm_id?: string; fb_pixel_id?: string; custom_head_scripts?: string }
+          if (t.ga4_id) setGa4Id(t.ga4_id)
+          if (t.gtm_id) setGtmId(t.gtm_id)
+          if (t.fb_pixel_id) setFbPixelId(t.fb_pixel_id)
+          if (t.custom_head_scripts) setCustomHeadScripts(t.custom_head_scripts)
+        }
+      } catch { /* no tracking row yet */ }
 
       // Load AI providers (V006 — may not exist yet)
-      const providersRes = await supabase.from('ai_providers').select('*').order('id')
+      let providersRes: { data: AIProvider[] | null; error: unknown } = { data: null, error: null }
+      try {
+        providersRes = await supabase.from('ai_providers').select('*').order('id') as typeof providersRes
+      } catch { /* table may not exist */ }
       if (providersRes.data?.length) {
         setProviders(providersRes.data.map(p => ({
           ...p,
@@ -399,7 +406,7 @@ export default function AISettings() {
                             <SelectItem key={m} value={m} className="text-xs font-mono">{m}</SelectItem>
                           ))}
                           {!provider.available_models.length && (
-                            <SelectItem value="" disabled className="text-xs">Fetch models first</SelectItem>
+                            <SelectItem value="__none__" disabled className="text-xs">Fetch models first</SelectItem>
                           )}
                         </SelectContent>
                       </Select>
