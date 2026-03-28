@@ -245,7 +245,6 @@ export default function AdminLayout() {
             <Separator className="my-2" />
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Intelligence</p>
             <NavItem to="/admin/crm/analytics" label="Analytics" icon={BarChart2} crm />
-            <NavItem to="/admin/crm/seo" label="SEO Manager" icon={Globe} crm />
             <Separator className="my-2" />
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Settings</p>
             <NavItem to="/admin/crm/settings" label="Settings" icon={Settings} crm />

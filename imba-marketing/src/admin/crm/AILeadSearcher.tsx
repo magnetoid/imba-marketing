@@ -215,48 +215,67 @@ export default function AILeadSearcher() {
 
   const loadProviders = useCallback(async () => {
     setProvidersLoading(true)
-    const { data } = await supabase
-      .from('ai_providers')
-      .select('*')
-      .order('id')
-    if (data?.length) {
-      const mapped: AIProvider[] = data.map(p => ({
-        ...p,
-        available_models: (p.available_models as string[] | null) || [],
-      }))
-      setProviders(mapped)
+    try {
+      const { data, error } = await supabase
+        .from('ai_providers')
+        .select('*')
+        .order('id')
+      if (data?.length && !error) {
+        const mapped: AIProvider[] = data.map(p => ({
+          ...p,
+          available_models: (p.available_models as string[] | null) || [],
+        }))
+        setProviders(mapped)
 
-      // Default to the first enabled provider with a default_model
-      const defaultProvider = mapped.find(p => p.enabled && p.default_model && p.api_key)
-      if (defaultProvider) {
-        setSelectedProviderId(defaultProvider.id)
-        setSelectedModel(defaultProvider.default_model!)
-      } else if (mapped.length) {
-        const first = mapped.find(p => p.enabled && p.api_key) || mapped[0]
-        setSelectedProviderId(first.id)
-        if (first.default_model) setSelectedModel(first.default_model)
-        else if (first.available_models.length) setSelectedModel(first.available_models[0])
+        const defaultProvider = mapped.find(p => p.enabled && p.default_model && p.api_key)
+        if (defaultProvider) {
+          setSelectedProviderId(defaultProvider.id)
+          setSelectedModel(defaultProvider.default_model!)
+        } else if (mapped.length) {
+          const first = mapped.find(p => p.enabled && p.api_key) || mapped[0]
+          setSelectedProviderId(first.id)
+          if (first.default_model) setSelectedModel(first.default_model)
+          else if (first.available_models.length) setSelectedModel(first.available_models[0])
+        }
+        setProvidersLoading(false)
+        return
       }
+    } catch { /* table may not exist */ }
+
+    // Fallback: use localStorage Anthropic key
+    const localKey = localStorage.getItem('anthropic_api_key') || ''
+    const fallback: AIProvider[] = [{
+      id: 'anthropic', name: 'Anthropic (Claude)', api_key: localKey, base_url: null,
+      default_model: 'claude-sonnet-4-20250514',
+      available_models: ['claude-opus-4-6', 'claude-sonnet-4-6', 'claude-sonnet-4-20250514', 'claude-haiku-4-5-20251001'],
+      enabled: true,
+    }]
+    setProviders(fallback)
+    if (localKey) {
+      setSelectedProviderId('anthropic')
+      setSelectedModel('claude-sonnet-4-20250514')
     }
     setProvidersLoading(false)
   }, [])
 
   const loadHistory = useCallback(async () => {
-    const { data } = await supabase
-      .from('crm_prospect_searches')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(10)
-    if (data) {
-      setSearchHistory(data.map(d => ({
-        id: d.id,
-        icp: d.icp as ICPConfig,
-        provider_id: d.provider_id as string,
-        model: d.model as string,
-        result_count: d.result_count as number,
-        created_at: d.created_at as string,
-      })))
-    }
+    try {
+      const { data } = await supabase
+        .from('crm_prospect_searches')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(10)
+      if (data) {
+        setSearchHistory(data.map(d => ({
+          id: d.id,
+          icp: d.icp as ICPConfig,
+          provider_id: d.provider_id as string,
+          model: d.model as string,
+          result_count: d.result_count as number,
+          created_at: d.created_at as string,
+        })))
+      }
+    } catch { /* crm_prospect_searches table may not exist */ }
   }, [])
 
   useEffect(() => {
@@ -361,14 +380,16 @@ Return ONLY a valid JSON array. No markdown, no code blocks, no explanation — 
       setResults(normalized)
       toast.success(`Found ${normalized.length} prospects`)
 
-      // Save search to history table
-      const { error } = await supabase.from('crm_prospect_searches').insert({
-        icp,
-        provider_id: selectedProviderId,
-        model: selectedModel,
-        result_count: normalized.length,
-      })
-      if (!error) loadHistory()
+      // Save search to history table (may not exist if V006 not run)
+      try {
+        await supabase.from('crm_prospect_searches').insert({
+          icp,
+          provider_id: selectedProviderId,
+          model: selectedModel,
+          result_count: normalized.length,
+        })
+        loadHistory()
+      } catch { /* table may not exist */ }
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error'
       toast.error(`AI search failed: ${msg}`)

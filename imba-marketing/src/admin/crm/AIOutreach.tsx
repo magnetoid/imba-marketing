@@ -235,39 +235,60 @@ export default function AIOutreach() {
 
   const load = useCallback(async () => {
     setLoading(true)
-    const [leadsRes, emailsRes, providersRes, sendersRes, profileRes, toneRes] = await Promise.all([
+
+    // These tables always exist
+    const [leadsRes, emailsRes] = await Promise.all([
       supabase.from('crm_leads').select('id,company_name,contact_name,email,industry,ai_score,ai_summary').order('created_at', { ascending: false }),
       supabase.from('crm_outreach_emails').select('*, crm_leads(id,company_name,contact_name,email,ai_score,industry)').order('created_at', { ascending: false }),
-      supabase.from('ai_providers').select('*').eq('enabled', true).order('id'),
-      supabase.from('crm_ai_settings').select('value').eq('key', 'sender_accounts').maybeSingle(),
-      supabase.from('crm_ai_settings').select('value').eq('key', 'company_profile').maybeSingle(),
-      supabase.from('crm_ai_settings').select('value').eq('key', 'ai_outreach_tone').maybeSingle(),
     ])
-
     setLeads((leadsRes.data as CRMLead[]) || [])
     setEmails((emailsRes.data as OutreachEmail[]) || [])
 
-    if (providersRes.data?.length) {
-      setProviders(providersRes.data.map(p => ({
-        ...p,
-        available_models: (p.available_models as string[] | null) || [],
-      })))
+    // AI providers (V006 — may not exist)
+    try {
+      const providersRes = await supabase.from('ai_providers').select('*').eq('enabled', true).order('id')
+      if (providersRes.data?.length) {
+        setProviders(providersRes.data.map(p => ({
+          ...p,
+          available_models: (p.available_models as string[] | null) || [],
+        })))
+      }
+    } catch {
+      // Fallback to localStorage Anthropic key
+      const localKey = localStorage.getItem('anthropic_api_key') || ''
+      if (localKey) {
+        setProviders([{
+          id: 'anthropic', name: 'Anthropic (Claude)', api_key: localKey, base_url: null,
+          default_model: 'claude-sonnet-4-20250514',
+          available_models: ['claude-opus-4-6', 'claude-sonnet-4-6', 'claude-sonnet-4-20250514'],
+          enabled: true,
+        }])
+      }
     }
 
-    if (sendersRes.data?.value) {
-      const accs = sendersRes.data.value as SenderAccount[]
-      setSenderAccounts(accs)
-      const defaultAcc = accs.find(a => a.is_default) || accs[0]
-      if (defaultAcc) setSelectedSender(defaultAcc.email)
-    }
+    // CRM settings (may not exist)
+    try {
+      const [sendersRes, profileRes, toneRes] = await Promise.all([
+        supabase.from('crm_ai_settings').select('value').eq('key', 'sender_accounts').maybeSingle(),
+        supabase.from('crm_ai_settings').select('value').eq('key', 'company_profile').maybeSingle(),
+        supabase.from('crm_ai_settings').select('value').eq('key', 'ai_outreach_tone').maybeSingle(),
+      ])
 
-    if (profileRes.data?.value) {
-      setCompanyProfile(profileRes.data.value as CompanyProfile)
-    }
+      if (sendersRes.data?.value) {
+        const accs = sendersRes.data.value as SenderAccount[]
+        setSenderAccounts(accs)
+        const defaultAcc = accs.find(a => a.is_default) || accs[0]
+        if (defaultAcc) setSelectedSender(defaultAcc.email)
+      }
 
-    if (toneRes.data?.value) {
-      setAiTone(toneRes.data.value as string)
-    }
+      if (profileRes.data?.value) {
+        setCompanyProfile(profileRes.data.value as CompanyProfile)
+      }
+
+      if (toneRes.data?.value) {
+        setAiTone(toneRes.data.value as string)
+      }
+    } catch { /* crm_ai_settings may not exist */ }
 
     setLoading(false)
   }, [])

@@ -273,7 +273,7 @@ export default function Services() {
           <Link to="/contact"
             className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4"
             style={{ background: '#0A0A0B', color: '#F5F4F0' }}>
-            Book a Strategy Call
+            Get Free Quote
           </Link>
         </div>
       </section>

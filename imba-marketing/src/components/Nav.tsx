@@ -17,7 +17,7 @@ const COMPANY = [
   { to: '/results', label: 'Client Results', desc: 'Real numbers from real brands' },
   { to: '/reviews', label: 'Reviews', desc: 'What our clients say' },
   { to: '/blog', label: 'Blog', desc: 'AI marketing insights & guides' },
-  { to: '/contact', label: 'Contact', desc: 'Book a call or send a message' },
+  { to: '/contact', label: 'Contact', desc: 'Get a free quote or send a message' },
 ]
 
 export default function Nav() {
@@ -122,7 +122,7 @@ export default function Nav() {
               onClick={() => { openModal(); closeMega() }}
               className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-500/20"
             >
-              Book a Call
+              Get Free Quote
             </button>
           </div>
 
@@ -175,13 +175,13 @@ export default function Nav() {
                 <div className="hidden lg:flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/10">
                   <div>
                     <p className="text-lg font-bold text-white mb-2">Not sure which service?</p>
-                    <p className="text-sm text-zinc-400 leading-relaxed">Book a free strategy call. We'll audit your marketing and recommend the right AI systems for your goals.</p>
+                    <p className="text-sm text-zinc-400 leading-relaxed">Get a free quote. We'll audit your marketing and recommend the right AI systems for your goals.</p>
                   </div>
                   <button
                     onClick={() => { openModal(); closeMega() }}
                     className="mt-6 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all w-full"
                   >
-                    Book a Free Strategy Call →
+                    Get Your Free Quote →
                   </button>
                 </div>
               </div>
@@ -287,7 +287,7 @@ export default function Nav() {
             onClick={() => { openModal(); setMobileOpen(false) }}
             className="w-full bg-red-500 hover:bg-red-600 text-white text-base font-semibold px-6 py-4 rounded-xl transition-all"
           >
-            Book a Strategy Call
+            Get Free Quote
           </button>
           <div className="mt-4 flex justify-center">
             <LanguageSwitcher />

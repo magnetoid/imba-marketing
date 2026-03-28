@@ -33,7 +33,7 @@ export default function Home() {
     <>
       <Seo
         title="Imba Marketing — AI-Powered Marketing Agency"
-        description="Imba Marketing is an AI-powered marketing agency that helps ambitious brands grow faster with intelligent automation, performance ads, and data-driven strategy. Book a free strategy call today."
+        description="Imba Marketing is an AI-powered marketing agency that helps ambitious brands grow faster with intelligent automation, performance ads, and data-driven strategy. Get a free quote today."
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'Organization',
@@ -76,7 +76,7 @@ export default function Home() {
           {/* Buttons */}
           <div className="flex flex-wrap justify-center items-center gap-4 mb-20 reveal reveal-delay-3">
             <button onClick={() => openModal()} className="btn btn-primary btn-lg">
-              Book a Strategy Call
+              Get Free Quote
             </button>
             <Link to="/results" className="btn btn-outline">
               See Our Work
@@ -294,7 +294,7 @@ export default function Home() {
             Ready to Transform Your <em className="italic">Marketing?</em>
           </h2>
           <p className="text-lg mb-10 max-w-xl mx-auto" style={{ color: 'rgba(9,9,11,0.6)' }}>
-            Book a free strategy call. We will audit your marketing, show you where AI drives the biggest gains, and build a custom growth plan — no strings attached.
+            Get your free quote. We'll audit your marketing, show you where AI drives the biggest gains, and build a custom growth plan — no strings attached.
           </p>
           <button onClick={() => openModal()}
             className="btn btn-lg cursor-pointer font-semibold text-sm tracking-wide"
