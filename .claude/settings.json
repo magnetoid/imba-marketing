@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git mv:*)",
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)",
+      "Bash(curl -sL \"https://docs.ollama.com/api/introduction\")",
+      "WebFetch(domain:docs.ollama.com)",
+      "Bash(curl -sL \"https://docs.ollama.com/llms.txt\")"
+    ]
+  }
+}
