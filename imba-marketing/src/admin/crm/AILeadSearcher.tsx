@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { loadAIProviders, getDefaultProvider, callAI, extractJSON, type AIProvider } from '@/lib/ai'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -16,16 +17,6 @@ import {
 } from 'lucide-react'
 
 // ── Types ──────────────────────────────────────────────
-
-interface AIProvider {
-  id: string
-  name: string
-  api_key: string
-  base_url: string | null
-  default_model: string | null
-  available_models: string[]
-  enabled: boolean
-}
 
 interface Prospect {
   company_name: string
@@ -93,85 +84,6 @@ const DEFAULT_ICP: ICPConfig = {
 
 // ── AI Provider Call Helper ────────────────────────────
 
-async function callAIProvider(
-  provider: AIProvider,
-  model: string,
-  prompt: string,
-): Promise<string> {
-  const pid = provider.id
-
-  if (pid === 'anthropic') {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': provider.api_key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 4096,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}))
-      throw new Error((err as { error?: { message?: string } }).error?.message || `Anthropic API error ${res.status}`)
-    }
-    const data = await res.json() as { content: Array<{ text: string }> }
-    return data.content?.[0]?.text || ''
-  }
-
-  if (pid === 'openai' || pid === 'perplexity') {
-    const baseUrl = pid === 'perplexity'
-      ? 'https://api.perplexity.ai/chat/completions'
-      : 'https://api.openai.com/v1/chat/completions'
-    const res = await fetch(baseUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${provider.api_key}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 4096,
-      }),
-    })
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}))
-      throw new Error((err as { error?: { message?: string } }).error?.message || `${provider.name} API error ${res.status}`)
-    }
-    const data = await res.json() as { choices: Array<{ message: { content: string } }> }
-    return data.choices?.[0]?.message?.content || ''
-  }
-
-  if (pid === 'ollama') {
-    const base = provider.base_url || 'http://localhost:11434'
-    const res = await fetch(`${base}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: 'user', content: prompt }],
-        stream: false,
-      }),
-    })
-    if (!res.ok) throw new Error(`Ollama error ${res.status}`)
-    const data = await res.json() as { message: { content: string } }
-    return data.message?.content || ''
-  }
-
-  throw new Error(`Unsupported provider: ${pid}`)
-}
-
-function extractJSON<T>(text: string): T {
-  const match = text.match(/[\[{][\s\S]*[\]}]/)
-  if (!match) throw new Error('No JSON found in AI response')
-  return JSON.parse(match[0]) as T
-}
-
 // ── Score color helper ─────────────────────────────────
 
 function scoreColor(score: number): string {
@@ -215,45 +127,12 @@ export default function AILeadSearcher() {
 
   const loadProviders = useCallback(async () => {
     setProvidersLoading(true)
-    try {
-      const { data, error } = await supabase
-        .from('ai_providers')
-        .select('*')
-        .order('id')
-      if (data?.length && !error) {
-        const mapped: AIProvider[] = data.map(p => ({
-          ...p,
-          available_models: (p.available_models as string[] | null) || [],
-        }))
-        setProviders(mapped)
-
-        const defaultProvider = mapped.find(p => p.enabled && p.default_model && p.api_key)
-        if (defaultProvider) {
-          setSelectedProviderId(defaultProvider.id)
-          setSelectedModel(defaultProvider.default_model!)
-        } else if (mapped.length) {
-          const first = mapped.find(p => p.enabled && p.api_key) || mapped[0]
-          setSelectedProviderId(first.id)
-          if (first.default_model) setSelectedModel(first.default_model)
-          else if (first.available_models.length) setSelectedModel(first.available_models[0])
-        }
-        setProvidersLoading(false)
-        return
-      }
-    } catch { /* table may not exist */ }
-
-    // Fallback: use localStorage Anthropic key
-    const localKey = localStorage.getItem('anthropic_api_key') || ''
-    const fallback: AIProvider[] = [{
-      id: 'anthropic', name: 'Anthropic (Claude)', api_key: localKey, base_url: null,
-      default_model: 'claude-sonnet-4-20250514',
-      available_models: ['claude-opus-4-6', 'claude-sonnet-4-6', 'claude-sonnet-4-20250514', 'claude-haiku-4-5-20251001'],
-      enabled: true,
-    }]
-    setProviders(fallback)
-    if (localKey) {
-      setSelectedProviderId('anthropic')
-      setSelectedModel('claude-sonnet-4-20250514')
+    const loaded = await loadAIProviders()
+    setProviders(loaded)
+    const def = getDefaultProvider(loaded)
+    if (def) {
+      setSelectedProviderId(def.provider.id)
+      setSelectedModel(def.model)
     }
     setProvidersLoading(false)
   }, [])
@@ -368,7 +247,7 @@ For each prospect, provide:
 Return ONLY a valid JSON array. No markdown, no code blocks, no explanation — just the array.`
 
     try {
-      const rawText = await callAIProvider(activeProvider, selectedModel, prompt)
+      const rawText = await callAI(activeProvider, selectedModel, prompt, 'You are an expert B2B prospect researcher. Return ONLY valid JSON arrays — no markdown, no code blocks, no explanation.')
       const prospects = extractJSON<Prospect[]>(rawText)
 
       // Normalize scores to numbers

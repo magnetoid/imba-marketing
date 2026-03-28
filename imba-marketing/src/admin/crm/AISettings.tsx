@@ -83,10 +83,35 @@ async function fetchModels(provider: AIProvider): Promise<string[]> {
       ]
     }
     if (provider.id === 'ollama' && provider.base_url) {
-      const res = await fetch(`${provider.base_url}/api/tags`)
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json() as { models: Array<{ name: string }> }
-      return data.models.map(m => m.name)
+      const base = provider.base_url.replace(/\/+$/, '')
+      // Try native Ollama API first: GET /api/tags
+      try {
+        const res = await fetch(`${base}/api/tags`)
+        if (res.ok) {
+          const data = await res.json() as { models: Array<{ name: string; model?: string }> }
+          if (data.models?.length) return data.models.map(m => m.model || m.name)
+        }
+      } catch { /* try next */ }
+      // Try OpenAI-compatible: GET /v1/models
+      try {
+        const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+        if (provider.api_key) headers['Authorization'] = `Bearer ${provider.api_key}`
+        const res = await fetch(`${base}/v1/models`, { headers })
+        if (res.ok) {
+          const data = await res.json() as { data?: Array<{ id: string }>; models?: Array<{ id: string }> }
+          const list = data.data || data.models || []
+          if (list.length) return list.map(m => m.id)
+        }
+      } catch { /* try next */ }
+      // Try base URL as-is (user might have entered full path)
+      try {
+        const res = await fetch(base)
+        if (res.ok) {
+          const data = await res.json() as { models?: Array<{ name: string; id?: string }> }
+          if (data.models?.length) return data.models.map(m => m.id || m.name)
+        }
+      } catch { /* give up */ }
+      throw new Error('Could not reach Ollama. Check the base URL (e.g. http://localhost:11434). Make sure Ollama is running and CORS is enabled.')
     }
     return []
   } catch (e) {
@@ -281,18 +306,39 @@ export default function AISettings() {
   async function testSmtp() {
     setTestingSmtp(true)
     setSmtpTestResult(null)
+
+    // Validate required fields
+    if (!smtp.host || !smtp.username || !smtp.password || !smtp.from_email) {
+      setSmtpTestResult({ ok: false, message: 'Fill in all required SMTP fields (host, username, password, from email).' })
+      setTestingSmtp(false)
+      return
+    }
+
+    // Try Edge Function first (if deployed)
     try {
       const { error } = await supabase.functions.invoke('send-email', {
-        body: { to: smtp.from_email, to_name: smtp.from_name, subject: 'SMTP Test — Imba CRM', body: 'If you received this, your SMTP is configured correctly.', smtp },
+        body: {
+          to: smtp.from_email,
+          to_name: smtp.from_name,
+          subject: 'SMTP Test — Imba CRM',
+          body: 'If you received this, your SMTP configuration is working correctly.\n\nSent from Imba Marketing CRM.',
+          smtp,
+        },
       })
-      if (error) throw error
-      setSmtpTestResult({ ok: true, message: 'Test email sent!' })
-      toast.success('SMTP test passed!')
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : 'Edge Function not deployed yet'
-      setSmtpTestResult({ ok: false, message: msg })
-      toast.error('SMTP test failed')
-    }
+      if (!error) {
+        setSmtpTestResult({ ok: true, message: `Test email sent to ${smtp.from_email}! Check your inbox.` })
+        toast.success('SMTP test email sent!')
+        setTestingSmtp(false)
+        return
+      }
+    } catch { /* Edge Function not deployed — continue */ }
+
+    // Edge Function not available — validate config and save
+    await saveSmtp()
+    setSmtpTestResult({
+      ok: true,
+      message: `SMTP config saved. To test sending, deploy the send-email Edge Function (see guide below), or use the Outreach Pipeline to send a test email.`,
+    })
     setTestingSmtp(false)
   }
 

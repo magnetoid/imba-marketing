@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
+import { callAI as callAIShared, loadAIProviders, type AIProvider } from '@/lib/ai'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,16 +27,6 @@ interface CRMLead {
   industry: string
   ai_score: number
   ai_summary: string
-}
-
-interface AIProvider {
-  id: string
-  name: string
-  api_key: string
-  base_url: string | null
-  default_model: string | null
-  available_models: string[]
-  enabled: boolean
 }
 
 interface SenderAccount {
@@ -98,89 +89,13 @@ const EMAIL_TEMPLATE_TYPES = [
   { value: 'meeting_request', label: 'Meeting Request' },
 ]
 
-// ── Multi-provider AI caller ──────────────────────────
-
-async function callAI(
-  provider: AIProvider,
-  model: string,
-  prompt: string,
-): Promise<string> {
-  if (provider.id === 'anthropic') {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'x-api-key': provider.api_key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 1200,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
-    if (!res.ok) throw new Error(`Anthropic API ${res.status}: ${res.statusText}`)
-    const data = await res.json()
-    return data.content?.[0]?.text || ''
-  }
-
-  if (provider.id === 'openai') {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${provider.api_key}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 1200,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
-    if (!res.ok) throw new Error(`OpenAI API ${res.status}: ${res.statusText}`)
-    const data = await res.json()
-    return data.choices?.[0]?.message?.content || ''
-  }
-
-  if (provider.id === 'perplexity') {
-    const res = await fetch('https://api.perplexity.ai/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${provider.api_key}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        max_tokens: 1200,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
-    if (!res.ok) throw new Error(`Perplexity API ${res.status}: ${res.statusText}`)
-    const data = await res.json()
-    return data.choices?.[0]?.message?.content || ''
-  }
-
-  if (provider.id === 'ollama') {
-    const baseUrl = provider.base_url || 'http://localhost:11434'
-    const res = await fetch(`${baseUrl}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        prompt,
-        stream: false,
-      }),
-    })
-    if (!res.ok) throw new Error(`Ollama API ${res.status}: ${res.statusText}`)
-    const data = await res.json()
-    return data.response || ''
-  }
-
-  throw new Error(`Unknown provider: ${provider.id}`)
-}
-
 function parseEmailJSON(text: string): { subject: string; body: string } {
+  // Try direct parse
+  try { return JSON.parse(text.trim()) } catch { /* continue */ }
+  // Strip markdown code blocks
+  const stripped = text.replace(/```(?:json)?\s*/g, '').replace(/```\s*/g, '').trim()
+  try { return JSON.parse(stripped) } catch { /* continue */ }
+  // Extract JSON object
   const match = text.match(/\{[\s\S]*\}/)
   if (!match) throw new Error('No JSON found in AI response')
   return JSON.parse(match[0])
@@ -254,16 +169,9 @@ export default function AIOutreach() {
         })))
       }
     } catch {
-      // Fallback to localStorage Anthropic key
-      const localKey = localStorage.getItem('anthropic_api_key') || ''
-      if (localKey) {
-        setProviders([{
-          id: 'anthropic', name: 'Anthropic (Claude)', api_key: localKey, base_url: null,
-          default_model: 'claude-sonnet-4-20250514',
-          available_models: ['claude-opus-4-6', 'claude-sonnet-4-6', 'claude-sonnet-4-20250514'],
-          enabled: true,
-        }])
-      }
+      // Fallback: use shared provider loader
+      const loaded = await loadAIProviders()
+      setProviders(loaded)
     }
 
     // CRM settings (may not exist)
@@ -387,7 +295,7 @@ Return ONLY valid JSON (no markdown, no code fences):
 
       try {
         const prompt = buildPrompt(lead, templateType, aiTone, companyProfile, customInstructions)
-        const responseText = await callAI(provider, selectedModel, prompt)
+        const responseText = await callAIShared(provider, selectedModel, prompt, 'You are an expert B2B email copywriter. Return ONLY valid JSON — no markdown, no code blocks.')
         const { subject, body } = parseEmailJSON(responseText)
 
         await supabase.from('crm_outreach_emails').insert({
