@@ -82,7 +82,7 @@ export async function callAI(
 
   const pid = provider.id
 
-  // ── Anthropic ──────────────────────────────────────
+  // ── Anthropic (via nginx proxy to avoid CORS) ──────
   if (pid === 'anthropic') {
     const body: Record<string, unknown> = {
       model,
@@ -91,14 +91,23 @@ export async function callAI(
     }
     if (systemPrompt) body.system = systemPrompt
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    // Use /api/anthropic/ proxy in production, direct in dev
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    const apiUrl = isLocalhost
+      ? 'https://api.anthropic.com/v1/messages'
+      : '/api/anthropic/v1/messages'
+
+    const headers: Record<string, string> = {
+      'x-api-key': provider.api_key,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    }
+    // Only add browser header for direct calls (localhost dev)
+    if (isLocalhost) headers['anthropic-dangerous-allow-browser'] = 'true'
+
+    const res = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'x-api-key': provider.api_key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true',
-        'content-type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(body),
     })
 
@@ -113,11 +122,18 @@ export async function callAI(
     return data.content?.[0]?.text || ''
   }
 
-  // ── OpenAI / Perplexity (same format) ──────────────
+  // ── OpenAI / Perplexity (same format, via proxy) ────
   if (pid === 'openai' || pid === 'perplexity') {
-    const baseUrl = pid === 'perplexity'
-      ? 'https://api.perplexity.ai/chat/completions'
-      : (provider.base_url || 'https://api.openai.com/v1/chat/completions')
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+
+    let baseUrl: string
+    if (provider.base_url) {
+      baseUrl = provider.base_url // Custom endpoint (no proxy needed)
+    } else if (pid === 'perplexity') {
+      baseUrl = isLocalhost ? 'https://api.perplexity.ai/chat/completions' : '/api/perplexity/chat/completions'
+    } else {
+      baseUrl = isLocalhost ? 'https://api.openai.com/v1/chat/completions' : '/api/openai/v1/chat/completions'
+    }
 
     const messages: Array<{ role: string; content: string }> = []
     if (systemPrompt) messages.push({ role: 'system', content: systemPrompt })

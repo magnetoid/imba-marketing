@@ -67,7 +67,9 @@ async function fetchModels(provider: AIProvider): Promise<string[]> {
       ]
     }
     if (provider.id === 'openai' && provider.api_key) {
-      const res = await fetch('https://api.openai.com/v1/models', {
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      const url = isLocal ? 'https://api.openai.com/v1/models' : '/api/openai/v1/models'
+      const res = await fetch(url, {
         headers: { Authorization: `Bearer ${provider.api_key}` },
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
