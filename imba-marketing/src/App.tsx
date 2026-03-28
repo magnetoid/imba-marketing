@@ -36,6 +36,8 @@ import AIOutreach from '@/admin/crm/AIOutreach'
 import AIInbox from '@/admin/crm/AIInbox'
 import AIAnalytics from '@/admin/crm/AIAnalytics'
 import AISettings from '@/admin/crm/AISettings'
+import ChatInbox from '@/admin/crm/ChatInbox'
+import ChatWidget from '@/components/ChatWidget'
 import useAnalytics from '@/hooks/useAnalytics'
 
 // Scroll reveal observer
@@ -73,6 +75,7 @@ function PublicLayout({ children }: { children: React.ReactNode }) {
       <Nav />
       <main id="main-content">{children}</main>
       <Footer />
+      <ChatWidget />
     </>
   )
 }
@@ -117,6 +120,7 @@ export default function App() {
           <Route path="crm/inbox" element={<AIInbox />} />
           <Route path="crm/analytics" element={<AIAnalytics />} />
           <Route path="crm/settings" element={<AISettings />} />
+          <Route path="crm/chat" element={<ChatInbox />} />
           <Route path="crm/seo" element={<SEOManager />} />
           <Route path="crm/:id" element={<LeadDetail />} />
         </Route>

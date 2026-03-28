@@ -242,6 +242,7 @@ export default function AdminLayout() {
             <NavItem to="/admin/crm/ai-search" label="Prospect Finder" icon={Search} crm />
             <NavItem to="/admin/crm/outreach" label="Outreach Pipeline" icon={Send} crm />
             <NavItem to="/admin/crm/inbox" label="Inbox" icon={Inbox} crm />
+            <NavItem to="/admin/crm/chat" label="Live Chat" icon={MessageSquare} crm />
             <Separator className="my-2" />
             <p className="px-3 py-1 text-[0.6rem] font-mono tracking-widest uppercase text-amber-500/40 mb-1">Intelligence</p>
             <NavItem to="/admin/crm/analytics" label="Analytics" icon={BarChart2} crm />
