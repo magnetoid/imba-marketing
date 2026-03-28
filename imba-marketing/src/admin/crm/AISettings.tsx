@@ -142,51 +142,65 @@ export default function AISettings() {
 
   async function load() {
     setLoading(true)
-    const [crmRes, trackingRes, providersRes, sendersRes] = await Promise.all([
-      supabase.from('crm_ai_settings').select('key, value'),
-      supabase.from('site_settings').select('key, value').eq('key', 'tracking').single(),
-      supabase.from('ai_providers').select('*').order('id'),
-      supabase.from('crm_ai_settings').select('value').eq('key', 'sender_accounts').single(),
-    ])
-
-    if (crmRes.data) {
-      const m = Object.fromEntries(crmRes.data.map(r => [r.key, r.value]))
-      if (m.smtp_config) setSmtp(m.smtp_config as SmtpConfig)
-      if (m.ai_outreach_tone) setAiTone(m.ai_outreach_tone as string)
-      if (m.ai_auto_enrich !== undefined) setAutoEnrich(Boolean(m.ai_auto_enrich))
-      if (m.ai_inbox_auto_categorize !== undefined) setAutoCategorize(Boolean(m.ai_inbox_auto_categorize))
-      if (m.company_profile) {
-        const cp = m.company_profile as { company_name?: string; company_description?: string; usp?: string }
-        if (cp.company_name) setCompanyName(cp.company_name)
-        if (cp.company_description) setCompanyDesc(cp.company_description)
-        if (cp.usp) setUsp(cp.usp)
-      }
-    }
-    if (trackingRes.data?.value) {
-      const t = trackingRes.data.value as { ga4_id?: string; gtm_id?: string; fb_pixel_id?: string; custom_head_scripts?: string }
-      if (t.ga4_id) setGa4Id(t.ga4_id)
-      if (t.gtm_id) setGtmId(t.gtm_id)
-      if (t.fb_pixel_id) setFbPixelId(t.fb_pixel_id)
-      if (t.custom_head_scripts) setCustomHeadScripts(t.custom_head_scripts)
-    }
-    if (providersRes.data?.length) {
-      setProviders(providersRes.data.map(p => ({
-        ...p,
-        available_models: (p.available_models as string[] | null) || [],
-      })))
-      // Migrate localStorage key if present
-      const localKey = localStorage.getItem('anthropic_api_key')
-      if (localKey) {
-        const anthropic = providersRes.data.find(p => p.id === 'anthropic')
-        if (anthropic && !anthropic.api_key) {
-          await supabase.from('ai_providers').update({ api_key: localKey, enabled: true }).eq('id', 'anthropic')
-          localStorage.removeItem('anthropic_api_key')
-          setProviders(prev => prev.map(p => p.id === 'anthropic' ? { ...p, api_key: localKey, enabled: true } : p))
+    try {
+      // Load CRM settings (safe — table exists from V005)
+      const crmRes = await supabase.from('crm_ai_settings').select('key, value')
+      if (crmRes.data) {
+        const m = Object.fromEntries(crmRes.data.map(r => [r.key, r.value]))
+        if (m.smtp_config) setSmtp(m.smtp_config as SmtpConfig)
+        if (m.ai_outreach_tone) setAiTone(m.ai_outreach_tone as string)
+        if (m.ai_auto_enrich !== undefined) setAutoEnrich(Boolean(m.ai_auto_enrich))
+        if (m.ai_inbox_auto_categorize !== undefined) setAutoCategorize(Boolean(m.ai_inbox_auto_categorize))
+        if (m.company_profile) {
+          const cp = m.company_profile as { company_name?: string; company_description?: string; usp?: string }
+          if (cp.company_name) setCompanyName(cp.company_name)
+          if (cp.company_description) setCompanyDesc(cp.company_description)
+          if (cp.usp) setUsp(cp.usp)
+        }
+        if (m.sender_accounts) {
+          setSenderAccounts(m.sender_accounts as Array<{ email: string; name: string; is_default: boolean }>)
         }
       }
-    }
-    if (sendersRes.data?.value) {
-      setSenderAccounts(sendersRes.data.value as Array<{ email: string; name: string; is_default: boolean }>)
+
+      // Load tracking settings (safe — site_settings exists from V001)
+      const trackingRes = await supabase.from('site_settings').select('key, value').eq('key', 'tracking').single()
+      if (trackingRes.data?.value) {
+        const t = trackingRes.data.value as { ga4_id?: string; gtm_id?: string; fb_pixel_id?: string; custom_head_scripts?: string }
+        if (t.ga4_id) setGa4Id(t.ga4_id)
+        if (t.gtm_id) setGtmId(t.gtm_id)
+        if (t.fb_pixel_id) setFbPixelId(t.fb_pixel_id)
+        if (t.custom_head_scripts) setCustomHeadScripts(t.custom_head_scripts)
+      }
+
+      // Load AI providers (V006 — may not exist yet)
+      const providersRes = await supabase.from('ai_providers').select('*').order('id')
+      if (providersRes.data?.length) {
+        setProviders(providersRes.data.map(p => ({
+          ...p,
+          available_models: (p.available_models as string[] | null) || [],
+        })))
+        // Migrate localStorage key if present
+        const localKey = localStorage.getItem('anthropic_api_key')
+        if (localKey) {
+          const anthropic = providersRes.data.find(p => p.id === 'anthropic')
+          if (anthropic && !anthropic.api_key) {
+            await supabase.from('ai_providers').update({ api_key: localKey, enabled: true }).eq('id', 'anthropic')
+            localStorage.removeItem('anthropic_api_key')
+            setProviders(prev => prev.map(p => p.id === 'anthropic' ? { ...p, api_key: localKey, enabled: true } : p))
+          }
+        }
+      } else if (providersRes.error) {
+        // Table doesn't exist yet — show default providers for UI (save will fail gracefully)
+        console.warn('ai_providers table not found — run V006 migration. Using defaults.')
+        setProviders([
+          { id: 'anthropic', name: 'Anthropic (Claude)', api_key: localStorage.getItem('anthropic_api_key') || '', base_url: null, default_model: 'claude-sonnet-4-20250514', available_models: ['claude-opus-4-6', 'claude-sonnet-4-6', 'claude-sonnet-4-20250514', 'claude-haiku-4-5-20251001'], enabled: true, last_models_fetch: null },
+          { id: 'openai', name: 'OpenAI (GPT)', api_key: '', base_url: null, default_model: null, available_models: [], enabled: false, last_models_fetch: null },
+          { id: 'perplexity', name: 'Perplexity', api_key: '', base_url: null, default_model: null, available_models: [], enabled: false, last_models_fetch: null },
+          { id: 'ollama', name: 'Ollama Cloud', api_key: '', base_url: null, default_model: null, available_models: [], enabled: false, last_models_fetch: null },
+        ])
+      }
+    } catch (e) {
+      console.error('Error loading settings:', e)
     }
     setLoading(false)
   }
@@ -199,19 +213,36 @@ export default function AISettings() {
 
   async function saveProviders() {
     setSavingProviders(true)
-    const promises = providers.map(p =>
-      supabase.from('ai_providers').update({
-        api_key: p.api_key,
-        base_url: p.base_url,
-        default_model: p.default_model,
-        available_models: p.available_models,
-        enabled: p.enabled,
-        updated_at: new Date().toISOString(),
-      }).eq('id', p.id)
-    )
-    await Promise.all(promises)
+    try {
+      // Try upsert (works if table exists, creates rows if needed)
+      const promises = providers.map(p =>
+        supabase.from('ai_providers').upsert({
+          id: p.id,
+          name: p.name,
+          api_key: p.api_key,
+          base_url: p.base_url,
+          default_model: p.default_model,
+          available_models: p.available_models,
+          enabled: p.enabled,
+          updated_at: new Date().toISOString(),
+        })
+      )
+      const results = await Promise.all(promises)
+      const failed = results.find(r => r.error)
+      if (failed?.error) {
+        // Table might not exist — fall back to localStorage for Anthropic
+        const anthropic = providers.find(p => p.id === 'anthropic')
+        if (anthropic?.api_key) localStorage.setItem('anthropic_api_key', anthropic.api_key)
+        toast.error('ai_providers table not found — run V006 migration. Anthropic key saved to browser.')
+      } else {
+        // Remove localStorage key if DB save succeeded
+        localStorage.removeItem('anthropic_api_key')
+        toast.success('AI providers saved')
+      }
+    } catch {
+      toast.error('Failed to save providers')
+    }
     setSavingProviders(false)
-    toast.success('AI providers saved')
   }
 
   async function handleFetchModels(provider: AIProvider) {
