@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import '@/i18n'
 import Nav from '@/components/Nav'
@@ -58,10 +58,17 @@ function useScrollReveal() {
   })
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
 function PublicLayout({ children }: { children: React.ReactNode }) {
   useScrollReveal()
   return (
     <>
+      <ScrollToTop />
       <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Nav />
       <main id="main-content">{children}</main>

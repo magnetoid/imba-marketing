@@ -14,7 +14,7 @@ const SERVICES = [
 
 const COMPANY = [
   { to: '/about', label: 'About Us', desc: 'Our team, mission, and values' },
-  { to: '/results', label: 'Client Results', desc: 'Real numbers from real brands' },
+  { to: '/results', label: 'Portfolio', desc: 'Real results from real brands' },
   { to: '/reviews', label: 'Reviews', desc: 'What our clients say' },
   { to: '/blog', label: 'Blog', desc: 'AI marketing insights & guides' },
   { to: '/contact', label: 'Contact', desc: 'Get a free quote or send a message' },
@@ -97,6 +97,32 @@ export default function Nav() {
                 <path d="M2 4L5 7L8 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </button>
+
+            {/* Reviews — direct link */}
+            <NavLink
+              to="/reviews"
+              onClick={closeMega}
+              className={({ isActive }) =>
+                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
+                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                }`
+              }
+            >
+              Reviews
+            </NavLink>
+
+            {/* Portfolio — direct link */}
+            <NavLink
+              to="/results"
+              onClick={closeMega}
+              className={({ isActive }) =>
+                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
+                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                }`
+              }
+            >
+              Portfolio
+            </NavLink>
 
             {/* Blog — direct link */}
             <NavLink

@@ -142,15 +142,17 @@ body {
 }
 
 .btn-primary {
-  background: #EF4444;
+  background: linear-gradient(135deg, #EF4444, #DC2626);
   color: #fff;
-  padding: 0.875rem 2rem;
+  padding: 0.9rem 2.2rem;
   font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
 }
 .btn-primary:hover {
-  background: #DC2626;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+  background: linear-gradient(135deg, #F87171, #EF4444);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
 }
 
 .btn-lg {
@@ -161,14 +163,15 @@ body {
 .btn-outline {
   background: transparent;
   color: #A1A1AA;
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 0.875rem 2rem;
-  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.9rem 2.2rem;
+  border-radius: 10px;
 }
 .btn-outline:hover {
-  border-color: rgba(255,255,255,0.3);
+  border-color: rgba(255,255,255,0.35);
   color: #FAFAF9;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -233,10 +236,10 @@ body {
   transition: all 0.3s ease;
 }
 .glass-card:hover {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.12);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  transform: translateY(-5px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35);
 }
 
 .gradient-border {

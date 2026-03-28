@@ -37,11 +37,16 @@ export default function BlogPost() {
       .then(({ data }) => {
         setPost(data || null)
         if (data?.body) {
-          const result = marked.parse(data.body)
-          if (typeof result === 'string') {
-            setBodyHtml(result)
+          const isHtml = /<(?:p|h[1-6]|ul|ol|li|div|br|img|blockquote|pre|table|figure)\b/i.test(data.body)
+          if (isHtml) {
+            setBodyHtml(data.body)
           } else {
-            result.then(html => setBodyHtml(html))
+            const result = marked.parse(data.body)
+            if (typeof result === 'string') {
+              setBodyHtml(result)
+            } else {
+              result.then(html => setBodyHtml(html))
+            }
           }
         }
       })
@@ -225,7 +230,7 @@ export default function BlogPost() {
             <div className="border border-white/8 p-6 bg-ink-2">
               <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] uppercase text-ember mb-3">Work with us</p>
               <p className="text-smoke-dim text-sm leading-relaxed mb-4">
-                Ready to bring your vision to life? Let's talk about your next video project.
+                Ready to grow your brand? Let's build your AI marketing strategy.
               </p>
               <button
                 onClick={() => openModal()}
@@ -261,10 +266,10 @@ export default function BlogPost() {
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Ready to create something<br /><em>extraordinary?</em>
+              Ready to Transform Your<br /><em>Marketing?</em>
             </h2>
             <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Talk to our team. Free quote, 24h reply, no commitment.
+              Free quote · No commitment · Results in 48 hours.
             </p>
           </div>
           <button
