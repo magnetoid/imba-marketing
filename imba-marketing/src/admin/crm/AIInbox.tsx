@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import toast from 'react-hot-toast'
+import { loadAIProviders, callAI as callAIShared, getDefaultProvider, type AIProvider } from '@/lib/ai'
 import {
   Inbox, Mail, Sparkles, Loader2, Plus, Reply,
   ArrowDownLeft, ArrowUpRight, AlertCircle, CheckCircle2, MessageSquare, Search,
@@ -69,7 +70,8 @@ const CATEGORY_ICON: Record<string, typeof Mail> = {
 }
 
 export default function AIInbox() {
-  const [apiKey] = useState(() => localStorage.getItem('anthropic_api_key') || '')
+  const [providers, setProviders] = useState<AIProvider[]>([])
+  useEffect(() => { loadAIProviders().then(setProviders) }, [])
   const [messages, setMessages] = useState<InboxMessage[]>([])
   const [leads, setLeads] = useState<CRMLead[]>([])
   const [loading, setLoading] = useState(true)
@@ -155,7 +157,8 @@ export default function AIInbox() {
   }
 
   async function analyzeMessage(msg: InboxMessage) {
-    if (!apiKey) { toast.error('Add your Anthropic API key in Settings first.'); return }
+    const defaults = getDefaultProvider(providers)
+    if (!defaults) { toast.error('Add an AI API key in Settings first.'); return }
     setAnalyzing(msg.id)
     const prompt = `Analyze this inbound message.
 From: ${msg.from_email || 'unknown'}
@@ -169,16 +172,8 @@ Return ONLY valid JSON:
   "suggested_reply": "string (professional reply, 3-4 sentences)"
 }`
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': apiKey, 'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-allow-browser': 'true', 'content-type': 'application/json',
-        },
-        body: JSON.stringify({ model: 'claude-opus-4-6', max_tokens: 500, messages: [{ role: 'user', content: prompt }] }),
-      })
-      const data = await res.json()
-      const json = JSON.parse(data.content?.[0]?.text?.match(/\{[\s\S]*\}/)?.[0] || '{}')
+      const text = await callAIShared(defaults.provider, defaults.model, prompt)
+      const json = JSON.parse(text.match(/\{[\s\S]*\}/)?.[0] || '{}')
       await supabase.from('crm_inbox_messages').update({
         ai_sentiment: json.sentiment, ai_category: json.category,
         ai_suggested_reply: json.suggested_reply, status: msg.status === 'unread' ? 'read' : msg.status,

@@ -29,19 +29,19 @@ const SITE_URL = 'https://imbamarketing.com'
 const SITE_NAME = 'Imba Marketing'
 
 const ALL_PAGES = [
-  { path: '/',                              label: 'Homepage' },
-  { path: '/work',                          label: 'Portfolio / Work' },
-  { path: '/services',                      label: 'Services' },
-  { path: '/pricing',                       label: 'Pricing' },
-  { path: '/about',                         label: 'About' },
-  { path: '/blog',                          label: 'Blog' },
-  { path: '/contact',                       label: 'Contact' },
-  { path: '/services/ai-growth-systems',       label: 'AI Growth Systems' },
-  { path: '/services/ai-performance-ads',      label: 'AI Performance Advertising' },
-  { path: '/services/ai-personalisation',      label: 'AI Personalisation' },
-  { path: '/services/ai-content-engines',      label: 'AI Content Engines' },
-  { path: '/services/ai-intelligence',         label: 'AI Data & Intelligence' },
-  { path: '/services/ai-funnel-optimisation',  label: 'AI Funnel Optimisation' },
+  { path: '/',                        label: 'Homepage' },
+  { path: '/services',                label: 'Services' },
+  { path: '/services/growth',         label: 'AI Growth Systems' },
+  { path: '/services/ads',            label: 'AI Performance Advertising' },
+  { path: '/services/personalisation', label: 'AI Personalisation' },
+  { path: '/services/content',        label: 'AI Content Engines' },
+  { path: '/services/intelligence',   label: 'AI Data & Intelligence' },
+  { path: '/services/funnel',         label: 'AI Funnel Optimisation' },
+  { path: '/results',                 label: 'Results' },
+  { path: '/about',                   label: 'About' },
+  { path: '/blog',                    label: 'Blog' },
+  { path: '/contact',                 label: 'Contact' },
+  { path: '/reviews',                 label: 'Reviews' },
 ]
 
 const EMPTY: Omit<SeoPage, 'id' | 'created_at'> = {
