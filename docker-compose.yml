@@ -222,6 +222,30 @@ services:
     labels:
       - "traefik.enable=false"
 
+  # ── Edge Runtime (Functions) ──────────────────────────────
+  edge-runtime:
+    image: supabase/edge-runtime:v1.70.3
+    container_name: imba-edge-runtime
+    restart: unless-stopped
+    depends_on:
+      - supabase-kong
+    networks:
+      - imba-net
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
+      VERIFY_JWT: "false"
+      SUPABASE_URL: http://supabase-kong:8000
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-your-anon-key}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_KEY:-your-service-key}
+      SUPABASE_DB_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_production}
+    volumes:
+      - ./supabase/functions:/home/deno/functions:ro
+    command: start --main-service /home/deno/functions/main
+    ports:
+      - '127.0.0.1:9106:10000'
+    labels:
+      - traefik.enable=false
+
   # ── Kong API Gateway ──────────────────────────────────────
   supabase-kong:
     image: kong:2.8.1

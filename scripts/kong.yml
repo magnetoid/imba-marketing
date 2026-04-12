@@ -25,3 +25,11 @@ services:
         strip_path: true
         paths:
           - /storage/v1
+
+  - name: functions-v1
+    url: http://edge-runtime:10000
+    routes:
+      - name: functions-v1-route
+        strip_path: true
+        paths:
+          - /functions/v1
