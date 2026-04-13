@@ -228,7 +228,8 @@ services:
     container_name: imba-edge-runtime
     restart: unless-stopped
     depends_on:
-      - supabase-kong
+      supabase-db:
+        condition: service_healthy
     networks:
       - imba-net
     environment:
@@ -237,7 +238,7 @@ services:
       SUPABASE_URL: http://supabase-kong:8000
       SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY:-your-anon-key}
       SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_KEY:-your-service-key}
-      SUPABASE_DB_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_production}
+      SUPABASE_DB_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}
     volumes:
       - ./supabase/functions:/home/deno/functions:ro
     command: start --main-service /home/deno/functions/main
@@ -255,7 +256,6 @@ services:
       - supabase-auth
       - supabase-rest
       - supabase-storage
-      - edge-runtime
     networks:
       - imba-net
     environment:
