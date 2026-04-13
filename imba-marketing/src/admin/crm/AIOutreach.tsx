@@ -401,6 +401,8 @@ Return ONLY valid JSON (no markdown, no code fences):
           subject: email.subject,
           body: email.body,
           smtp: { ...smtp, from_email: fromEmail, from_name: senderName },
+          email_id: email.id,                         // enables tracking pixel injection
+          tracking_base_url: window.location.origin + '/supabase',
         },
       })
 
