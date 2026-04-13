@@ -84,6 +84,21 @@ export default function QuoteModal() {
     setSubmitting(false)
     if (err) setError('Something went wrong. Please email us at hello@imbamarketing.com')
     else setSubmitted(true)
+
+    // Auto-create CRM lead from quote
+    try {
+      await supabase.from('crm_leads').insert({
+        name: form.full_name,
+        email: form.email,
+        company: form.company || null,
+        source: 'quote_form',
+        stage: 'new',
+        service_interest: form.service_type || null,
+        budget_range: form.budget_range || null,
+        notes: form.message || null,
+        probability: 50,
+      })
+    } catch { /* lead creation is best-effort */ }
   }
 
   if (!open) return null

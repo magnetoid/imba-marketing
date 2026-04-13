@@ -68,6 +68,21 @@ export default function Contact() {
       setError('Something went wrong. Please try again or email us directly at hello@imbamarketing.com')
     } else {
       setSubmitted(true)
+
+      // Auto-create CRM lead
+      try {
+        await supabase.from('crm_leads').insert({
+          name: form.full_name,
+          email: form.email,
+          company: form.company || null,
+          source: 'contact_form',
+          stage: 'new',
+          service_interest: form.service_type || null,
+          budget_range: form.budget_range || null,
+          notes: form.message || null,
+          probability: 50,
+        })
+      } catch { /* best-effort */ }
     }
   }
 

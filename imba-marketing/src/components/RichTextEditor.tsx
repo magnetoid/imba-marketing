@@ -12,6 +12,8 @@ interface RichTextEditorProps {
   content: string
   onChange: (html: string) => void
   placeholder?: string
+  onInsertImage?: () => void
+  editorRef?: React.MutableRefObject<Editor | null>
 }
 
 function ToolbarButton({
@@ -48,13 +50,17 @@ function ToolbarDivider() {
   return <div className="w-px h-5 bg-border mx-0.5" />
 }
 
-function Toolbar({ editor }: { editor: Editor }) {
+function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: () => void }) {
   const addImage = useCallback(() => {
+    if (onInsertImage) {
+      onInsertImage()
+      return
+    }
     const url = window.prompt('Image URL:')
     if (url) {
       editor.chain().focus().setImage({ src: url }).run()
     }
-  }, [editor])
+  }, [editor, onInsertImage])
 
   const addLink = useCallback(() => {
     const prev = editor.getAttributes('link').href
@@ -236,7 +242,7 @@ function Toolbar({ editor }: { editor: Editor }) {
   )
 }
 
-export default function RichTextEditor({ content, onChange, placeholder }: RichTextEditorProps) {
+export default function RichTextEditor({ content, onChange, placeholder, onInsertImage, editorRef }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -264,6 +270,13 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
     },
   })
 
+  // Expose editor instance to parent via ref
+  useEffect(() => {
+    if (editorRef) {
+      editorRef.current = editor
+    }
+  }, [editor, editorRef])
+
   // Sync external content changes (e.g. AI generation)
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
@@ -275,7 +288,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
 
   return (
     <div className="border border-border rounded-md overflow-hidden bg-background">
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} onInsertImage={onInsertImage} />
       <EditorContent editor={editor} />
     </div>
   )

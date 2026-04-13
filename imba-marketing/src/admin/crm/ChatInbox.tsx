@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import toast from 'react-hot-toast'
 import {
   MessageSquare, Loader2, Send, Archive, User, Mail, Clock,
-  CheckCheck, Circle,
+  CheckCheck, Circle, UserPlus,
 } from 'lucide-react'
 
 interface Conversation {
@@ -173,6 +173,46 @@ export default function ChatInbox() {
     toast.success('Conversation closed')
   }
 
+  async function convertToLead(conv: Conversation) {
+    if (!conv.visitor_name) { toast.error('Visitor has no name — cannot create lead.'); return }
+
+    // Check if lead already exists with this email
+    if (conv.visitor_email) {
+      const { data: existing } = await supabase
+        .from('crm_leads')
+        .select('id')
+        .eq('email', conv.visitor_email)
+        .limit(1)
+      if (existing?.length) {
+        // Link conversation to existing lead
+        await supabase.from('chat_conversations').update({ lead_id: existing[0].id }).eq('id', conv.id)
+        toast.success('Linked to existing CRM lead')
+        loadConversations()
+        return
+      }
+    }
+
+    // Create new lead
+    const { data: newLead, error } = await supabase.from('crm_leads').insert({
+      name: conv.visitor_name,
+      email: conv.visitor_email || null,
+      source: 'live_chat',
+      stage: 'new',
+      notes: `Converted from live chat conversation on ${new Date(conv.created_at).toLocaleDateString()}`,
+      probability: 40,
+    }).select('id').single()
+
+    if (error) { toast.error('Failed to create lead'); return }
+
+    // Link conversation to the new lead
+    if (newLead) {
+      await supabase.from('chat_conversations').update({ lead_id: newLead.id }).eq('id', conv.id)
+    }
+
+    toast.success('Lead created in CRM!')
+    loadConversations()
+  }
+
   const selectedConv = conversations.find(c => c.id === selected)
   const totalUnread = conversations.reduce((sum, c) => sum + (c.unread_count || 0), 0)
 
@@ -294,6 +334,10 @@ export default function ChatInbox() {
                 </div>
               </div>
               <div className="flex gap-1">
+                <Button variant="ghost" size="sm" onClick={() => convertToLead(selectedConv!)} title="Convert to CRM lead"
+                  disabled={!selectedConv?.visitor_name}>
+                  <UserPlus className="h-4 w-4" />
+                </Button>
                 <Button variant="ghost" size="sm" onClick={() => closeConversation(selected)} title="Close conversation">
                   <CheckCheck className="h-4 w-4" />
                 </Button>

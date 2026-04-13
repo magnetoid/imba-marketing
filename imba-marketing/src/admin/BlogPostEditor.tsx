@@ -18,7 +18,7 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
 } from '@/components/ui/dialog'
-import { ArrowLeft, Loader2, Save, Eye, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, Loader2, Save, Eye, Sparkles, X, Upload } from 'lucide-react'
 
 function toSlug(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -36,6 +36,13 @@ export default function BlogPostEditor() {
   const [saved, setSaved] = useState(false)
   const [tagInput, setTagInput] = useState('')
   const tagInputRef = useRef<HTMLInputElement>(null)
+
+  // Media picker state
+  const [mediaOpen, setMediaOpen] = useState(false)
+  const [mediaFiles, setMediaFiles] = useState<Array<{ id: string; url: string; filename: string; mime_type: string }>>([])
+  const [mediaLoading, setMediaLoading] = useState(false)
+  const [mediaUploading, setMediaUploading] = useState(false)
+  const editorRef = useRef<any>(null)
 
   // AI state
   const [aiOpen, setAiOpen] = useState(false)
@@ -111,6 +118,53 @@ export default function BlogPostEditor() {
 
   function removeTag(tag: string) {
     setForm(f => ({ ...f, tags: f.tags.filter(t => t !== tag) }))
+  }
+
+  async function loadMedia() {
+    setMediaLoading(true)
+    const { data } = await supabase
+      .from('media_files')
+      .select('id, url, filename, mime_type')
+      .like('mime_type', 'image/%')
+      .order('created_at', { ascending: false })
+      .limit(50)
+    setMediaFiles(data || [])
+    setMediaLoading(false)
+  }
+
+  function handleMediaSelect(url: string) {
+    if (editorRef.current) {
+      editorRef.current.chain().focus().setImage({ src: url }).run()
+    }
+    setMediaOpen(false)
+  }
+
+  async function handleMediaUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setMediaUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `blog/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
+    const { error: uploadErr } = await supabase.storage.from('media').upload(path, file)
+    if (uploadErr) {
+      setError(`Upload failed: ${uploadErr.message}`)
+      setMediaUploading(false)
+      return
+    }
+    const { data: urlData } = supabase.storage.from('media').getPublicUrl(path)
+    const publicUrl = urlData.publicUrl
+    // Insert record into media_files table
+    await supabase.from('media_files').insert([{
+      filename: file.name,
+      url: publicUrl,
+      mime_type: file.type,
+      size_bytes: file.size,
+      storage_path: path,
+    }])
+    // Insert into editor and refresh grid
+    handleMediaSelect(publicUrl)
+    setMediaUploading(false)
+    loadMedia()
   }
 
   async function handleSave() {
@@ -292,6 +346,8 @@ export default function BlogPostEditor() {
             content={form.body}
             onChange={html => setForm(f => ({ ...f, body: html }))}
             placeholder="Start writing your blog post..."
+            onInsertImage={() => { loadMedia(); setMediaOpen(true) }}
+            editorRef={editorRef}
           />
 
           {error && (
@@ -520,6 +576,69 @@ export default function BlogPostEditor() {
               )}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Media Picker Dialog ── */}
+      <Dialog open={mediaOpen} onOpenChange={setMediaOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+          <DialogHeader>
+            <DialogTitle>Select Image</DialogTitle>
+          </DialogHeader>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm text-muted-foreground">
+              Click an image to insert it into the editor.
+            </p>
+            <label>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleMediaUpload}
+                disabled={mediaUploading}
+              />
+              <Button variant="outline" size="sm" asChild disabled={mediaUploading}>
+                <span className="cursor-pointer">
+                  {mediaUploading ? (
+                    <><Loader2 className="h-4 w-4 mr-1 animate-spin" />Uploading...</>
+                  ) : (
+                    <><Upload className="h-4 w-4 mr-1" />Upload</>
+                  )}
+                </span>
+              </Button>
+            </label>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            {mediaLoading ? (
+              <div className="flex items-center justify-center py-16">
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            ) : mediaFiles.length === 0 ? (
+              <p className="text-center text-muted-foreground py-16 text-sm">
+                No images found. Upload one to get started.
+              </p>
+            ) : (
+              <div className="grid grid-cols-4 gap-3">
+                {mediaFiles.map(file => (
+                  <button
+                    key={file.id}
+                    type="button"
+                    onClick={() => handleMediaSelect(file.url)}
+                    className="group relative aspect-square rounded-md overflow-hidden border border-border hover:border-primary hover:ring-2 hover:ring-primary/30 transition-all bg-muted"
+                  >
+                    <img
+                      src={file.url}
+                      alt={file.filename}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-black/60 px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <p className="text-white text-[10px] truncate">{file.filename}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
