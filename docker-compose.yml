@@ -233,6 +233,7 @@ services:
     networks:
       - imba-net
     environment:
+      SITE_URL: "https://imbamarketing.com"
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
       VERIFY_JWT: "false"
       SUPABASE_URL: http://supabase-kong:8000
@@ -243,7 +244,7 @@ services:
       - ./supabase/functions:/home/deno/functions:ro
     command: start --main-service /home/deno/functions/main
     ports:
-      - '127.0.0.1:9106:10000'
+      - '127.0.0.1:9166:10000'
     labels:
       - traefik.enable=false
 
