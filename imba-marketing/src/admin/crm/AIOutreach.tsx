@@ -375,22 +375,43 @@ Return ONLY valid JSON (no markdown, no code fences):
     if (!toEmail) { toast.error('Lead has no email address.'); setSendingId(null); return }
 
     try {
+      // Load SMTP config from settings
+      const { data: smtpRow } = await supabase
+        .from('crm_ai_settings')
+        .select('value')
+        .eq('key', 'smtp_config')
+        .maybeSingle()
+
+      const smtp = smtpRow?.value as { host: string; port: string; secure: boolean; username: string; password: string; from_name: string; from_email: string } | null
+
+      if (!smtp?.host) {
+        toast.error('SMTP not configured. Go to Settings to set up email sending.')
+        setSendingId(null)
+        return
+      }
+
+      // Use sender from email or SMTP default
+      const fromEmail = email.from_email || smtp.from_email
+      const senderName = senderAccounts.find(a => a.email === fromEmail)?.name || smtp.from_name
+
       const { error } = await supabase.functions.invoke('send-email', {
         body: {
           to: toEmail,
           to_name: email.crm_leads?.contact_name,
           subject: email.subject,
           body: email.body,
-          from_email: email.from_email || undefined,
+          smtp: { ...smtp, from_email: fromEmail, from_name: senderName },
         },
       })
 
       if (!error) {
         await supabase.from('crm_outreach_emails').update({ status: 'sent', sent_at: new Date().toISOString() }).eq('id', email.id)
         setEmails(prev => prev.map(e => e.id === email.id ? { ...e, status: 'sent', sent_at: new Date().toISOString() } : e))
-        toast.success('Email sent!')
+        toast.success(`Email sent to ${toEmail}!`)
         setSendingId(null)
         return
+      } else {
+        toast.error(`Send failed: ${error.message}`)
       }
     } catch {
       // Edge function not available — fallback to mailto

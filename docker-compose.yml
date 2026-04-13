@@ -255,6 +255,7 @@ services:
       - supabase-auth
       - supabase-rest
       - supabase-storage
+      - edge-runtime
     networks:
       - imba-net
     environment:

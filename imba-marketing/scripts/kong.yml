@@ -115,6 +115,17 @@ services:
             headers:
               - Content-Profile:graphql_public
 
+  # ── Edge Functions ────────────────────────────────────
+  - name: functions-v1
+    url: http://edge-runtime:10000
+    routes:
+      - name: functions-v1-all
+        strip_path: true
+        paths:
+          - /functions/v1/
+    plugins:
+      - name: cors
+
   # ── Storage ───────────────────────────────────────────
   - name: storage-v1
     url: http://supabase-storage:5000
