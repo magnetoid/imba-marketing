@@ -107,7 +107,7 @@ export default function LeadDetail() {
           'x-api-key': aiKey,
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json',
-          'anthropic-dangerous-allow-browser': 'true',
+          'anthropic-dangerous-direct-browser-access': 'true',
         },
         body: JSON.stringify({
           model: 'claude-opus-4-6',
@@ -149,7 +149,7 @@ Write a natural, not-too-salesy follow-up email. Subject line first, then body. 
           'x-api-key': aiKey,
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json',
-          'anthropic-dangerous-allow-browser': 'true',
+          'anthropic-dangerous-direct-browser-access': 'true',
         },
         body: JSON.stringify({
           model: 'claude-opus-4-6',
@@ -188,7 +188,7 @@ Format as a proposal outline with sections: Executive Summary, System Scope, Del
           'x-api-key': aiKey,
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json',
-          'anthropic-dangerous-allow-browser': 'true',
+          'anthropic-dangerous-direct-browser-access': 'true',
         },
         body: JSON.stringify({
           model: 'claude-opus-4-6',

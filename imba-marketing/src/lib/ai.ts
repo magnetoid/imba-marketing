@@ -101,9 +101,9 @@ export async function callAI(
       'x-api-key': provider.api_key,
       'anthropic-version': '2023-06-01',
       'content-type': 'application/json',
+      // New header name (renamed from anthropic-dangerous-direct-browser-access)
+      'anthropic-dangerous-direct-browser-access': 'true',
     }
-    // Only add browser header for direct calls (localhost dev)
-    if (isLocalhost) headers['anthropic-dangerous-allow-browser'] = 'true'
 
     const res = await fetch(apiUrl, {
       method: 'POST',

@@ -184,7 +184,7 @@ export default function CRMDashboard() {
           'x-api-key': aiKey,
           'anthropic-version': '2023-06-01',
           'content-type': 'application/json',
-          'anthropic-dangerous-allow-browser': 'true',
+          'anthropic-dangerous-direct-browser-access': 'true',
         },
         body: JSON.stringify({
           model: 'claude-opus-4-6',
