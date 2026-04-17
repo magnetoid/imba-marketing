@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import RichTextEditor from '@/components/RichTextEditor'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
@@ -380,13 +380,14 @@ Return ONLY valid JSON: {"score": NUMBER, "notes": "recommendation"}`,
 
             <div className="mt-4">
               <Label className="text-xs">Notes</Label>
-              <Textarea
-                defaultValue={lead.notes || ''}
-                onBlur={e => saveField('notes', e.target.value)}
-                rows={3}
-                className="mt-1 text-sm"
-                placeholder="Internal notes about this lead…"
-              />
+              <div className="mt-1">
+                <RichTextEditor
+                  content={lead.notes || ''}
+                  onChange={val => saveField('notes', val)}
+                  compact
+                  placeholder="Internal notes about this lead…"
+                />
+              </div>
             </div>
           </div>
 
@@ -410,13 +411,12 @@ Return ONLY valid JSON: {"score": NUMBER, "notes": "recommendation"}`,
                   className="h-8 text-sm"
                 />
               </div>
-              <div className="flex gap-2">
-                <Textarea
-                  value={newActivity.body}
-                  onChange={e => setNewActivity(a => ({ ...a, body: e.target.value }))}
+              <div className="flex flex-col gap-2">
+                <RichTextEditor
+                  content={newActivity.body}
+                  onChange={body => setNewActivity(a => ({ ...a, body }))}
+                  compact
                   placeholder="Log a note, email, call…"
-                  rows={2}
-                  className="text-sm"
                 />
                 <Button type="submit" size="sm" disabled={addingActivity} className="self-end">
                   {addingActivity ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}

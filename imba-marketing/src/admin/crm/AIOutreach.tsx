@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import RichTextEditor from '@/components/RichTextEditor'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -1067,11 +1068,11 @@ Return ONLY valid JSON (no markdown, no code fences):
 
               <div className="flex flex-col gap-1.5">
                 <Label>Body</Label>
-                <Textarea
-                  value={editBody}
-                  onChange={e => setEditBody(e.target.value)}
-                  rows={12}
-                  className="font-mono text-sm"
+                <RichTextEditor
+                  content={editBody}
+                  onChange={setEditBody}
+                  compact
+                  placeholder="Write your email body…"
                 />
               </div>
             </div>

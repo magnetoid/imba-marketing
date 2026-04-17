@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import RichTextEditor from '@/components/RichTextEditor'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -611,7 +611,12 @@ Return ONLY valid JSON:
             </div>
             <div className="flex flex-col gap-1.5">
               <Label>Body *</Label>
-              <Textarea value={addForm.body} onChange={e => setAddForm(p => ({ ...p, body: e.target.value }))} rows={5} />
+              <RichTextEditor
+                content={addForm.body}
+                onChange={body => setAddForm(p => ({ ...p, body }))}
+                compact
+                placeholder="Write your message…"
+              />
             </div>
           </div>
           <DialogFooter>

@@ -4,7 +4,7 @@ import type { PortfolioItem } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import RichTextEditor from '@/components/RichTextEditor'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
 import {
@@ -305,11 +305,10 @@ export default function PortfolioAdmin() {
             </div>
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="p-desc">Description</Label>
-              <Textarea
-                id="p-desc"
-                rows={3}
-                value={form.description}
-                onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+              <RichTextEditor
+                content={form.description}
+                onChange={val => setForm(f => ({ ...f, description: val }))}
+                compact
                 placeholder="Brief project description"
               />
             </div>

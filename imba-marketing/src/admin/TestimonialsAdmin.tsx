@@ -4,7 +4,7 @@ import type { Testimonial } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import RichTextEditor from '@/components/RichTextEditor'
 import { Switch } from '@/components/ui/switch'
 import {
   Table, TableHeader, TableBody, TableHead, TableRow, TableCell,
@@ -223,7 +223,12 @@ export default function TestimonialsAdmin() {
 
             <div className="flex flex-col gap-1.5">
               <Label>Review text *</Label>
-              <Textarea value={form.text} onChange={f('text')} rows={4} placeholder="What did the client say?" />
+              <RichTextEditor
+                content={form.text}
+                onChange={val => setForm(prev => ({ ...prev, text: val }))}
+                compact
+                placeholder="What did the client say?"
+              />
             </div>
 
             {/* Rating */}

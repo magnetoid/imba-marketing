@@ -14,6 +14,8 @@ interface RichTextEditorProps {
   placeholder?: string
   onInsertImage?: () => void
   editorRef?: React.MutableRefObject<Editor | null>
+  /** Compact mode: shorter height, simplified toolbar (no headings/images/code blocks) */
+  compact?: boolean
 }
 
 function ToolbarButton({
@@ -50,7 +52,7 @@ function ToolbarDivider() {
   return <div className="w-px h-5 bg-border mx-0.5" />
 }
 
-function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: () => void }) {
+function Toolbar({ editor, onInsertImage, compact }: { editor: Editor; onInsertImage?: () => void; compact?: boolean }) {
   const addImage = useCallback(() => {
     if (onInsertImage) {
       onInsertImage()
@@ -75,30 +77,33 @@ function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: ()
 
   return (
     <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 border-b border-border bg-card/50">
-      {/* Text type */}
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        active={editor.isActive('heading', { level: 2 })}
-        title="Heading 2"
-      >
-        H2
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        active={editor.isActive('heading', { level: 3 })}
-        title="Heading 3"
-      >
-        H3
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        active={editor.isActive('paragraph') && !editor.isActive('heading')}
-        title="Paragraph"
-      >
-        P
-      </ToolbarButton>
-
-      <ToolbarDivider />
+      {/* Text type — full mode only */}
+      {!compact && (
+        <>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            active={editor.isActive('heading', { level: 2 })}
+            title="Heading 2"
+          >
+            H2
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+            active={editor.isActive('heading', { level: 3 })}
+            title="Heading 3"
+          >
+            H3
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().setParagraph().run()}
+            active={editor.isActive('paragraph') && !editor.isActive('heading')}
+            title="Paragraph"
+          >
+            P
+          </ToolbarButton>
+          <ToolbarDivider />
+        </>
+      )}
 
       {/* Inline formatting */}
       <ToolbarButton
@@ -122,27 +127,31 @@ function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: ()
       >
         <span className="underline">U</span>
       </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        active={editor.isActive('strike')}
-        title="Strikethrough"
-      >
-        <span className="line-through">S</span>
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleHighlight().run()}
-        active={editor.isActive('highlight')}
-        title="Highlight"
-      >
-        <span className="bg-yellow-500/30 px-0.5">H</span>
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleCode().run()}
-        active={editor.isActive('code')}
-        title="Inline code"
-      >
-        {'</>'}
-      </ToolbarButton>
+      {!compact && (
+        <>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            active={editor.isActive('strike')}
+            title="Strikethrough"
+          >
+            <span className="line-through">S</span>
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleHighlight().run()}
+            active={editor.isActive('highlight')}
+            title="Highlight"
+          >
+            <span className="bg-yellow-500/30 px-0.5">H</span>
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleCode().run()}
+            active={editor.isActive('code')}
+            title="Inline code"
+          >
+            {'</>'}
+          </ToolbarButton>
+        </>
+      )}
 
       <ToolbarDivider />
 
@@ -162,63 +171,70 @@ function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: ()
         1. List
       </ToolbarButton>
 
+      {!compact && (
+        <>
+          <ToolbarDivider />
+
+          {/* Alignment */}
+          <ToolbarButton
+            onClick={() => editor.chain().focus().setTextAlign('left').run()}
+            active={editor.isActive({ textAlign: 'left' })}
+            title="Align left"
+          >
+            ≡
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().setTextAlign('center').run()}
+            active={editor.isActive({ textAlign: 'center' })}
+            title="Align center"
+          >
+            ≡̃
+          </ToolbarButton>
+
+          <ToolbarDivider />
+
+          {/* Block elements */}
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            active={editor.isActive('blockquote')}
+            title="Blockquote"
+          >
+            " Quote
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+            active={editor.isActive('codeBlock')}
+            title="Code block"
+          >
+            {'{ }'}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => editor.chain().focus().setHorizontalRule().run()}
+            title="Horizontal rule"
+          >
+            ——
+          </ToolbarButton>
+
+          <ToolbarDivider />
+
+          {/* Media & links */}
+          <ToolbarButton
+            onClick={addImage}
+            title="Insert image"
+          >
+            🖼 Image
+          </ToolbarButton>
+        </>
+      )}
+
       <ToolbarDivider />
 
-      {/* Alignment */}
-      <ToolbarButton
-        onClick={() => editor.chain().focus().setTextAlign('left').run()}
-        active={editor.isActive({ textAlign: 'left' })}
-        title="Align left"
-      >
-        ≡
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().setTextAlign('center').run()}
-        active={editor.isActive({ textAlign: 'center' })}
-        title="Align center"
-      >
-        ≡̃
-      </ToolbarButton>
-
-      <ToolbarDivider />
-
-      {/* Block elements */}
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        active={editor.isActive('blockquote')}
-        title="Blockquote"
-      >
-        " Quote
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        active={editor.isActive('codeBlock')}
-        title="Code block"
-      >
-        {'{ }'}
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        title="Horizontal rule"
-      >
-        ——
-      </ToolbarButton>
-
-      <ToolbarDivider />
-
-      {/* Media & links */}
       <ToolbarButton
         onClick={addLink}
         active={editor.isActive('link')}
         title="Insert link"
       >
         🔗 Link
-      </ToolbarButton>
-      <ToolbarButton
-        onClick={addImage}
-        title="Insert image"
-      >
-        🖼 Image
       </ToolbarButton>
 
       <ToolbarDivider />
@@ -242,22 +258,22 @@ function Toolbar({ editor, onInsertImage }: { editor: Editor; onInsertImage?: ()
   )
 }
 
-export default function RichTextEditor({ content, onChange, placeholder, onInsertImage, editorRef }: RichTextEditorProps) {
+export default function RichTextEditor({ content, onChange, placeholder, onInsertImage, editorRef, compact }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        heading: { levels: [2, 3, 4] },
-        codeBlock: false,
+        heading: compact ? false : { levels: [2, 3, 4] },
+        codeBlock: compact ? false : undefined,
       }),
-      Image.configure({ inline: false, allowBase64: true }),
+      ...(compact ? [] : [Image.configure({ inline: false, allowBase64: true })]),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { class: 'text-primary underline underline-offset-2' },
       }),
-      Placeholder.configure({ placeholder: placeholder || 'Start writing your blog post...' }),
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      Placeholder.configure({ placeholder: placeholder || (compact ? 'Start typing…' : 'Start writing your blog post...') }),
+      ...(compact ? [] : [TextAlign.configure({ types: ['heading', 'paragraph'] })]),
       Underline,
-      Highlight.configure({ multicolor: false }),
+      ...(compact ? [] : [Highlight.configure({ multicolor: false })]),
     ],
     content,
     onUpdate: ({ editor: e }) => {
@@ -265,7 +281,9 @@ export default function RichTextEditor({ content, onChange, placeholder, onInser
     },
     editorProps: {
       attributes: {
-        class: 'prose-blog px-5 py-4 min-h-[400px] max-h-[65vh] overflow-y-auto outline-none focus:outline-none',
+        class: compact
+          ? 'prose-blog px-4 py-3 min-h-[120px] max-h-[300px] overflow-y-auto outline-none focus:outline-none text-sm'
+          : 'prose-blog px-5 py-4 min-h-[400px] max-h-[65vh] overflow-y-auto outline-none focus:outline-none',
       },
     },
   })
@@ -288,7 +306,7 @@ export default function RichTextEditor({ content, onChange, placeholder, onInser
 
   return (
     <div className="border border-border rounded-md overflow-hidden bg-background">
-      <Toolbar editor={editor} onInsertImage={onInsertImage} />
+      <Toolbar editor={editor} onInsertImage={onInsertImage} compact={compact} />
       <EditorContent editor={editor} />
     </div>
   )

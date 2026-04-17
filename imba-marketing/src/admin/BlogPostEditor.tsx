@@ -332,12 +332,11 @@ export default function BlogPostEditor() {
 
           {/* Excerpt */}
           <div>
-            <textarea
-              value={form.excerpt}
-              onChange={e => setForm(f => ({ ...f, excerpt: e.target.value }))}
-              placeholder="Write a short excerpt (shown in blog listings)..."
-              rows={2}
-              className="w-full bg-transparent border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 outline-none focus:border-primary/50 resize-none"
+            <RichTextEditor
+              content={form.excerpt}
+              onChange={val => setForm(f => ({ ...f, excerpt: val }))}
+              compact
+              placeholder="Write a short excerpt (shown in blog listings)…"
             />
           </div>
 
