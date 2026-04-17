@@ -40,24 +40,33 @@ import ChatInbox from '@/admin/crm/ChatInbox'
 import ChatWidget from '@/components/ChatWidget'
 import useAnalytics from '@/hooks/useAnalytics'
 
-// Scroll reveal observer
+// Scroll reveal observer — uses MutationObserver to catch dynamically-added .reveal elements
 function useScrollReveal() {
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('in-view')
-            observer.unobserve(entry.target)
+            io.unobserve(entry.target)
           }
         })
       },
       { threshold: 0.1 }
     )
-    const els = document.querySelectorAll('.reveal')
-    els.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  })
+
+    function observeAll() {
+      document.querySelectorAll('.reveal:not(.in-view)').forEach((el) => io.observe(el))
+    }
+
+    observeAll()
+
+    // Watch for new .reveal elements added to the DOM (e.g. async-loaded blog posts)
+    const mo = new MutationObserver(() => observeAll())
+    mo.observe(document.body, { childList: true, subtree: true })
+
+    return () => { io.disconnect(); mo.disconnect() }
+  }, [])
 }
 
 function ScrollToTop() {
