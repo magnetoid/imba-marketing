@@ -33,10 +33,11 @@ export default function BlogPost() {
       .select('*, blog_categories(name, slug)')
       .eq('slug', slug)
       .eq('published', true)
-      .single()
-      .then(({ data }) => {
-        setPost(data || null)
-        if (data?.body) {
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (error || !data) { setPost(null); return }
+        setPost(data)
+        if (data.body) {
           const isHtml = /<(?:p|h[1-6]|ul|ol|li|div|br|img|blockquote|pre|table|figure)\b/i.test(data.body)
           if (isHtml) {
             setBodyHtml(data.body)

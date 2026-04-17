@@ -4,130 +4,7 @@ import { supabase } from '@/lib/supabase'
 import type { BlogPost } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 
-const STATIC_POSTS = [
-  {
-    id: '1',
-    title: 'How to Build an AI Growth System That Compounds Over Time',
-    excerpt: 'Most brands run ads. The best brands build systems. A deep-dive into how AI-powered growth systems create compounding revenue gains — and how to build one.',
-    category: 'AI Marketing',
-    date: 'March 8, 2026',
-    read_time: 9,
-    featured: true,
-    slug: 'ai-growth-system-guide-2026',
-  },
-  {
-    id: '2',
-    title: 'Cutting CPA by 40%: The AI Performance Advertising Playbook',
-    excerpt: 'How modern AI bidding, creative testing, and audience segmentation work together to systematically lower your cost per acquisition — without sacrificing volume.',
-    category: 'Performance Advertising',
-    date: 'March 30, 2025',
-    read_time: 8,
-    featured: false,
-    slug: 'ai-performance-advertising-cpa-reduction',
-  },
-  {
-    id: '3',
-    title: 'AI Personalisation at Scale: From Segment-of-One to Revenue',
-    excerpt: 'Personalisation is no longer optional. How leading eCommerce brands use AI to serve hyper-relevant experiences across email, ads, and on-site — automatically.',
-    category: 'AI Marketing',
-    date: 'January 13, 2025',
-    read_time: 7,
-    featured: false,
-    slug: 'ai-personalisation-at-scale',
-  },
-  {
-    id: '4',
-    title: 'Building an AI Content Engine That Never Runs Dry',
-    excerpt: 'Content at scale without headcount growth. How AI content engines automatically generate, optimise, and distribute brand content across every channel.',
-    category: 'Content Strategy',
-    date: 'December 25, 2024',
-    read_time: 6,
-    featured: false,
-    slug: 'ai-content-engine-guide',
-  },
-  {
-    id: '5',
-    title: 'Marketing Analytics in the AI Era: What to Measure and Why',
-    excerpt: 'Vanity metrics are dead. A practical guide to building an AI analytics stack that surfaces the signals that actually predict revenue growth.',
-    category: 'Marketing Analytics',
-    date: 'October 28, 2024',
-    read_time: 7,
-    featured: false,
-    slug: 'ai-marketing-analytics-guide',
-  },
-  {
-    id: '6',
-    title: 'AI Funnel Optimisation: How to Stop Losing 70% of Your Traffic',
-    excerpt: 'The average funnel loses 7 out of 10 visitors. AI funnel optimisation identifies exactly where and why — then fixes it automatically. Here\'s how.',
-    category: 'Growth Systems',
-    date: 'September 22, 2024',
-    read_time: 5,
-    featured: false,
-    slug: 'ai-funnel-optimisation-guide',
-  },
-  {
-    id: '7',
-    title: 'The State of AI Marketing in 2026: What\'s Working Now',
-    excerpt: 'From predictive audiences to autonomous campaign management — a comprehensive look at the AI marketing strategies delivering the highest ROI for growth brands.',
-    category: 'AI Marketing',
-    date: 'September 21, 2024',
-    read_time: 6,
-    featured: false,
-    slug: 'state-of-ai-marketing-2026',
-  },
-  {
-    id: '8',
-    title: 'First-Party Data Strategy: Building Your AI Marketing Foundation',
-    excerpt: 'Third-party cookies are gone. How to build a first-party data strategy that powers your AI systems and creates a durable competitive advantage.',
-    category: 'Marketing Analytics',
-    date: 'September 20, 2024',
-    read_time: 5,
-    featured: false,
-    slug: 'first-party-data-ai-marketing',
-  },
-  {
-    id: '9',
-    title: 'Conversion Rate Optimisation with AI: Beyond A/B Testing',
-    excerpt: 'Traditional A/B testing is too slow. AI-powered CRO tests hundreds of variants simultaneously and adapts in real-time. Here\'s the new paradigm.',
-    category: 'Growth Systems',
-    date: 'October 27, 2024',
-    read_time: 6,
-    featured: false,
-    slug: 'ai-cro-beyond-ab-testing',
-  },
-  {
-    id: '10',
-    title: 'How to Integrate AI Marketing Systems with Your Existing Stack',
-    excerpt: 'You don\'t need to rip and replace. How AI marketing systems layer on top of your existing tools — HubSpot, Klaviyo, Shopify, Google Ads — and amplify them.',
-    category: 'Industry Insights',
-    date: 'February 24, 2025',
-    read_time: 6,
-    featured: false,
-    slug: 'ai-marketing-integration-guide',
-  },
-  {
-    id: '11',
-    title: 'ROAS 4× in 90 Days: Inside an AI Performance Advertising System',
-    excerpt: 'A detailed case study breakdown: how we built and deployed an AI advertising system for an eCommerce brand that quadrupled their return on ad spend.',
-    category: 'Performance Advertising',
-    date: 'January 13, 2025',
-    read_time: 8,
-    featured: false,
-    slug: 'roas-4x-ai-advertising-case-study',
-  },
-  {
-    id: '12',
-    title: 'Predictive Lead Scoring with AI: Never Miss a Hot Lead Again',
-    excerpt: 'AI lead scoring models identify your best prospects before they raise their hand. How to build, train, and deploy a predictive scoring system for B2B growth.',
-    category: 'Growth Systems',
-    date: 'October 12, 2024',
-    read_time: 7,
-    featured: false,
-    slug: 'predictive-lead-scoring-ai',
-  },
-]
-
-const STATIC_CATEGORIES = ['All', 'AI Marketing', 'Growth Systems', 'Performance Advertising', 'Content Strategy', 'Marketing Analytics', 'Industry Insights']
+const DEFAULT_CATEGORIES = ['All', 'AI Marketing', 'Growth Strategy', 'Performance Advertising', 'Content Strategy', 'Conversion Optimization', 'Industry Insights', 'Case Studies']
 
 const CAT_COLOR: Record<string, string> = {
   'AI Marketing': '#C9A96E',
@@ -179,10 +56,10 @@ export default function Blog() {
       })
   }, [])
 
-  const POSTS = livePosts.length > 0 ? livePosts : STATIC_POSTS
+  const POSTS = livePosts
   const allCategories = livePosts.length > 0
-    ? ['All', ...Array.from(new Set(livePosts.map(p => p.category)))]
-    : STATIC_CATEGORIES
+    ? ['All', ...Array.from(new Set(livePosts.map(p => p.category).filter(Boolean)))]
+    : DEFAULT_CATEGORIES
 
   const filtered = activeCategory === 'All'
     ? POSTS
