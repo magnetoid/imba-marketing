@@ -44,8 +44,19 @@ export default function Seo({
       <meta name="description" content={description} />
       {canonical && <link rel="canonical" href={canonical} />}
       {noIndex
-        ? <meta name="robots" content="noindex, nofollow" />
-        : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        ? (
+          <>
+            <meta name="robots" content="noindex, nofollow" />
+            <meta name="googlebot" content="noindex, nofollow" />
+            <meta name="bingbot" content="noindex, nofollow" />
+          </>
+        ) : (
+          <>
+            <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+            <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+            <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+          </>
+        )
       }
 
       {/* Open Graph */}

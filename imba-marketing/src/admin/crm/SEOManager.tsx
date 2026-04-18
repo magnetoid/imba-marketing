@@ -9,7 +9,7 @@ import { Switch } from '@/components/ui/switch'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Plus, Pencil, Trash2, Loader2, ExternalLink, Eye, AlertCircle, CheckCircle, Globe, FileText } from 'lucide-react'
+import { Plus, Pencil, Trash2, Loader2, ExternalLink, Eye, AlertCircle, CheckCircle, Globe, FileText, Sparkles } from 'lucide-react'
 
 interface SeoPage {
   id: string
@@ -118,6 +118,7 @@ export default function SEOManager() {
   const [rows, setRows] = useState<SeoPage[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [generatingAI, setGeneratingAI] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [previewPath, setPreviewPath] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -177,6 +178,46 @@ export default function SEOManager() {
     if (err) { setError(err.message); return }
     setDialogOpen(false)
     load()
+  }
+
+  async function handleGenerate() {
+    if (!form.path.trim()) {
+      setError('Please select or type a path first to generate SEO content')
+      return
+    }
+    
+    setGeneratingAI(true)
+    setError('')
+    
+    try {
+      const pageLabel = ALL_PAGES.find(p => p.path === form.path)?.label || 'General'
+      
+      // Request edge function to generate 2026 AEO metadata
+      const { data, error: fnError } = await supabase.functions.invoke('generate-seo', {
+        body: { path: form.path, label: pageLabel }
+      })
+      
+      if (fnError) throw new Error(fnError.message)
+      if (data?.error) throw new Error(data.error)
+        
+      setForm(f => ({
+        ...f,
+        title: data.title || f.title,
+        description: data.description || f.description,
+        og_title: data.og_title || f.og_title,
+        og_description: data.og_description || f.og_description,
+      }))
+      
+      if (data.structured_data) {
+        setStructuredRaw(JSON.stringify(data.structured_data, null, 2))
+        setJsonError('')
+      }
+      
+    } catch (err: any) {
+      setError(`AI Generation Failed: ${err.message}`)
+    } finally {
+      setGeneratingAI(false)
+    }
   }
 
   async function handleDelete(id: string) {
@@ -541,7 +582,24 @@ export default function SEOManager() {
       <Dialog open={dialogOpen} onOpenChange={o => { setDialogOpen(o); if (!o) setEditingId(null) }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{editingId ? 'Edit SEO override' : 'Add SEO override'}</DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle>{editingId ? 'Edit SEO override' : 'Add SEO override'}</DialogTitle>
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm" 
+                onClick={handleGenerate} 
+                disabled={generatingAI || !form.path}
+                className="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200"
+              >
+                {generatingAI ? (
+                  <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                ) : (
+                  <Sparkles className="h-3.5 w-3.5 mr-1.5 text-blue-500" />
+                )}
+                Auto-Generate (AEO 2026)
+              </Button>
+            </div>
           </DialogHeader>
           <form onSubmit={handleSave} className="flex flex-col gap-4">
             {/* Path */}
