@@ -15,6 +15,16 @@ const CAT_COLOR: Record<string, string> = {
   'Industry Insights': '#00D4FF',
 }
 
+/* ── fallback posts shown when DB is empty/unreachable ──── */
+const FALLBACK_POSTS: DisplayPost[] = [
+  { id: 'f1', title: 'How AI Is Changing Marketing in 2026', excerpt: 'A practical look at the AI tools and strategies that are actually working for marketing teams right now — from ad optimisation to content creation at scale.', category: 'AI Marketing', date: '15 April 2026', read_time: 7, featured: false, slug: 'ai-changing-marketing-2026' },
+  { id: 'f2', title: 'The ROAS Playbook: Getting 4× Returns on Ad Spend', excerpt: 'How we consistently help e-commerce brands achieve 4×+ ROAS with AI-driven creative testing, audience segmentation, and bid automation.', category: 'Performance Advertising', date: '8 April 2026', read_time: 9, featured: false, slug: 'roas-playbook-4x-returns' },
+  { id: 'f3', title: '30 Days of Content in One Session: Our AI Content Workflow', excerpt: 'Step-by-step breakdown of how we produce a full month of on-brand social, email, and ad content in a single AI-powered session.', category: 'Content Strategy', date: '1 April 2026', read_time: 6, featured: false, slug: 'ai-content-workflow' },
+  { id: 'f4', title: 'Why Most Marketing Funnels Leak (And How to Fix Yours)', excerpt: 'We audit hundreds of funnels every year. Here are the 5 most common conversion killers and how AI can fix them automatically.', category: 'Conversion Optimization', date: '25 March 2026', read_time: 8, featured: false, slug: 'marketing-funnels-leak' },
+  { id: 'f5', title: 'First-Party Data Strategy for E-Commerce Brands', excerpt: 'With cookies dying, first-party data is your competitive edge. Here\'s how to collect, enrich, and activate it across your marketing stack.', category: 'Industry Insights', date: '18 March 2026', read_time: 10, featured: false, slug: 'first-party-data-ecommerce' },
+  { id: 'f6', title: 'AI Lead Scoring: Turning Cold Lists Into Closed Deals', excerpt: 'How AI scoring models help B2B companies focus on the 20% of leads that generate 80% of revenue — and stop wasting time on the rest.', category: 'Growth Strategy', date: '10 March 2026', read_time: 7, featured: false, slug: 'ai-lead-scoring-guide' },
+]
+
 interface DisplayPost {
   id: string
   title: string
@@ -44,7 +54,7 @@ function toDisplayPost(p: BlogPost): DisplayPost {
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All')
-  const [livePosts, setLivePosts] = useState<DisplayPost[]>([])
+  const [livePosts, setLivePosts] = useState<DisplayPost[]>(FALLBACK_POSTS)
 
   useEffect(() => {
     supabase.from('blog_posts')
@@ -219,17 +229,12 @@ export default function Blog() {
           ))}
         </div>
 
-        {/* View all on WordPress */}
-        <div className="max-w-screen-xl mx-auto mt-12 text-center">
-          <a
-            href="https://www.imbamarketing.com/blog/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-ghost inline-flex items-center gap-2"
-          >
-            View all 185+ articles on our blog ↗
-          </a>
-        </div>
+        {/* Empty state */}
+        {filtered.length === 0 && (
+          <div className="max-w-screen-xl mx-auto mt-12 text-center">
+            <p className="text-smoke-faint font-mono-custom text-sm">No posts in this category yet. Check back soon.</p>
+          </div>
+        )}
       </section>
 
       {/* ── TOPICS STRIP ─────────────────────────────────── */}

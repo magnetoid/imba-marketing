@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS public.portfolio_items (
   id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   title           TEXT NOT NULL,
   slug            TEXT UNIQUE NOT NULL,
-  category        TEXT NOT NULL CHECK (category IN ('brand','ai','product','social','drone','post','elearning')),
+  category        TEXT NOT NULL CHECK (category IN ('growth','ads','personalisation','content','intelligence','funnel')),
   client_name     TEXT,
   thumbnail_url   TEXT,
   video_url       TEXT,

@@ -1,99 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '@/lib/supabase'
+import type { PortfolioItem } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 
-const CASES = [
-  {
-    id: '1',
-    client: 'FoodCo International',
-    category: 'growth',
-    service: 'Shopify Growth',
-    headline: '$40K → $120K/mo in 90 days',
-    tags: ['Shopify', 'Revenue'],
-    color: '#E8452A',
-    desc: 'A Shopify food brand stuck at $40K/mo. We rebuilt their product ad strategy, automated email flows (welcome, cart recovery, post-purchase), and tripled their monthly revenue in one quarter.',
-    results: [
-      { label: 'Revenue Growth', val: '+200%' },
-      { label: 'Email Revenue', val: '+38%' },
-      { label: 'Lower CPA', val: '-52%' },
-    ],
-  },
-  {
-    id: '2',
-    client: 'NordShop',
-    category: 'ads',
-    service: 'Product Ads',
-    headline: 'Every $1 in ads → $4.80 back',
-    tags: ['Google Shopping', 'Meta Ads'],
-    color: '#C9A96E',
-    desc: 'An e-commerce store burning $8K/mo on ads with barely any return. We rebuilt their Google Shopping and Meta campaigns — AI testing 200+ product ad variations to find what converts.',
-    results: [
-      { label: 'ROAS', val: '4.8×' },
-      { label: 'Cost Per Order', val: '$18.40' },
-      { label: 'Ad Spend Saved', val: '40%' },
-    ],
-  },
-  {
-    id: '3',
-    client: 'Velour Boutique',
-    category: 'content',
-    service: 'AI Content',
-    headline: '30 days of content in 1 day',
-    tags: ['Fashion', 'Content'],
-    color: '#6C7AE0',
-    desc: 'A fashion e-commerce brand drowning in content needs — product photos, Instagram posts, email campaigns. AI now creates a full month of on-brand content for 500+ SKUs in a single session.',
-    results: [
-      { label: 'Content Output', val: '30×' },
-      { label: 'Engagement', val: '+180%' },
-      { label: 'Time Saved', val: '95%' },
-    ],
-  },
-  {
-    id: '4',
-    client: 'BrandX',
-    category: 'funnel',
-    service: 'Funnel CRO',
-    headline: '62% more trial-to-paid conversions',
-    tags: ['SaaS', 'Conversion'],
-    color: '#3CBFAE',
-    desc: 'A B2B SaaS company with a 1.2% trial conversion rate — plenty of signups but abysmal activation. We optimized the onboarding funnel, rebuilt landing pages, and added AI-driven nurture sequences.',
-    results: [
-      { label: 'Conversion Rate', val: '+62%' },
-      { label: 'Lead Quality', val: '2×' },
-      { label: 'Bounce Rate', val: '-34%' },
-    ],
-  },
-  {
-    id: '5',
-    client: 'Magic Mind',
-    category: 'intelligence',
-    service: 'AI Intelligence',
-    headline: '28% organic growth, 340 new keywords',
-    tags: ['Health & Wellness', 'DTC'],
-    color: '#C9A96E',
-    desc: 'A health and wellness DTC brand missing massive search opportunities. AI found 340+ keywords their competitors weren\'t targeting — plus market gaps they could exploit to grow organically.',
-    results: [
-      { label: 'Organic Growth', val: '+28%' },
-      { label: 'New Keywords', val: '340+' },
-      { label: 'Competitor Gaps', val: '12' },
-    ],
-  },
-  {
-    id: '6',
-    client: 'Irving & Partners',
-    category: 'personalisation',
-    service: 'AI Lead Generation',
-    headline: '5× lead quality, 67% more closed deals',
-    tags: ['Professional Services', 'Lead Gen'],
-    color: '#00D4FF',
-    desc: 'A professional services firm sending generic outreach to everyone. AI now personalizes every touchpoint — targeting prospects based on intent signals, firmographics, and engagement history.',
-    results: [
-      { label: 'Lead Quality', val: '5×' },
-      { label: 'Closed Deals', val: '+67%' },
-      { label: 'Client LTV', val: '+41%' },
-    ],
-  },
-]
+/* ── category labels & colours (matches PortfolioAdmin) ──── */
+const CAT_META: Record<string, { label: string; color: string }> = {
+  growth:          { label: 'Growth',          color: '#E8452A' },
+  ads:             { label: 'Performance Ads', color: '#C9A96E' },
+  content:         { label: 'Content',         color: '#6C7AE0' },
+  funnel:          { label: 'Conversion',      color: '#3CBFAE' },
+  intelligence:    { label: 'Intelligence',    color: '#C9A96E' },
+  personalisation: { label: 'Personalization', color: '#00D4FF' },
+}
 
 const CATS = [
   { key: 'all',             label: 'All results' },
@@ -105,6 +24,52 @@ const CATS = [
   { key: 'personalisation', label: 'Personalization' },
 ]
 
+/* ── hardcoded fallback — shown only when DB is empty/unreachable ── */
+const FALLBACK_CASES: PortfolioItem[] = [
+  {
+    id: '1', title: '$40K → $120K/mo in 90 days', slug: 'foodco-growth', category: 'growth',
+    client_name: 'FoodCo International', tags: ['Shopify', 'Revenue'],
+    description: 'A Shopify food brand stuck at $40K/mo. We rebuilt their product ad strategy, automated email flows (welcome, cart recovery, post-purchase), and tripled their monthly revenue in one quarter.',
+    results: { 'Revenue Growth': '+200%', 'Email Revenue': '+38%', 'Lower CPA': '-52%' },
+    featured: true, published: true, sort_order: 0, created_at: '',
+  },
+  {
+    id: '2', title: 'Every $1 in ads → $4.80 back', slug: 'nordshop-ads', category: 'ads',
+    client_name: 'NordShop', tags: ['Google Shopping', 'Meta Ads'],
+    description: 'An e-commerce store burning $8K/mo on ads with barely any return. We rebuilt their Google Shopping and Meta campaigns — AI testing 200+ product ad variations to find what converts.',
+    results: { 'ROAS': '4.8×', 'Cost Per Order': '$18.40', 'Ad Spend Saved': '40%' },
+    featured: true, published: true, sort_order: 1, created_at: '',
+  },
+  {
+    id: '3', title: '30 days of content in 1 day', slug: 'velour-content', category: 'content',
+    client_name: 'Velour Boutique', tags: ['Fashion', 'Content'],
+    description: 'A fashion e-commerce brand drowning in content needs — product photos, Instagram posts, email campaigns. AI now creates a full month of on-brand content for 500+ SKUs in a single session.',
+    results: { 'Content Output': '30×', 'Engagement': '+180%', 'Time Saved': '95%' },
+    featured: false, published: true, sort_order: 2, created_at: '',
+  },
+  {
+    id: '4', title: '62% more trial-to-paid conversions', slug: 'brandx-funnel', category: 'funnel',
+    client_name: 'BrandX', tags: ['SaaS', 'Conversion'],
+    description: 'A B2B SaaS company with a 1.2% trial conversion rate — plenty of signups but abysmal activation. We optimized the onboarding funnel, rebuilt landing pages, and added AI-driven nurture sequences.',
+    results: { 'Conversion Rate': '+62%', 'Lead Quality': '2×', 'Bounce Rate': '-34%' },
+    featured: false, published: true, sort_order: 3, created_at: '',
+  },
+  {
+    id: '5', title: '28% organic growth, 340 new keywords', slug: 'magicmind-intelligence', category: 'intelligence',
+    client_name: 'Magic Mind', tags: ['Health & Wellness', 'DTC'],
+    description: "A health and wellness DTC brand missing massive search opportunities. AI found 340+ keywords their competitors weren't targeting — plus market gaps they could exploit to grow organically.",
+    results: { 'Organic Growth': '+28%', 'New Keywords': '340+', 'Competitor Gaps': '12' },
+    featured: false, published: true, sort_order: 4, created_at: '',
+  },
+  {
+    id: '6', title: '5× lead quality, 67% more closed deals', slug: 'irving-personalisation', category: 'personalisation',
+    client_name: 'Irving & Partners', tags: ['Professional Services', 'Lead Gen'],
+    description: 'A professional services firm sending generic outreach to everyone. AI now personalizes every touchpoint — targeting prospects based on intent signals, firmographics, and engagement history.',
+    results: { 'Lead Quality': '5×', 'Closed Deals': '+67%', 'Client LTV': '+41%' },
+    featured: false, published: true, sort_order: 5, created_at: '',
+  },
+]
+
 const STATS = [
   { num: '200+', label: 'Clients' },
   { num: '4.8×', label: 'Avg. ROAS' },
@@ -114,10 +79,25 @@ const STATS = [
 
 export default function Work() {
   const [activeCategory, setActiveCategory] = useState('all')
+  const [items, setItems] = useState<PortfolioItem[]>([])
+  const [loaded, setLoaded] = useState(false)
 
+  useEffect(() => {
+    supabase
+      .from('portfolio_items')
+      .select('*')
+      .eq('published', true)
+      .order('sort_order')
+      .then(({ data, error }) => {
+        setItems(!error && data?.length ? data : FALLBACK_CASES)
+        setLoaded(true)
+      })
+  }, [])
+
+  const cases = loaded ? items : FALLBACK_CASES
   const filtered = activeCategory === 'all'
-    ? CASES
-    : CASES.filter(c => c.category === activeCategory)
+    ? cases
+    : cases.filter(c => c.category === activeCategory)
 
   return (
     <>
@@ -183,52 +163,60 @@ export default function Work() {
       {/* ── CASE STUDY GRID ───────────────────────────────── */}
       <section className="bg-ink py-12 px-6 lg:px-12">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
-          {filtered.map((item, i) => (
-            <div
-              key={item.id}
-              className="bg-ink p-8 hover:bg-ink-2 transition-colors flex flex-col"
-              style={{ transitionDelay: `${i * 40}ms` }}
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between gap-3 mb-6 flex-wrap">
-                <span className="font-mono-custom text-[0.58rem] tracking-[0.16em] uppercase text-smoke-faint">{item.client}</span>
-                <span
-                  className="font-mono-custom text-[0.55rem] tracking-[0.12em] uppercase px-2 py-0.5 flex-shrink-0"
-                  style={{ color: item.color, background: `${item.color}12`, border: `1px solid ${item.color}25` }}
-                >
-                  {item.service}
-                </span>
-              </div>
-
-              {/* Headline */}
-              <h3
-                className="font-display font-light leading-tight mb-4 flex-1"
-                style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: item.color }}
+          {filtered.map((item, i) => {
+            const meta = CAT_META[item.category] || { label: item.category, color: '#E8452A' }
+            const results = item.results ? Object.entries(item.results) : []
+            return (
+              <div
+                key={item.id}
+                className="bg-ink p-8 hover:bg-ink-2 transition-colors flex flex-col reveal"
+                style={{ transitionDelay: `${i * 40}ms` }}
               >
-                {item.headline}
-              </h3>
+                {/* Header */}
+                <div className="flex items-start justify-between gap-3 mb-6 flex-wrap">
+                  <span className="font-mono-custom text-[0.58rem] tracking-[0.16em] uppercase text-smoke-faint">{item.client_name}</span>
+                  <span
+                    className="font-mono-custom text-[0.55rem] tracking-[0.12em] uppercase px-2 py-0.5 flex-shrink-0"
+                    style={{ color: meta.color, background: `${meta.color}12`, border: `1px solid ${meta.color}25` }}
+                  >
+                    {meta.label}
+                  </span>
+                </div>
 
-              {/* Description */}
-              <p className="text-sm text-smoke-dim leading-relaxed mb-6">{item.desc}</p>
+                {/* Headline */}
+                <h3
+                  className="font-display font-light leading-tight mb-4 flex-1"
+                  style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: meta.color }}
+                >
+                  {item.title}
+                </h3>
 
-              {/* Tags */}
-              <div className="flex gap-2 flex-wrap mb-6">
-                {item.tags.map(t => (
-                  <span key={t} className="font-mono-custom text-[0.55rem] tracking-wider text-smoke-faint/60 uppercase">{t}</span>
-                ))}
-              </div>
+                {/* Description */}
+                <p className="text-sm text-smoke-dim leading-relaxed mb-6">{item.description}</p>
 
-              {/* Result metrics */}
-              <div className="pt-5 border-t border-white/5 grid grid-cols-3 gap-3">
-                {item.results.map(({ label, val }) => (
-                  <div key={label}>
-                    <div className="font-display font-light text-xl leading-none mb-1" style={{ color: item.color }}>{val}</div>
-                    <div className="font-mono-custom text-[0.52rem] tracking-wide uppercase text-smoke-faint/60 leading-tight">{label}</div>
+                {/* Tags */}
+                {item.tags && item.tags.length > 0 && (
+                  <div className="flex gap-2 flex-wrap mb-6">
+                    {item.tags.map(t => (
+                      <span key={t} className="font-mono-custom text-[0.55rem] tracking-wider text-smoke-faint/60 uppercase">{t}</span>
+                    ))}
                   </div>
-                ))}
+                )}
+
+                {/* Result metrics */}
+                {results.length > 0 && (
+                  <div className="pt-5 border-t border-white/5 grid grid-cols-3 gap-3">
+                    {results.map(([label, val]) => (
+                      <div key={label}>
+                        <div className="font-display font-light text-xl leading-none mb-1" style={{ color: meta.color }}>{val}</div>
+                        <div className="font-mono-custom text-[0.52rem] tracking-wide uppercase text-smoke-faint/60 leading-tight">{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
 

@@ -26,7 +26,7 @@ export interface PortfolioItem {
   id: string
   title: string
   slug: string
-  category: 'brand' | 'ai' | 'product' | 'social' | 'drone' | 'post' | 'elearning'
+  category: 'growth' | 'ads' | 'personalisation' | 'content' | 'intelligence' | 'funnel'
   client_name?: string
   thumbnail_url?: string
   video_url?: string

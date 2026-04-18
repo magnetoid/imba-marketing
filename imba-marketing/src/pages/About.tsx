@@ -1,29 +1,31 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '@/lib/supabase'
+import type { TeamMember } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
-const TEAM = [
+/* ── fallback team shown when DB is empty/unreachable ──── */
+const FALLBACK_TEAM: TeamMember[] = [
   {
-    name: 'Ljubica Jevremovic',
+    id: '1', name: 'Ljubica Jevremovic', slug: 'ljubica',
     role: 'Partner & Creative Director',
     bio: 'Ljubica has helped dozens of brands — from SaaS startups to global consumer brands — build AI-powered marketing that actually connects with people and drives real growth. She makes sure every campaign is not just creative, but profitable.',
-    initials: 'LJ',
-    color: '#C9A96E',
-    image: '/team/ljubica.jpg',
-    linkedin: 'https://linkedin.com/in/ljubica-jevremovic',
-    instagram: 'https://instagram.com/imbamarketing',
+    photo_url: '/team/ljubica.jpg',
+    social_links: { linkedin: 'https://linkedin.com/in/ljubica-jevremovic' },
+    sort_order: 0, published: true,
   },
   {
-    name: 'Marko Tiosavljevic',
+    id: '2', name: 'Marko Tiosavljevic', slug: 'marko',
     role: 'Partner & Marketing Strategist',
-    bio: '20+ years helping businesses grow across e-commerce, SaaS, and professional services. Marko designs AI marketing strategies that consistently turn ad spend into revenue — making sure every client\'s growth plan is built for long-term, compounding results.',
-    initials: 'MT',
-    color: '#E8452A',
-    image: '/team/marko.jpg',
-    linkedin: 'https://linkedin.com/in/marko-tiosavljevic',
-    instagram: 'https://instagram.com/imbamarketing',
+    bio: "20+ years helping businesses grow across e-commerce, SaaS, and professional services. Marko designs AI marketing strategies that consistently turn ad spend into revenue — making sure every client's growth plan is built for long-term, compounding results.",
+    photo_url: '/team/marko.jpg',
+    social_links: { linkedin: 'https://linkedin.com/in/marko-tiosavljevic' },
+    sort_order: 1, published: true,
   },
 ]
+
+const MEMBER_COLORS = ['#C9A96E', '#E8452A', '#3CBFAE', '#6C7AE0', '#00D4FF']
 
 const VALUES = [
   {
@@ -89,6 +91,19 @@ const SOCIAL = [
 
 export default function About() {
   const { openModal } = useQuoteModal()
+  const [team, setTeam] = useState<TeamMember[]>(FALLBACK_TEAM)
+
+  useEffect(() => {
+    supabase
+      .from('team_members')
+      .select('*')
+      .eq('published', true)
+      .order('sort_order')
+      .then(({ data }) => {
+        if (data?.length) setTeam(data)
+      })
+  }, [])
+
   return (
     <>
       <Seo
@@ -204,45 +219,50 @@ export default function About() {
             The people who'll<br /><em className="text-[#D4A853] italic">grow your business</em>
           </h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
-            {TEAM.map((member, i) => (
-              <div key={member.name}
-                className="bg-ink-2 border border-white/5 overflow-hidden hover:border-white/10 transition-colors reveal"
-                style={{ transitionDelay: `${i * 100}ms` }}>
-                {/* Photo */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                    onError={e => {
-                      const el = e.currentTarget
-                      el.style.display = 'none'
-                      const fallback = el.nextElementSibling as HTMLElement
-                      if (fallback) fallback.style.display = 'flex'
-                    }}
-                  />
-                  {/* Fallback initials */}
-                  <div className="hidden absolute inset-0 items-center justify-center font-mono-custom text-4xl font-medium"
-                    style={{ background: `${member.color}12`, color: member.color }}>
-                    {member.initials}
+            {team.map((member, i) => {
+              const color = MEMBER_COLORS[i % MEMBER_COLORS.length]
+              const initials = member.name.split(' ').map(w => w[0]).join('')
+              const linkedin = member.social_links?.linkedin
+              return (
+                <div key={member.id}
+                  className="bg-ink-2 border border-white/5 overflow-hidden hover:border-white/10 transition-colors reveal"
+                  style={{ transitionDelay: `${i * 100}ms` }}>
+                  {/* Photo */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img
+                      src={member.photo_url || ''}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                      onError={e => {
+                        const el = e.currentTarget
+                        el.style.display = 'none'
+                        const fallback = el.nextElementSibling as HTMLElement
+                        if (fallback) fallback.style.display = 'flex'
+                      }}
+                    />
+                    {/* Fallback initials */}
+                    <div className="hidden absolute inset-0 items-center justify-center font-mono-custom text-4xl font-medium"
+                      style={{ background: `${color}12`, color }}>
+                      {initials}
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink-2/80 to-transparent" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-2/80 to-transparent" />
-                </div>
-                <div className="p-7">
-                  <h3 className="font-display font-light text-smoke text-2xl mb-1">{member.name}</h3>
-                  <p className="font-mono-custom text-[0.62rem] tracking-[0.16em] uppercase mb-4" style={{ color: member.color }}>{member.role}</p>
-                  <p className="text-smoke-dim leading-relaxed mb-5" style={{ fontSize: '0.88rem' }}>{member.bio}</p>
-                  <div className="flex items-center gap-3">
-                    {member.linkedin && (
-                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                        className="font-mono-custom text-[0.58rem] tracking-widest uppercase text-smoke-faint/40 hover:text-smoke-dim transition-colors">
-                        LinkedIn →
-                      </a>
-                    )}
+                  <div className="p-7">
+                    <h3 className="font-display font-light text-smoke text-2xl mb-1">{member.name}</h3>
+                    <p className="font-mono-custom text-[0.62rem] tracking-[0.16em] uppercase mb-4" style={{ color }}>{member.role}</p>
+                    <p className="text-smoke-dim leading-relaxed mb-5" style={{ fontSize: '0.88rem' }}>{member.bio}</p>
+                    <div className="flex items-center gap-3">
+                      {linkedin && (
+                        <a href={linkedin} target="_blank" rel="noopener noreferrer"
+                          className="font-mono-custom text-[0.58rem] tracking-widest uppercase text-smoke-faint/40 hover:text-smoke-dim transition-colors">
+                          LinkedIn →
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
           <p className="font-mono-custom text-[0.62rem] tracking-widest uppercase text-smoke-faint/35 mt-10 reveal">
             + A team of marketing specialists, content creators, and analysts across Europe & US
