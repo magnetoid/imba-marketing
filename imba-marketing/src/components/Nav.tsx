@@ -55,11 +55,12 @@ export default function Nav() {
   return (
     <>
       <nav
+        ref={megaRef}
         className={`fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300 ${
           scrolled ? 'py-3 border-b border-zinc-800/80' : 'py-5 border-b border-transparent'
         }`}
       >
-        <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between" ref={megaRef}>
+        <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between">
 
           {/* Logo */}
           <Link to="/" className="flex items-center group" onClick={closeMega}>
