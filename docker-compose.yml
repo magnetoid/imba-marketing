@@ -296,6 +296,8 @@ services:
     image: supabase/studio:20240101-8e4a094
     container_name: imba-supabase-studio
     restart: unless-stopped
+    healthcheck:
+      disable: true
     depends_on:
       - supabase-kong
     networks:
