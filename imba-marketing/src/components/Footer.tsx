@@ -128,6 +128,7 @@ export default function Footer() {
             { label: 'Services', to: '/services' },
             { label: 'Results', to: '/results' },
             { label: 'Reviews', to: '/reviews' },
+            { label: 'AI Projects', to: '/ai-projects' },
             { label: 'Gallery', to: '/gallery' },
             { label: 'Blog', to: '/blog' },
             { label: 'About', to: '/about' },

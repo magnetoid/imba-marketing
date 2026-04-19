@@ -14,6 +14,7 @@ import BlogPost from '@/pages/BlogPost'
 import Contact from '@/pages/Contact'
 import Reviews from '@/pages/Reviews'
 import Gallery from '@/pages/Gallery'
+import AIProjects from '@/pages/AIProjects'
 import ServicePage from '@/pages/services/ServicePage'
 import AdminLayout from '@/admin/AdminLayout'
 import AdminLanding from '@/admin/AdminLanding'
@@ -109,6 +110,7 @@ export default function App() {
         <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
         <Route path="/reviews" element={<PublicLayout><Reviews /></PublicLayout>} />
         <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
+        <Route path="/ai-projects" element={<PublicLayout><AIProjects /></PublicLayout>} />
 
         {/* Admin */}
         <Route path="/admin" element={<AdminLayout />}>
