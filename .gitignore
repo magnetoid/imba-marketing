@@ -1,0 +1,14 @@
+.trae/
+.claude/
+
+node_modules/
+
+package-lock.json
+package.json
+
+temp_compose*.yaml
+patch*.js
+patch*.py
+
+*.log
+.DS_Store

@@ -503,7 +503,6 @@ Return ONLY valid JSON (no markdown, no code fences):
     } else {
       setSelectedModel('')
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProvider])
 
   // ── Render helpers ───────────────────────────────────

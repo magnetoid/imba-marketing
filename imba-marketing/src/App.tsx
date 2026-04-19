@@ -34,6 +34,8 @@ import TestimonialsAdmin from '@/admin/TestimonialsAdmin'
 import CRMDashboard from '@/admin/crm/CRMDashboard'
 import LeadDetail from '@/admin/crm/LeadDetail'
 import SEOManager from '@/admin/crm/SEOManager'
+import SEOAudits from '@/admin/crm/SEOAudits'
+import RedirectRules from '@/admin/crm/RedirectRules'
 import AILeadSearcher from '@/admin/crm/AILeadSearcher'
 import AIOutreach from '@/admin/crm/AIOutreach'
 import AIInbox from '@/admin/crm/AIInbox'
@@ -137,6 +139,8 @@ export default function App() {
           <Route path="crm/settings" element={<AISettings />} />
           <Route path="crm/chat" element={<ChatInbox />} />
           <Route path="crm/seo" element={<SEOManager />} />
+          <Route path="crm/seo-audits" element={<SEOAudits />} />
+          <Route path="crm/redirects" element={<RedirectRules />} />
           <Route path="crm/:id" element={<LeadDetail />} />
         </Route>
       </Routes>

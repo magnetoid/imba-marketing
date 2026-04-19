@@ -227,7 +227,7 @@ export function extractJSON<T>(text: string): T {
   try { return JSON.parse(stripped) as T } catch { /* continue */ }
 
   // Find JSON array or object
-  const match = text.match(/[\[{][\s\S]*[\]}]/)
+  const match = text.match(/(\{[\s\S]*\}|\[[\s\S]*\])/)
   if (match) return JSON.parse(match[0]) as T
 
   throw new Error('Could not extract JSON from AI response. The AI may have returned an unexpected format.')

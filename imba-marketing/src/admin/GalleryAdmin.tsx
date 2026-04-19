@@ -70,7 +70,6 @@ export default function GalleryAdmin() {
     e.preventDefault()
     setDragging(false)
     if (e.dataTransfer.files) uploadFiles(e.dataTransfer.files)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function deleteImage(img: GalleryImage) {

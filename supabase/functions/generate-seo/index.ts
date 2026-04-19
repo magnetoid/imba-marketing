@@ -19,22 +19,54 @@ serve(async (req) => {
     if (!path) throw new Error('Missing path parameter')
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')
-    const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY')
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
+    const supabaseServiceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
 
-    // Optional: we can use anon key with the authorization header passed from client
-    const authHeader = req.headers.get('Authorization')!
-    const supabase = createClient(supabaseUrl!, supabaseKey!, { global: { headers: { Authorization: authHeader } } })
+    if (!supabaseUrl || !supabaseAnonKey || !supabaseServiceRoleKey) {
+      throw new Error('Missing SUPABASE_URL, SUPABASE_ANON_KEY, or SUPABASE_SERVICE_ROLE_KEY')
+    }
+
+    const authHeader = req.headers.get('Authorization') || ''
+    const token = authHeader.toLowerCase().startsWith('bearer ') ? authHeader.slice(7) : ''
+    if (!token) {
+      return new Response(JSON.stringify({ error: 'Missing Authorization bearer token' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    const authed = createClient(supabaseUrl, supabaseAnonKey, { global: { headers: { Authorization: `Bearer ${token}` } } })
+    const { data: userData, error: userErr } = await authed.auth.getUser()
+    if (userErr || !userData?.user) {
+      return new Response(JSON.stringify({ error: 'Invalid session' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    const role = (userData.user.app_metadata as any)?.role || (userData.user.user_metadata as any)?.role
+    if (role !== 'admin') {
+      return new Response(JSON.stringify({ error: 'Admin access required' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
 
     // 1. Get Anthropic key from DB
-    const { data: provider } = await supabase
+    const { data: provider, error: providerErr } = await supabase
       .from('ai_providers')
-      .select('api_key')
-      .eq('name', 'anthropic')
-      .eq('is_active', true)
+      .select('api_key, default_model, enabled')
+      .eq('id', 'anthropic')
       .single()
 
-    if (!provider?.api_key) {
-      throw new Error('No active Anthropic API key found in ai_providers')
+    if (providerErr) {
+      throw new Error(providerErr.message)
+    }
+
+    if (!provider?.enabled || !provider?.api_key) {
+      throw new Error('Anthropic provider is disabled or missing api_key in ai_providers')
     }
 
     // 2. Build prompt for AEO / SEO 2026
@@ -73,7 +105,7 @@ Return EXACTLY a valid JSON object matching this TypeScript interface (no markdo
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20240620',
+        model: provider.default_model || 'claude-3-5-sonnet-20240620',
         max_tokens: 1500,
         temperature: 0.2,
         system: "You are an expert SEO API that outputs ONLY valid JSON.",
@@ -87,10 +119,17 @@ Return EXACTLY a valid JSON object matching this TypeScript interface (no markdo
     }
 
     const aiData = await anthropicRes.json()
-    const textContent = aiData.content[0].text.trim()
+    const textContent = aiData?.content?.[0]?.text?.trim?.() || ''
+    if (!textContent) {
+      throw new Error('AI response was empty')
+    }
 
     // Clean potential markdown blocks
-    const jsonStr = textContent.replace(/^```json/m, '').replace(/```$/m, '').trim()
+    const jsonStr = textContent
+      .replace(/^```json\s*/i, '')
+      .replace(/^```\s*/i, '')
+      .replace(/```\s*$/i, '')
+      .trim()
     const parsed = JSON.parse(jsonStr)
 
     return new Response(JSON.stringify(parsed), {

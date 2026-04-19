@@ -25,6 +25,13 @@ interface SeoPage {
   created_at: string
 }
 
+type ValidationIssue = {
+  severity: 'critical' | 'warning' | 'info'
+  code: string
+  message: string
+  field?: string
+}
+
 const SITE_URL = 'https://imbamarketing.com'
 const SITE_NAME = 'Imba Marketing'
 
@@ -119,6 +126,9 @@ export default function SEOManager() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [generatingAI, setGeneratingAI] = useState(false)
+  const [validating, setValidating] = useState(false)
+  const [validationScore, setValidationScore] = useState<number | null>(null)
+  const [validationIssues, setValidationIssues] = useState<ValidationIssue[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [previewPath, setPreviewPath] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -143,6 +153,8 @@ export default function SEOManager() {
     setStructuredRaw('')
     setJsonError('')
     setError('')
+    setValidationScore(null)
+    setValidationIssues([])
     setDialogOpen(true)
   }
 
@@ -157,7 +169,24 @@ export default function SEOManager() {
     setStructuredRaw(row.structured_data ? JSON.stringify(row.structured_data, null, 2) : '')
     setJsonError('')
     setError('')
+    setValidationScore(null)
+    setValidationIssues([])
     setDialogOpen(true)
+  }
+
+  async function runValidation(payload: { title?: string; description?: string; canonical?: string; noindex?: boolean; structured_data?: any }) {
+    setValidating(true)
+    setError('')
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke('seo-validate', { body: payload })
+      if (fnError) throw new Error(fnError.message)
+      if (data?.error) throw new Error(data.error)
+      setValidationScore(typeof data?.score === 'number' ? data.score : null)
+      setValidationIssues(Array.isArray(data?.issues) ? data.issues : [])
+      return { score: data?.score as number | undefined, issues: (data?.issues as ValidationIssue[]) || [] }
+    } finally {
+      setValidating(false)
+    }
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -168,6 +197,20 @@ export default function SEOManager() {
       try { structured = JSON.parse(structuredRaw) }
       catch { setJsonError('Invalid JSON — check your schema syntax'); return }
     }
+
+    const validation = await runValidation({
+      title: form.title,
+      description: form.description,
+      canonical: form.canonical,
+      noindex: form.noindex,
+      structured_data: structured ?? null,
+    })
+
+    if (validation.issues.some(i => i.severity === 'critical')) {
+      setError('Fix critical SEO issues before saving.')
+      return
+    }
+
     setSaving(true)
     setError('')
     const payload = { ...form, path: form.path.trim(), structured_data: structured ?? null }
@@ -716,6 +759,71 @@ export default function SEOManager() {
               />
               {jsonError && <p className="text-destructive text-xs">{jsonError}</p>}
               <p className="text-xs text-muted-foreground">Supports all schema.org types: WebPage, Article, FAQPage, Service, BreadcrumbList, VideoObject, etc.</p>
+            </div>
+
+            <div className="border border-border rounded-lg p-4 bg-muted/10">
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div>
+                  <p className="text-sm font-medium text-foreground">Pre-publish validation</p>
+                  <p className="text-xs text-muted-foreground">Runs server-side SEO checks and blocks critical issues.</p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    let structured: any = null
+                    if (structuredRaw.trim()) {
+                      try { structured = JSON.parse(structuredRaw) }
+                      catch { setJsonError('Invalid JSON — check your schema syntax'); return }
+                    }
+                    await runValidation({
+                      title: form.title,
+                      description: form.description,
+                      canonical: form.canonical,
+                      noindex: form.noindex,
+                      structured_data: structured,
+                    })
+                  }}
+                  disabled={validating}
+                >
+                  {validating ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                  Validate
+                </Button>
+              </div>
+
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="outline" className="text-[0.6rem] font-mono">
+                  score: {validationScore ?? '—'}
+                </Badge>
+                <Badge variant="outline" className="text-[0.6rem] font-mono">
+                  issues: {validationIssues.length}
+                </Badge>
+              </div>
+
+              {validationIssues.length > 0 ? (
+                <div className="flex flex-col gap-2">
+                  {validationIssues.slice(0, 6).map((i, idx) => (
+                    <div key={idx} className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-xs text-foreground truncate">{i.message}</p>
+                        <p className="text-[0.65rem] text-muted-foreground font-mono">{i.severity} · {i.code}{i.field ? ` · ${i.field}` : ''}</p>
+                      </div>
+                      {i.severity === 'critical'
+                        ? <Badge variant="destructive" className="text-[0.6rem]">critical</Badge>
+                        : i.severity === 'warning'
+                          ? <Badge variant="secondary" className="bg-yellow-500/15 text-yellow-500 text-[0.6rem]">warning</Badge>
+                          : <Badge variant="outline" className="text-[0.6rem]">info</Badge>
+                      }
+                    </div>
+                  ))}
+                  {validationIssues.length > 6 && (
+                    <p className="text-xs text-muted-foreground">Showing 6 of {validationIssues.length} issues.</p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-xs text-muted-foreground">No validation issues yet. Click Validate to run checks.</p>
+              )}
             </div>
 
             {error && <p className="text-destructive text-sm">{error}</p>}
