@@ -5,7 +5,7 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 // Accent colors cycled per card
-const COLORS = ['#3CBFAE', '#C9A96E', '#6C7AE0', '#00D4FF', '#E07A6C']
+const COLORS = ['#EF4444', '#D4A853', '#3B82F6']
 
 // Fallback reviews shown when DB is empty
 const FALLBACK: Testimonial[] = [
@@ -52,8 +52,8 @@ function StarRow({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5 mb-6">
       {[1,2,3,4,5].map(n => (
-        <svg key={n} width="14" height="14" viewBox="0 0 24 24" fill={n <= rating ? '#C9A96E' : 'none'}
-          stroke={n <= rating ? '#C9A96E' : 'rgba(255,255,255,0.2)'} strokeWidth="1.5">
+        <svg key={n} width="14" height="14" viewBox="0 0 24 24" fill={n <= rating ? '#D4A853' : 'none'}
+          stroke={n <= rating ? '#D4A853' : 'rgba(255,255,255,0.2)'} strokeWidth="1.5">
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
         </svg>
       ))}
@@ -111,7 +111,7 @@ export default function Reviews() {
       {/* ── HERO ── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-[60vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0,212,255,0.04) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 100%, rgba(59,130,246,0.04) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">What our clients say</p>
@@ -128,7 +128,7 @@ export default function Reviews() {
 
       {/* ── REVIEWS ── */}
       <section className="py-24 px-6 lg:px-12 bg-ink-2">
-        <div className="max-w-screen-lg mx-auto flex flex-col gap-8">
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {display.map((r, i) => {
             const color = COLORS[i % COLORS.length]
             const initial = initials(r.client_name)
@@ -182,15 +182,15 @@ export default function Reviews() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink border-t border-white/5">
+      <section className="cta-gradient py-24 px-6 lg:px-12">
         <div className="max-w-screen-xl mx-auto text-center">
           <p className="eyebrow justify-center mb-5 reveal">Ready to be our next success story?</p>
-          <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
+          <h2 className="font-display font-light leading-tight text-ink mb-8 reveal reveal-delay-1"
+            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
             Join these businesses.<br />
-            <em className="text-ember italic">Start growing today.</em>
+            <em className="italic">Start growing today.</em>
           </h2>
-          <button onClick={() => openModal()} className="btn btn-primary reveal reveal-delay-2">
+          <button onClick={() => openModal()} className="btn bg-ink text-smoke reveal reveal-delay-2">
             Get your free growth plan →
           </button>
         </div>

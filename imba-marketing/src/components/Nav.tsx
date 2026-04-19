@@ -57,7 +57,7 @@ export default function Nav() {
       <nav
         ref={megaRef}
         className={`fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300 ${
-          scrolled ? 'py-3 border-b border-zinc-800/80' : 'py-5 border-b border-transparent'
+          scrolled ? 'py-3 border-b border-white/5' : 'py-5 border-b border-transparent'
         }`}
       >
         <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between">
@@ -65,7 +65,7 @@ export default function Nav() {
           {/* Logo */}
           <Link to="/" className="flex items-center group" onClick={closeMega}>
             <span className="font-display font-light text-2xl text-white tracking-wide">
-              imba<span className="text-red-500 italic">.</span><span className="text-zinc-400">marketing</span>
+              imba<span className="text-ember italic">.</span><span className="text-smoke-dim">marketing</span>
             </span>
           </Link>
 
@@ -76,7 +76,7 @@ export default function Nav() {
               onMouseEnter={() => setMegaMenu('services')}
               onClick={() => setMegaMenu(megaMenu === 'services' ? null : 'services')}
               className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
-                megaMenu === 'services' ? 'text-white bg-zinc-800/60' : 'text-zinc-400 hover:text-white'
+                megaMenu === 'services' ? 'text-white bg-white/5' : 'text-smoke-dim hover:text-white'
               }`}
             >
               Services
@@ -90,7 +90,7 @@ export default function Nav() {
               onMouseEnter={() => setMegaMenu('company')}
               onClick={() => setMegaMenu(megaMenu === 'company' ? null : 'company')}
               className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
-                megaMenu === 'company' ? 'text-white bg-zinc-800/60' : 'text-zinc-400 hover:text-white'
+                megaMenu === 'company' ? 'text-white bg-white/5' : 'text-smoke-dim hover:text-white'
               }`}
             >
               Company
@@ -105,7 +105,7 @@ export default function Nav() {
               onClick={closeMega}
               className={({ isActive }) =>
                 `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
                 }`
               }
             >
@@ -118,7 +118,7 @@ export default function Nav() {
               onClick={closeMega}
               className={({ isActive }) =>
                 `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
                 }`
               }
             >
@@ -131,7 +131,7 @@ export default function Nav() {
               onClick={closeMega}
               className={({ isActive }) =>
                 `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
                 }`
               }
             >
@@ -142,12 +142,12 @@ export default function Nav() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <Link to="/contact" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors px-4 py-2">
+            <Link to="/contact" className="text-sm font-medium text-smoke-dim hover:text-white transition-colors px-4 py-2">
               Contact
             </Link>
             <button
               onClick={() => { openModal(); closeMega() }}
-              className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-500/20"
+              className="bg-ember hover:bg-ember-dim text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-ember/20"
             >
               Get Free Quote
             </button>
@@ -174,24 +174,24 @@ export default function Nav() {
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="bg-zinc-950 border-b border-zinc-800/80 shadow-2xl shadow-black/50">
+          <div className="bg-ink border-b border-white/5 shadow-2xl shadow-black/50">
             <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
                 {/* Services grid */}
                 <div>
-                  <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-5">Our AI Marketing Services</p>
+                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">Our AI Marketing Services</p>
                   <div className="grid sm:grid-cols-2 gap-1">
                     {SERVICES.map(({ to, label, desc, color }) => (
                       <Link
                         key={to}
                         to={to}
                         onClick={closeMega}
-                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-800/50 transition-colors"
+                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors"
                       >
                         <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ background: color }} />
                         <div>
-                          <p className="text-sm font-semibold text-white group-hover:text-red-400 transition-colors">{label}</p>
-                          <p className="text-xs text-zinc-500 mt-0.5">{desc}</p>
+                          <p className="text-sm font-semibold text-white group-hover:text-ember transition-colors">{label}</p>
+                          <p className="text-xs text-smoke-faint mt-0.5">{desc}</p>
                         </div>
                       </Link>
                     ))}
@@ -199,14 +199,14 @@ export default function Nav() {
                 </div>
 
                 {/* CTA side panel */}
-                <div className="hidden lg:flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/10">
+                <div className="hidden lg:flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-ember/10 to-transparent border border-ember/10">
                   <div>
                     <p className="text-lg font-bold text-white mb-2">Not sure which service?</p>
-                    <p className="text-sm text-zinc-400 leading-relaxed">Get a free quote. We'll audit your marketing and recommend the right AI systems for your goals.</p>
+                    <p className="text-sm text-smoke-dim leading-relaxed">Get a free quote. We'll audit your marketing and recommend the right AI systems for your goals.</p>
                   </div>
                   <button
                     onClick={() => { openModal(); closeMega() }}
-                    className="mt-6 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all w-full"
+                    className="mt-6 bg-ember hover:bg-ember-dim text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all w-full"
                   >
                     Get Your Free Quote →
                   </button>
@@ -225,23 +225,23 @@ export default function Nav() {
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
         >
-          <div className="bg-zinc-950 border-b border-zinc-800/80 shadow-2xl shadow-black/50">
+          <div className="bg-ink border-b border-white/5 shadow-2xl shadow-black/50">
             <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
               <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
                 <div>
-                  <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-5">Company</p>
+                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">Company</p>
                   <div className="grid sm:grid-cols-2 gap-1">
                     {COMPANY.map(({ to, label, desc }) => (
                       <Link
                         key={to}
                         to={to}
                         onClick={closeMega}
-                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-800/50 transition-colors"
+                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors"
                       >
-                        <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-zinc-600" />
+                        <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-smoke-faint" />
                         <div>
-                          <p className="text-sm font-semibold text-white group-hover:text-red-400 transition-colors">{label}</p>
-                          <p className="text-xs text-zinc-500 mt-0.5">{desc}</p>
+                          <p className="text-sm font-semibold text-white group-hover:text-ember transition-colors">{label}</p>
+                          <p className="text-xs text-smoke-faint mt-0.5">{desc}</p>
                         </div>
                       </Link>
                     ))}
@@ -249,8 +249,8 @@ export default function Nav() {
                 </div>
 
                 {/* Stats panel */}
-                <div className="hidden lg:block p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800/60">
-                  <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-5">By The Numbers</p>
+                <div className="hidden lg:block p-6 rounded-2xl bg-ink-3 border border-white/5">
+                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">By The Numbers</p>
                   <div className="grid grid-cols-2 gap-4">
                     {[
                       { num: '3×', label: 'Revenue Growth' },
@@ -260,7 +260,7 @@ export default function Nav() {
                     ].map(({ num, label }) => (
                       <div key={label}>
                         <div className="text-2xl font-extrabold text-white">{num}</div>
-                        <div className="text-xs text-zinc-500 mt-0.5">{label}</div>
+                        <div className="text-xs text-smoke-faint mt-0.5">{label}</div>
                       </div>
                     ))}
                   </div>
@@ -273,19 +273,19 @@ export default function Nav() {
 
       {/* ═══ MOBILE MENU ═══ */}
       <div
-        className={`fixed inset-0 z-40 bg-zinc-950/98 backdrop-blur-xl flex flex-col pt-24 px-6 pb-8 overflow-y-auto transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-ink/98 backdrop-blur-xl flex flex-col pt-24 px-6 pb-8 overflow-y-auto transition-all duration-500 lg:hidden ${
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Mobile Services */}
-        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-4">Services</p>
+        <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-4">Services</p>
         <div className="flex flex-col gap-1 mb-8">
           {SERVICES.map(({ to, label, color }) => (
             <Link
               key={to}
               to={to}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 py-3 px-2 rounded-lg hover:bg-zinc-800/50 transition-colors"
+              className="flex items-center gap-3 py-3 px-2 rounded-lg hover:bg-white/5 transition-colors"
             >
               <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
               <span className="text-lg font-semibold text-white">{label}</span>
@@ -294,14 +294,14 @@ export default function Nav() {
         </div>
 
         {/* Mobile Company */}
-        <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-4">Company</p>
+        <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-4">Company</p>
         <div className="flex flex-col gap-1 mb-8">
           {COMPANY.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
               onClick={() => setMobileOpen(false)}
-              className="py-3 px-2 text-lg font-semibold text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800/50 transition-colors"
+              className="py-3 px-2 text-lg font-semibold text-smoke-dim hover:text-white rounded-lg hover:bg-white/5 transition-colors"
             >
               {label}
             </Link>
@@ -312,7 +312,7 @@ export default function Nav() {
         <div className="mt-auto">
           <button
             onClick={() => { openModal(); setMobileOpen(false) }}
-            className="w-full bg-red-500 hover:bg-red-600 text-white text-base font-semibold px-6 py-4 rounded-xl transition-all"
+            className="w-full bg-ember hover:bg-ember-dim text-white text-base font-semibold px-6 py-4 rounded-xl transition-all"
           >
             Get Free Quote
           </button>

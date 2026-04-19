@@ -7,17 +7,17 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const CAT_COLOR: Record<string, string> = {
-  'AI Video': '#C9A96E',
-  'Growth Systems': '#E8452A',
-  'Performance Advertising': '#3CBFAE',
-  'TikTok': '#3CBFAE',
-  'Film': '#8A8AFF',
-  'Technology': '#6C7AE0',
-  'AI Marketing': '#C9A96E',
-  'Social Media': '#3CBFAE',
-  'Marketing Analytics': '#6C7AE0',
-  'Content Strategy': '#8A8AFF',
-  'eCommerce': '#E8452A',
+  'AI Video': '#D4A853',
+  'Growth Systems': '#EF4444',
+  'Performance Advertising': '#3B82F6',
+  'TikTok': '#3B82F6',
+  'Film': '#D4A853',
+  'Technology': '#3B82F6',
+  'AI Marketing': '#D4A853',
+  'Social Media': '#3B82F6',
+  'Marketing Analytics': '#EF4444',
+  'Content Strategy': '#D4A853',
+  'eCommerce': '#EF4444',
 }
 
 export default function BlogPost() {
@@ -68,7 +68,7 @@ export default function BlogPost() {
   }
 
   const categoryName = post.blog_categories?.name || post.category || ''
-  const catColor = CAT_COLOR[categoryName] || '#E8452A'
+  const catColor = CAT_COLOR[categoryName] || '#EF4444'
 
   const formattedDate = post.published_at
     ? new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -259,11 +259,8 @@ export default function BlogPost() {
       </section>
 
       {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: '#E8452A' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px)',
-        }} />
-        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <section className="cta-gradient">
+        <div className="px-6 lg:px-12 py-24 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
               style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>

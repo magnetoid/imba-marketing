@@ -11,7 +11,7 @@ const SERVICES = [
     features: ['Marketing automation', 'Lead generation & nurturing', 'Revenue optimization', 'Multi-channel orchestration'],
     stat: '3×',
     statLabel: 'average revenue growth in year one',
-    color: '#E8452A',
+    color: '#EF4444',
   },
   {
     key: 'ads', slug: 'ads',
@@ -22,7 +22,7 @@ const SERVICES = [
     features: ['Google, Meta, TikTok & LinkedIn ads', 'Real-time ROAS optimization', 'AI creative testing', 'Cross-platform budget allocation'],
     stat: '300%',
     statLabel: 'better return on ad spend',
-    color: '#C9A96E',
+    color: '#D4A853',
   },
   {
     key: 'personalisation', slug: 'personalisation',
@@ -33,7 +33,7 @@ const SERVICES = [
     features: ['Dynamic content personalization', 'Behavioral targeting', 'Customer journey mapping', 'Email personalization'],
     stat: '5×',
     statLabel: 'higher engagement than generic messaging',
-    color: '#00D4FF',
+    color: '#3B82F6',
   },
   {
     key: 'content', slug: 'content',
@@ -44,7 +44,7 @@ const SERVICES = [
     features: ['Social media content', 'Email & ad copy', 'Blog articles & SEO content', 'Product descriptions'],
     stat: '30×',
     statLabel: 'more content than doing it manually',
-    color: '#6C7AE0',
+    color: '#EF4444',
   },
   {
     key: 'intelligence', slug: 'intelligence',
@@ -55,7 +55,7 @@ const SERVICES = [
     features: ['Market & competitor research', 'Customer behavior insights', 'Trend prediction', 'Performance dashboards'],
     stat: '28%',
     statLabel: 'average growth from new opportunities discovered',
-    color: '#3CBFAE',
+    color: '#D4A853',
   },
   {
     key: 'funnel', slug: 'funnel',

@@ -25,7 +25,7 @@ const FALLBACK_TEAM: TeamMember[] = [
   },
 ]
 
-const MEMBER_COLORS = ['#C9A96E', '#E8452A', '#3CBFAE', '#6C7AE0', '#00D4FF']
+const MEMBER_COLORS = ['#D4A853', '#EF4444', '#3B82F6', '#D4A853', '#EF4444']
 
 const VALUES = [
   {
@@ -114,7 +114,7 @@ export default function About() {
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[50vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgba(201,169,110,0.06) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgba(212,168,83,0.06) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-6 reveal">Est. 2016 · Wilmington, Delaware & Kragujevac, Serbia</p>
@@ -139,8 +139,8 @@ export default function About() {
             <div className="relative aspect-[4/3] bg-ink-2 border border-white/5 overflow-hidden reveal reveal-delay-2 hidden lg:block">
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 text-center px-8">
                 <div className="w-14 h-14 flex items-center justify-center border border-cyber/30"
-                  style={{ background: 'rgba(0,212,255,0.08)' }}>
-                  <span style={{ color: '#00D4FF', fontSize: '1.5rem' }}>◈</span>
+                  style={{ background: 'rgba(59,130,246,0.08)' }}>
+                  <span style={{ color: '#3B82F6', fontSize: '1.5rem' }}>◈</span>
                 </div>
                 <div>
                   <p className="font-mono-custom text-[0.58rem] tracking-[0.2em] uppercase text-smoke-faint mb-2">Our promise</p>
@@ -153,7 +153,7 @@ export default function About() {
                 </div>
               </div>
               <div className="absolute inset-0 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,212,255,0.04) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)' }}
               />
             </div>
           </div>
@@ -304,11 +304,11 @@ export default function About() {
             {TESTIMONIALS.map((t, i) => (
               <div key={t.name} className="bg-ink p-8 relative reveal" style={{ transitionDelay: `${i * 100}ms` }}>
                 <div className="absolute top-5 right-6 font-display text-[5rem] font-light leading-none select-none"
-                  style={{ color: 'rgba(232,69,42,0.05)' }}>"</div>
+                  style={{ color: 'rgba(239,68,68,0.05)' }}>"</div>
                 <p className="font-display text-lg font-light italic text-smoke/80 leading-relaxed mb-6">{t.text}</p>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono-custom text-[0.6rem]"
-                    style={{ background: 'rgba(232,69,42,0.1)', border: '1px solid rgba(232,69,42,0.2)', color: '#E8452A' }}>
+                    style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#EF4444' }}>
                     {t.name.split(' ').map(w => w[0]).join('')}
                   </div>
                   <div>
@@ -325,7 +325,7 @@ export default function About() {
       </section>
 
       {/* ── FOLLOW US ─────────────────────────────────────── */}
-      <section className="py-16 px-6 lg:px-12 bg-ink border-t border-white/5">
+      <section className="py-24 px-6 lg:px-12 bg-ink border-t border-white/5">
         <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div>
             <p className="eyebrow mb-2 reveal">Follow our work</p>
@@ -351,7 +351,7 @@ export default function About() {
       </section>
 
       {/* ── CLIENTS ───────────────────────────────────────── */}
-      <section className="py-16 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
+      <section className="py-24 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto">
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center reveal">
             Trusted by businesses that want to grow
@@ -367,10 +367,7 @@ export default function About() {
       </section>
 
       {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: '#E8452A' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px)',
-        }} />
+      <section className="relative overflow-hidden cta-gradient">
         <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div>
             <h2 className="font-display font-light leading-tight text-ink"
@@ -384,7 +381,7 @@ export default function About() {
           <button
             onClick={() => openModal()}
             className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4 cursor-pointer"
-            style={{ background: '#0A0A0B', color: '#F5F4F0', border: 'none' }}>
+            style={{ background: '#09090B', color: '#FAFAF9', border: 'none' }}>
             Get your free growth plan
           </button>
         </div>

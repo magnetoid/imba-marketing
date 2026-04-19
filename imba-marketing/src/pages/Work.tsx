@@ -6,12 +6,12 @@ import Seo from '@/components/Seo'
 
 /* ── category labels & colours (matches PortfolioAdmin) ──── */
 const CAT_META: Record<string, { label: string; color: string }> = {
-  growth:          { label: 'Growth',          color: '#E8452A' },
-  ads:             { label: 'Performance Ads', color: '#C9A96E' },
-  content:         { label: 'Content',         color: '#6C7AE0' },
-  funnel:          { label: 'Conversion',      color: '#3CBFAE' },
-  intelligence:    { label: 'Intelligence',    color: '#C9A96E' },
-  personalisation: { label: 'Personalization', color: '#00D4FF' },
+  growth:          { label: 'Growth',          color: '#EF4444' },
+  ads:             { label: 'Performance Ads', color: '#D4A853' },
+  content:         { label: 'Content',         color: '#3B82F6' },
+  funnel:          { label: 'Conversion',      color: '#EF4444' },
+  intelligence:    { label: 'Intelligence',    color: '#D4A853' },
+  personalisation: { label: 'Personalization', color: '#3B82F6' },
 }
 
 const CATS = [
@@ -108,9 +108,9 @@ export default function Work() {
       />
 
       {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(232,69,42,0.06) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">Real client results</p>
@@ -149,9 +149,9 @@ export default function Work() {
               onClick={() => setActiveCategory(key)}
               className="flex-shrink-0 font-mono-custom text-[0.65rem] tracking-[0.12em] uppercase px-4 py-2 transition-all duration-200"
               style={{
-                background: activeCategory === key ? '#E8452A' : 'transparent',
+                background: activeCategory === key ? '#EF4444' : 'transparent',
                 color: activeCategory === key ? '#F5F4F0' : '#6B6A65',
-                border: `1px solid ${activeCategory === key ? '#E8452A' : 'rgba(255,255,255,0.06)'}`,
+                border: `1px solid ${activeCategory === key ? '#EF4444' : 'rgba(255,255,255,0.06)'}`,
               }}
             >
               {label}
@@ -161,10 +161,10 @@ export default function Work() {
       </div>
 
       {/* ── CASE STUDY GRID ───────────────────────────────── */}
-      <section className="bg-ink py-12 px-6 lg:px-12">
+      <section className="bg-ink py-24 px-6 lg:px-12">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
           {filtered.map((item, i) => {
-            const meta = CAT_META[item.category] || { label: item.category, color: '#E8452A' }
+            const meta = CAT_META[item.category] || { label: item.category, color: '#EF4444' }
             const results = item.results ? Object.entries(item.results) : []
             return (
               <div
@@ -221,20 +221,20 @@ export default function Work() {
       </section>
 
       {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="bg-ink-2 py-20 px-6 lg:px-12 border-t border-white/5">
+      <section className="cta-gradient py-24 px-6 lg:px-12 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div>
             <p className="eyebrow mb-4">Want results like these?</p>
-            <h2 className="font-display font-light text-smoke leading-tight"
-              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}>
+            <h2 className="font-display font-light text-ink leading-tight"
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
               Let's build your<br /><em className="text-[#D4A853] italic">growth plan</em>
             </h2>
-            <p className="text-smoke-dim mt-3 max-w-md" style={{ fontSize: '0.93rem' }}>
+            <p className="text-ink/70 mt-3 max-w-md" style={{ fontSize: '0.93rem' }}>
               Every result above started with a free conversation. Tell us your goals and we'll show you exactly how we'd help — no commitment, no pressure.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-            <Link to="/contact" className="btn btn-primary">Get your free growth plan</Link>
+            <Link to="/contact" className="btn" style={{ background: '#09090B', color: '#FAFAF9' }}>Get your free growth plan</Link>
             <Link to="/services" className="btn btn-ghost">See what we do →</Link>
           </div>
         </div>

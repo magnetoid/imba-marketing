@@ -20,7 +20,7 @@ export const SERVICES_DATA: ServiceData[] = [
     icon: '◈',
     label: 'Grow Your Revenue on Autopilot',
     tagline: 'Marketing that runs itself and gets better every day',
-    color: '#E8452A',
+    color: '#EF4444',
     heroDesc: 'Imagine your marketing working around the clock without you having to manage it. Campaigns that improve on their own, leads that get scored automatically, and revenue that grows month after month. That\'s what we build for you — a marketing engine that runs itself so you can focus on running your business.',
     stats: [
       { num: '3×', label: 'average revenue growth in year one' },
@@ -59,7 +59,7 @@ export const SERVICES_DATA: ServiceData[] = [
     icon: '▣',
     label: 'Get More from Every Ad Dollar',
     tagline: 'Stop wasting money on ads that don\'t convert',
-    color: '#C9A96E',
+    color: '#D4A853',
     heroDesc: 'If you\'re running ads and not happy with the returns, we can fix that. We manage your advertising across all platforms — testing what works, cutting what doesn\'t, and making sure every dollar you spend brings back as much as possible. Our clients typically see 3× better returns within 2 months.',
     stats: [
       { num: '300%', label: 'better return on ad spend' },
@@ -98,7 +98,7 @@ export const SERVICES_DATA: ServiceData[] = [
     icon: '◉',
     label: 'Make Every Customer Feel Special',
     tagline: 'The right message, right person, right time — automatically',
-    color: '#00D4FF',
+    color: '#3B82F6',
     heroDesc: 'Your customers don\'t want generic emails and one-size-fits-all websites. They want to feel like you understand them. We make that happen automatically — every email, every webpage, every ad adapts to each person\'s interests and behavior. The result? People engage more, buy more, and come back more often.',
     stats: [
       { num: '5×', label: 'more engagement than generic messages' },
@@ -137,7 +137,7 @@ export const SERVICES_DATA: ServiceData[] = [
     icon: '▶',
     label: 'A Month of Content in One Day',
     tagline: 'Never run out of things to post again',
-    color: '#6C7AE0',
+    color: '#EF4444',
     heroDesc: 'Creating content is exhausting and time-consuming. We fix that. We build you a content machine that creates posts, emails, ads, and articles that sound exactly like your brand — at a speed that would be impossible to do manually. One session produces a whole month of ready-to-publish content across all your platforms.',
     stats: [
       { num: '30×', label: 'more content than doing it yourself' },
@@ -176,7 +176,7 @@ export const SERVICES_DATA: ServiceData[] = [
     icon: '◬',
     label: 'Know What Your Customers Want',
     tagline: 'Stop guessing, start knowing',
-    color: '#3CBFAE',
+    color: '#D4A853',
     heroDesc: 'Most businesses make marketing decisions based on gut feeling. We give you hard data instead. Know exactly what your customers are searching for, what your competitors are doing, and where the untapped opportunities are in your market. No more guessing — just clear, actionable answers that help you grow.',
     stats: [
       { num: '28%', label: 'average growth from opportunities found' },

@@ -114,11 +114,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ WHAT WE DO ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12" style={{ background: '#09090B' }}>
+      <section className="py-24 px-6 lg:px-12" style={{ background: '#09090B' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-display font-light tracking-tight leading-tight reveal"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#FAFAF9' }}>
               What We <em className="italic text-[#D4A853]">Do</em>
             </h2>
             <p className="text-base mt-4 max-w-xl mx-auto reveal reveal-delay-1" style={{ color: '#A1A1AA' }}>
@@ -126,7 +126,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SERVICES.map(({ slug, title, desc, color }, i) => (
               <Link
                 key={slug}
@@ -151,11 +151,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ RESULTS ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
+      <section className="py-24 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-display font-light tracking-tight leading-tight reveal"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#FAFAF9' }}>
               Real <em className="italic text-[#D4A853]">Results</em>
             </h2>
             <p className="text-base mt-4 max-w-xl mx-auto reveal reveal-delay-1" style={{ color: '#A1A1AA' }}>
@@ -163,7 +163,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 client: 'FoodCo International',
@@ -216,11 +216,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ HOW IT WORKS ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12" style={{ background: '#09090B' }}>
+      <section className="py-24 px-6 lg:px-12" style={{ background: '#09090B' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-display font-light tracking-tight leading-tight reveal"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#FAFAF9' }}>
               How It <em className="italic text-[#D4A853]">Works</em>
             </h2>
           </div>
@@ -243,16 +243,16 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
-      <section className="py-28 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
+      <section className="py-24 px-6 lg:px-12" style={{ background: '#0F0F12' }}>
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="font-display font-light tracking-tight leading-tight reveal"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.5rem)', color: '#FAFAF9' }}>
+              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', color: '#FAFAF9' }}>
               What Our Clients <em className="italic text-[#D4A853]">Say</em>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <div key={t.id} className="glass-card p-8 flex flex-col reveal" style={{ transitionDelay: `${i * 100}ms` }}>
                 {/* Stars */}
@@ -288,7 +288,7 @@ export default function Home() {
 
       {/* ═══════════════════ CTA ═══════════════════ */}
       <section className="cta-gradient">
-        <div className="px-6 lg:px-12 py-28 max-w-screen-xl mx-auto text-center">
+        <div className="px-6 lg:px-12 py-24 max-w-screen-xl mx-auto text-center">
           <h2 className="font-display font-light tracking-tight leading-tight mb-6"
             style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', color: '#09090B' }}>
             Ready to Transform Your <em className="italic">Marketing?</em>

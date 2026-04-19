@@ -7,12 +7,12 @@ import Seo from '@/components/Seo'
 const DEFAULT_CATEGORIES = ['All', 'AI Marketing', 'Growth Strategy', 'Performance Advertising', 'Content Strategy', 'Conversion Optimization', 'Industry Insights', 'Case Studies']
 
 const CAT_COLOR: Record<string, string> = {
-  'AI Marketing': '#C9A96E',
-  'Growth Systems': '#E8452A',
-  'Performance Advertising': '#3CBFAE',
-  'Content Strategy': '#8A8AFF',
-  'Marketing Analytics': '#6C7AE0',
-  'Industry Insights': '#00D4FF',
+  'AI Marketing': '#D4A853',
+  'Growth Systems': '#EF4444',
+  'Performance Advertising': '#3B82F6',
+  'Content Strategy': '#D4A853',
+  'Marketing Analytics': '#EF4444',
+  'Industry Insights': '#3B82F6',
 }
 
 /* ── fallback posts shown when DB is empty/unreachable ──── */
@@ -87,7 +87,7 @@ export default function Blog() {
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(201,169,110,0.05) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(212,168,83,0.05) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">AI marketing insights</p>
@@ -115,7 +115,7 @@ export default function Blog() {
               {/* Visual */}
               <div className="relative overflow-hidden bg-ink-3 aspect-video lg:aspect-auto">
                 <div className="absolute inset-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(201,169,110,0.12) 0%, rgba(232,69,42,0.08) 50%, transparent 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, rgba(212,168,83,0.12) 0%, rgba(239,68,68,0.08) 50%, transparent 100%)' }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
@@ -126,7 +126,7 @@ export default function Blog() {
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px)',
                 }} />
                 <div className="absolute top-4 left-4 font-mono-custom text-[0.58rem] tracking-widest uppercase px-2 py-1"
-                  style={{ background: `${CAT_COLOR[featured.category] || '#E8452A'}22`, color: CAT_COLOR[featured.category] || '#E8452A', border: `1px solid ${CAT_COLOR[featured.category] || '#E8452A'}33` }}>
+                  style={{ background: `${CAT_COLOR[featured.category] || '#EF4444'}22`, color: CAT_COLOR[featured.category] || '#EF4444', border: `1px solid ${CAT_COLOR[featured.category] || '#EF4444'}33` }}>
                   Featured · {featured.category}
                 </div>
               </div>
@@ -167,9 +167,9 @@ export default function Blog() {
               onClick={() => setActiveCategory(cat)}
               className="flex-shrink-0 font-mono-custom text-[0.65rem] tracking-[0.12em] uppercase px-4 py-2 transition-all duration-200"
               style={{
-                background: activeCategory === cat ? '#E8452A' : 'transparent',
+                background: activeCategory === cat ? '#EF4444' : 'transparent',
                 color: activeCategory === cat ? '#F5F4F0' : '#6B6A65',
-                border: `1px solid ${activeCategory === cat ? '#E8452A' : 'rgba(255,255,255,0.06)'}`,
+                border: `1px solid ${activeCategory === cat ? '#EF4444' : 'rgba(255,255,255,0.06)'}`,
               }}
             >
               {cat}
@@ -179,7 +179,7 @@ export default function Blog() {
       </div>
 
       {/* ── POSTS GRID ────────────────────────────────────── */}
-      <section className="bg-ink py-12 px-6 lg:px-12">
+      <section className="bg-ink py-24 px-6 lg:px-12">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {(activeCategory === 'All' ? POSTS.filter(p => !p.featured) : filtered).map((post, i) => (
             <Link
@@ -191,10 +191,10 @@ export default function Blog() {
               {/* Thumbnail area */}
               <div className="relative overflow-hidden aspect-video bg-ink-3 flex-shrink-0">
                 <div className="absolute inset-0"
-                  style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${CAT_COLOR[post.category] || '#E8452A'}12 0%, transparent 70%)` }}
+                  style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${CAT_COLOR[post.category] || '#EF4444'}12 0%, transparent 70%)` }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display font-light select-none" style={{ fontSize: '4rem', color: `${CAT_COLOR[post.category] || '#E8452A'}18` }}>
+                  <span className="font-display font-light select-none" style={{ fontSize: '4rem', color: `${CAT_COLOR[post.category] || '#EF4444'}18` }}>
                     {post.category === 'AI Video' ? '◈' : post.category === 'TikTok' ? '◉' : post.category === 'Film' ? '◬' : post.category === 'Technology' ? '◰' : '▶'}
                   </span>
                 </div>
@@ -202,7 +202,7 @@ export default function Blog() {
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px)',
                 }} />
                 <div className="absolute top-3 left-3 font-mono-custom text-[0.55rem] tracking-widest uppercase px-2 py-1"
-                  style={{ background: `${CAT_COLOR[post.category] || '#E8452A'}22`, color: CAT_COLOR[post.category] || '#E8452A', border: `1px solid ${CAT_COLOR[post.category] || '#E8452A'}33` }}>
+                  style={{ background: `${CAT_COLOR[post.category] || '#EF4444'}22`, color: CAT_COLOR[post.category] || '#EF4444', border: `1px solid ${CAT_COLOR[post.category] || '#EF4444'}33` }}>
                   {post.category}
                 </div>
               </div>
@@ -238,7 +238,7 @@ export default function Blog() {
       </section>
 
       {/* ── TOPICS STRIP ─────────────────────────────────── */}
-      <section className="bg-ink-2 py-16 px-6 lg:px-12 border-t border-white/5">
+      <section className="bg-ink-2 py-24 px-6 lg:px-12 border-t border-white/5">
         <div className="max-w-screen-xl mx-auto">
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center">Content pillars</p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -258,10 +258,7 @@ export default function Blog() {
       </section>
 
       {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: '#E8452A' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 8px)',
-        }} />
+      <section className="relative overflow-hidden cta-gradient">
         <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div>
             <h2 className="font-display font-light leading-tight text-ink"

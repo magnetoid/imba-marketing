@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
 
 const SERVICES = [
-  'AI Growth Marketing',
-  'AI Performance Ads',
-  'AI Personalization',
-  'AI Content Production',
-  'AI Analytics & Intelligence',
-  'AI Conversion Optimization',
+  { label: 'AI Growth Marketing', to: '/services/growth' },
+  { label: 'AI Performance Ads', to: '/services/ads' },
+  { label: 'AI Personalization', to: '/services/personalisation' },
+  { label: 'AI Content Production', to: '/services/content' },
+  { label: 'AI Analytics & Intelligence', to: '/services/intelligence' },
+  { label: 'AI Conversion Optimization', to: '/services/funnel' },
 ]
 const COMPANY = [
   { label: 'About Us', to: '/about' },
@@ -25,19 +25,19 @@ const SOCIAL = [
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-950 border-t border-zinc-800">
+    <footer className="bg-ink border-t border-white/5">
 
       {/* Main grid */}
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
 
         {/* Brand */}
         <div>
           <Link to="/" className="inline-block mb-4">
-            <span className="font-display font-light text-2xl text-white">
-              imba<span className="font-normal text-zinc-500">.marketing</span>
+            <span className="font-display font-light text-2xl text-smoke">
+              imba<span className="font-normal text-smoke-faint">.marketing</span>
             </span>
           </Link>
-          <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mb-6">
+          <p className="text-sm text-smoke-faint leading-relaxed max-w-xs mb-6">
             AI-powered marketing agency for ambitious brands. Intelligent campaigns that drive revenue and scale faster.
           </p>
           <div className="flex flex-col gap-2">
@@ -47,7 +47,7 @@ export default function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+                className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
               >
                 {label}
               </a>
@@ -57,17 +57,17 @@ export default function Footer() {
 
         {/* Services */}
         <div>
-          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
             Services
           </p>
           <ul className="flex flex-col gap-3">
-            {SERVICES.map(s => (
-              <li key={s}>
+            {SERVICES.map(({ label: sLabel, to }) => (
+              <li key={sLabel}>
                 <Link
-                  to="/services"
-                  className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+                  to={to}
+                  className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
                 >
-                  {s}
+                  {sLabel}
                 </Link>
               </li>
             ))}
@@ -76,7 +76,7 @@ export default function Footer() {
 
         {/* Company */}
         <div>
-          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
             Company
           </p>
           <ul className="flex flex-col gap-3">
@@ -84,7 +84,7 @@ export default function Footer() {
               <li key={label}>
                 <Link
                   to={to}
-                  className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+                  className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
                 >
                   {label}
                 </Link>
@@ -95,13 +95,13 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <p className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
             Contact
           </p>
-          <div className="flex flex-col gap-3 text-sm text-zinc-500">
+          <div className="flex flex-col gap-3 text-sm text-smoke-faint">
             <a
               href="mailto:hello@imbamarketing.com"
-              className="hover:text-zinc-300 transition-colors duration-200"
+              className="hover:text-smoke transition-colors duration-200"
             >
               hello@imbamarketing.com
             </a>
@@ -120,20 +120,20 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-zinc-800 max-w-screen-xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p className="text-xs text-zinc-600">
+      <div className="border-t border-white/5 max-w-screen-xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p className="text-xs text-smoke-faint">
           &copy; {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
         </p>
         <div className="flex gap-6">
           <Link
             to="/privacy"
-            className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors duration-200"
+            className="text-xs text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
           >
             Privacy Policy
           </Link>
           <Link
             to="/admin"
-            className="text-xs text-zinc-700 hover:text-zinc-400 transition-colors duration-200"
+            className="text-xs text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
           >
             Admin
           </Link>

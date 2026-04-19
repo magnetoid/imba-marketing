@@ -111,7 +111,7 @@ export default function Contact() {
       </section>
 
       {/* ── FORM + INFO ──────────────────────────────────────── */}
-      <section className="py-20 px-6 lg:px-12 bg-ink-2">
+      <section className="py-24 px-6 lg:px-12 bg-ink-2">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16">
 
           {/* Form */}
@@ -241,7 +241,7 @@ export default function Contact() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
-      <section className="py-20 px-6 lg:px-12 bg-ink">
+      <section className="py-24 px-6 lg:px-12 bg-ink">
         <div className="max-w-screen-xl mx-auto">
           <p className="eyebrow mb-8 reveal">Common questions</p>
           <div className="max-w-2xl flex flex-col divide-y divide-white/8">
