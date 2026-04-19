@@ -13,6 +13,7 @@ import Blog from '@/pages/Blog'
 import BlogPost from '@/pages/BlogPost'
 import Contact from '@/pages/Contact'
 import Reviews from '@/pages/Reviews'
+import Gallery from '@/pages/Gallery'
 import ServicePage from '@/pages/services/ServicePage'
 import AdminLayout from '@/admin/AdminLayout'
 import AdminLanding from '@/admin/AdminLanding'
@@ -23,6 +24,7 @@ import BlogAdmin from '@/admin/BlogAdmin'
 import BlogPostEditor from '@/admin/BlogPostEditor'
 import QuoteRequests from '@/admin/QuoteRequests'
 import MediaAdmin from '@/admin/MediaAdmin'
+import GalleryAdmin from '@/admin/GalleryAdmin'
 import BlogCategoriesAdmin from '@/admin/BlogCategoriesAdmin'
 import ImportAdmin from '@/admin/ImportAdmin'
 import SeoAdmin from '@/admin/SeoAdmin'
@@ -106,6 +108,7 @@ export default function App() {
         <Route path="/blog/:slug" element={<PublicLayout><BlogPost /></PublicLayout>} />
         <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
         <Route path="/reviews" element={<PublicLayout><Reviews /></PublicLayout>} />
+        <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
 
         {/* Admin */}
         <Route path="/admin" element={<AdminLayout />}>
@@ -118,6 +121,7 @@ export default function App() {
           <Route path="blog/categories" element={<BlogCategoriesAdmin />} />
           <Route path="blog/:id" element={<BlogPostEditor />} />
           <Route path="media" element={<MediaAdmin />} />
+          <Route path="gallery" element={<GalleryAdmin />} />
           <Route path="import" element={<ImportAdmin />} />
           <Route path="quotes" element={<QuoteRequests />} />
           <Route path="seo" element={<SeoAdmin />} />

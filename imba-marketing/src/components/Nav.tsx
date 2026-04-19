@@ -16,6 +16,7 @@ const COMPANY = [
   { to: '/about', label: 'About Us', desc: 'Our team, mission, and values' },
   { to: '/results', label: 'Portfolio', desc: 'Real results from real brands' },
   { to: '/reviews', label: 'Reviews', desc: 'What our clients say' },
+  { to: '/gallery', label: 'Gallery', desc: 'Our work up close' },
   { to: '/blog', label: 'Blog', desc: 'AI marketing insights & guides' },
   { to: '/contact', label: 'Contact', desc: 'Get a free quote or send a message' },
 ]

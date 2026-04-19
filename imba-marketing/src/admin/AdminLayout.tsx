@@ -9,13 +9,14 @@ import { Separator } from '@/components/ui/separator'
 import {
   LayoutDashboard, Film, Image, FileText, MessageSquare, LogOut, Loader2,
   FolderOpen, Tag, Upload, Globe, Users, Search, ArrowLeft, ChevronRight, Star,
-  Send, Inbox, BarChart2, Settings, Sliders,
+  Send, Inbox, BarChart2, Settings, Sliders, GalleryHorizontalEnd,
 } from 'lucide-react'
 
 const NAV_CMS = [
   { to: '/admin/dashboard',       label: 'Dashboard',      icon: LayoutDashboard },
   { to: '/admin/hero-videos',     label: 'Hero Videos',    icon: Film },
   { to: '/admin/portfolio',       label: 'Portfolio',      icon: Image },
+  { to: '/admin/gallery',         label: 'Gallery',        icon: GalleryHorizontalEnd },
   { to: '/admin/media',           label: 'Media Library',  icon: FolderOpen },
   { to: '/admin/blog',            label: 'Blog',           icon: FileText },
   { to: '/admin/blog/categories', label: 'Categories',     icon: Tag },
