@@ -126,6 +126,19 @@ export default function Nav() {
               Portfolio
             </NavLink>
 
+            {/* Gallery — direct link */}
+            <NavLink
+              to="/gallery"
+              onClick={closeMega}
+              className={({ isActive }) =>
+                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
+                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
+                }`
+              }
+            >
+              Gallery
+            </NavLink>
+
             {/* Blog — direct link */}
             <NavLink
               to="/blog"

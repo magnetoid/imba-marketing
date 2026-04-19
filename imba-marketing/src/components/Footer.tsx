@@ -120,24 +120,46 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-white/5 max-w-screen-xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p className="text-xs text-smoke-faint">
-          &copy; {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
-        </p>
-        <div className="flex gap-6">
-          <Link
-            to="/privacy"
-            className="text-xs text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            to="/admin"
-            className="text-xs text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
-          >
-            Admin
-          </Link>
+      {/* Quick links bar */}
+      <div className="border-t border-white/5 max-w-screen-xl mx-auto px-6 lg:px-12 py-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-5">
+          {[
+            { label: 'Home', to: '/' },
+            { label: 'Services', to: '/services' },
+            { label: 'Results', to: '/results' },
+            { label: 'Reviews', to: '/reviews' },
+            { label: 'Gallery', to: '/gallery' },
+            { label: 'Blog', to: '/blog' },
+            { label: 'About', to: '/about' },
+            { label: 'Contact', to: '/contact' },
+          ].map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-sm text-smoke-faint">
+            &copy; {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
+          </p>
+          <div className="flex gap-6">
+            <Link
+              to="/privacy"
+              className="text-sm text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/admin"
+              className="text-sm text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
