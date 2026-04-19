@@ -208,7 +208,7 @@ services:
       SERVICE_KEY: ${SUPABASE_SERVICE_KEY:-your-service-key}
       POSTGREST_URL: http://supabase-rest:3000
       PGRST_JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
-      DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}
+      DATABASE_URL: postgres://${POSTGRES_USER:-supabase}:${POSTGRES_PASSWORD:-changeme_postgres}@supabase-db:5432/${POSTGRES_DB:-imba_marketing}?search_path=storage
       FILE_SIZE_LIMIT: 52428800
       STORAGE_BACKEND: file
       FILE_STORAGE_BACKEND_PATH: /var/lib/storage
