@@ -107,9 +107,21 @@ export default function About() {
   return (
     <>
       <Seo
-        title="About Imba Marketing — AI-Powered Marketing Agency"
-        description="Since 2016, we've helped 200+ brands get more customers and grow revenue with AI-powered marketing. No jargon, just results."
+        title="About Us — Imba Marketing"
+        description="Meet the team behind Imba Marketing. We combine proprietary AI systems with human strategy to help ambitious brands attract, convert, and retain customers."
         canonicalPath="/about"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'AboutPage',
+          'name': 'About Us — Imba Marketing',
+          'description': 'Meet the team behind Imba Marketing. We combine proprietary AI systems with human strategy to help ambitious brands attract, convert, and retain customers.',
+          'url': 'https://imbamarketing.com/about',
+          'publisher': {
+            '@type': 'Organization',
+            'name': 'Imba Marketing',
+            'url': 'https://imbamarketing.com'
+          }
+        }}
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
       <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
@@ -232,6 +244,7 @@ export default function About() {
                     <img
                       src={member.photo_url || ''}
                       alt={member.name}
+                      loading="lazy"
                       className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
                       onError={e => {
                         const el = e.currentTarget

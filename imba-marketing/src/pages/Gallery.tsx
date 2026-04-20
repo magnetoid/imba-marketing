@@ -225,6 +225,13 @@ export default function Gallery() {
         title="Gallery — Imba Marketing"
         description="A look at our work, our team, and the brands we've helped grow with AI-powered marketing."
         canonicalPath="/gallery"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'ImageGallery',
+          'name': 'Imba Marketing Portfolio Gallery',
+          'description': "A look at our work, our team, and the brands we've helped grow with AI-powered marketing.",
+          'url': 'https://imbamarketing.com/gallery',
+        }}
       />
 
       {/* ── HERO ──────────────────────────────────── */}

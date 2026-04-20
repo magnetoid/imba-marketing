@@ -156,6 +156,7 @@ export default function Reviews() {
                   {r.client_avatar_url ? (
                     <img src={r.client_avatar_url} alt={r.client_name}
                       className="w-12 h-12 rounded-sm object-cover flex-shrink-0"
+                      loading="lazy"
                       style={{ border: `1px solid ${color}40` }} />
                   ) : (
                     <div className="w-12 h-12 flex items-center justify-center font-mono-custom text-sm font-medium flex-shrink-0"

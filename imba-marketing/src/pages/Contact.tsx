@@ -92,6 +92,27 @@ export default function Contact() {
         title="Contact — Let's Build Your AI Marketing Strategy"
         description="Tell us about your marketing goals and we'll create a free AI marketing strategy showing exactly how we'd help. No commitment, no pressure."
         canonicalPath="/contact"
+        structuredData={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            'name': 'Contact Imba Marketing',
+            'description': 'Tell us about your marketing goals and we\'ll create a free AI marketing strategy.',
+            'url': 'https://imbamarketing.com/contact'
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': FAQ.map(item => ({
+              '@type': 'Question',
+              'name': item.q,
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': item.a
+              }
+            }))
+          }
+        ]}
       />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
