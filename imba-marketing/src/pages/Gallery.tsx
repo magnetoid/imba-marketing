@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Loader2, ImageOff, Maximize2 } from 'lucide-react'
+import { X, Loader2, ImageOff, Maximize2, Heart } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import type { MediaFile } from '@/lib/supabase'
 import Seo from '@/components/Seo'
 
 // Image Grid Component with loading states
-const GalleryImage = ({ img, index, onClick }: { img: MediaFile, index: number, onClick: (i: number) => void }) => {
+const GalleryImage = ({ img, index, onClick, onLike, isLiked }: { img: MediaFile, index: number, onClick: (i: number) => void, onLike: (id: string, e: any) => void, isLiked: boolean }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
@@ -54,6 +54,7 @@ const GalleryImage = ({ img, index, onClick }: { img: MediaFile, index: number, 
       {/* Hover Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
+      {/* Caption */}
       {img.caption && (
         <div className="absolute bottom-0 left-0 right-0 px-4 py-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
           <p className="font-mono-custom text-[0.7rem] tracking-wide text-smoke/90 line-clamp-2">{img.caption}</p>
@@ -64,6 +65,23 @@ const GalleryImage = ({ img, index, onClick }: { img: MediaFile, index: number, 
       <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-black/40 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
         <Maximize2 className="w-4 h-4 text-smoke/90" />
       </div>
+
+      {/* Like Button */}
+      <button
+        onClick={(e) => onLike(img.id, e)}
+        onKeyDown={(e) => e.key === 'Enter' && onLike(img.id, e)}
+        className={`absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md transition-all duration-300 z-10 
+          ${isLiked ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} 
+          hover:bg-black/60 hover:scale-105 active:scale-95`}
+        aria-label={isLiked ? "Unlike image" : "Like image"}
+      >
+        <Heart 
+          className={`w-3.5 h-3.5 transition-colors ${isLiked ? 'fill-red-500 text-red-500' : 'text-smoke/90 hover:text-red-400'}`} 
+        />
+        <span className="font-mono-custom text-[0.65rem] text-smoke/90">
+          {img.likes_count || 0}
+        </span>
+      </button>
     </div>
   )
 }
@@ -73,10 +91,19 @@ export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const [direction, setDirection] = useState(0)
   const [lightboxLoading, setLightboxLoading] = useState(true)
+  const [likedImages, setLikedImages] = useState<string[]>([])
   
   const lightboxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Load liked images from local storage
+    try {
+      const stored = localStorage.getItem('gallery_likes')
+      if (stored) setLikedImages(JSON.parse(stored))
+    } catch (e) {
+      // ignore
+    }
+
     supabase
       .from('media_files')
       .select('*')
@@ -150,6 +177,30 @@ export default function Gallery() {
     }
   }
 
+  const handleLike = async (id: string, e: React.MouseEvent | React.KeyboardEvent) => {
+    e.stopPropagation() // Prevent opening lightbox
+    
+    // Prevent multiple likes
+    if (likedImages.includes(id)) return
+    
+    // Optimistic update
+    setImages(prev => prev.map(img => 
+      img.id === id 
+        ? { ...img, likes_count: (img.likes_count || 0) + 1 }
+        : img
+    ))
+    
+    // Save to local storage
+    const newLiked = [...likedImages, id]
+    setLikedImages(newLiked)
+    try {
+      localStorage.setItem('gallery_likes', JSON.stringify(newLiked))
+    } catch (err) {}
+    
+    // Send to backend
+    await supabase.rpc('increment_media_like', { media_id: id })
+  }
+
   // Animation variants for slider
   const variants = {
     enter: (direction: number) => ({
@@ -200,7 +251,14 @@ export default function Gallery() {
         ) : (
           <div className="max-w-[1800px] mx-auto columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4">
             {images.map((img, i) => (
-              <GalleryImage key={img.id} img={img} index={i} onClick={openLightbox} />
+              <GalleryImage 
+                key={img.id} 
+                img={img} 
+                index={i} 
+                onClick={openLightbox} 
+                onLike={handleLike}
+                isLiked={likedImages.includes(img.id)}
+              />
             ))}
           </div>
         )}
@@ -271,21 +329,33 @@ export default function Gallery() {
                     />
                   </div>
                   
-                  {/* Caption */}
-                  {current.caption && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="absolute bottom-8 left-0 right-0 px-6 pointer-events-none z-20"
-                    >
-                      <div className="max-w-2xl mx-auto bg-black/60 backdrop-blur-md p-4 rounded-lg text-center border border-smoke/10 pointer-events-auto">
-                        <p className="font-mono-custom text-[0.75rem] tracking-wide text-smoke/90">
-                          {current.caption}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
+                  {/* Caption & Like inside Lightbox */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="absolute bottom-8 left-0 right-0 px-6 pointer-events-none z-20"
+                  >
+                    <div className="max-w-2xl mx-auto flex items-center justify-between gap-4 bg-black/60 backdrop-blur-md p-4 rounded-lg border border-smoke/10 pointer-events-auto">
+                      <p className="font-mono-custom text-[0.75rem] tracking-wide text-smoke/90 text-left flex-1">
+                        {current.caption || "Image view"}
+                      </p>
+                      
+                      {/* Like Button */}
+                      <button
+                        onClick={(e) => handleLike(current.id, e)}
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-full bg-black/40 hover:bg-black/80 backdrop-blur-md transition-all duration-300 flex-shrink-0 group ${likedImages.includes(current.id) ? 'scale-105' : ''}`}
+                        aria-label={likedImages.includes(current.id) ? "Unlike image" : "Like image"}
+                      >
+                        <Heart 
+                          className={`w-4 h-4 transition-colors ${likedImages.includes(current.id) ? 'fill-red-500 text-red-500' : 'text-smoke/90 group-hover:text-red-400'}`} 
+                        />
+                        <span className="font-mono-custom text-[0.7rem] text-smoke/90">
+                          {current.likes_count || 0}
+                        </span>
+                      </button>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>

@@ -91,6 +91,7 @@ export interface MediaFile {
   url: string
   alt?: string
   caption?: string
+  likes_count?: number
   created_at: string
 }
 
