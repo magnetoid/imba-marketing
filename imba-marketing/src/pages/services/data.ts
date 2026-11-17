@@ -11,7 +11,111 @@ export interface ServiceData {
   process: { n: string; title: string; desc: string }[]
   cases: { client: string; headline: string; desc: string }[]
   faq: { q: string; a: string }[]
+  /** 2026 redesign: one of the three service pillars shown in the main nav */
+  pillar?: boolean
+  /** Mono kicker above the page title, e.g. "Service 01 · Marketing" */
+  kicker?: string
+  /** Short name used in nav, cards and the contact form */
+  name?: string
+  /** Slugs of AI specialty pages to cross-link from a pillar page */
+  related?: string[]
 }
+
+/*
+ * The three service pillars from the 2026 redesign (Marketing, Development,
+ * Automation). Copy comes from the redesign; client results are the existing
+ * case studies already used on the specialty pages below.
+ */
+export const PILLARS: ServiceData[] = [
+  {
+    slug: 'marketing', key: 'marketing', icon: '01', pillar: true, name: 'Marketing',
+    kicker: 'Service 01 · Marketing',
+    label: 'Marketing',
+    tagline: 'Campaigns that are measured in revenue.',
+    color: '#C6F432',
+    heroDesc: 'We plan, launch and optimise paid and organic channels with AI-assisted research and testing, so more of your budget reaches people who buy.',
+    stats: [
+      { num: '3×', label: 'average revenue growth in year one' },
+      { num: '4.8×', label: 'return on ad spend across platforms' },
+      { num: '40%', label: 'lower cost to get each customer' },
+      { num: '48h', label: 'until you see first improvements' },
+    ],
+    features: [
+      { title: 'Paid advertising', desc: 'Meta, Google, TikTok and LinkedIn campaigns with creative testing and weekly budget reallocation.' },
+      { title: 'SEO and content', desc: 'Technical fixes, keyword strategy and articles written to rank and to convert.' },
+      { title: 'Email and lifecycle', desc: 'Welcome, abandoned cart and win-back flows that bring customers back without ad spend.' },
+      { title: 'Creative production', desc: 'Ad visuals, short video and landing page copy produced in batches for testing.' },
+      { title: 'Conversion optimisation', desc: 'A/B tests on landing pages, offers and checkout to raise the value of existing traffic.' },
+      { title: 'Reporting', desc: 'One dashboard with spend, leads and revenue by channel, reviewed with you every month.' },
+    ],
+    process: [
+      { n: '01', title: 'Audit', desc: 'We review accounts, tracking and past results, and find where budget is leaking.' },
+      { n: '02', title: 'Launch', desc: 'New structure, creatives and tracking go live within the first weeks.' },
+      { n: '03', title: 'Optimise', desc: 'Weekly tests and monthly reviews against the targets we agreed at the start.' },
+    ],
+    cases: [
+      { client: 'FoodCo International', headline: '89% more revenue, 38% better click rates', desc: 'We automated their entire marketing process. Leads got scored automatically, campaigns optimized themselves, and revenue grew 89% in 12 months.' },
+      { client: 'NordShop', headline: 'Every $1 in ads → $4.80 back', desc: 'An e-commerce store burning $8K/mo on ads with barely any return. We rebuilt their Google Shopping and Meta campaigns — AI testing 200+ product ad variations to find what converts.' },
+    ],
+    faq: [],
+    related: ['growth', 'ads', 'content', 'personalisation', 'intelligence', 'funnel'],
+  },
+  {
+    slug: 'development', key: 'development', icon: '02', pillar: true, name: 'Development',
+    kicker: 'Service 02 · Development',
+    label: 'Development',
+    tagline: 'Websites and apps built to convert.',
+    color: '#C6F432',
+    heroDesc: 'We design and build fast, maintainable websites, stores and web apps, with analytics and SEO set up from day one.',
+    stats: [],
+    features: [
+      { title: 'Marketing websites', desc: 'Company sites and landing pages with a CMS your team can update without a developer.' },
+      { title: 'E-commerce', desc: 'Shopify, WooCommerce or custom stores with checkout, payments and shipping integrations.' },
+      { title: 'Web applications', desc: 'Customer portals, dashboards and SaaS products, from MVP to production.' },
+      { title: 'UX and UI design', desc: 'Flows, wireframes and interface design tested before a line of code is written.' },
+      { title: 'Integrations', desc: 'CRM, ERP, payment and analytics connections so data moves without manual export.' },
+      { title: 'Maintenance', desc: 'Hosting, updates, monitoring and small changes on a monthly retainer.' },
+    ],
+    process: [
+      { n: '01', title: 'Scope', desc: 'We define pages, features and integrations, and fix the price and timeline.' },
+      { n: '02', title: 'Design and build', desc: 'You review designs first, then working builds at the end of each sprint.' },
+      { n: '03', title: 'Launch and support', desc: 'We handle migration, launch and the first weeks of fixes and tuning.' },
+    ],
+    cases: [
+      { client: 'BrandX', headline: '62% more sales, 2× more leads from same traffic', desc: 'We found 4 critical points where visitors were leaving. Testing and fixing these doubled their quality leads within 6 weeks — from the same traffic they already had.' },
+      { client: 'Ogitive', headline: '41% fewer abandoned carts, 38% more revenue', desc: 'We streamlined their checkout process and improved follow-up emails. Cart abandonment dropped 41% and revenue increased 38% — without increasing ad spend.' },
+    ],
+    faq: [],
+    related: ['funnel', 'content'],
+  },
+  {
+    slug: 'automation', key: 'automation', icon: '03', pillar: true, name: 'Automation',
+    kicker: 'Service 03 · Automation',
+    label: 'Automation',
+    tagline: 'Let software do the repetitive work.',
+    color: '#C6F432',
+    heroDesc: 'We map your manual processes and replace them with AI agents and workflows that run around the clock and report what they did.',
+    stats: [],
+    features: [
+      { title: 'Lead handling', desc: 'New leads are qualified, routed and answered within minutes, at any hour.' },
+      { title: 'AI chat and voice agents', desc: 'Assistants trained on your content that answer questions and book meetings.' },
+      { title: 'CRM automation', desc: 'Pipelines, reminders and follow-ups that update themselves as deals move.' },
+      { title: 'Reporting', desc: 'Data from ads, sales and finance collected into one report on a schedule.' },
+      { title: 'Back-office workflows', desc: 'Invoices, onboarding and document handling moved from inboxes to workflows.' },
+      { title: 'Custom integrations', desc: 'Connections between the tools you already use, built on n8n, Make or custom code.' },
+    ],
+    process: [
+      { n: '01', title: 'Map', desc: 'We document the current process and estimate the hours each step costs.' },
+      { n: '02', title: 'Automate', desc: 'We build and test the workflow alongside your team before switching over.' },
+      { n: '03', title: 'Monitor', desc: 'Alerts and logs show every run, and we adjust as your process changes.' },
+    ],
+    cases: [
+      { client: 'Prime Real Estate', headline: '3× more quality leads, 52% lower costs', desc: 'We built a system that finds their best potential buyers automatically. They got three times more quality leads while spending half as much per lead.' },
+    ],
+    faq: [],
+    related: ['growth', 'personalisation', 'intelligence'],
+  },
+]
 
 export const SERVICES_DATA: ServiceData[] = [
   {
@@ -251,5 +355,5 @@ export const SERVICES_DATA: ServiceData[] = [
 ]
 
 export function getServiceBySlug(slug: string): ServiceData | undefined {
-  return SERVICES_DATA.find(s => s.slug === slug || s.key === slug)
+  return [...PILLARS, ...SERVICES_DATA].find(s => s.slug === slug || s.key === slug)
 }

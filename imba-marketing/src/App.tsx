@@ -44,6 +44,7 @@ import AISettings from '@/admin/crm/AISettings'
 import ChatInbox from '@/admin/crm/ChatInbox'
 import ChatWidget from '@/components/ChatWidget'
 import useAnalytics from '@/hooks/useAnalytics'
+import { usePublicTheme } from '@/lib/theme'
 
 // Scroll reveal observer — uses MutationObserver to catch dynamically-added .reveal elements
 function useScrollReveal() {
@@ -82,6 +83,7 @@ function ScrollToTop() {
 
 function PublicLayout({ children }: { children: React.ReactNode }) {
   useScrollReveal()
+  usePublicTheme()
   return (
     <>
       <ScrollToTop />

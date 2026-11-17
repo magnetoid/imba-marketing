@@ -5,7 +5,7 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 // Accent colors cycled per card
-const COLORS = ['#EF4444', '#D4A853', '#3B82F6']
+const COLORS = ['rgb(var(--c-accent-text))', 'rgb(var(--c-accent-text))', 'rgb(var(--c-accent-text))']
 
 // Fallback reviews shown when DB is empty
 const FALLBACK: Testimonial[] = [
@@ -52,8 +52,8 @@ function StarRow({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5 mb-6">
       {[1,2,3,4,5].map(n => (
-        <svg key={n} width="14" height="14" viewBox="0 0 24 24" fill={n <= rating ? '#D4A853' : 'none'}
-          stroke={n <= rating ? '#D4A853' : 'rgba(255,255,255,0.2)'} strokeWidth="1.5">
+        <svg key={n} width="14" height="14" viewBox="0 0 24 24" fill={n <= rating ? 'rgb(var(--c-accent-text))' : 'none'}
+          stroke={n <= rating ? 'rgb(var(--c-accent-text))' : 'rgb(var(--c-line-rgb) / 0.2)'} strokeWidth="1.5">
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
         </svg>
       ))}
@@ -109,16 +109,16 @@ export default function Reviews() {
       />
 
       {/* ── HERO ── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-16 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-[60vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 100%, rgba(59,130,246,0.04) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 100%, rgb(var(--c-accent) / 0.04) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">What our clients say</p>
           <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
             What our clients say<br />
-            <em className="text-[#D4A853] italic">about working with us.</em>
+            <em className="text-brand-text not-italic">about working with us.</em>
           </h1>
           <p className="text-smoke-dim leading-relaxed max-w-lg reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
             These are real reviews from real brands we've worked with — across e-commerce, SaaS, services, and more. We're proud of every partnership and every result.
@@ -135,7 +135,7 @@ export default function Reviews() {
             return (
               <article
                 key={r.id}
-                className="hud-card border border-white/8 bg-ink p-8 lg:p-12 reveal"
+                className="hud-card border border-line bg-ink p-8 lg:p-12 reveal"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 {/* Quote mark */}

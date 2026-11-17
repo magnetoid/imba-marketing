@@ -13,7 +13,7 @@ const PROJECTS = [
       { label: 'Lead Quality', value: '+200%' },
       { label: 'Manual Work Reduced', value: '85%' },
     ],
-    color: '#EF4444',
+    color: 'rgb(var(--c-accent-text))',
     icon: '◈',
     status: 'Production',
   },
@@ -28,7 +28,7 @@ const PROJECTS = [
       { label: 'Ad Variations Tested', value: '200+' },
       { label: 'Cost Reduction', value: '40%' },
     ],
-    color: '#D4A853',
+    color: 'rgb(var(--c-accent-text))',
     icon: '▣',
     status: 'Production',
   },
@@ -43,7 +43,7 @@ const PROJECTS = [
       { label: 'Conversion Rate', value: '+67%' },
       { label: 'Customer LTV', value: '+41%' },
     ],
-    color: '#3B82F6',
+    color: 'rgb(var(--c-accent-text))',
     icon: '◉',
     status: 'Production',
   },
@@ -58,7 +58,7 @@ const PROJECTS = [
       { label: 'Time Saved', value: '95%' },
       { label: 'Brand Consistency', value: '99%' },
     ],
-    color: '#EF4444',
+    color: 'rgb(var(--c-accent-text))',
     icon: '▶',
     status: 'Production',
   },
@@ -73,7 +73,7 @@ const PROJECTS = [
       { label: 'New Keywords Found', value: '340+' },
       { label: 'Market Gaps Identified', value: '12' },
     ],
-    color: '#D4A853',
+    color: 'rgb(var(--c-accent-text))',
     icon: '◬',
     status: 'Production',
   },
@@ -88,7 +88,7 @@ const PROJECTS = [
       { label: 'Bounce Rate', value: '-34%' },
       { label: 'Revenue Recovered', value: '$2.4M' },
     ],
-    color: '#3B82F6',
+    color: 'rgb(var(--c-accent-text))',
     icon: '◫',
     status: 'Production',
   },
@@ -106,12 +106,12 @@ export default function AIProjects() {
       />
 
       {/* ── HERO ──────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-16 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 left-0 w-[50vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgba(59,130,246,0.06) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgb(var(--c-accent) / 0.06) 0%, transparent 65%)' }}
         />
         <div className="absolute top-0 right-0 w-[30vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 50% 50% at 100% 60%, rgba(239,68,68,0.04) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 50% 50% at 100% 60%, rgb(var(--c-accent) / 0.04) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">Proprietary AI systems</p>
@@ -120,7 +120,7 @@ export default function AIProjects() {
               <h1 className="font-display font-light leading-none mb-6 reveal reveal-delay-1"
                 style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
                 The AI behind<br />
-                <em className="text-[#D4A853] italic">your growth</em>
+                <em className="text-brand-text not-italic">your growth</em>
               </h1>
               <p className="text-smoke-dim max-w-lg leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
                 Six proprietary AI systems, built in-house, powering every campaign we run.
@@ -144,7 +144,7 @@ export default function AIProjects() {
           {PROJECTS.map((project, i) => (
             <div
               key={project.id}
-              className="bg-ink-2 border border-white/5 hover:border-white/10 transition-all duration-300 reveal"
+              className="bg-ink-2 border border-line hover:border-line transition-all duration-300 reveal"
               style={{ transitionDelay: `${i * 60}ms` }}
             >
               <div className="grid lg:grid-cols-[1fr_340px]">
@@ -187,7 +187,7 @@ export default function AIProjects() {
                     {project.stack.map(tech => (
                       <span
                         key={tech}
-                        className="font-mono-custom text-[0.6rem] tracking-wider uppercase px-3 py-1.5 border border-white/8 text-smoke-faint/70"
+                        className="font-mono-custom text-[0.6rem] tracking-wider uppercase px-3 py-1.5 border border-line text-smoke-faint/70"
                       >
                         {tech}
                       </span>
@@ -196,11 +196,11 @@ export default function AIProjects() {
                 </div>
 
                 {/* Metrics sidebar */}
-                <div className="border-t lg:border-t-0 lg:border-l border-white/5 flex flex-row lg:flex-col">
+                <div className="border-t lg:border-t-0 lg:border-l border-line flex flex-row lg:flex-col">
                   {project.metrics.map(({ label, value }, mi) => (
                     <div
                       key={label}
-                      className={`flex-1 p-6 lg:p-8 flex flex-col justify-center ${mi < project.metrics.length - 1 ? 'border-r lg:border-r-0 lg:border-b border-white/5' : ''}`}
+                      className={`flex-1 p-6 lg:p-8 flex flex-col justify-center ${mi < project.metrics.length - 1 ? 'border-r lg:border-r-0 lg:border-b border-line' : ''}`}
                     >
                       <div className="font-display font-light leading-none mb-1" style={{ fontSize: '2rem', color: project.color }}>
                         {value}
@@ -218,12 +218,12 @@ export default function AIProjects() {
       </section>
 
       {/* ── HOW THEY WORK TOGETHER ────────────────── */}
-      <section className="bg-ink-2 py-24 px-6 lg:px-12 border-t border-white/5">
+      <section className="bg-ink-2 py-24 px-6 lg:px-12 border-t border-line">
         <div className="max-w-screen-xl mx-auto">
           <p className="eyebrow mb-4 reveal">Integrated intelligence</p>
           <h2 className="font-display font-light leading-tight mb-10 reveal reveal-delay-1"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            Six systems,<br /><em className="text-[#D4A853] italic">one brain</em>
+            Six systems,<br /><em className="text-brand-text not-italic">one brain</em>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -234,8 +234,8 @@ export default function AIProjects() {
               { n: '05', title: 'Human strategy layer', desc: 'AI handles execution at scale. Your dedicated strategist handles the thinking — setting goals, interpreting insights, and making the decisions that require human judgment.' },
               { n: '06', title: 'Full transparency', desc: 'Every AI decision is logged and explainable. You see exactly what each system did, why it did it, and what result it produced. No black boxes.' },
             ].map(({ n, title, desc }, i) => (
-              <div key={n} className="bg-ink p-8 border border-white/5 reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                <span className="font-mono-custom text-[0.65rem] text-ember/70">{n}</span>
+              <div key={n} className="bg-ink p-8 border border-line reveal" style={{ transitionDelay: `${i * 60}ms` }}>
+                <span className="font-mono-custom text-[0.65rem] text-brand-text">{n}</span>
                 <h3 className="font-display font-light text-smoke text-xl mt-3 mb-3">{title}</h3>
                 <p className="text-smoke-dim leading-relaxed" style={{ fontSize: '0.85rem' }}>{desc}</p>
               </div>

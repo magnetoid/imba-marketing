@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
+import { PILLARS } from './services/data'
+import { PageHero, CtaBand, CellGrid } from '@/components/site'
 
 const SERVICES = [
   {
@@ -81,202 +83,121 @@ export default function Services() {
   return (
     <>
       <Seo
-        title="AI Marketing Services — Smarter Campaigns That Drive Real Revenue"
-        description="Six AI-powered marketing services for ambitious brands: growth marketing, performance ads, personalization, content production, analytics, and conversion optimization. Plans from $2,900/mo."
+        title="Services — Marketing, Development and Automation"
+        description="Marketing, development and automation from one team: paid ads, SEO and content, websites and web apps, and AI agents and workflows. Six AI specialties included."
         canonicalPath="/services"
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           'name': 'Imba Marketing Services',
           'url': 'https://imbamarketing.com/services',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'AI Growth Marketing', 'url': 'https://imbamarketing.com/services/growth' },
-            { '@type': 'ListItem', 'position': 2, 'name': 'AI Performance Ads', 'url': 'https://imbamarketing.com/services/ads' },
-            { '@type': 'ListItem', 'position': 3, 'name': 'AI Personalization', 'url': 'https://imbamarketing.com/services/personalisation' },
-            { '@type': 'ListItem', 'position': 4, 'name': 'AI Content Production', 'url': 'https://imbamarketing.com/services/content' },
-            { '@type': 'ListItem', 'position': 5, 'name': 'AI Analytics & Intelligence', 'url': 'https://imbamarketing.com/services/intelligence' },
-            { '@type': 'ListItem', 'position': 6, 'name': 'AI Conversion Optimization', 'url': 'https://imbamarketing.com/services/funnel' },
-          ],
+          'itemListElement': [...PILLARS.map(p => ({ name: p.label, slug: p.slug })), ...SERVICES.map(s => ({ name: s.label, slug: s.slug }))]
+            .map((s, i) => ({ '@type': 'ListItem', 'position': i + 1, 'name': s.name, 'url': `https://imbamarketing.com/services/${s.slug}` })),
         }}
       />
 
-      {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 section-gradient-cyber relative overflow-hidden">
-        <div className="absolute bottom-0 right-0 w-[50vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 100% 100%, rgba(0,212,255,0.05) 0%, transparent 65%)' }}
-        />
-        <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">AI marketing agency</p>
-          <div className="grid lg:grid-cols-2 gap-12 items-end">
-            <div>
-              <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
-                style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-                AI marketing services that<br />
-                <em className="text-[#D4A853] italic">drive real revenue.</em>
-              </h1>
-              <p className="text-smoke-dim leading-relaxed max-w-md reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-                Six AI-powered services that cover every angle of modern marketing — from lead generation and paid media to content production and conversion optimization. Pick what you need, or get everything in one plan.
-              </p>
-            </div>
-            <div className="hidden lg:flex flex-col gap-3 reveal reveal-delay-2">
-              <div className="bg-ink-2 border border-white/5 p-6">
-                <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-3">What our clients typically see</p>
-                {[
-                  { stat: '3×', label: 'average revenue growth in year one' },
-                  { stat: '4.8×', label: 'return on ad spend across platforms' },
-                  { stat: '48h', label: 'until you see first improvements' },
-                ].map(({ stat, label }) => (
-                  <div key={stat} className="flex items-center gap-4 py-2.5 border-b border-white/5 last:border-0">
-                    <span className="font-display font-light text-2xl text-ember w-14 flex-shrink-0">{stat}</span>
-                    <span className="font-mono-custom text-[0.62rem] text-smoke-dim tracking-wide">{label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+      <PageHero
+        kicker="Services"
+        title="Three services that work better together."
+        lead="Imba runs your campaigns, builds your website or product, and automates the work in between. One team, one brief, one report."
+      >
+        <Link to="/contact" className="btn btn-primary btn-lg">Send an inquiry →</Link>
+      </PageHero>
+
+      {/* Pillars — same cards as the home page */}
+      <section className="wrap pb-[clamp(56px,8vw,96px)]">
+        <CellGrid min={300}>
+          {PILLARS.map(p => (
+            <Link key={p.slug} to={`/services/${p.slug}`} className="group p-8 pb-7 border-r border-b border-line flex flex-col gap-4 min-h-[340px] text-smoke hover:bg-ink-2">
+              <span className="font-mono-custom text-[13px] text-brand-text">{p.icon}</span>
+              <h2 className="font-display font-semibold text-[34px] leading-none tracking-[-.03em] m-0">{p.label}</h2>
+              <p className="text-[17px] leading-normal text-smoke-dim m-0 flex-1">{p.heroDesc}</p>
+              <span className="font-semibold text-[15px] group-hover:text-brand-text">Explore {p.label.toLowerCase()} →</span>
+            </Link>
+          ))}
+        </CellGrid>
       </section>
 
-      {/* ── SERVICES GRID ─────────────────────────────────── */}
-      <section className="bg-ink-2 py-20 px-6 lg:px-12" id="all-services">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-12 reveal">Choose what you need</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SERVICES.map(({ key, slug, icon, label, tagline, desc, features, stat, statLabel, color }, i) => (
-              <div
-                key={key}
-                className="glass-card gradient-border p-8 relative overflow-hidden reveal flex flex-col"
-                style={{ transitionDelay: `${i * 40}ms` }}
-              >
-                {/* Ghost number */}
-                <span className="absolute top-4 right-5 font-display text-[4.5rem] font-light leading-none select-none"
-                  style={{ color: 'rgba(255,255,255,0.03)' }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-
-                {/* Icon */}
-                <div className="feature-icon-box text-lg"
-                  style={{ background: `${color}10`, color }}>
-                  {icon}
-                </div>
-
-                <h3 className="font-display font-light text-smoke text-xl mb-1.5">{label}</h3>
-                <p className="font-mono-custom text-[0.6rem] tracking-[0.14em] uppercase mb-4" style={{ color }}>{tagline}</p>
-                <p className="text-sm text-smoke-dim leading-relaxed mb-5">{desc}</p>
-
-                {/* Features */}
-                <ul className="space-y-1.5 mb-6 flex-1">
+      {/* The six AI specialties (existing service pages) */}
+      <section className="bg-ink-2 border-y border-line" id="all-services">
+        <div className="wrap py-[clamp(56px,8vw,104px)]">
+          <div className="kicker mb-5">AI specialties</div>
+          <h2 className="h-section m-0 mb-4 max-w-[860px]">AI marketing services that drive real revenue.</h2>
+          <p className="lead m-0 mb-12 max-w-[680px]">
+            Six AI-powered services that cover every angle of modern marketing — from lead generation and paid media to content production and conversion optimization. Pick what you need, or get everything in one plan.
+          </p>
+          <CellGrid min={340} className="bg-ink">
+            {SERVICES.map(({ key, slug, label, tagline, desc, features, stat, statLabel }, i) => (
+              <Link key={key} to={`/services/${slug}`} className="group p-8 border-r border-b border-line flex flex-col gap-3 hover:bg-ink-3">
+                <span className="font-mono-custom text-[13px] text-brand-text">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="font-display font-semibold text-[26px] leading-tight tracking-[-.02em] m-0 text-smoke">{label}</h3>
+                <p className="m-0 font-medium text-smoke">{tagline}</p>
+                <p className="m-0 text-smoke-dim leading-relaxed">{desc}</p>
+                <ul className="list-none m-0 p-0 flex-1">
                   {features.map(f => (
-                    <li key={f} className="flex items-center gap-2">
-                      <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: color }} />
-                      <span className="font-mono-custom text-[0.62rem] text-smoke-dim tracking-wide">{f}</span>
+                    <li key={f} className="py-2 border-t border-line text-[15px] flex gap-3 text-smoke">
+                      <span aria-hidden="true" className="font-mono-custom text-brand-text">→</span>{f}
                     </li>
                   ))}
                 </ul>
-
-                {/* Stat + Learn more */}
-                <div className="pt-5 border-t border-white/5">
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="font-display font-light text-2xl" style={{ color }}>{stat}</span>
-                    <span className="font-mono-custom text-[0.58rem] text-smoke-faint tracking-wide">{statLabel}</span>
-                  </div>
-                  <Link
-                    to={`/services/${slug}`}
-                    className="font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase flex items-center gap-2 transition-colors duration-200 hover:gap-3"
-                    style={{ color }}
-                  >
-                    <span>See how it works</span>
-                    <span>→</span>
-                  </Link>
+                <div className="pt-4 border-t border-line flex items-baseline gap-3">
+                  <span className="font-display font-semibold text-[28px] text-smoke">{stat}</span>
+                  <span className="text-sm text-smoke-dim">{statLabel}</span>
                 </div>
-              </div>
+                <span className="font-semibold text-[15px] text-smoke group-hover:text-brand-text">See how it works →</span>
+              </Link>
             ))}
-          </div>
+          </CellGrid>
         </div>
       </section>
 
-      {/* ── PROCESS ───────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink">
-        <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <p className="eyebrow mb-4 reveal">How it works</p>
-            <h2 className="font-display font-light leading-tight mb-12 reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              From first call to<br /><em className="text-[#D4A853] italic">real results</em>
-            </h2>
-            {PROCESS.map(({ n, title, desc }, i) => (
-              <div key={n}
-                className="flex gap-5 py-6 border-b border-white/5 group hover:pl-3 transition-all duration-300 reveal"
-                style={{ transitionDelay: `${i * 80}ms` }}>
-                <span className="font-mono-custom text-[0.7rem] text-ember opacity-70 mt-1 min-w-[2rem]">{n}</span>
+      {/* Process + why clients choose us */}
+      <section className="wrap py-[clamp(56px,8vw,104px)] grid gap-x-16 gap-y-12 lg:grid-cols-2">
+        <div>
+          <div className="kicker mb-5">How it works</div>
+          <h2 className="h-sub m-0 mb-8">From first call to real results.</h2>
+          <ol className="list-none m-0 p-0">
+            {PROCESS.map(({ n, title, desc }) => (
+              <li key={n} className="grid grid-cols-[48px_minmax(0,1fr)] gap-2 py-5 border-t border-line">
+                <span className="font-mono-custom text-[13px] text-brand-text pt-1">{n}</span>
                 <div>
-                  <h3 className="font-display text-xl text-smoke mb-1.5 group-hover:text-ember transition-colors">{title}</h3>
-                  <p className="text-sm text-smoke-dim leading-relaxed">{desc}</p>
+                  <h3 className="font-display font-semibold text-[21px] m-0 mb-1.5">{title}</h3>
+                  <p className="m-0 text-smoke-dim leading-relaxed">{desc}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-
-          {/* Why choose panel */}
-          <div className="reveal reveal-delay-2 lg:pt-20">
-            <div className="glass-card p-8">
-              <p className="font-mono-custom text-[0.62rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">Why clients choose us</p>
-              {[
-                { title: 'AI that actually works, 24/7', desc: "Your campaigns learn and optimize around the clock — not just during business hours. Our AI systems compound results while you focus on running your business." },
-                { title: 'Every dollar tied to revenue', desc: "No vanity metrics. Every campaign we run is measured by what matters: revenue generated, cost per acquisition, and return on ad spend." },
-                { title: 'Transparent, no black boxes', desc: "You see exactly what our AI is doing and why. Clear dashboards, plain-language reporting, and a team that explains the strategy behind every decision." },
-                { title: 'US-based, serving brands worldwide', desc: 'Headquartered in Delaware, with an engineering team in Serbia. We work with ambitious brands globally and deliver first results within 48 hours.' },
-              ].map(({ title, desc }, i) => (
-                <div key={title}
-                  className="flex gap-4 py-5 border-b border-white/5 last:border-0"
-                  style={{ transitionDelay: `${i * 60}ms` }}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-cyber mt-2 flex-shrink-0" />
-                  <div>
-                    <p className="text-smoke font-medium text-sm mb-1">{title}</p>
-                    <p className="text-smoke-dim text-sm leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              ))}
+          </ol>
+        </div>
+        <div className="border border-line bg-ink-2 p-[clamp(24px,3vw,40px)] self-start">
+          <div className="kicker-muted mb-4">Why clients choose us</div>
+          {[
+            { title: 'AI that actually works, 24/7', desc: "Your campaigns learn and optimize around the clock — not just during business hours. Our AI systems compound results while you focus on running your business." },
+            { title: 'Every dollar tied to revenue', desc: "No vanity metrics. Every campaign we run is measured by what matters: revenue generated, cost per acquisition, and return on ad spend." },
+            { title: 'Transparent, no black boxes', desc: "You see exactly what our AI is doing and why. Clear dashboards, plain-language reporting, and a team that explains the strategy behind every decision." },
+            { title: 'US-based, serving brands worldwide', desc: 'Headquartered in Delaware, with an engineering team in Serbia. We work with ambitious brands globally and deliver first results within 48 hours.' },
+          ].map(({ title, desc }) => (
+            <div key={title} className="py-4 border-t border-line">
+              <p className="m-0 mb-1 font-semibold">{title}</p>
+              <p className="m-0 text-smoke-dim leading-relaxed text-[15px]">{desc}</p>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ── WHITE LABEL STRIP ─────────────────────────────── */}
-      <section className="bg-ink-2 border-t border-white/5 py-16 px-6 lg:px-12">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="max-w-lg">
-            <p className="eyebrow mb-3">For agencies & resellers</p>
-            <h2 className="font-display font-light text-smoke leading-tight" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)' }}>
-              Offer AI marketing under <em className="text-[#D4A853] italic">your own brand</em>
-            </h2>
-            <p className="text-smoke-dim mt-3" style={{ fontSize: '0.9rem' }}>
-              You take the credit, we do the work. Add AI marketing to your services without hiring new people or building new tools.
-            </p>
+      {/* White label */}
+      <section className="border-t border-line">
+        <div className="wrap py-[clamp(48px,6vw,72px)] flex flex-wrap gap-8 items-center justify-between">
+          <div className="max-w-[640px]">
+            <div className="kicker mb-3">For agencies & resellers</div>
+            <h2 className="h-sub m-0 mb-3">Offer AI marketing under your own brand.</h2>
+            <p className="m-0 text-smoke-dim text-[17px]">You take the credit, we do the work. Add AI marketing to your services without hiring new people or building new tools.</p>
           </div>
-          <Link to="/contact" className="btn btn-primary flex-shrink-0">Ask about white label</Link>
+          <Link to="/contact" className="btn btn-outline btn-lg">Ask about white label</Link>
         </div>
       </section>
 
-      {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="cta-gradient relative">
-        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 z-10">
-          <div>
-            <h2 className="font-display font-light leading-tight text-ink"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Not sure where to start?<br /><em>Let's build your AI marketing strategy.</em>
-            </h2>
-            <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Free strategy call · No pressure · Plans from $2,900/mo.
-            </p>
-          </div>
-          <Link to="/contact"
-            className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4"
-            style={{ background: '#0A0A0B', color: '#F5F4F0' }}>
-            Get Free Quote
-          </Link>
-        </div>
-      </section>
+      <CtaBand title="Not sure where to start? Tell us what you need." sub="Free strategy call · No pressure · Plans from $2,900/mo." />
     </>
   )
 }
+

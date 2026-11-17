@@ -7,12 +7,12 @@ import Seo from '@/components/Seo'
 const DEFAULT_CATEGORIES = ['All', 'AI Marketing', 'Growth Strategy', 'Performance Advertising', 'Content Strategy', 'Conversion Optimization', 'Industry Insights', 'Case Studies']
 
 const CAT_COLOR: Record<string, string> = {
-  'AI Marketing': '#D4A853',
-  'Growth Systems': '#EF4444',
-  'Performance Advertising': '#3B82F6',
-  'Content Strategy': '#D4A853',
-  'Marketing Analytics': '#EF4444',
-  'Industry Insights': '#3B82F6',
+  'AI Marketing': 'rgb(var(--c-accent-text))',
+  'Growth Systems': 'rgb(var(--c-accent-text))',
+  'Performance Advertising': 'rgb(var(--c-accent-text))',
+  'Content Strategy': 'rgb(var(--c-accent-text))',
+  'Marketing Analytics': 'rgb(var(--c-accent-text))',
+  'Industry Insights': 'rgb(var(--c-accent-text))',
 }
 
 /* ── fallback posts shown when DB is empty/unreachable ──── */
@@ -85,9 +85,9 @@ export default function Blog() {
         canonicalPath="/blog"
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-16 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(212,168,83,0.05) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgb(var(--c-accent) / 0.05) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">AI marketing insights</p>
@@ -95,7 +95,7 @@ export default function Blog() {
             <h1 className="font-display font-light leading-none reveal reveal-delay-1"
               style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
               Expert tips,<br />
-              <em className="text-[#D4A853] italic">real results</em>
+              <em className="text-brand-text not-italic">real results</em>
             </h1>
             <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
               100+ articles on AI marketing systems, growth strategies, and converting traffic into revenue.
@@ -110,12 +110,12 @@ export default function Blog() {
           <div className="max-w-screen-xl mx-auto">
             <Link
               to={`/blog/${featured.slug}`}
-              className="grid lg:grid-cols-2 gap-0 border border-white/8 group cursor-pointer hover:border-white/15 transition-colors"
+              className="grid lg:grid-cols-2 gap-0 border border-line group cursor-pointer hover:border-line transition-colors"
             >
               {/* Visual */}
               <div className="relative overflow-hidden bg-ink-3 aspect-video lg:aspect-auto">
                 <div className="absolute inset-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(212,168,83,0.12) 0%, rgba(239,68,68,0.08) 50%, transparent 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, rgb(var(--c-accent) / 0.12) 0%, rgb(var(--c-accent) / 0.08) 50%, transparent 100%)' }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
@@ -126,7 +126,7 @@ export default function Blog() {
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px)',
                 }} />
                 <div className="absolute top-4 left-4 font-mono-custom text-[0.58rem] tracking-widest uppercase px-2 py-1"
-                  style={{ background: `${CAT_COLOR[featured.category] || '#EF4444'}22`, color: CAT_COLOR[featured.category] || '#EF4444', border: `1px solid ${CAT_COLOR[featured.category] || '#EF4444'}33` }}>
+                  style={{ background: `${CAT_COLOR[featured.category] || 'rgb(var(--c-accent-text))'}22`, color: CAT_COLOR[featured.category] || 'rgb(var(--c-accent-text))', border: `1px solid ${CAT_COLOR[featured.category] || 'rgb(var(--c-accent-text))'}33` }}>
                   Featured · {featured.category}
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function Blog() {
                   </p>
                 </div>
                 <div className="mt-8 flex items-center gap-3">
-                  <span className="font-mono-custom text-[0.68rem] tracking-[0.14em] uppercase text-ember flex items-center gap-2 group-hover:gap-3 transition-all">
+                  <span className="font-mono-custom text-[0.68rem] tracking-[0.14em] uppercase text-brand-text flex items-center gap-2 group-hover:gap-3 transition-all">
                     <span>Read article</span>
                     <span>→</span>
                   </span>
@@ -159,7 +159,7 @@ export default function Blog() {
       )}
 
       {/* ── CATEGORY FILTER ───────────────────────────────── */}
-      <div className="bg-ink border-b border-white/5 px-6 lg:px-12 py-5">
+      <div className="bg-ink border-b border-line px-6 lg:px-12 py-5">
         <div className="max-w-screen-xl mx-auto flex gap-1.5 overflow-x-auto">
           {allCategories.map(cat => (
             <button
@@ -167,9 +167,9 @@ export default function Blog() {
               onClick={() => setActiveCategory(cat)}
               className="flex-shrink-0 font-mono-custom text-[0.65rem] tracking-[0.12em] uppercase px-4 py-2 transition-all duration-200"
               style={{
-                background: activeCategory === cat ? '#EF4444' : 'transparent',
-                color: activeCategory === cat ? '#F5F4F0' : '#6B6A65',
-                border: `1px solid ${activeCategory === cat ? '#EF4444' : 'rgba(255,255,255,0.06)'}`,
+                background: activeCategory === cat ? 'rgb(var(--c-accent))' : 'transparent',
+                color: activeCategory === cat ? 'rgb(var(--c-on-accent))' : 'rgb(var(--c-faint))',
+                border: `1px solid ${activeCategory === cat ? 'rgb(var(--c-accent))' : 'rgb(var(--c-line-rgb) / 0.06)'}`,
               }}
             >
               {cat}
@@ -185,16 +185,16 @@ export default function Blog() {
             <Link
               key={post.id}
               to={`/blog/${post.slug}`}
-              className="group bg-ink-2 border border-white/5 hover:border-white/12 transition-all duration-300 flex flex-col reveal"
+              className="group bg-ink-2 border border-line hover:border-line transition-all duration-300 flex flex-col reveal"
               style={{ transitionDelay: `${i * 50}ms` }}
             >
               {/* Thumbnail area */}
               <div className="relative overflow-hidden aspect-video bg-ink-3 flex-shrink-0">
                 <div className="absolute inset-0"
-                  style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${CAT_COLOR[post.category] || '#EF4444'}12 0%, transparent 70%)` }}
+                  style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${CAT_COLOR[post.category] || 'rgb(var(--c-accent-text))'}12 0%, transparent 70%)` }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display font-light select-none" style={{ fontSize: '4rem', color: `${CAT_COLOR[post.category] || '#EF4444'}18` }}>
+                  <span className="font-display font-light select-none" style={{ fontSize: '4rem', color: `${CAT_COLOR[post.category] || 'rgb(var(--c-accent-text))'}18` }}>
                     {post.category === 'AI Video' ? '◈' : post.category === 'TikTok' ? '◉' : post.category === 'Film' ? '◬' : post.category === 'Technology' ? '◰' : '▶'}
                   </span>
                 </div>
@@ -202,7 +202,7 @@ export default function Blog() {
                   backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px)',
                 }} />
                 <div className="absolute top-3 left-3 font-mono-custom text-[0.55rem] tracking-widest uppercase px-2 py-1"
-                  style={{ background: `${CAT_COLOR[post.category] || '#EF4444'}22`, color: CAT_COLOR[post.category] || '#EF4444', border: `1px solid ${CAT_COLOR[post.category] || '#EF4444'}33` }}>
+                  style={{ background: `${CAT_COLOR[post.category] || 'rgb(var(--c-accent-text))'}22`, color: CAT_COLOR[post.category] || 'rgb(var(--c-accent-text))', border: `1px solid ${CAT_COLOR[post.category] || 'rgb(var(--c-accent-text))'}33` }}>
                   {post.category}
                 </div>
               </div>
@@ -213,14 +213,14 @@ export default function Blog() {
                   <span className="font-mono-custom text-[0.58rem] tracking-widest text-smoke-faint uppercase">{post.date}</span>
                   <span className="font-mono-custom text-[0.55rem] text-smoke-faint/40">{post.read_time} min</span>
                 </div>
-                <h3 className="font-display font-light text-smoke leading-tight mb-3 group-hover:text-ember transition-colors flex-1"
+                <h3 className="font-display font-light text-smoke leading-tight mb-3 group-hover:text-brand-text transition-colors flex-1"
                   style={{ fontSize: '1.15rem' }}>
                   {post.title}
                 </h3>
                 <p className="text-smoke-dim leading-relaxed mb-5" style={{ fontSize: '0.82rem' }}>
                   {post.excerpt}
                 </p>
-                <div className="flex items-center gap-2 mt-auto font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase text-ember group-hover:gap-3 transition-all">
+                <div className="flex items-center gap-2 mt-auto font-mono-custom text-[0.62rem] tracking-[0.14em] uppercase text-brand-text group-hover:gap-3 transition-all">
                   <span>Read more</span>
                   <span>→</span>
                 </div>
@@ -238,7 +238,7 @@ export default function Blog() {
       </section>
 
       {/* ── TOPICS STRIP ─────────────────────────────────── */}
-      <section className="bg-ink-2 py-24 px-6 lg:px-12 border-t border-white/5">
+      <section className="bg-ink-2 py-24 px-6 lg:px-12 border-t border-line">
         <div className="max-w-screen-xl mx-auto">
           <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center">Content pillars</p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -249,7 +249,7 @@ export default function Blog() {
               'B2B Marketing AI', 'eCommerce AI', 'Revenue Attribution',
             ].map(topic => (
               <span key={topic}
-                className="font-mono-custom text-[0.62rem] tracking-[0.12em] uppercase px-3 py-2 border border-white/8 text-smoke-faint/50 hover:text-smoke-faint hover:border-white/15 transition-colors cursor-default">
+                className="font-mono-custom text-[0.62rem] tracking-[0.12em] uppercase px-3 py-2 border border-line text-smoke-faint/50 hover:text-smoke-faint hover:border-line transition-colors cursor-default">
                 {topic}
               </span>
             ))}

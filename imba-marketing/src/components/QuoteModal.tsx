@@ -22,10 +22,10 @@ const BUDGETS = [
 ]
 
 const inputStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.1)',
+  background: 'rgb(var(--c-line-rgb) / 0.05)',
+  border: '1px solid rgb(var(--c-line-rgb) / 0.1)',
   borderRadius: '3px',
-  color: '#F5F4F0',
+  color: 'rgb(var(--c-fg))',
   fontFamily: 'inherit',
   fontSize: '0.9rem',
   padding: '0.65rem 0.85rem',
@@ -38,9 +38,9 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
       <label style={{
-        fontFamily: 'DM Mono, monospace', fontSize: '0.58rem',
+        fontFamily: 'JetBrains Mono, monospace', fontSize: '0.58rem',
         letterSpacing: '0.14em', textTransform: 'uppercase',
-        color: 'rgba(245,244,240,0.4)',
+        color: 'rgb(var(--c-fg) / 0.4)',
       }}>
         {label}
       </label>
@@ -115,8 +115,8 @@ export default function QuoteModal() {
       onClick={e => { if (e.target === e.currentTarget) closeModal() }}
     >
       <div style={{
-        background: '#111113',
-        border: '1px solid rgba(255,255,255,0.09)',
+        background: 'rgb(var(--c-surface))',
+        border: '1px solid rgb(var(--c-line-rgb) / 0.09)',
         borderRadius: '4px',
         width: '100%', maxWidth: '580px',
         maxHeight: '90vh', overflowY: 'auto',
@@ -125,20 +125,20 @@ export default function QuoteModal() {
         {/* Header */}
         <div style={{
           padding: '1.75rem 2rem 1.5rem',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          borderBottom: '1px solid rgb(var(--c-line-rgb) / 0.06)',
           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
         }}>
           <div>
             <p style={{
-              fontFamily: 'DM Mono, monospace', fontSize: '0.6rem',
+              fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem',
               letterSpacing: '0.2em', textTransform: 'uppercase',
-              color: '#E8452A', marginBottom: '0.4rem',
+              color: 'rgb(var(--c-accent-text))', marginBottom: '0.4rem',
             }}>
               Free growth plan — we reply within 24h
             </p>
             <h2 style={{
-              fontFamily: 'var(--font-display, serif)', fontWeight: 300,
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: '#F5F4F0', lineHeight: 1.2,
+              fontFamily: "'Space Grotesk', sans-serif", fontWeight: 300,
+              fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: 'rgb(var(--c-fg))', lineHeight: 1.2,
             }}>
               Tell us about your business
             </h2>
@@ -147,13 +147,13 @@ export default function QuoteModal() {
             onClick={closeModal}
             aria-label="Close"
             style={{
-              color: 'rgba(245,244,240,0.3)', background: 'none', border: 'none',
+              color: 'rgb(var(--c-fg) / 0.3)', background: 'none', border: 'none',
               cursor: 'pointer', fontSize: '1.5rem', lineHeight: 1,
               padding: '0 0 0 1.5rem', marginTop: '-2px',
               transition: 'color 0.2s',
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#F5F4F0')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(245,244,240,0.3)')}
+            onMouseEnter={e => (e.currentTarget.style.color = 'rgb(var(--c-fg))')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgb(var(--c-fg) / 0.3)')}
           >
             ×
           </button>
@@ -168,13 +168,13 @@ export default function QuoteModal() {
                 background: 'rgba(232,69,42,0.12)', border: '1px solid rgba(232,69,42,0.25)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <span style={{ color: '#E8452A', fontSize: '1.3rem' }}>✓</span>
+                <span style={{ color: 'rgb(var(--c-accent-text))', fontSize: '1.3rem' }}>✓</span>
               </div>
               <div>
-                <h3 style={{ fontFamily: 'var(--font-display, serif)', fontWeight: 300, fontSize: '1.6rem', color: '#F5F4F0', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 300, fontSize: '1.6rem', color: 'rgb(var(--c-fg))', marginBottom: '0.5rem' }}>
                   We got your message!
                 </h3>
-                <p style={{ color: 'rgba(245,244,240,0.5)', lineHeight: 1.6, fontWeight: 300 }}>
+                <p style={{ color: 'rgb(var(--c-fg) / 0.5)', lineHeight: 1.6, fontWeight: 300 }}>
                   We'll review everything and get back to you within 24 hours with a free growth plan tailored to your business.
                 </p>
               </div>
@@ -182,9 +182,9 @@ export default function QuoteModal() {
                 onClick={closeModal}
                 style={{
                   alignSelf: 'flex-start', marginTop: '0.5rem',
-                  fontFamily: 'DM Mono, monospace', fontSize: '0.65rem',
+                  fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem',
                   letterSpacing: '0.14em', textTransform: 'uppercase',
-                  color: '#E8452A', background: 'none', border: 'none', cursor: 'pointer',
+                  color: 'rgb(var(--c-accent-text))', background: 'none', border: 'none', cursor: 'pointer',
                 }}
               >
                 Close →
@@ -251,16 +251,16 @@ export default function QuoteModal() {
                 />
               </Field>
               {error && (
-                <p style={{ color: '#E8452A', fontSize: '0.83rem' }}>{error}</p>
+                <p style={{ color: 'rgb(var(--c-accent-text))', fontSize: '0.83rem' }}>{error}</p>
               )}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.25rem' }}>
                 <button
                   type="submit"
                   disabled={submitting}
                   style={{
-                    background: '#E8452A', color: '#F5F4F0', border: 'none',
+                    background: 'rgb(var(--c-accent))', color: 'rgb(var(--c-on-accent))', border: 'none',
                     padding: '0.85rem 2.5rem',
-                    fontFamily: 'DM Mono, monospace', fontSize: '0.65rem',
+                    fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem',
                     letterSpacing: '0.14em', textTransform: 'uppercase',
                     cursor: submitting ? 'wait' : 'pointer',
                     opacity: submitting ? 0.7 : 1,
@@ -269,7 +269,7 @@ export default function QuoteModal() {
                 >
                   {submitting ? 'Sending…' : 'Get my free growth plan →'}
                 </button>
-                <p style={{ fontSize: '0.72rem', color: 'rgba(245,244,240,0.25)', fontFamily: 'DM Mono, monospace' }}>
+                <p style={{ fontSize: '0.72rem', color: 'rgb(var(--c-fg) / 0.25)', fontFamily: 'JetBrains Mono, monospace' }}>
                   100% free
                 </p>
               </div>
