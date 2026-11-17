@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import type { TeamMember } from '@/lib/supabase'
 import Seo from '@/components/Seo'
-import { useQuoteModal } from '@/contexts/QuoteModalContext'
+import { PageHero, CtaBand, CellGrid, Cell } from '@/components/site'
 
 /* ── fallback team shown when DB is empty/unreachable ──── */
 const FALLBACK_TEAM: TeamMember[] = [
@@ -24,8 +23,6 @@ const FALLBACK_TEAM: TeamMember[] = [
     sort_order: 1, published: true,
   },
 ]
-
-const MEMBER_COLORS = ['#D4A853', '#EF4444', '#3B82F6', '#D4A853', '#EF4444']
 
 const VALUES = [
   {
@@ -82,6 +79,13 @@ const TESTIMONIALS = [
   },
 ]
 
+// Working principles from the 2026 redesign
+const PRINCIPLES = [
+  { title: 'Revenue first', desc: 'We report on leads and sales. Impressions and clicks are inputs.' },
+  { title: 'AI where it helps', desc: 'We use AI for research, testing and repetitive work. People decide strategy and sign off on everything that ships.' },
+  { title: 'Fixed scope, clear quote', desc: 'Every project starts with a written plan and a price, so you know what you are buying.' },
+]
+
 const SOCIAL = [
   { label: 'LinkedIn',    short: 'LI', href: 'https://linkedin.com/company/imba-marketing' },
   { label: 'X / Twitter', short: 'X',  href: 'https://twitter.com/imbamarketing' },
@@ -90,7 +94,6 @@ const SOCIAL = [
 ]
 
 export default function About() {
-  const { openModal } = useQuoteModal()
   const [team, setTeam] = useState<TeamMember[]>(FALLBACK_TEAM)
 
   useEffect(() => {
@@ -107,14 +110,14 @@ export default function About() {
   return (
     <>
       <Seo
-        title="About Us — Imba Marketing"
-        description="Meet the team behind Imba Marketing. We combine proprietary AI systems with human strategy to help ambitious brands attract, convert, and retain customers."
+        title="About Us"
+        description="A small team that markets, builds and automates. Since 2016 we've helped 200+ brands get more customers, lower their marketing costs and free up their time."
         canonicalPath="/about"
         structuredData={{
           '@context': 'https://schema.org',
           '@type': 'AboutPage',
           'name': 'About Us — Imba Marketing',
-          'description': 'Meet the team behind Imba Marketing. We combine proprietary AI systems with human strategy to help ambitious brands attract, convert, and retain customers.',
+          'description': 'A small team that markets, builds and automates, helping ambitious brands attract, convert, and retain customers.',
           'url': 'https://imbamarketing.com/about',
           'publisher': {
             '@type': 'Organization',
@@ -123,87 +126,94 @@ export default function About() {
           }
         }}
       />
-      {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-[50vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 60% at 0% 40%, rgba(212,168,83,0.06) 0%, transparent 65%)' }}
-        />
-        <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-6 reveal">Est. 2016 · Wilmington, Delaware & Kragujevac, Serbia</p>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 className="font-display font-light leading-tight mb-6 reveal reveal-delay-1"
-                style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
-                An AI marketing agency<br />
-                <em className="text-[#D4A853] italic">built for ambitious</em><br />
-                brands
-              </h1>
-              <p className="text-smoke-dim leading-relaxed mb-8 reveal reveal-delay-2" style={{ fontSize: '1rem' }}>
-                Since 2016, we've helped over 200 brands — from e-commerce and SaaS to professional services and DTC — get more customers, lower their marketing costs, and free up their time. We use AI to do the heavy lifting across every channel and industry.
-              </p>
-              <div className="flex gap-4 reveal reveal-delay-3">
-                <Link to="/results" className="btn btn-primary">See our client results</Link>
-                <Link to="/contact" className="btn btn-ghost">Get in touch →</Link>
-              </div>
-            </div>
 
-            {/* Mission visual */}
-            <div className="relative aspect-[4/3] bg-ink-2 border border-white/5 overflow-hidden reveal reveal-delay-2 hidden lg:block">
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 text-center px-8">
-                <div className="w-14 h-14 flex items-center justify-center border border-cyber/30"
-                  style={{ background: 'rgba(59,130,246,0.08)' }}>
-                  <span style={{ color: '#3B82F6', fontSize: '1.5rem' }}>◈</span>
-                </div>
-                <div>
-                  <p className="font-mono-custom text-[0.58rem] tracking-[0.2em] uppercase text-smoke-faint mb-2">Our promise</p>
-                  <p className="font-display font-light text-smoke/60 leading-snug" style={{ fontSize: '1.05rem' }}>
-                    More customers, lower costs,<br />less work for you
-                  </p>
-                </div>
-                <div className="font-mono-custom text-[0.52rem] text-smoke-faint/25 tracking-widest">
-                  imbamarketing.com · 2016 – {new Date().getFullYear()}
-                </div>
-              </div>
-              <div className="absolute inset-0 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)' }}
-              />
+      <PageHero
+        kicker="About · Est. 2016 · Wilmington, Delaware & Kragujevac, Serbia"
+        title="A small team that markets, builds and automates."
+      >
+        <div className="max-w-[720px] flex flex-col gap-5 lead">
+          <p className="m-0">
+            Most companies hire one agency for ads, another for the website and a freelancer for automations, then spend their time coordinating them. Imba puts all three under one brief so the campaign, the landing page and the follow-up are designed together.
+          </p>
+          <p className="m-0">
+            Since 2016, we've helped over 200 brands — from e-commerce and SaaS to professional services and DTC — get more customers, lower their marketing costs, and free up their time.
+          </p>
+        </div>
+      </PageHero>
+
+      <section className="wrap pb-[clamp(56px,8vw,96px)]">
+        <CellGrid min={300}>
+          {PRINCIPLES.map(({ title, desc }) => (
+            <Cell key={title}>
+              <h2 className="font-display font-semibold text-2xl m-0 mb-2.5 tracking-[-.02em]">{title}</h2>
+              <p className="m-0 text-smoke-dim leading-relaxed">{desc}</p>
+            </Cell>
+          ))}
+        </CellGrid>
+        <div className="grid grid-cols-2 lg:grid-cols-4 border-l border-line">
+          {STATS.map(({ num, sup, label }) => (
+            <div key={label} className="px-6 py-6 border-r border-b border-line">
+              <div className="font-display font-semibold text-[clamp(30px,3.4vw,44px)] leading-none tracking-[-.03em]">{num}{sup}</div>
+              <div className="mt-2 font-mono-custom text-xs uppercase tracking-[.06em] text-smoke-dim">{label}</div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ── STATS ─────────────────────────────────────────── */}
-      <div className="border-y border-white/6 grid grid-cols-2 lg:grid-cols-4">
-        {STATS.map(({ num, sup, label }, i) => (
-          <div key={label} className={`px-8 lg:px-12 py-8 ${i < 3 ? 'border-r border-white/6' : ''}`}>
-            <div className="font-display font-light text-smoke leading-none" style={{ fontSize: '3rem' }}>
-              {num}<em className="text-ember not-italic">{sup}</em>
-            </div>
-            <div className="font-mono-custom text-[0.6rem] tracking-[0.18em] uppercase text-smoke-faint mt-2">{label}</div>
-          </div>
-        ))}
-      </div>
+      {/* ── TEAM ──────────────────────────────────────────── */}
+      <section className="wrap pb-[clamp(56px,8vw,96px)]">
+        <h2 className="h-sub m-0 mb-7">Team</h2>
+        <div className="grid gap-6 [grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr))]">
+          {team.map(member => {
+            const initials = member.name.split(' ').map(w => w[0]).join('')
+            const linkedin = member.social_links?.linkedin
+            return (
+              <div key={member.id}>
+                <div className="relative aspect-[4/5] border border-line hatch overflow-hidden">
+                  {/* Initials sit underneath; the photo covers them when it loads */}
+                  <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-display font-semibold text-5xl text-smoke-dim">{initials}</span>
+                  {member.photo_url && (
+                    <img
+                      src={member.photo_url}
+                      alt={member.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      onError={e => { e.currentTarget.style.display = 'none' }}
+                    />
+                  )}
+                </div>
+                <div className="font-semibold text-[17px] mt-3">{member.name}</div>
+                {member.role && <div className="text-smoke-dim text-[15px]">{member.role}</div>}
+                {member.bio && <p className="mt-3 mb-0 text-smoke-dim text-[15px] leading-relaxed">{member.bio}</p>}
+                {linkedin && (
+                  <a href={linkedin} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 font-semibold text-[15px] hover:text-brand-text">
+                    LinkedIn →
+                  </a>
+                )}
+              </div>
+            )
+          })}
+        </div>
+        <p className="mt-10 mb-0 font-mono-custom text-xs uppercase tracking-[.06em] text-smoke-dim">
+          + A team of marketing specialists, content creators, and analysts across Europe & US
+        </p>
+      </section>
 
       {/* ── WHAT WE DO ──────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink-2">
-        <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+      <section className="bg-ink-2 border-y border-line">
+        <div className="wrap py-[clamp(56px,8vw,96px)] grid gap-x-16 gap-y-10 lg:grid-cols-2">
           <div>
-            <p className="eyebrow mb-4 reveal">What we do</p>
-            <h2 className="font-display font-light leading-tight mb-8 reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              We make your marketing<br /><em className="text-[#D4A853] italic">work harder for you</em>
-            </h2>
-            <div className="space-y-5 text-smoke-dim leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.95rem' }}>
-              <p>We're an AI marketing agency that gets brands better results in less time. Whether you're in e-commerce, SaaS, professional services, or DTC, our AI systems deliver more customers, lower costs, and marketing that keeps improving on its own.</p>
-              <p>We don't just run ads or post content. We build complete AI marketing systems that work around the clock — finding customers, nurturing leads, and growing your revenue while you focus on your business.</p>
-              <p>From performance ads and content to personalization and predictive analytics, we cover every part of your marketing. And we explain everything in plain English — no tech jargon, no confusing reports.</p>
+            <div className="kicker mb-5">What we do</div>
+            <h2 className="h-sub m-0 mb-6">We make your marketing work harder for you.</h2>
+            <div className="flex flex-col gap-4 text-smoke-dim text-[17px] leading-relaxed">
+              <p className="m-0">We're an AI marketing agency that gets brands better results in less time. Whether you're in e-commerce, SaaS, professional services, or DTC, our AI systems deliver more customers, lower costs, and marketing that keeps improving on its own.</p>
+              <p className="m-0">We don't just run ads or post content. We build complete AI marketing systems that work around the clock — finding customers, nurturing leads, and growing your revenue while you focus on your business.</p>
+              <p className="m-0">From performance ads and content to personalization and predictive analytics, we cover every part of your marketing. And we explain everything in plain English — no tech jargon, no confusing reports.</p>
             </div>
           </div>
-
-          {/* What we help with */}
-          <div className="reveal reveal-delay-2">
-            <p className="font-mono-custom text-[0.65rem] tracking-[0.18em] uppercase text-smoke-faint mb-6">How we help</p>
-            <div className="grid grid-cols-2 gap-x-4">
+          <div>
+            <div className="kicker-muted mb-4">How we help</div>
+            <ul className="list-none m-0 p-0 grid sm:grid-cols-2 gap-x-6">
               {[
                 'AI growth marketing', 'AI performance ads',
                 'AI personalization', 'AI content production',
@@ -211,194 +221,68 @@ export default function About() {
                 'E-commerce & DTC marketing', 'SaaS & lead generation',
                 'Email & lifecycle marketing', 'SEO & search visibility',
                 'Landing page optimization', 'White label for agencies',
-              ].map(s => (
-                <div key={s} className="flex items-center gap-2 py-2.5 border-b border-white/5">
-                  <div className="w-1 h-1 rounded-full bg-ember flex-shrink-0" />
-                  <span className="font-mono-custom text-[0.62rem] tracking-wide text-smoke-dim">{s}</span>
-                </div>
+              ].map(item => (
+                <li key={item} className="py-3 border-t border-line flex gap-3 text-[15px]">
+                  <span aria-hidden="true" className="font-mono-custom text-brand-text">→</span>{item}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </div>
-      </section>
-
-      {/* ── TEAM ──────────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Meet us</p>
-          <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
-            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            The people who'll<br /><em className="text-[#D4A853] italic">grow your business</em>
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
-            {team.map((member, i) => {
-              const color = MEMBER_COLORS[i % MEMBER_COLORS.length]
-              const initials = member.name.split(' ').map(w => w[0]).join('')
-              const linkedin = member.social_links?.linkedin
-              return (
-                <div key={member.id}
-                  className="bg-ink-2 border border-white/5 overflow-hidden hover:border-white/10 transition-colors reveal"
-                  style={{ transitionDelay: `${i * 100}ms` }}>
-                  {/* Photo */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={member.photo_url || ''}
-                      alt={member.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                      onError={e => {
-                        const el = e.currentTarget
-                        el.style.display = 'none'
-                        const fallback = el.nextElementSibling as HTMLElement
-                        if (fallback) fallback.style.display = 'flex'
-                      }}
-                    />
-                    {/* Fallback initials */}
-                    <div className="hidden absolute inset-0 items-center justify-center font-mono-custom text-4xl font-medium"
-                      style={{ background: `${color}12`, color }}>
-                      {initials}
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink-2/80 to-transparent" />
-                  </div>
-                  <div className="p-7">
-                    <h3 className="font-display font-light text-smoke text-2xl mb-1">{member.name}</h3>
-                    <p className="font-mono-custom text-[0.62rem] tracking-[0.16em] uppercase mb-4" style={{ color }}>{member.role}</p>
-                    <p className="text-smoke-dim leading-relaxed mb-5" style={{ fontSize: '0.88rem' }}>{member.bio}</p>
-                    <div className="flex items-center gap-3">
-                      {linkedin && (
-                        <a href={linkedin} target="_blank" rel="noopener noreferrer"
-                          className="font-mono-custom text-[0.58rem] tracking-widest uppercase text-smoke-faint/40 hover:text-smoke-dim transition-colors">
-                          LinkedIn →
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-          <p className="font-mono-custom text-[0.62rem] tracking-widest uppercase text-smoke-faint/35 mt-10 reveal">
-            + A team of marketing specialists, content creators, and analysts across Europe & US
-          </p>
         </div>
       </section>
 
       {/* ── VALUES ────────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink-2">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">Why clients choose us</p>
-          <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
-            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            What makes us<br /><em className="text-[#D4A853] italic">different</em>
-          </h2>
-          <div className="grid md:grid-cols-2 gap-px bg-white/5">
-            {VALUES.map(({ n, title, desc }, i) => (
-              <div key={n}
-                className="bg-ink-2 p-10 hover:bg-ink-3 transition-colors reveal"
-                style={{ transitionDelay: `${i * 80}ms` }}>
-                <span className="font-mono-custom text-[0.65rem] text-ember/70">{n}</span>
-                <h3 className="font-display font-light text-smoke text-2xl mt-3 mb-4">{title}</h3>
-                <p className="text-smoke-dim leading-relaxed" style={{ fontSize: '0.9rem' }}>{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="wrap py-[clamp(56px,8vw,96px)]">
+        <div className="kicker mb-5">Why clients choose us</div>
+        <h2 className="h-sub m-0 mb-10">What makes us different.</h2>
+        <CellGrid min={420}>
+          {VALUES.map(({ n, title, desc }) => (
+            <Cell key={n} className="!p-9">
+              <span className="font-mono-custom text-[13px] text-brand-text">{n}</span>
+              <h3 className="font-display font-semibold text-2xl mt-3 mb-3 tracking-[-.02em]">{title}</h3>
+              <p className="m-0 text-smoke-dim leading-relaxed">{desc}</p>
+            </Cell>
+          ))}
+        </CellGrid>
       </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-4 reveal">What clients say about us</p>
-          <h2 className="font-display font-light leading-tight mb-14 reveal reveal-delay-1"
-            style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-            Don't take our word for it. <em className="text-[#D4A853] italic">Take theirs.</em>
-          </h2>
-          <div className="grid md:grid-cols-3 gap-px bg-white/5">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={t.name} className="bg-ink p-8 relative reveal" style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="absolute top-5 right-6 font-display text-[5rem] font-light leading-none select-none"
-                  style={{ color: 'rgba(239,68,68,0.05)' }}>"</div>
-                <p className="font-display text-lg font-light italic text-smoke/80 leading-relaxed mb-6">{t.text}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-mono-custom text-[0.6rem]"
-                    style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', color: '#EF4444' }}>
-                    {t.name.split(' ').map(w => w[0]).join('')}
-                  </div>
-                  <div>
-                    <p className="text-sm text-smoke font-medium">{t.name}</p>
-                    <p className="font-mono-custom text-[0.58rem] tracking-wider text-smoke-faint">
-                      {t.role ? `${t.role} · ` : ''}{t.company}
-                    </p>
-                  </div>
-                </div>
-              </div>
+      <section className="border-t border-line">
+        <div className="wrap py-[clamp(56px,8vw,96px)]">
+          <h2 className="h-sub m-0 mb-10">Don't take our word for it. Take theirs.</h2>
+          <CellGrid min={300}>
+            {TESTIMONIALS.map(t => (
+              <figure key={t.name} className="m-0 p-8 border-r border-b border-line flex flex-col gap-6">
+                <blockquote className="m-0 text-[18px] leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</blockquote>
+                <figcaption>
+                  <span className="block font-semibold">{t.name}</span>
+                  <span className="block text-sm text-smoke-dim">{t.role ? `${t.role} · ` : ''}{t.company}</span>
+                </figcaption>
+              </figure>
             ))}
-          </div>
+          </CellGrid>
         </div>
       </section>
 
-      {/* ── FOLLOW US ─────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink border-t border-white/5">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div>
-            <p className="eyebrow mb-2 reveal">Follow our work</p>
-            <h2 className="font-display font-light text-smoke reveal reveal-delay-1" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}>
-              Stay updated — follow <em className="text-[#D4A853] italic">imba.</em>
-            </h2>
-          </div>
-          <div className="flex flex-wrap gap-3 reveal reveal-delay-2">
+      {/* ── CLIENTS + SOCIAL ─────────────────────────────── */}
+      <section className="border-t border-line">
+        <div className="wrap py-[22px] flex flex-wrap items-center gap-x-10 gap-y-3 font-mono-custom text-xs uppercase tracking-[.06em] text-smoke-dim">
+          <span>Trusted by</span>
+          {CLIENTS.map(c => <span key={c} className="text-smoke">{c}</span>)}
+        </div>
+      </section>
+      <section className="border-t border-line">
+        <div className="wrap py-10 flex flex-wrap gap-6 items-center justify-between">
+          <h2 className="font-display font-semibold text-2xl m-0 tracking-[-.02em]">Follow our work</h2>
+          <div className="flex flex-wrap gap-2">
             {SOCIAL.map(({ label, short, href }) => (
-              <a
-                key={short}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 border border-white/10 hover:border-ember hover:text-ember transition-all group"
-              >
-                <span className="font-mono-custom text-[0.6rem] tracking-widest uppercase text-smoke-dim group-hover:text-ember transition-colors">{short}</span>
-                <span className="text-sm text-smoke-dim group-hover:text-smoke transition-colors">{label}</span>
-              </a>
+              <a key={short} href={href} target="_blank" rel="noopener noreferrer" className="chip inline-flex items-center">{label}</a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CLIENTS ───────────────────────────────────────── */}
-      <section className="py-24 px-6 lg:px-12 bg-ink-2 border-t border-white/5">
-        <div className="max-w-screen-xl mx-auto">
-          <p className="font-mono-custom text-[0.62rem] tracking-[0.2em] uppercase text-smoke-faint/50 mb-8 text-center reveal">
-            Trusted by businesses that want to grow
-          </p>
-          <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 reveal reveal-delay-1">
-            {CLIENTS.map(c => (
-              <span key={c} className="font-mono-custom text-[0.65rem] tracking-[0.14em] uppercase text-smoke-faint/35 hover:text-smoke-faint transition-colors">
-                {c}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden cta-gradient">
-        <div className="relative px-6 lg:px-12 py-20 max-w-screen-xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-          <div>
-            <h2 className="font-display font-light leading-tight text-ink"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.8rem)' }}>
-              Ready to grow<br /><em>your business?</em>
-            </h2>
-            <p className="text-ink/60 mt-3" style={{ fontSize: '0.95rem' }}>
-              Free 15-minute call · No pressure · Results within 48 hours.
-            </p>
-          </div>
-          <button
-            onClick={() => openModal()}
-            className="flex-shrink-0 font-mono-custom text-[0.7rem] tracking-[0.14em] uppercase px-8 py-4 cursor-pointer"
-            style={{ background: '#09090B', color: '#FAFAF9', border: 'none' }}>
-            Get your free growth plan
-          </button>
-        </div>
-      </section>
+      <CtaBand title="Ready to grow your business? Tell us what you need." sub="Free 15-minute call · No pressure · Results within 48 hours." />
     </>
   )
 }

@@ -7,17 +7,17 @@ import Seo from '@/components/Seo'
 import { useQuoteModal } from '@/contexts/QuoteModalContext'
 
 const CAT_COLOR: Record<string, string> = {
-  'AI Video': '#D4A853',
-  'Growth Systems': '#EF4444',
-  'Performance Advertising': '#3B82F6',
-  'TikTok': '#3B82F6',
-  'Film': '#D4A853',
-  'Technology': '#3B82F6',
-  'AI Marketing': '#D4A853',
-  'Social Media': '#3B82F6',
-  'Marketing Analytics': '#EF4444',
-  'Content Strategy': '#D4A853',
-  'eCommerce': '#EF4444',
+  'AI Video': 'rgb(var(--c-accent-text))',
+  'Growth Systems': 'rgb(var(--c-accent-text))',
+  'Performance Advertising': 'rgb(var(--c-accent-text))',
+  'TikTok': 'rgb(var(--c-accent-text))',
+  'Film': 'rgb(var(--c-accent-text))',
+  'Technology': 'rgb(var(--c-accent-text))',
+  'AI Marketing': 'rgb(var(--c-accent-text))',
+  'Social Media': 'rgb(var(--c-accent-text))',
+  'Marketing Analytics': 'rgb(var(--c-accent-text))',
+  'Content Strategy': 'rgb(var(--c-accent-text))',
+  'eCommerce': 'rgb(var(--c-accent-text))',
 }
 
 export default function BlogPost() {
@@ -57,7 +57,7 @@ export default function BlogPost() {
   if (post === undefined) {
     return (
       <div className="min-h-screen bg-ink flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-ember border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -68,7 +68,7 @@ export default function BlogPost() {
   }
 
   const categoryName = post.blog_categories?.name || post.category || ''
-  const catColor = CAT_COLOR[categoryName] || '#EF4444'
+  const catColor = CAT_COLOR[categoryName] || 'rgb(var(--c-accent-text))'
 
   const formattedDate = post.published_at
     ? new Date(post.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -98,7 +98,7 @@ export default function BlogPost() {
         }}
       />
       {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-16 pb-16 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[50vw] h-full pointer-events-none"
           style={{ background: `radial-gradient(ellipse 60% 70% at 100% 30%, ${catColor}08 0%, transparent 65%)` }}
         />
@@ -133,8 +133,8 @@ export default function BlogPost() {
           <div className="flex flex-wrap items-center gap-6">
             {post.author_name && (
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-ember/20 flex items-center justify-center">
-                  <span className="text-ember text-xs font-medium">{post.author_name[0]}</span>
+                <div className="w-7 h-7 rounded-full bg-brand/20 flex items-center justify-center">
+                  <span className="text-brand-text text-xs font-medium">{post.author_name[0]}</span>
                 </div>
                 <span className="font-mono-custom text-[0.65rem] tracking-wider text-smoke-faint uppercase">{post.author_name}</span>
               </div>
@@ -195,7 +195,7 @@ export default function BlogPost() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono-custom text-[0.6rem] tracking-[0.12em] uppercase px-3 py-2 border border-white/8 text-smoke-faint/50 hover:border-white/20 hover:text-smoke-dim transition-all"
+                    className="font-mono-custom text-[0.6rem] tracking-[0.12em] uppercase px-3 py-2 border border-line text-smoke-faint/50 hover:border-line hover:text-smoke-dim transition-all"
                   >
                     {label} →
                   </a>
@@ -206,7 +206,7 @@ export default function BlogPost() {
                     setCopied(true)
                     setTimeout(() => setCopied(false), 2000)
                   }}
-                  className="font-mono-custom text-[0.6rem] tracking-[0.12em] uppercase px-3 py-2 border border-white/8 text-smoke-faint/50 hover:border-white/20 hover:text-smoke-dim transition-all text-left"
+                  className="font-mono-custom text-[0.6rem] tracking-[0.12em] uppercase px-3 py-2 border border-line text-smoke-faint/50 hover:border-line hover:text-smoke-dim transition-all text-left"
                 >
                   {copied ? '✓ Link copied!' : 'Copy link'}
                 </button>
@@ -220,7 +220,7 @@ export default function BlogPost() {
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map(tag => (
                     <span key={tag}
-                      className="font-mono-custom text-[0.58rem] tracking-[0.12em] uppercase px-2.5 py-1 border border-white/8 text-smoke-faint/50">
+                      className="font-mono-custom text-[0.58rem] tracking-[0.12em] uppercase px-2.5 py-1 border border-line text-smoke-faint/50">
                       {tag}
                     </span>
                   ))}
@@ -229,14 +229,14 @@ export default function BlogPost() {
             )}
 
             {/* CTA card */}
-            <div className="border border-white/8 p-6 bg-ink-2">
-              <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] uppercase text-ember mb-3">Work with us</p>
+            <div className="border border-line p-6 bg-ink-2">
+              <p className="font-mono-custom text-[0.6rem] tracking-[0.2em] uppercase text-brand-text mb-3">Work with us</p>
               <p className="text-smoke-dim text-sm leading-relaxed mb-4">
                 Ready to grow your brand? Let's build your AI marketing strategy.
               </p>
               <button
                 onClick={() => openModal()}
-                className="font-mono-custom text-[0.65rem] tracking-[0.14em] uppercase text-ember flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
+                className="font-mono-custom text-[0.65rem] tracking-[0.14em] uppercase text-brand-text flex items-center gap-2 hover:gap-3 transition-all bg-transparent border-none cursor-pointer p-0"
               >
                 <span>Get a free quote</span>
                 <span>→</span>
@@ -247,7 +247,7 @@ export default function BlogPost() {
       </section>
 
       {/* ── BACK TO BLOG + CTA ───────────────────────────── */}
-      <section className="bg-ink-2 px-6 lg:px-12 py-10 border-t border-white/5">
+      <section className="bg-ink-2 px-6 lg:px-12 py-10 border-t border-line">
         <div className="max-w-screen-lg mx-auto flex items-center justify-between">
           <Link
             to="/blog"

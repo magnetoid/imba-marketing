@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import type { PortfolioItem } from '@/lib/supabase'
 import Seo from '@/components/Seo'
+import { PageHero, CtaBand } from '@/components/site'
 
-/* ── category labels & colours (matches PortfolioAdmin) ──── */
-const CAT_META: Record<string, { label: string; color: string }> = {
-  growth:          { label: 'Growth',          color: '#EF4444' },
-  ads:             { label: 'Performance Ads', color: '#D4A853' },
-  content:         { label: 'Content',         color: '#3B82F6' },
-  funnel:          { label: 'Conversion',      color: '#EF4444' },
-  intelligence:    { label: 'Intelligence',    color: '#D4A853' },
-  personalisation: { label: 'Personalization', color: '#3B82F6' },
+/* ── category labels (match PortfolioAdmin) ──── */
+const CAT_META: Record<string, { label: string }> = {
+  growth:          { label: 'Growth' },
+  ads:             { label: 'Performance Ads' },
+  content:         { label: 'Content' },
+  funnel:          { label: 'Conversion' },
+  intelligence:    { label: 'Intelligence' },
+  personalisation: { label: 'Personalization' },
 }
 
 const CATS = [
@@ -73,10 +73,15 @@ const FALLBACK_CASES: PortfolioItem[] = [
 const STATS = [
   { num: '200+', label: 'Clients' },
   { num: '4.8×', label: 'Avg. ROAS' },
-  { num: '3×',   label: 'Revenue Growth' },
+  { num: '3×',   label: 'Revenue growth' },
   { num: '98%',  label: 'Retention' },
 ]
 
+/*
+ * Case studies — 2026 redesign. Same data as before (Supabase
+ * `portfolio_items`, falling back to the built-in cases), shown as the
+ * redesign's bordered cards: image, service tag, client, summary, metrics.
+ */
 export default function Work() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [items, setItems] = useState<PortfolioItem[]>([])
@@ -98,147 +103,81 @@ export default function Work() {
   const filtered = activeCategory === 'all'
     ? cases
     : cases.filter(c => c.category === activeCategory)
+  // Only offer filters that have at least one case
+  const cats = CATS.filter(c => c.key === 'all' || cases.some(x => x.category === c.key))
 
   return (
     <>
       <Seo
-        title="Client Results — AI Marketing Case Studies"
+        title="Case Studies — AI Marketing Results"
         description="See how we've helped brands triple revenue, cut ad costs by 40%, and scale with AI. Real numbers from real businesses across industries."
         canonicalPath="/results"
       />
 
-      {/* ── PAGE HERO ─────────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
-        />
-        <div className="relative max-w-screen-xl mx-auto">
-          <p className="eyebrow mb-5 reveal">Real client results</p>
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-            <h1 className="font-display font-light leading-none reveal reveal-delay-1"
-              style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
-              Real results from<br />
-              <em className="text-[#D4A853] italic">AI-powered marketing</em>
-            </h1>
-            <p className="text-smoke-dim max-w-xs leading-relaxed reveal reveal-delay-2" style={{ fontSize: '0.93rem' }}>
-              Every number is real. Every result is from a brand we actually helped grow — across e-commerce, SaaS, services, and more.
-            </p>
-          </div>
+      <PageHero
+        kicker="Case studies"
+        title="Work we can show numbers for."
+        lead="Every number is real. Every result is from a brand we actually helped grow — across e-commerce, SaaS, services, and more."
+      />
+
+      <section className="wrap">
+        <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-l border-line">
+          {STATS.map(({ num, label }) => (
+            <div key={label} className="px-6 py-6 border-r border-b border-line">
+              <div className="font-display font-semibold text-[clamp(30px,3.4vw,44px)] leading-none tracking-[-.03em]">{num}</div>
+              <div className="mt-2 font-mono-custom text-xs uppercase tracking-[.06em] text-smoke-dim">{label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ── STATS BAR ─────────────────────────────────────── */}
-      <div className="border-y border-white/6 grid grid-cols-2 lg:grid-cols-4">
-        {STATS.map(({ num, label }, i) => (
-          <div key={label} className={`px-8 lg:px-10 py-7 ${i < 3 ? 'border-r border-white/6' : ''}`}>
-            <div className="font-display font-light text-smoke leading-none" style={{ fontSize: '2.4rem' }}>
-              <span>{num.replace(/[+%×]/g, '')}</span>
-              <em className="text-ember not-italic">{num.match(/[+%×]/)?.[0] ?? ''}</em>
-            </div>
-            <div className="font-mono-custom text-[0.58rem] tracking-[0.18em] uppercase text-smoke-faint mt-1.5">{label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── CATEGORY FILTER ───────────────────────────────── */}
-      <div className="sticky top-16 z-30 bg-ink/95 border-b border-white/5" style={{ backdropFilter: 'blur(12px)' }}>
-        <div className="px-6 lg:px-12 py-4 max-w-screen-xl mx-auto flex gap-1.5 overflow-x-auto">
-          {CATS.map(({ key, label }) => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(key)}
-              className="flex-shrink-0 font-mono-custom text-[0.65rem] tracking-[0.12em] uppercase px-4 py-2 transition-all duration-200"
-              style={{
-                background: activeCategory === key ? '#EF4444' : 'transparent',
-                color: activeCategory === key ? '#F5F4F0' : '#6B6A65',
-                border: `1px solid ${activeCategory === key ? '#EF4444' : 'rgba(255,255,255,0.06)'}`,
-              }}
-            >
+      <section className="wrap pt-10 pb-[clamp(56px,8vw,96px)]">
+        <div role="group" aria-label="Filter by service" className="flex flex-wrap gap-2 mb-8">
+          {cats.map(({ key, label }) => (
+            <button key={key} type="button" className="chip" aria-pressed={activeCategory === key} onClick={() => setActiveCategory(key)}>
               {label}
             </button>
           ))}
         </div>
-      </div>
 
-      {/* ── CASE STUDY GRID ───────────────────────────────── */}
-      <section className="bg-ink py-24 px-6 lg:px-12">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
-          {filtered.map((item, i) => {
-            const meta = CAT_META[item.category] || { label: item.category, color: '#EF4444' }
+        <div className="grid gap-7 [grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr))]">
+          {filtered.map(item => {
+            const meta = CAT_META[item.category] || { label: item.category }
             const results = item.results ? Object.entries(item.results) : []
             return (
-              <div
-                key={item.id}
-                className="bg-ink p-8 hover:bg-ink-2 transition-colors flex flex-col reveal"
-                style={{ transitionDelay: `${i * 40}ms` }}
-              >
-                {/* Header */}
-                <div className="flex items-start justify-between gap-3 mb-6 flex-wrap">
-                  <span className="font-mono-custom text-[0.58rem] tracking-[0.16em] uppercase text-smoke-faint">{item.client_name}</span>
-                  <span
-                    className="font-mono-custom text-[0.55rem] tracking-[0.12em] uppercase px-2 py-0.5 flex-shrink-0"
-                    style={{ color: meta.color, background: `${meta.color}12`, border: `1px solid ${meta.color}25` }}
-                  >
-                    {meta.label}
-                  </span>
+              <article key={item.id} className="border border-line bg-ink-2 flex flex-col">
+                {item.thumbnail_url && (
+                  <img src={item.thumbnail_url} alt="" loading="lazy" className="block w-full aspect-video object-cover border-b border-line" />
+                )}
+                <div className="p-7 flex flex-col gap-3.5 flex-1">
+                  <span className="self-start font-mono-custom text-xs uppercase tracking-[.06em] text-brand-text border border-line px-2.5 py-1">{meta.label}</span>
+                  {item.client_name && <p className="m-0 text-smoke-dim text-[15px]">{item.client_name}</p>}
+                  <h2 className="font-display font-semibold text-[28px] leading-[1.08] tracking-[-.02em] m-0">{item.title}</h2>
+                  {item.description && <p className="m-0 text-smoke-dim leading-relaxed">{item.description}</p>}
+                  {item.tags && item.tags.length > 0 && (
+                    <p className="m-0 font-mono-custom text-xs uppercase tracking-[.06em] text-smoke-dim">{item.tags.join(' · ')}</p>
+                  )}
+                  {results.length > 0 && (
+                    <div className="mt-auto grid grid-cols-3 gap-4 border-t border-line pt-4">
+                      {results.map(([label, val]) => (
+                        <div key={label}>
+                          <div className="font-display font-semibold text-[26px] text-smoke leading-none">{val}</div>
+                          <div className="mt-1.5 text-sm text-smoke-dim">{label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-
-                {/* Headline */}
-                <h3
-                  className="font-display font-light leading-tight mb-4 flex-1"
-                  style={{ fontSize: 'clamp(1.3rem, 2vw, 1.8rem)', color: meta.color }}
-                >
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-smoke-dim leading-relaxed mb-6">{item.description}</p>
-
-                {/* Tags */}
-                {item.tags && item.tags.length > 0 && (
-                  <div className="flex gap-2 flex-wrap mb-6">
-                    {item.tags.map(t => (
-                      <span key={t} className="font-mono-custom text-[0.55rem] tracking-wider text-smoke-faint/60 uppercase">{t}</span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Result metrics */}
-                {results.length > 0 && (
-                  <div className="pt-5 border-t border-white/5 grid grid-cols-3 gap-3">
-                    {results.map(([label, val]) => (
-                      <div key={label}>
-                        <div className="font-display font-light text-xl leading-none mb-1" style={{ color: meta.color }}>{val}</div>
-                        <div className="font-mono-custom text-[0.52rem] tracking-wide uppercase text-smoke-faint/60 leading-tight">{label}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              </article>
             )
           })}
         </div>
       </section>
 
-      {/* ── CTA BAND ─────────────────────────────────────── */}
-      <section className="cta-gradient py-24 px-6 lg:px-12 border-t border-white/5">
-        <div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div>
-            <p className="eyebrow mb-4">Want results like these?</p>
-            <h2 className="font-display font-light text-ink leading-tight"
-              style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}>
-              Let's build your<br /><em className="text-[#D4A853] italic">growth plan</em>
-            </h2>
-            <p className="text-ink/70 mt-3 max-w-md" style={{ fontSize: '0.93rem' }}>
-              Every result above started with a free conversation. Tell us your goals and we'll show you exactly how we'd help — no commitment, no pressure.
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-            <Link to="/contact" className="btn" style={{ background: '#09090B', color: '#FAFAF9' }}>Get your free growth plan</Link>
-            <Link to="/services" className="btn btn-ghost">See what we do →</Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        title="Want results like these? Get a plan and a quote."
+        sub="Every result above started with a free conversation. No commitment, no pressure."
+      />
     </>
   )
 }

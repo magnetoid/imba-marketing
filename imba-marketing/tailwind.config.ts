@@ -5,17 +5,29 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Theme tokens are CSS variables (space-separated RGB channels, see
+        // index.css) so the public site can flip between the dark and light
+        // themes of the 2026 redesign while opacity modifiers (bg-ink/95) work.
         ink: {
-          DEFAULT: '#09090B',
-          2: '#0F0F12',
-          3: '#16161A',
-          4: '#1E1E23',
+          DEFAULT: 'rgb(var(--c-bg) / <alpha-value>)',
+          2: 'rgb(var(--c-surface) / <alpha-value>)',
+          3: 'rgb(var(--c-surface-2) / <alpha-value>)',
+          4: 'rgb(var(--c-surface-2) / <alpha-value>)',
         },
         smoke: {
-          DEFAULT: '#FAFAF9',
-          dim: '#A1A1AA',
-          faint: '#52525B',
+          DEFAULT: 'rgb(var(--c-fg) / <alpha-value>)',
+          dim: 'rgb(var(--c-muted) / <alpha-value>)',
+          faint: 'rgb(var(--c-faint) / <alpha-value>)',
         },
+        // Lime brand accent. `brand` fills; `brand-text` is the accent used for
+        // text, which darkens in the light theme to stay readable.
+        brand: {
+          DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)',
+          text: 'rgb(var(--c-accent-text) / <alpha-value>)',
+          on: 'rgb(var(--c-on-accent) / <alpha-value>)',
+        },
+        line: 'rgb(var(--c-line-rgb) / var(--c-line-a))',
+        // Legacy accents: still used by the admin screens.
         ember: {
           DEFAULT: '#EF4444',
           dim: '#991B1B',
@@ -49,9 +61,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        display: ['Cormorant Garamond', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['Instrument Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         '2xs': ['0.65rem', { lineHeight: '1rem', letterSpacing: '0.06em' }],

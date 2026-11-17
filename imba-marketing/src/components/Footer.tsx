@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom'
+import { Logo } from '@/components/Nav'
+
+/*
+ * 2026 redesign footer. Keeps every link, address and social profile the old
+ * footer carried; restyled to the flat, bordered look of the new design.
+ */
 
 const SERVICES = [
+  { label: 'Marketing', to: '/services/marketing' },
+  { label: 'Development', to: '/services/development' },
+  { label: 'Automation', to: '/services/automation' },
+  { label: 'All services', to: '/services' },
+]
+const SPECIALTIES = [
   { label: 'AI Growth Marketing', to: '/services/growth' },
   { label: 'AI Performance Ads', to: '/services/ads' },
   { label: 'AI Personalization', to: '/services/personalisation' },
@@ -9,9 +21,10 @@ const SERVICES = [
   { label: 'AI Conversion Optimization', to: '/services/funnel' },
 ]
 const COMPANY = [
-  { label: 'About Us', to: '/about' },
-  { label: 'Client Results', to: '/results' },
+  { label: 'About', to: '/about' },
+  { label: 'Case studies', to: '/results' },
   { label: 'Reviews', to: '/reviews' },
+  { label: 'AI projects', to: '/ai-projects' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
@@ -24,142 +37,52 @@ const SOCIAL = [
   { label: 'Fiverr', href: 'https://fiverr.com/imbamarketing' },
 ]
 
+function Col({ title, links }: { title: string; links: { label: string; to: string }[] }) {
+  return (
+    <div>
+      <p className="kicker-muted mb-4">{title}</p>
+      <ul className="flex flex-col gap-2.5">
+        {links.map(({ label, to }) => (
+          <li key={to}><Link to={to} className="text-[15px] text-smoke-dim hover:text-smoke transition-colors">{label}</Link></li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Footer() {
   return (
-    <footer className="bg-ink border-t border-white/5">
-
-      {/* Main grid */}
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-
-        {/* Brand */}
+    <footer className="border-t border-line">
+      <div className="wrap py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.3fr_1fr]">
         <div>
-          <Link to="/" className="inline-block mb-4">
-            <span className="font-display font-light text-2xl text-smoke">
-              imba<span className="font-normal text-smoke-faint">.marketing</span>
-            </span>
-          </Link>
-          <p className="text-sm text-smoke-faint leading-relaxed max-w-xs mb-6">
-            AI-powered marketing agency for ambitious brands. Intelligent campaigns that drive revenue and scale faster.
+          <Link to="/" aria-label="Imba Marketing home" className="inline-block mb-4"><Logo size={20} /></Link>
+          <p className="text-[15px] text-smoke-dim leading-relaxed max-w-xs mb-6">
+            AI-powered marketing agency. We run your campaigns, build your website or product, and automate the work in between.
           </p>
-          <div className="flex flex-col gap-2">
-            {SOCIAL.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
-              >
-                {label}
-              </a>
-            ))}
+          <div className="text-[15px] text-smoke-dim leading-relaxed flex flex-col gap-3">
+            <a href="mailto:hello@imbamarketing.com" className="text-smoke hover:text-brand-text">hello@imbamarketing.com</a>
+            <p>1007 N Orange St, 4th Floor, Suite #3601<br />Wilmington, Delaware 19801, United States</p>
+            <p>Kragujevac, Serbia<br />+1 (650) 226-7172</p>
           </div>
         </div>
-
-        {/* Services */}
-        <div>
-          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
-            Services
-          </p>
-          <ul className="flex flex-col gap-3">
-            {SERVICES.map(({ label: sLabel, to }) => (
-              <li key={sLabel}>
-                <Link
-                  to={to}
-                  className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
-                >
-                  {sLabel}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Company */}
-        <div>
-          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
-            Company
-          </p>
-          <ul className="flex flex-col gap-3">
-            {COMPANY.map(({ label, to }) => (
-              <li key={label}>
-                <Link
-                  to={to}
-                  className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <p className="text-sm font-semibold text-smoke uppercase tracking-wider mb-5">
-            Contact
-          </p>
-          <div className="flex flex-col gap-3 text-sm text-smoke-faint">
-            <a
-              href="mailto:hello@imbamarketing.com"
-              className="hover:text-smoke transition-colors duration-200"
-            >
-              hello@imbamarketing.com
-            </a>
-            <p className="leading-relaxed">
-              1007 N Orange St, 4th Floor<br />
-              Suite #3601<br />
-              Wilmington, Delaware 19801<br />
-              United States
-            </p>
-            <p className="leading-relaxed">
-              Kragujevac, Serbia<br />
-              +1 (650) 226-7172
-            </p>
-          </div>
-        </div>
+        <Col title="Services" links={SERVICES} />
+        <Col title="AI specialties" links={SPECIALTIES} />
+        <Col title="Company" links={COMPANY} />
       </div>
 
-      {/* Quick links bar */}
-      <div className="border-t border-white/5 max-w-screen-xl mx-auto px-6 lg:px-12 py-6">
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mb-5">
-          {[
-            { label: 'Home', to: '/' },
-            { label: 'Services', to: '/services' },
-            { label: 'Results', to: '/results' },
-            { label: 'Reviews', to: '/reviews' },
-            { label: 'AI Projects', to: '/ai-projects' },
-            { label: 'Gallery', to: '/gallery' },
-            { label: 'Blog', to: '/blog' },
-            { label: 'About', to: '/about' },
-            { label: 'Contact', to: '/contact' },
-          ].map(({ label, to }) => (
-            <Link
-              key={to}
-              to={to}
-              className="text-sm text-smoke-faint hover:text-smoke transition-colors duration-200"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-smoke-faint">
-            &copy; {new Date().getFullYear()} Imba Marketing LLC. All rights reserved.
-          </p>
-          <div className="flex gap-6">
-            <Link
-              to="/privacy"
-              className="text-sm text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              to="/admin"
-              className="text-sm text-smoke-faint hover:text-smoke-dim transition-colors duration-200"
-            >
-              Admin
-            </Link>
+      <div className="border-t border-line">
+        <div className="wrap py-6 flex flex-wrap gap-x-8 gap-y-4 items-center justify-between text-[15px] text-smoke-dim">
+          <span className="font-display font-bold text-lg text-smoke">imba marketing</span>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            {SOCIAL.map(({ label, href }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-smoke">{label}</a>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
+            <span>&copy; {new Date().getFullYear()} Imba Marketing LLC</span>
+            <Link to="/privacy" className="hover:text-smoke">Privacy</Link>
+            {/* Full page load: admin runs in its own (always dark) shell */}
+            <a href="/admin" className="hover:text-smoke">Admin</a>
           </div>
         </div>
       </div>

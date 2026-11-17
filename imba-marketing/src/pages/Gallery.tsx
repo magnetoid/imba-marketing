@@ -12,7 +12,7 @@ const GalleryImage = ({ img, index, onClick, onLike, isLiked }: { img: MediaFile
 
   return (
     <div
-      className="mb-3 sm:mb-4 break-inside-avoid cursor-pointer group relative overflow-hidden rounded-md bg-ink-light/20 reveal"
+      className="mb-3 sm:mb-4 break-inside-avoid cursor-pointer group relative overflow-hidden rounded-none bg-ink-light/20 reveal"
       style={{ transitionDelay: `${Math.min(index * 30, 300)}ms` }}
       onClick={() => onClick(index)}
       role="button"
@@ -235,16 +235,16 @@ export default function Gallery() {
       />
 
       {/* ── HERO ──────────────────────────────────── */}
-      <section className="pt-36 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
+      <section className="pt-16 pb-20 px-6 lg:px-12 bg-ink relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgba(239,68,68,0.06) 0%, transparent 65%)' }}
+          style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 30%, rgb(var(--c-accent) / 0.06) 0%, transparent 65%)' }}
         />
         <div className="relative max-w-screen-xl mx-auto">
           <p className="eyebrow mb-5 reveal">Behind the scenes</p>
           <h1 className="font-display font-light leading-none reveal reveal-delay-1"
             style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}>
             Our work,<br />
-            <em className="text-[#D4A853] italic">up close</em>
+            <em className="text-brand-text not-italic">up close</em>
           </h1>
         </div>
       </section>
@@ -343,7 +343,7 @@ export default function Gallery() {
                     transition={{ delay: 0.3 }}
                     className="absolute bottom-8 left-0 right-0 px-6 pointer-events-none z-20"
                   >
-                    <div className="max-w-2xl mx-auto flex items-center justify-between gap-4 bg-black/60 backdrop-blur-md p-4 rounded-lg border border-smoke/10 pointer-events-auto">
+                    <div className="max-w-2xl mx-auto flex items-center justify-between gap-4 bg-black/60 backdrop-blur-md p-4 rounded-none border border-smoke/10 pointer-events-auto">
                       <p className="font-mono-custom text-[0.75rem] tracking-wide text-smoke/90 text-left flex-1">
                         {current.caption || "Image view"}
                       </p>

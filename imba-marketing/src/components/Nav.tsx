@@ -1,341 +1,117 @@
-import { useState, useEffect, useRef } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { useQuoteModal } from '@/contexts/QuoteModalContext'
+import { useThemeToggle } from '@/lib/theme'
 
-const SERVICES = [
-  { to: '/services/growth', label: 'AI Growth Marketing', desc: 'Automated campaigns that compound growth', color: '#EF4444' },
-  { to: '/services/ads', label: 'AI Performance Ads', desc: 'Cross-platform ROAS optimization', color: '#F59E0B' },
-  { to: '/services/personalisation', label: 'AI Personalization', desc: 'Right message, right person, right time', color: '#3B82F6' },
-  { to: '/services/content', label: 'AI Content Production', desc: 'Brand content at scale', color: '#EF4444' },
-  { to: '/services/intelligence', label: 'AI Analytics & Intelligence', desc: 'Data-driven decisions', color: '#F59E0B' },
-  { to: '/services/funnel', label: 'AI Conversion Optimization', desc: 'Turn visitors into customers', color: '#3B82F6' },
+/*
+ * 2026 redesign header: sticky bar with the square lime logo mark, the three
+ * service pillars + case studies + about, a light/dark toggle and the
+ * "Send an inquiry" CTA. Secondary pages (blog, reviews, gallery, AI projects)
+ * live in the footer and the mobile menu.
+ */
+
+const PRIMARY = [
+  { to: '/services/marketing', label: 'Marketing' },
+  { to: '/services/development', label: 'Development' },
+  { to: '/services/automation', label: 'Automation' },
+  { to: '/results', label: 'Case studies' },
+  { to: '/about', label: 'About' },
 ]
 
-const COMPANY = [
-  { to: '/about', label: 'About Us', desc: 'Our team, mission, and values' },
-  { to: '/results', label: 'Portfolio', desc: 'Real results from real brands' },
-  { to: '/reviews', label: 'Reviews', desc: 'What our clients say' },
-  { to: '/ai-projects', label: 'AI Projects', desc: '6 proprietary AI systems' },
-  { to: '/gallery', label: 'Gallery', desc: 'Our work up close' },
-  { to: '/blog', label: 'Blog', desc: 'AI marketing insights & guides' },
-  { to: '/contact', label: 'Contact', desc: 'Get a free quote or send a message' },
+const SECONDARY = [
+  { to: '/services', label: 'All services' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/reviews', label: 'Reviews' },
+  { to: '/ai-projects', label: 'AI projects' },
+  { to: '/gallery', label: 'Gallery' },
+  { to: '/contact', label: 'Contact' },
 ]
+
+export function Logo({ size = 22 }: { size?: number }) {
+  return (
+    <span className="font-display font-bold flex items-center gap-2 text-smoke" style={{ fontSize: size, letterSpacing: '-.02em' }}>
+      <span aria-hidden="true" className="inline-block bg-brand" style={{ width: size * 0.55, height: size * 0.55 }} />
+      imba
+    </span>
+  )
+}
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [megaMenu, setMegaMenu] = useState<string | null>(null)
-  const megaRef = useRef<HTMLDivElement>(null)
-  const { openModal } = useQuoteModal()
+  const { theme, toggle } = useThemeToggle()
+  const { pathname } = useLocation()
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  useEffect(() => { setMobileOpen(false) }, [pathname])
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  // Close mega menu on outside click
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (megaRef.current && !megaRef.current.contains(e.target as Node)) {
-        setMegaMenu(null)
-      }
-    }
-    if (megaMenu) document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [megaMenu])
-
-  // Close mega menu on route change
-  function closeMega() { setMegaMenu(null) }
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `py-1.5 border-b-2 transition-colors ${isActive ? 'text-smoke border-brand' : 'text-smoke-dim border-transparent hover:text-smoke'}`
 
   return (
-    <>
-      <nav
-        ref={megaRef}
-        className={`fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300 ${
-          scrolled ? 'py-3 border-b border-white/5' : 'py-5 border-b border-transparent'
-        }`}
-      >
-        <div className="max-w-screen-xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-ink border-b border-line">
+      <div className="wrap py-3.5 flex items-center gap-7">
+        <Link to="/" aria-label="Imba Marketing home"><Logo /></Link>
 
-          {/* Logo */}
-          <Link to="/" className="flex items-center group" onClick={closeMega}>
-            <span className="font-display font-light text-2xl text-white tracking-wide">
-              imba<span className="text-ember italic">.</span><span className="text-smoke-dim">marketing</span>
-            </span>
-          </Link>
-
-          {/* Desktop links */}
-          <div className="hidden lg:flex items-center gap-1">
-            {/* Services — mega menu trigger */}
-            <button
-              onMouseEnter={() => setMegaMenu('services')}
-              onClick={() => setMegaMenu(megaMenu === 'services' ? null : 'services')}
-              className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
-                megaMenu === 'services' ? 'text-white bg-white/5' : 'text-smoke-dim hover:text-white'
-              }`}
-            >
-              Services
-              <svg width="10" height="10" viewBox="0 0 10 10" className={`transition-transform duration-200 ${megaMenu === 'services' ? 'rotate-180' : ''}`}>
-                <path d="M2 4L5 7L8 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
-            </button>
-
-            {/* Company — mega menu trigger */}
-            <button
-              onMouseEnter={() => setMegaMenu('company')}
-              onClick={() => setMegaMenu(megaMenu === 'company' ? null : 'company')}
-              className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-1 ${
-                megaMenu === 'company' ? 'text-white bg-white/5' : 'text-smoke-dim hover:text-white'
-              }`}
-            >
-              Company
-              <svg width="10" height="10" viewBox="0 0 10 10" className={`transition-transform duration-200 ${megaMenu === 'company' ? 'rotate-180' : ''}`}>
-                <path d="M2 4L5 7L8 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
-            </button>
-
-            {/* Reviews — direct link */}
-            <NavLink
-              to="/reviews"
-              onClick={closeMega}
-              className={({ isActive }) =>
-                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
-                }`
-              }
-            >
-              Reviews
-            </NavLink>
-
-            {/* Portfolio — direct link */}
-            <NavLink
-              to="/results"
-              onClick={closeMega}
-              className={({ isActive }) =>
-                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
-                }`
-              }
-            >
-              Portfolio
-            </NavLink>
-
-            {/* Gallery — direct link */}
-            <NavLink
-              to="/gallery"
-              onClick={closeMega}
-              className={({ isActive }) =>
-                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
-                }`
-              }
-            >
-              Gallery
-            </NavLink>
-
-            {/* Blog — direct link */}
-            <NavLink
-              to="/blog"
-              onClick={closeMega}
-              className={({ isActive }) =>
-                `text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-smoke-dim hover:text-white'
-                }`
-              }
-            >
-              Blog
-            </NavLink>
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <LanguageSwitcher />
-            <Link to="/contact" className="text-sm font-medium text-smoke-dim hover:text-white transition-colors px-4 py-2">
-              Contact
-            </Link>
-            <button
-              onClick={() => { openModal(); closeMega() }}
-              className="bg-ember hover:bg-ember-dim text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-ember/20"
-            >
-              Get Free Quote
-            </button>
-          </div>
-
-          {/* Mobile burger */}
-          <button
-            className="lg:hidden flex flex-col gap-[5px] p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
-          >
-            <span className={`block h-[1.5px] w-5 bg-white transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-            <span className={`block h-[1.5px] w-5 bg-white transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-            <span className={`block h-[1.5px] w-5 bg-white transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
-          </button>
-        </div>
-
-        {/* ═══ MEGA MENU — SERVICES ═══ */}
-        <div
-          onMouseLeave={() => setMegaMenu(null)}
-          className={`absolute left-0 right-0 top-full z-[100] transition-all duration-300 ${
-            megaMenu === 'services'
-              ? 'opacity-100 translate-y-0 pointer-events-auto'
-              : 'opacity-0 -translate-y-2 pointer-events-none'
-          }`}
-        >
-          <div className="bg-ink border-b border-white/5 shadow-2xl shadow-black/50">
-            <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
-              <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
-                {/* Services grid */}
-                <div>
-                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">Our AI Marketing Services</p>
-                  <div className="grid sm:grid-cols-2 gap-1">
-                    {SERVICES.map(({ to, label, desc, color }) => (
-                      <Link
-                        key={to}
-                        to={to}
-                        onClick={closeMega}
-                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors"
-                      >
-                        <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ background: color }} />
-                        <div>
-                          <p className="text-sm font-semibold text-white group-hover:text-ember transition-colors">{label}</p>
-                          <p className="text-xs text-smoke-faint mt-0.5">{desc}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* CTA side panel */}
-                <div className="hidden lg:flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-ember/10 to-transparent border border-ember/10">
-                  <div>
-                    <p className="text-lg font-bold text-white mb-2">Not sure which service?</p>
-                    <p className="text-sm text-smoke-dim leading-relaxed">Get a free quote. We'll audit your marketing and recommend the right AI systems for your goals.</p>
-                  </div>
-                  <button
-                    onClick={() => { openModal(); closeMega() }}
-                    className="mt-6 bg-ember hover:bg-ember-dim text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all w-full"
-                  >
-                    Get Your Free Quote →
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ═══ MEGA MENU — COMPANY ═══ */}
-        <div
-          onMouseLeave={() => setMegaMenu(null)}
-          className={`absolute left-0 right-0 top-full z-[100] transition-all duration-300 ${
-            megaMenu === 'company'
-              ? 'opacity-100 translate-y-0 pointer-events-auto'
-              : 'opacity-0 -translate-y-2 pointer-events-none'
-          }`}
-        >
-          <div className="bg-ink border-b border-white/5 shadow-2xl shadow-black/50">
-            <div className="max-w-screen-xl mx-auto px-6 lg:px-12 py-8">
-              <div className="grid lg:grid-cols-[2fr_1fr] gap-10">
-                <div>
-                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">Company</p>
-                  <div className="grid sm:grid-cols-2 gap-1">
-                    {COMPANY.map(({ to, label, desc }) => (
-                      <Link
-                        key={to}
-                        to={to}
-                        onClick={closeMega}
-                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors"
-                      >
-                        <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-smoke-faint" />
-                        <div>
-                          <p className="text-sm font-semibold text-white group-hover:text-ember transition-colors">{label}</p>
-                          <p className="text-xs text-smoke-faint mt-0.5">{desc}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Stats panel */}
-                <div className="hidden lg:block p-6 rounded-2xl bg-ink-3 border border-white/5">
-                  <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-5">By The Numbers</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { num: '3×', label: 'Revenue Growth' },
-                      { num: '4.8×', label: 'Avg. ROAS' },
-                      { num: '200+', label: 'Clients' },
-                      { num: '98%', label: 'Retention' },
-                    ].map(({ num, label }) => (
-                      <div key={label}>
-                        <div className="text-2xl font-extrabold text-white">{num}</div>
-                        <div className="text-xs text-smoke-faint mt-0.5">{label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* ═══ MOBILE MENU ═══ */}
-      <div
-        className={`fixed inset-0 z-40 bg-ink/98 backdrop-blur-xl flex flex-col pt-24 px-6 pb-8 overflow-y-auto transition-all duration-500 lg:hidden ${
-          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        {/* Mobile Services */}
-        <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-4">Services</p>
-        <div className="flex flex-col gap-1 mb-8">
-          {SERVICES.map(({ to, label, color }) => (
-            <Link
-              key={to}
-              to={to}
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 py-3 px-2 rounded-lg hover:bg-white/5 transition-colors"
-            >
-              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
-              <span className="text-lg font-semibold text-white">{label}</span>
-            </Link>
+        <nav aria-label="Main" className="hidden lg:flex flex-1 items-center gap-[22px] text-[15px]">
+          {PRIMARY.map(({ to, label }) => (
+            <NavLink key={to} to={to} className={linkClass}>{label}</NavLink>
           ))}
-        </div>
+        </nav>
 
-        {/* Mobile Company */}
-        <p className="text-xs font-semibold text-smoke-faint uppercase tracking-wider mb-4">Company</p>
-        <div className="flex flex-col gap-1 mb-8">
-          {COMPANY.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              onClick={() => setMobileOpen(false)}
-              className="py-3 px-2 text-lg font-semibold text-smoke-dim hover:text-white rounded-lg hover:bg-white/5 transition-colors"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Mobile CTA */}
-        <div className="mt-auto">
+        <div className="ml-auto lg:ml-0 flex items-center gap-2.5">
+          <div className="hidden md:block"><LanguageSwitcher /></div>
           <button
-            onClick={() => { openModal(); setMobileOpen(false) }}
-            className="w-full bg-ember hover:bg-ember-dim text-white text-base font-semibold px-6 py-4 rounded-xl transition-all"
+            type="button"
+            onClick={toggle}
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="font-mono-custom text-xs text-smoke-dim hover:text-smoke border border-line px-3 min-h-[40px] transition-colors"
           >
-            Get Free Quote
+            {theme === 'dark' ? 'LIGHT' : 'DARK'}
           </button>
-          <div className="mt-4 flex justify-center">
-            <LanguageSwitcher />
-          </div>
+          {/* wrapper carries the breakpoint: .btn sets display and would override `hidden` */}
+          <span className="hidden sm:inline-flex">
+            <Link to="/contact" className="btn btn-primary !py-2.5 !px-[18px] !text-[15px] !min-h-[40px]">
+              Send an inquiry
+            </Link>
+          </span>
+          <button
+            type="button"
+            className="lg:hidden flex flex-col justify-center gap-[5px] w-10 h-10 items-center border border-line"
+            onClick={() => setMobileOpen(o => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
+            <span className={`block h-[1.5px] w-5 bg-smoke transition-transform ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+            <span className={`block h-[1.5px] w-5 bg-smoke transition-opacity ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-[1.5px] w-5 bg-smoke transition-transform ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
+          </button>
         </div>
       </div>
-    </>
+
+      {mobileOpen && (
+        <div id="mobile-menu" className="lg:hidden fixed inset-x-0 top-[69px] bottom-0 bg-ink border-t border-line overflow-y-auto">
+          <nav aria-label="Mobile" className="wrap py-6 flex flex-col">
+            {PRIMARY.map(({ to, label }) => (
+              <NavLink key={to} to={to}
+                className={({ isActive }) => `font-display text-3xl font-semibold py-3 border-b border-line ${isActive ? 'text-brand-text' : 'text-smoke'}`}>
+                {label}
+              </NavLink>
+            ))}
+            <div className="grid grid-cols-2 gap-x-6 mt-6">
+              {SECONDARY.map(({ to, label }) => (
+                <NavLink key={to} to={to} className="py-2.5 text-smoke-dim hover:text-smoke">{label}</NavLink>
+              ))}
+            </div>
+            <Link to="/contact" className="btn btn-primary btn-lg mt-8">Send an inquiry →</Link>
+            <div className="mt-6"><LanguageSwitcher /></div>
+          </nav>
+        </div>
+      )}
+    </header>
   )
 }
