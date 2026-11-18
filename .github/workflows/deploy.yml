@@ -1,0 +1,40 @@
+# Deploy imbamarketing.com on every push to main.
+#
+# The Coolify app is connected as a public GitHub repo (no GitHub App), so
+# Coolify never hears about pushes on its own. This job asks Coolify's API to
+# deploy instead. Needs one repo secret: COOLIFY_TOKEN (a Coolify API token
+# with the "deploy" permission).
+name: Deploy to Coolify
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: coolify-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      COOLIFY_URL: https://coo.imbamarketing.com
+      COOLIFY_APP_UUID: q13v8fu18ijaapwjfaejpt30 # "Imba Marketing" application
+    steps:
+      - name: Trigger Coolify deployment
+        env:
+          COOLIFY_TOKEN: ${{ secrets.COOLIFY_TOKEN }}
+        run: |
+          if [ -z "$COOLIFY_TOKEN" ]; then
+            echo "::error::COOLIFY_TOKEN secret is not set"; exit 1
+          fi
+          status=$(curl -sS -o response.json -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer $COOLIFY_TOKEN" \
+            -H "Accept: application/json" \
+            "$COOLIFY_URL/api/v1/deploy?uuid=$COOLIFY_APP_UUID&force=false")
+          cat response.json; echo
+          if [ "$status" != "200" ]; then
+            echo "::error::Coolify returned HTTP $status"; exit 1
+          fi
